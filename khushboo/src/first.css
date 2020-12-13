@@ -1,0 +1,96 @@
+.App{
+    text-align: center;
+  }
+  .App-logo1{
+    height: 40vmin;
+    pointer-events: none;
+    padding-top: 8%;
+    vertical-align: top;
+  }
+  
+  .Line1{
+    color: #707070;
+    font-size: 33px; 
+    font-family:"Gilroy"; 
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 63%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    line-height: 1.5;
+  }
+ 
+  #button1{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-image:linear-gradient(to right,#2B44FF,#2BB0FF);
+    padding: 10px ;
+    color :#ffffff; 
+    font-size: 16px;
+    width: 70px;
+    height : 25px;
+    border-top-right-radius:35px;
+    border-bottom-right-radius:35px;
+    border-top-left-radius:35px;
+    border-bottom-left-radius:35px; 
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.4)
+  }
+
+  #btn1{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-image:linear-gradient(to right,#2B44FF,#2BB0FF);
+    padding: 10px ;
+    color :#ffffff; 
+    font-size: 16px;
+    width: 70px;
+    height : 25px;
+    border-top-right-radius:35px;
+    border-bottom-right-radius:35px;
+    border-top-left-radius:35px;
+    border-bottom-left-radius:35px; 
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.4)
+  }
+
+  @media(max-width:1000px){
+    .App-logo1{
+      padding-top: 24%;
+    }
+    #btn1,#button1,.Line1,.App-logo1{
+      margin-bottom: 6%;
+      font-size: 266%
+    };
+  }
+  
+  /*tablet,landscape*/
+
+  @media(max-width:900px){
+    .App-logo1{
+      padding-top: 24%
+    }
+    #btn1,#button1,.Line1,.App-logo1{
+      margin-bottom: 6%
+    };
+  }
+
+  /*portait tablet*/
+  @media(max-width:800px){
+    .App-logo1{
+      padding-top:10%
+    }
+  }
+  /*smartphones*/
+  @media(max-width:600px){
+    .App-logo1{
+      padding-top:45%
+  }
+  }
+/*iphones*/
+  @media(max-width:480px){
+ #btn1,#button1,.Line1{
+        font-size: 125%;
+    };
+  }

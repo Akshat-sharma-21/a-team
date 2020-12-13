@@ -1,0 +1,84 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-logo2{
+    height: 40vmin;
+    pointer-events: none;
+    padding-top: 8%;
+    vertical-align: top;
+  }
+   .Line3{
+    color: #707070;
+    font-size: 33px; 
+    font-family:"Gilroy"; 
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 63%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    line-height: 1.5
+   } 
+  
+   #bigButton
+   {
+    position:absolute;
+    bottom: 60px;
+    left:590px;
+    background-image: linear-gradient(to right,#2B44FF,#2BB0FF);
+    padding: 10px;
+    color: #ffffff;
+    font-size: 16px;
+    width: 178px;
+    height: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.4);
+   }
+
+ .MuiButton-label{
+  font-family: "Gilroy";
+  text-transform: capitalize;
+ }
+   
+
+/*tablet,landscape*/
+
+@media(max-width:1024px){
+  #bigButton{
+    left: 39%
+  };
+}
+
+/*portait tablet*/
+@media(max-width:800px){
+  .App-logo2{
+    padding-top: 30%;
+  }
+  #bigButton{
+    margin-bottom: 11%;
+    left: 37%;
+  };
+}
+/*smartphones*/
+@media(max-width:600px){
+#bigButton{
+      left:19%
+};
+}
+/*iphones*/
+@media(max-width:480px){
+  .App-logo2{
+    padding-top: 45%;
+  }
+  #bigButton{
+    left: 25%;
+    margin-bottom: 4%;
+  }
+  .Line3{
+    font-size:119%;
+  }
+}
