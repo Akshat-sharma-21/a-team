@@ -1,0 +1,131 @@
+.App {
+  text-align: center;
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Textfield input {
+  height: 40px;
+  padding: 2px 44px;
+  
+}
+
+.Textfield label {
+  height: 36px;
+  top: -6px;
+}
+
+.Textfield label[data-shrink="true"] {
+  top: 0;
+}
+
+
+
+#t2{
+  margin-top: 14px;
+}
+#t3{
+  margin-top: 14px;
+}
+#t4{
+  margin-top: 14px;
+}
+#t5{
+  margin-top: 14px;
+}
+
+#button{
+  margin-top: 60px;
+  background:linear-gradient(to left ,#33ccff 0%,#2B44FF  90%);
+  height: 40px;
+  padding: 2px 50px;
+
+}
+
+#logo{
+  margin-top:15px;
+
+}
+
+h1{
+  color: grey;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 37px;
+}
+
+ /* Extra small devices (phones, 600px and down) */
+ @media only screen and (max-width: 600px) {
+   h1{
+     font-size: 27px;
+
+   }
+   .App{
+    background-size: cover;
+  
+} 
+  
+ }
+
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+ @media only screen and (min-width: 600px) {
+   h1{
+     font-size: 45px;
+     margin-top: -5px;
+   }
+   .App{
+    background-size: cover;
+  
+} 
+   
+ }
+ 
+ /* Medium devices (landscape tablets, 768px and up) */
+ @media only screen and (min-width: 768px){
+  h1{
+    font-size: 40px;
+    margin-top: -5px;
+  }
+  .App{
+    background-size: cover;
+  
+} 
+ 
+  
+ }
+ 
+ /* Large devices (laptops/desktops, 992px and up) */
+ @media only screen and (min-width: 992px) { 
+   h1{
+  font-size: 40px;
+  margin-top: -5px;
+    }
+    .App{
+      background-size: cover;
+    
+  } 
+  
+}
+ 
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+ @media only screen and (min-width: 1200px) { 
+   h1{
+  font-size: 40px;
+  margin-top: -5px;
+  }
+  #logo{
+  height: 90px;
+  width: 90px;
+  }
+  .App{
+    background-size: cover;
+  
+} 
+ }
