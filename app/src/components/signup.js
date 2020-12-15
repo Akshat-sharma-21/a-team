@@ -7,7 +7,7 @@ function App() {
   return (
     < div className="App">
       
-      <img id='logo' src="icon1.png" alt='logo'></img>
+      <img id='logo' src="signup_logo.png" alt='logo'></img>
       <div>
       <h1>Tell us about yourself ,</h1>
       </div>
