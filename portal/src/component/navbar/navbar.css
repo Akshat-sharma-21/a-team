@@ -1,0 +1,12 @@
+.Navbar {
+  border-radius: 10px;
+  background-color: white !important;
+}
+
+.Navbar-Img {
+  width: 100px;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+}

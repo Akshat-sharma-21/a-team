@@ -1,0 +1,19 @@
+body {
+  background-color: #eeeeee;
+}
+
+.dashboard-img {
+  height: 300px;
+  width: auto;
+}
+
+.dashboard-heading {
+  font-size: 30px;
+  font-family: "Roboto Slab";
+  font-weight: bolder;
+}
+
+.dashbaord-text {
+  font-size: 20px;
+  font-family: "Roboto Slab";
+}
