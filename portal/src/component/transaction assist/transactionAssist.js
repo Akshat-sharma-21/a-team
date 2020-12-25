@@ -1,13 +1,15 @@
 import "./transactionAssist.css";
 import transactionImg from "../../assets/transaction-assist-first-time.png";
-import Modal from "../utilities/modal";
+import Modal from "../utilities/modal/modal";
 import { Container, Grid, Typography, Button } from "@material-ui/core";
 import { useState } from "react";
+import SliderNavbar from "../slider navbar/sliderNavbar";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
   return (
     <Container>
+      <SliderNavbar />
       <Modal
         visible={modalVisibile ? true : false}
         modalWidth={750}
@@ -24,7 +26,7 @@ function TransactionAssist(props) {
                 fontSize: 25,
                 fontFamily: "Roboto Slab",
                 fontWeight: "Bold",
-                paddingTop: 25,
+                paddingTop: 15,
               }}
             >
               Transaction Tracker
