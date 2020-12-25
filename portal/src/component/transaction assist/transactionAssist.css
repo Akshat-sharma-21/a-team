@@ -1,0 +1,10 @@
+.continue-button {
+  background-image: linear-gradient(270deg, #16b3ef, #7d67e8);
+  color: white !important;
+  margin-top: 25px !important;
+  padding: 7.5px 60px !important;
+  font-size: 15px !important;
+  font-family: "Gilroy" !important;
+  text-transform: none !important;
+  border-radius: 7.5px !important;
+}
