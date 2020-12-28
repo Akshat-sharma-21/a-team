@@ -86,25 +86,25 @@ function SliderNavbar() {
   const transId = routerLocation.pathname.split("/")[2]; // getting the id from the pathname
   let listItems = [
     {
-      icon: <HomeIcon size={24} />,
+      icon: <HomeIcon size={26} />,
       label: "Transaction Dashboard",
       isActiveRoute: null,
       linkTo: "/transaction",
     },
     {
-      icon: <PackageIcon size={24} />,
+      icon: <PackageIcon size={26} />,
       label: "Transaction Assist",
       isActiveRoute: routerLocation.pathname.includes("assist"),
       linkTo: "/transaction/" + transId + "/assist",
     },
     {
-      icon: <FileIcon size={24} />,
+      icon: <FileIcon size={26} />,
       label: "Paperwork",
       isActiveRoute: routerLocation.pathname.includes("/paperwork"),
       linkTo: "/transaction/" + transId + "/paperwork",
     },
     {
-      icon: <PersonIcon size={24} />,
+      icon: <PersonIcon size={26} />,
       label: "People",
       isActiveRoute: routerLocation.pathname.includes("/people"),
       linkTo: "/transaction/" + transId + "/people",

@@ -36,6 +36,7 @@ function Dashboard(props) {
           <Grid item>
             <Box className="dashbaord-text" paddingTop={1.5}>
               Sit tight and get your Game Face Ready. <b>Reallos</b> will send
+              <br />
               Leads your way very soon!
             </Box>
           </Grid>

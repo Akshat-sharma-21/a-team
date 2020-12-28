@@ -1,15 +1,34 @@
 import "./transactionAssist.css";
 import transactionImg from "../../assets/transaction-assist-first-time.png";
 import Modal from "../utilities/modal/modal";
-import { Container, Grid, Typography, Button } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Box,
+  Divider,
+} from "@material-ui/core";
+import {
+  DotFillIcon,
+  TriangleDownIcon,
+  PackageIcon,
+  SearchIcon,
+  CheckCircleIcon,
+} from "@primer/octicons-react";
 import { useState } from "react";
 import SliderNavbar from "../slider navbar/sliderNavbar";
+import Navbar from "../navbar/navbar.js";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
-  return (
-    <Container>
-      <SliderNavbar />
+
+  function firstTimeModal() {
+    // function to display the first time modal
+    return (
       <Modal
         visible={modalVisibile ? true : false}
         modalWidth={750}
@@ -44,18 +63,129 @@ function TransactionAssist(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <Button variant="contained" className="continue-button">
+            <Button
+              variant="contained"
+              className="continue-button"
+              onClick={closeModal}
+            >
               Continue
             </Button>
           </Grid>
         </Grid>
       </Modal>
-    </Container>
-  );
+    );
+  }
 
   function closeModal() {
+    // function to close the first time modal
     setModal(false);
   }
+
+  function displayExpansionPanels() {
+    // function to render the expansion panel
+    return (
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<TriangleDownIcon />}>
+              <Grid container direction="row" alignItems="center" spacing={4}>
+                <Grid item>
+                  <DotFillIcon size={25} />
+                </Grid>
+                <Divider orientation="vertical" style={{ height: 50 }} />
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={3}
+                  >
+                    <Grid item>
+                      <CheckCircleIcon size={25} />
+                    </Grid>
+                    <Grid item>
+                      <Typography className="expansion-heading">
+                        Pre-Approval
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              {
+                //This is where the expansion panel will be placed
+              }
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
+
+        <Grid item>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<TriangleDownIcon />}>
+              <Grid container direction="row" alignItems="center" spacing={4}>
+                <Grid item>
+                  <DotFillIcon size={25} />
+                </Grid>
+                <Divider orientation="vertical" style={{ height: 50 }} />
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    spacing={3}
+                  >
+                    <Grid item>
+                      <SearchIcon size={25} />
+                    </Grid>
+                    <Grid item>
+                      <Typography className="expansion-heading">
+                        Find an Agent
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              {
+                //This is where the expansion panel will be placed
+              }
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  return (
+    <Container>
+      <SliderNavbar />
+      <Navbar />
+      {firstTimeModal()}
+      <Box component="div" paddingTop={5} paddingBottom={1}>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          justify="flex-start"
+        >
+          <Grid item>
+            <PackageIcon size={35} />
+          </Grid>
+          <Grid item>
+            <h2 className="transaction-heading">
+              {
+                "Transaction 1" //Name of the transaction
+              }
+            </h2>
+          </Grid>
+        </Grid>
+        {displayExpansionPanels()}
+      </Box>
+    </Container>
+  );
 }
 
 export default TransactionAssist;
