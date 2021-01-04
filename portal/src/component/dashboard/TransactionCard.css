@@ -1,0 +1,43 @@
+.transaction-card-root {
+    margin-top: 30px;
+}
+
+.transaction-card-item {
+    min-height: 296px;
+}
+
+.transaction-card {
+    min-height: 290px;
+    border-radius: 10px !important;
+}
+
+.transaction-card-rgrid {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}
+
+
+.transaction-card-secondli {
+    font-size: 22px;
+    font-weight: 700;
+    padding-top: 20px !important;
+}
+
+.transaction-card-secondlisub {
+    margin-left: 60px;
+    padding-left: 12px !important;
+    font-size: 16px !important;
+}
+
+#bigButton
+{
+ background-color:#BDBDBD;
+ color: white;
+ font-size: 12px;
+ width: 35px;
+ height: 30px;
+ border-top-right-radius: 10px;
+ border-bottom-right-radius: 10px;
+ border-top-left-radius: 10px;
+ border-bottom-left-radius: 10px;
+}
