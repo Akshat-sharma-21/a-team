@@ -16,12 +16,11 @@ import {
 } from "@material-ui/core";
 
 import {
-  ThreeBarsIcon,
   ChevronLeftIcon,
   PackageIcon,
   FileIcon,
   PersonIcon,
-  HomeIcon,
+  ArrowLeftIcon,
 } from "@primer/octicons-react";
 
 const navRailWidth = 300;
@@ -44,13 +43,6 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: "nowrap",
   },
-  drawerOpen: {
-    width: navRailWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   drawerClose: {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -62,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
+
   toolbarToggleOption: {
     display: "flex",
     alignItems: "center",
@@ -86,25 +79,19 @@ function SliderNavbar() {
   const transId = routerLocation.pathname.split("/")[2]; // getting the id from the pathname
   let listItems = [
     {
-      icon: <HomeIcon size={26} />,
-      label: "Transaction Dashboard",
-      isActiveRoute: null,
-      linkTo: "/transaction",
-    },
-    {
-      icon: <PackageIcon size={26} />,
+      icon: <PackageIcon size={30} />,
       label: "Transaction Assist",
       isActiveRoute: routerLocation.pathname.includes("assist"),
       linkTo: "/transaction/" + transId + "/assist",
     },
     {
-      icon: <FileIcon size={26} />,
+      icon: <FileIcon size={30} />,
       label: "Paperwork",
       isActiveRoute: routerLocation.pathname.includes("/paperwork"),
       linkTo: "/transaction/" + transId + "/paperwork",
     },
     {
-      icon: <PersonIcon size={26} />,
+      icon: <PersonIcon size={30} />,
       label: "People",
       isActiveRoute: routerLocation.pathname.includes("/people"),
       linkTo: "/transaction/" + transId + "/people",
@@ -140,7 +127,7 @@ function SliderNavbar() {
     return (
       <ListItem
         button
-        style={{ marginTop: 100, paddingLeft: 6 }}
+        style={{ marginTop: 150, paddingLeft: 6 }}
         component="a"
         key={label}
         onClick={() => History.push(linkTo)}
@@ -169,10 +156,6 @@ function SliderNavbar() {
     );
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -180,8 +163,6 @@ function SliderNavbar() {
   return (
     <div className={classes.root}>
       <Drawer
-        onMouseEnter={handleDrawerOpen}
-        onMouseLeave={handleDrawerClose}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -196,12 +177,11 @@ function SliderNavbar() {
       >
         <div className={classes.toolbarToggleOption}>
           <IconButton
-            onClick={handleDrawerOpen}
             className={clsx({
               [classes.hide]: open,
             })}
           >
-            <ThreeBarsIcon size={24} />
+            <ArrowLeftIcon size={24} />
           </IconButton>
           <IconButton
             onClick={handleDrawerClose}

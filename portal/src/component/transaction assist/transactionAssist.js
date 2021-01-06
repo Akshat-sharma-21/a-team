@@ -90,7 +90,7 @@ function TransactionAssist(props) {
             <ExpansionPanelSummary expandIcon={<TriangleDownIcon />}>
               <Grid container direction="row" alignItems="center" spacing={4}>
                 <Grid item>
-                  <DotFillIcon size={25} />
+                  <DotFillIcon size={23} />
                 </Grid>
                 <Divider orientation="vertical" style={{ height: 50 }} />
                 <Grid item>
@@ -101,7 +101,7 @@ function TransactionAssist(props) {
                     spacing={3}
                   >
                     <Grid item>
-                      <CheckCircleIcon size={25} />
+                      <CheckCircleIcon size={23} />
                     </Grid>
                     <Grid item>
                       <Typography className="expansion-heading">
@@ -125,7 +125,7 @@ function TransactionAssist(props) {
             <ExpansionPanelSummary expandIcon={<TriangleDownIcon />}>
               <Grid container direction="row" alignItems="center" spacing={4}>
                 <Grid item>
-                  <DotFillIcon size={25} />
+                  <DotFillIcon size={23} />
                 </Grid>
                 <Divider orientation="vertical" style={{ height: 50 }} />
                 <Grid item>
@@ -136,7 +136,7 @@ function TransactionAssist(props) {
                     spacing={3}
                   >
                     <Grid item>
-                      <SearchIcon size={25} />
+                      <SearchIcon size={23} />
                     </Grid>
                     <Grid item>
                       <Typography className="expansion-heading">
