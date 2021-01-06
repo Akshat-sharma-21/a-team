@@ -1,15 +1,81 @@
-import { Box, Button, Container, Grid } from "@material-ui/core";
+import { useState } from "react";
+import Modal from "../utilities/modal/modal";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import Navbar from "../navbar/navbar";
 import "./dashboard.css";
 import dashboardImg from "../../assets/dashboard-empty.png";
-import { PlusIcon } from "@primer/octicons-react";
+import { PlusIcon, MailIcon } from "@primer/octicons-react";
 
 function Dashboard(props) {
+  const [invite, setInvitation] = useState(false);
+
+  function openInvitation() {
+    // function to open the invitation modal
+    setInvitation(true);
+  }
+
+  function closeInvitation() {
+    // function to close the invitation modal
+    setInvitation(false);
+  }
+
+  function inviteModal() {
+    // function to display the invitation modal
+    return (
+      <Modal
+        visible={invite ? true : false}
+        dismissCallback={closeInvitation}
+        modalWidth={780}
+        modalHeight={500}
+      >
+        <Grid container direction="column" alignItems="flex-start">
+          <Grid item>
+            <Typography className="invite-heading">Send Invitation</Typography>
+          </Grid>
+          <Grid item>
+            <Typography className="invite-text">
+              Invite your client using their Email or their Phone No.
+            </Typography>
+          </Grid>
+          <Grid item style={{ marginTop: 60, marginLeft: 40 }}>
+            <Typography className="invite-input-text">
+              Enter the email of the recipient in order to send an invite link
+              to them
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              alignItems="flex-end"
+              style={{ marginTop: 10 }}
+            >
+              <Grid item>
+                <MailIcon size={25} />
+              </Grid>
+              <Grid item>
+                <TextField label="Email" variant="outlined" />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Modal>
+    );
+  }
+
   if (true) {
     // from the database
     return (
       <Container>
         <Navbar />
+        {inviteModal()}
         <Grid container direction="column">
           <Grid item></Grid>
           <Grid item>
@@ -52,6 +118,7 @@ function Dashboard(props) {
                 variant="contained"
                 startIcon={<PlusIcon size={20} />}
                 className="dashboard-button"
+                onClick={openInvitation}
               >
                 New Transaction
               </Button>
