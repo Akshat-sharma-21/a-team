@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "../utilities/modal/modal";
+import TransactionCard from "./transactionCard";
 import {
   Box,
   Button,
@@ -128,6 +129,7 @@ function Dashboard(props) {
       </Container>
     );
   } else {
+    return <TransactionCard />;
   }
 }
 
