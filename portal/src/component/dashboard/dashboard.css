@@ -69,3 +69,12 @@ body {
   text-transform: none !important;
   border-radius: 7.5px !important;
 }
+
+.invite-cancel-button {
+  font-family: Gilroy !important;
+  color: #488fec !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+  background-color: white !important;
+  padding: 7.5px 45px !important;
+}
