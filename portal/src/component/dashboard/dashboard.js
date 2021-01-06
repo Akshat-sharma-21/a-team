@@ -1,7 +1,8 @@
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Button, Container, Grid } from "@material-ui/core";
 import Navbar from "../navbar/navbar";
 import "./dashboard.css";
 import dashboardImg from "../../assets/dashboard-empty.png";
+import { PlusIcon } from "@primer/octicons-react";
 
 function Dashboard(props) {
   if (true) {
@@ -39,6 +40,22 @@ function Dashboard(props) {
               <br />
               Leads your way very soon!
             </Box>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              justify="flex-end"
+              alignItems="center"
+            >
+              <Button
+                variant="contained"
+                startIcon={<PlusIcon size={20} />}
+                className="dashboard-button"
+              >
+                New Transaction
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
