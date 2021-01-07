@@ -151,10 +151,12 @@ function Dashboard(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 40, marginLeft: 370 }}>
+          <Grid item style={{ marginTop: 40, marginLeft: 319 }}>
             <Grid container direction="row" spacing={2}>
               <Grid item>
-                <Button variant="contained">Cancel</Button>
+                <Button variant="contained" className="invite-cancel-button">
+                  Cancel
+                </Button>
               </Grid>
               <Grid item>
                 <Button
