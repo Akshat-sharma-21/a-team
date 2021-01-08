@@ -1,0 +1,39 @@
+.App{
+  text-align: center;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 5px;
+}
+
+.item1{
+  margin-top: -38px;
+  margin-left: -52px;
+}
+
+.item2{
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+.item2 .subitem1{
+  margin-top: -10px;
+}
+
+.item2 .subitem2{
+  width: 275px;
+  height: 10px;
+  top: -70px;
+  left: 10px;
+}
+
+.item2 .subitem3{
+  width: 275px;
+  height: 40px;
+  top: 60px;
+  left: 10px;
+  background: linear-gradient(to left,#33ccff 0%,#2B44FF 90%);
+  color: white;
+}
