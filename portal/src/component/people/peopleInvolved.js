@@ -8,7 +8,6 @@ import {
   InputAdornment,
   Typography,
   GridList,
-  Card,
   Avatar,
   makeStyles,
   Button,
@@ -21,6 +20,7 @@ import {
   SearchIcon,
   DeviceMobileIcon,
   MailIcon,
+  DotFillIcon,
 } from "@primer/octicons-react";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridList: {
     height: 350,
-    width: 1250,
+    width: 1300,
   },
   root: {
     display: "flex",
@@ -51,17 +51,17 @@ function PeopleInvolved(props) {
             <Grid
               container
               direction="row"
-              spacing={7}
-              style={{ paddingLeft: 20, paddingTop: 20 }}
+              spacing={6}
+              style={{ paddingLeft: 30, paddingTop: 30 }}
             >
               <Grid item>
-                <Avatar className={classes.large}>AS</Avatar>
+                <Avatar className={classes.large}>JD</Avatar>
               </Grid>
               <Grid item>
                 <Grid container direction="column" alignItems="flex-start">
                   <Grid item>
                     <Typography className="people-card-name">
-                      Akshat Sharma
+                      John Doe
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -72,8 +72,8 @@ function PeopleInvolved(props) {
                       <Grid item>
                         <DeviceMobileIcon />
                       </Grid>
-                      <Grid item>
-                        <Typography>+1 {"988-111-1234"}</Typography>
+                      <Grid item style={{ paddingBottom: 20 }}>
+                        <Typography>+1 {"469-350-9711"}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -83,7 +83,7 @@ function PeopleInvolved(props) {
                         <MailIcon />
                       </Grid>
                       <Grid item>
-                        <Typography>{"akshat@reallos.com"}</Typography>
+                        <Typography>{"john.doe@reallos.com"}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -99,29 +99,31 @@ function PeopleInvolved(props) {
             <Grid
               container
               direction="row"
-              spacing={7}
-              style={{ paddingLeft: 20, paddingTop: 20 }}
+              spacing={6}
+              style={{ paddingLeft: 30, paddingTop: 30 }}
             >
               <Grid item>
-                <Avatar className={classes.large}>AS</Avatar>
+                <Avatar className={classes.large}>PY</Avatar>
               </Grid>
               <Grid item>
                 <Grid container direction="column" alignItems="flex-start">
                   <Grid item>
                     <Typography className="people-card-name">
-                      Akshat Sharma
+                      Paxton Yoshida
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography className="people-card-title">Buyer</Typography>
+                    <Typography className="people-card-title">
+                      Lender <DotFillIcon size={16} /> Bank of America
+                    </Typography>
                   </Grid>
-                  <Grid item style={{ paddingTop: 18 }}>
+                  <Grid item style={{ paddingTop: 20 }}>
                     <Grid container direction="row" spacing={2}>
                       <Grid item>
                         <DeviceMobileIcon />
                       </Grid>
-                      <Grid item>
-                        <Typography>+1 {"988-111-1234"}</Typography>
+                      <Grid item style={{ paddingBottom: 20 }}>
+                        <Typography>+1 {"598-574-4111"}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -131,7 +133,7 @@ function PeopleInvolved(props) {
                         <MailIcon />
                       </Grid>
                       <Grid item>
-                        <Typography>{"akshat@reallos.com"}</Typography>
+                        <Typography>{"paxton.yoshida@reallos.com"}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -175,10 +177,11 @@ function PeopleInvolved(props) {
           <Typography className="people-heading">People Involved</Typography>
         </Grid>
 
-        <Grid container style={{ marginTop: 40 }}>
+        <Grid container style={{ marginTop: 40, marginBottom: 20 }}>
           <FormControl fullWidth variant="outlined">
             <OutlinedInput
               className="search-bar"
+              placeholder="Search"
               startAdornment={
                 <InputAdornment position="start">
                   <div
