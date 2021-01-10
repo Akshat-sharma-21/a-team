@@ -86,9 +86,9 @@ function NavRail() {
     },
     {
       icon: <FileIcon size={30} />,
-      label: "Paperwork",
-      isActiveRoute: routerLocation.pathname.includes("/paperwork"),
-      linkTo: "/transaction/" + transId + "/paperwork",
+      label: "Document",
+      isActiveRoute: routerLocation.pathname.includes("/document"),
+      linkTo: "/transaction/" + transId + "/document",
     },
     {
       icon: <PersonIcon size={30} />,
