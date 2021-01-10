@@ -119,3 +119,17 @@ a:active,
     transform: scale(1);
   }
 }
+
+/* Custom Material UI Styling */
+
+.MuiPaper-rounded {
+  border-radius: 10px !important;
+}
+
+.reallos-menu-root .MuiMenuItem-gutters {
+  padding: 10px 20px;
+}
+
+.reallos-menu-root * {
+  font-family: 'Gilroy' !important;
+}
