@@ -20,7 +20,7 @@ import {
   CheckCircleIcon,
 } from "@primer/octicons-react";
 import { useState } from "react";
-import SliderNavbar from "../slider navbar/sliderNavbar";
+import NavRail from "../navigation_rail/NavRail";
 import Navbar from "../navbar/navbar.js";
 
 function TransactionAssist(props) {
@@ -160,7 +160,7 @@ function TransactionAssist(props) {
 
   return (
     <Container>
-      <SliderNavbar />
+      <NavRail />
       <Navbar />
       {firstTimeModal()}
       <Box component="div" paddingTop={5} paddingBottom={1}>

@@ -15,7 +15,7 @@ import {
   GridListTile,
 } from "@material-ui/core";
 import Navbar from "../navbar/navbar";
-import SliderNavbar from "../slider navbar/sliderNavbar";
+import NavRail from "../navigation_rail/NavRail";
 import {
   PackageIcon,
   SearchIcon,
@@ -149,7 +149,7 @@ function PeopleInvolved(props) {
 
   return (
     <Container>
-      <SliderNavbar />
+      <NavRail />
       <Navbar />
       <Box component="div" paddingTop={5} paddingBottom={1}>
         <Grid
