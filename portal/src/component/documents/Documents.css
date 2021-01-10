@@ -1,11 +1,11 @@
 .no-document-image{
-    height: 300px;
-    width: 300px;
+    height: 260px;
+    width: 260px;
     margin-bottom: 40px;
 }
 
 .document-heading{
-    font-size: 30px !important;
+    font-size: 28px !important;
     font-weight: bold !important;
 }
 

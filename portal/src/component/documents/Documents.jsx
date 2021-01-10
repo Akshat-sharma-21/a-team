@@ -38,11 +38,10 @@ import {
 import {
   ArrowUpIcon,
   KebabHorizontalIcon,
-  XIcon,
-  ShieldIcon,
   PackageIcon,
   PaperAirplaneIcon,
   DownloadIcon,
+  SearchIcon,
 } from "@primer/octicons-react";
 
 import "./Documents.css";
@@ -242,6 +241,41 @@ class Documents extends React.Component {
           </p>
         </div>
       );
+    } else if (this.state.documents.length === 0) {
+      // If no document documents are present.
+
+      return (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          spacing={2}
+          className="zoom-in-animation"
+        >
+          <Grid item style={{marginTop: 20}}>
+            <img
+              src={NoDocument}
+              className="no-document-image"
+              alt="Empty Document"
+            />
+          </Grid>
+          <Grid item>
+            <Box marginTop={-3} marginLeft={4}>
+              <Typography className="document-heading reallos-text">
+                Your documents go here...
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item>
+            <Box marginTop={-1} marginLeft={4}>
+              <Typography className="document-subheading reallos-text">
+                Store and E-sign all your documents hassle free here!
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      );
     } else if (this.state.filteredDocumentsList.length === 0) {
       // If no document documents are present.
 
@@ -254,24 +288,24 @@ class Documents extends React.Component {
           spacing={2}
           className="zoom-in-animation"
         >
-          <Grid item>
-            <img
-              src={NoDocument}
-              className="no-document-image"
-              alt="Empty Document"
-            />
+          <Grid item style={{
+            paddingTop: 50,
+            paddingBottom: 60,
+            opacity: 0.5
+          }}>
+            <SearchIcon size={150} />
           </Grid>
           <Grid item>
             <Box marginTop={-3} marginLeft={4}>
               <Typography className="document-heading reallos-text">
-                Documents
+                No results found
               </Typography>
             </Box>
           </Grid>
           <Grid item>
             <Box marginTop={-1} marginLeft={4}>
               <Typography className="document-subheading reallos-text">
-                Store and E-sign all your documents hassle free here!
+                The entered search term did not match any documents
               </Typography>
             </Box>
           </Grid>
@@ -461,7 +495,7 @@ class Documents extends React.Component {
         <Container>
           <NavBar />
           <NavRail />
-          <Box component="div" paddingTop={5} paddingBottom={1}>
+          <Box component="div" paddingTop={6} paddingBottom={1}>
             <Grid
               container
               direction="row"
@@ -469,10 +503,10 @@ class Documents extends React.Component {
               spacing={2}
             >
               <Grid item>
-                <PackageIcon size={35} />
+                <PackageIcon size={28} />
               </Grid>
               <Grid item style={{
-                fontSize: 22
+                fontSize: 20
               }}>
                 Transaction 1
               </Grid>
@@ -485,7 +519,8 @@ class Documents extends React.Component {
           </Box>
           <div style={{
             paddingBottom: 20,
-            paddingTop: 10
+            paddingTop: 5,
+            display: (this.state.documents?.length === 0) ? 'none' : 'block'
           }}>
             <SearchBar
               placeholder="Search by document name and creator"
