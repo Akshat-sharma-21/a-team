@@ -1,0 +1,57 @@
+.no-document-image{
+    height: 300px;
+    width: 300px;
+    margin-bottom: 40px;
+}
+
+.document-heading{
+    font-size: 30px !important;
+    font-weight: bold !important;
+}
+
+.document-subheading{
+    font-size: 20px !important;
+}
+
+.doc-card-group {
+    width: 100%;
+    margin-bottom: 20px;
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.doc-card-root {
+    position: relative;
+    margin: 5px;
+    flex: 1;
+
+    transition: transform 250ms ease;
+}
+
+.doc-card-root:hover {
+    transform: translateY(-5px);
+}
+
+.doc-card-root:hover .doc-card {
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),
+                0px 8px 10px 1px rgba(0,0,0,0.14),
+                0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+
+.doc-card {
+    border-radius: 10px !important;
+    cursor: pointer;
+}
+
+.doc-card-main {
+    padding: 10px 10px 0 0;
+}
+
+.doc-card-top-action-btn {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    background: #ffffff !important;
+    box-shadow: 0 2px 4px 0.5px #00000040;
+}
