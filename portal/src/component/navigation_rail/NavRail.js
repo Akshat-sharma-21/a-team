@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import "./sliderNavbar.css";
+import "./NavRail.css";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SliderNavbar() {
+function NavRail() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const routerLocation = useLocation();
@@ -86,9 +86,9 @@ function SliderNavbar() {
     },
     {
       icon: <FileIcon size={30} />,
-      label: "Paperwork",
-      isActiveRoute: routerLocation.pathname.includes("/paperwork"),
-      linkTo: "/transaction/" + transId + "/paperwork",
+      label: "Document",
+      isActiveRoute: routerLocation.pathname.includes("/document"),
+      linkTo: "/transaction/" + transId + "/document",
     },
     {
       icon: <PersonIcon size={30} />,
@@ -201,4 +201,4 @@ function SliderNavbar() {
   );
 }
 
-export default SliderNavbar;
+export default NavRail;
