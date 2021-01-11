@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./NavRail.css";
 import { useHistory } from "react-router-dom";
 
@@ -10,26 +8,16 @@ import {
   List,
   Divider,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  Grid,
+  Tooltip,
 } from "@material-ui/core";
 
 import {
-  ChevronLeftIcon,
   PackageIcon,
   FileIcon,
   PersonIcon,
   ArrowLeftIcon,
 } from "@primer/octicons-react";
-
-const navRailWidth = 300;
-
-const listItemTextProperties = {
-  color: "#2B44FF",
-  marginLeft: 12,
-  fontSize: 16,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,22 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   hide: {
     display: "none",
-  },
-  drawer: {
-    width: navRailWidth,
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-  },
-  drawerClose: {
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: "hidden",
-    width: theme.spacing(9) + 1,
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1,
-    },
   },
 
   toolbarToggleOption: {
@@ -63,18 +35,24 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-  listItemText: {
-    ...listItemTextProperties,
-  },
-  listItemTextActive: {
-    fontWeight: "bold",
-    ...listItemTextProperties,
-  },
 }));
+
+const NavRailTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[7],
+    borderRadius: 10,
+    fontFamily: 'Gilroy',
+    fontSize: 18,
+    padding: '10px 20px',
+    marginLeft: 30
+  },
+}))(Tooltip);
 
 function NavRail() {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const History = useHistory();
   const routerLocation = useLocation();
   const transId = routerLocation.pathname.split("/")[2]; // getting the id from the pathname
   let listItems = [
@@ -86,7 +64,7 @@ function NavRail() {
     },
     {
       icon: <FileIcon size={30} />,
-      label: "Document",
+      label: "Documents",
       isActiveRoute: routerLocation.pathname.includes("/document"),
       linkTo: "/transaction/" + transId + "/document",
     },
@@ -120,82 +98,56 @@ function NavRail() {
    * The URL to direct the user when the list item
    * is clicked.
    */
-
-  const History = useHistory();
   const renderNavRailListItem = (navRailItem) => {
     const { icon, label, isActiveRoute, linkTo } = navRailItem;
     return (
-      <ListItem
-        button
-        style={{ marginTop: 150, paddingLeft: 6 }}
-        component="a"
-        key={label}
-        onClick={() => History.push(linkTo)}
+      <NavRailTooltip
+        title={label}
+        placement="right"
       >
-        <ListItemIcon className={isActiveRoute ? "nav-rail-icon-active" : ""}>
-          <div className="nav-rail-indicator-container">
-            <div
-              className={
-                isActiveRoute
-                  ? "nav-rail-indicator-active"
-                  : "nav-rail-indicator-inactive"
-              }
-            />
+        <button
+          role="button"
+          aria-label={label}
+          onClick={() => History.push(linkTo)}
+          className="nav-rail-item"
+        >
+          <div className={
+            'nav-rail-item-icon ' + (
+              isActiveRoute
+                ? "nav-rail-item-active"
+                : "nav-rail-item-inactive"
+            )
+          }>
+            {icon}
           </div>
-          {icon}
-        </ListItemIcon>
-        <ListItemText
-          primary={label}
-          classes={{
-            primary: isActiveRoute
-              ? classes.listItemTextActive
-              : classes.listItemText,
-          }}
-        />
-      </ListItem>
+        </button>
+      </NavRailTooltip>
     );
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
   };
 
   return (
     <div className={classes.root}>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
+      <Drawer variant="permanent">
         <div className={classes.toolbarToggleOption}>
-          <IconButton
-            className={clsx({
-              [classes.hide]: open,
-            })}
-          >
-            <ArrowLeftIcon size={24} />
-          </IconButton>
-          <IconButton
-            onClick={handleDrawerClose}
-            className={clsx({
-              [classes.hide]: !open,
-            })}
-          >
-            <ChevronLeftIcon size={24} />
-          </IconButton>
+          <div style={{
+            marginTop: 40,
+            marginBottom: 40
+          }}>
+            <IconButton>
+              <ArrowLeftIcon size={24} />
+            </IconButton>
+          </div>
         </div>
-        <Divider />
-        <List style={{ marginTop: -20 }}>
-          {listItems.map((listItemData) => renderNavRailListItem(listItemData))}
-        </List>
+        <Divider style={{
+          marginLeft: 7,
+          marginRight: 7,
+          backgroundColor: 'rgba(0, 0, 0, 0.2)'
+        }} />
+        <Grid container direction="column" alignItems="center" className="nav-rail-list-root">
+          <List className="nav-rail-list">
+            {listItems.map((listItemData) => renderNavRailListItem(listItemData))}
+          </List>
+        </Grid>
       </Drawer>
     </div>
   );
