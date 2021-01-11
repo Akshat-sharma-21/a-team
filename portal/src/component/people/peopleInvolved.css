@@ -18,8 +18,9 @@
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.16) !important;
   border-radius: 10px !important;
   background: #fff !important;
-  width: 550px !important ;
-  height: 200px !important;
+  width: 575px !important ;
+  height: 220px !important;
+  margin: 20px !important;
 }
 
 .people-heading {
@@ -43,10 +44,20 @@
   text-transform: none !important;
   font-family: "Gilroy" !important;
   font-weight: normal !important;
-  font-size: 12x !important;
+  font-size: 12px !important;
+  padding-left: 30px;
   color: #2b44ff !important;
 }
 
 .people-card-button:hover {
   background-color: transparent !important;
+}
+
+.empty-div-space {
+  height: 20px;
+}
+
+.subject-bar {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 8px !important;
 }
