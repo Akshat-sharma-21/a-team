@@ -12,8 +12,10 @@ import {
   makeStyles,
   Button,
   GridListTile,
+  TextField,
 } from "@material-ui/core";
 import Navbar from "../navbar/navbar";
+import Modal from "../utilities/modal/modal";
 import NavRail from "../navigation_rail/NavRail";
 import {
   PackageIcon,
@@ -22,8 +24,13 @@ import {
   MailIcon,
   DotFillIcon,
 } from "@primer/octicons-react";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
+  small: {
+    height: theme.spacing(4),
+    width: theme.spacing(4),
+  },
   large: {
     height: theme.spacing(9),
     width: theme.spacing(9),
@@ -42,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PeopleInvolved(props) {
   const classes = useStyles();
+  const [modalVisible, toggleModal] = useState(false);
 
   function renderPeopleCard() {
     return (
@@ -88,7 +96,12 @@ function PeopleInvolved(props) {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Button className="people-card-button">Send Mail</Button>
+                    <Button
+                      className="people-card-button"
+                      onClick={() => toggleModal(true)}
+                    >
+                      Send Mail
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -138,7 +151,12 @@ function PeopleInvolved(props) {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Button className="people-card-button">Send Mail</Button>
+                    <Button
+                      className="people-card-button"
+                      onClick={() => toggleModal(true)}
+                    >
+                      Send Mail
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -153,6 +171,38 @@ function PeopleInvolved(props) {
     <Container>
       <NavRail />
       <Navbar />
+
+      <Modal
+        title="Send Mail"
+        modalWidth={600}
+        visible={modalVisible}
+        dismissCallback={() => toggleModal(false)}
+      >
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={1}>
+            <Avatar className={classes.small}>JD</Avatar>
+          </Grid>
+          <Grid item xs={11} style={{ textAlign: "left" }}>
+            Sending to <b>Paxton Yoshida</b>
+          </Grid>
+          <Grid item xs={12} className="empty-div-space"></Grid>
+          <Grid item xs={12} className="empty-div-space"></Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <OutlinedInput className="subject-bar" placeholder="Subject" />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} className="empty-div-space"></Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <OutlinedInput className="subject-bar" multiline rows={10} />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} className="empty-div-space"></Grid>
+          <Grid item xs={12}></Grid>
+        </Grid>
+      </Modal>
+
       <Box component="div" paddingTop={5} paddingBottom={1}>
         <Grid
           container
