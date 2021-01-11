@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import Navbar from "../navbar/navbar";
 import Modal from "../utilities/modal/modal";
-import SliderNavbar from "../slider navbar/sliderNavbar";
+import NavRail from "../navigation_rail/NavRail";
 import {
   PackageIcon,
   SearchIcon,
@@ -169,7 +169,7 @@ function PeopleInvolved(props) {
 
   return (
     <Container>
-      <SliderNavbar />
+      <NavRail />
       <Navbar />
 
       <Modal
