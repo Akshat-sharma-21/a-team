@@ -11,6 +11,8 @@
 
 :root {
   --color-primary: #0432FA;
+  --color-gradient-start: #7C67E8;
+  --color-gradient-stop: #16B3EF;
 }
 
 .App {
@@ -52,14 +54,6 @@ a:active,
   position: fixed !important;
   bottom: 30px;
   right: 30px;
-}
-
-.reallos-button {
-  font-family: "Gilroy" !important;
-  font-weight: bold;
-  text-transform: none !important;
-  letter-spacing: normal !important;
-  padding: 10px 20px !important;
 }
 
 .reallos-text {
