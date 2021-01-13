@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Modal from "../utilities/modal/modal";
-import TransactionCard from "./transactionCard";
+import "./dashboard.css";
 import {
   Box,
   Button,
@@ -10,8 +9,10 @@ import {
   TextField,
   Divider,
 } from "@material-ui/core";
+import Modal from "../utilities/modal/modal";
+import TransactionCard from "./transactionCard";
 import Navbar from "../navbar/navbar";
-import "./dashboard.css";
+import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import dashboardImg from "../../assets/dashboard-empty.png";
 import {
   PlusIcon,
@@ -43,7 +44,7 @@ function Dashboard(props) {
         modalWidth={780}
         modalHeight={550}
       >
-        <Grid container direction="column" alignItems="flex-start">
+        <Grid container direction="column">
           <Grid item>
             <Typography className="invite-heading">Send Invitation</Typography>
           </Grid>
@@ -78,7 +79,7 @@ function Dashboard(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 20, marginLeft: 200 }}>
+          <Grid item style={{ marginTop: 20 }}>
             <Grid
               container
               direction="row"
@@ -141,7 +142,7 @@ function Dashboard(props) {
           </Grid>
           <Grid item style={{ marginTop: 20 }}>
             <Grid container direction="row" spacing={3}>
-              <Grid item>
+              <Grid item style={{ marginLeft: 10 }}>
                 <InfoIcon className="invite-info-icon" size={20} />
               </Grid>
               <Grid item>
@@ -151,21 +152,16 @@ function Dashboard(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 40, marginLeft: 319 }}>
-            <Grid container direction="row" spacing={2}>
+          <Grid item style={{ marginTop: 35 }}>
+            <Grid container direction="row" justify="flex-end" spacing={2}>
               <Grid item>
-                <Button variant="contained" className="invite-cancel-button">
-                  Cancel
-                </Button>
+                <ReallosButton>Cancel</ReallosButton>
               </Grid>
               <Grid item>
-                <Button
-                  variant="contained"
-                  className="invite-send-button"
-                  endIcon={<PaperAirplaneIcon />}
-                >
-                  Send Invite
-                </Button>
+                <ReallosButton primary>
+                  Send Invite &nbsp;&nbsp;
+                  <PaperAirplaneIcon className="invite-send-icon" />
+                </ReallosButton>
               </Grid>
             </Grid>
           </Grid>

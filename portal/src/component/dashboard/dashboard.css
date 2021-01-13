@@ -51,6 +51,7 @@ body {
 
 .invite-info-icon {
   color: #2b56ff;
+  margin-top: 3px;
 }
 
 .invite-info-text {
@@ -60,21 +61,6 @@ body {
   font-size: 17.5 !important;
 }
 
-.invite-send-button {
-  background-image: linear-gradient(270deg, #16b3ef, #7d67e8);
-  color: white !important;
-  padding: 7.5px 60px !important;
-  font-size: 15px !important;
-  font-family: "Gilroy" !important;
-  text-transform: none !important;
-  border-radius: 7.5px !important;
-}
-
-.invite-cancel-button {
-  font-family: Gilroy !important;
-  color: #488fec !important;
-  text-transform: none !important;
-  font-size: 15px !important;
-  background-color: white !important;
-  padding: 7.5px 45px !important;
+.invite-send-icon {
+  margin-bottom: 1px;
 }
