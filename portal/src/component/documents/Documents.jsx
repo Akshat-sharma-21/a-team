@@ -1,9 +1,9 @@
 import React from "react";
-import NavBar from "../navbar/navbar";
-import NavRail from "../navigation_rail/NavRail";
 import DocUploadModal from "./uploader/DocUploadModal";
+import Scaffold from "../utilities/scaffold/Scaffold";
 import Modal, { ModalActionFooter } from "../utilities/modal/modal";
-import SearchBar from '../utilities/searchbar/SearchBar';
+import SearchBar from "../utilities/searchbar/SearchBar";
+import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import UserAvatar from "../../assets/user.png";
 import PdfLogo from "../../assets/pdf_icon_duotone.svg";
 import { ReactComponent as StampIcon } from "../../assets/stamp_icon.svg";
@@ -20,7 +20,6 @@ import {
 } from "../../utils";
 
 import {
-  Container,
   Grid,
   Box,
   Typography,
@@ -29,7 +28,6 @@ import {
   Card,
   CardContent,
   IconButton,
-  Button,
   Snackbar,
   Menu,
   MenuItem,
@@ -473,15 +471,14 @@ class Documents extends React.Component {
             </Box>
 
             <ModalActionFooter>
-              <Button
-                variant="contained"
-                color="primary"
+              <ReallosButton
+                primary
                 onClick={() =>
                   this.setState({ isDocumentExistsModalVisible: false })
                 }
               >
                 Close
-              </Button>
+              </ReallosButton>
             </ModalActionFooter>
           </Modal>
         </Grid>
@@ -491,69 +488,66 @@ class Documents extends React.Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <NavBar />
-          <NavRail />
-          <Box component="div" paddingTop={6} paddingBottom={1}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              spacing={2}
-            >
-              <Grid item>
-                <PackageIcon size={28} />
-              </Grid>
-              <Grid item style={{
-                fontSize: 20
-              }}>
-                Transaction 1
-              </Grid>
-            </Grid>
-            <h1 style={{
-              marginTop: 15
-            }}>
-              Documents
-            </h1>
-          </Box>
-          <div style={{
-            paddingBottom: 20,
-            paddingTop: 5,
-            display: (this.state.documents?.length === 0) ? 'none' : 'block'
-          }}>
-            <SearchBar
-              placeholder="Search by document name and creator"
-              list={this.state.documents}
-              filterByFields={[
-                'name',
-                'creator'
-              ]}
-              onUpdate={(filteredDocumentsList) => {
-                this.setState({
-                  filteredDocumentsList
-                });
-              }}
-            />
-          </div>
-          <this.RenderDocumentCards />
+      <Scaffold navBar navRail>
+        <Box component="div" paddingTop={6} paddingBottom={1}>
           <Grid
             container
             direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
+            alignItems="center"
+            spacing={2}
           >
-            <Fab
-              variant="extended"
-              className="reallos-fab"
-              size="large"
-              onClick={this.showUploadModalVisibility}
-            >
-              <ArrowUpIcon className="fab-icon" size={20} /> &nbsp;
-              Upload Document
-            </Fab>
+            <Grid item>
+              <PackageIcon size={28} />
+            </Grid>
+            <Grid item style={{
+              fontSize: 20
+            }}>
+              Transaction 1
+            </Grid>
           </Grid>
-        </Container>
+          <h1 style={{
+            marginTop: 15
+          }}>
+            Documents
+          </h1>
+        </Box>
+        <div style={{
+          paddingBottom: 20,
+          paddingTop: 5,
+          display: (this.state.documents?.length === 0) ? 'none' : 'block'
+        }}>
+          <SearchBar
+            placeholder="Search by document name and creator"
+            list={this.state.documents}
+            filterByFields={[
+              'name',
+              'creator'
+            ]}
+            onUpdate={(filteredDocumentsList) => {
+              this.setState({
+                filteredDocumentsList
+              });
+            }}
+          />
+        </div>
+        <this.RenderDocumentCards />
+        <Grid
+          container
+          direction="row"
+          justify="flex-end"
+          alignItems="flex-end"
+        >
+          <Fab
+            variant="extended"
+            className="reallos-fab"
+            size="large"
+            onClick={this.showUploadModalVisibility}
+          >
+            <ArrowUpIcon className="fab-icon" size={20} /> &nbsp;
+            Upload Document
+          </Fab>
+        </Grid>
+
         <DocUploadModal
           dismissCallback={this.dismissUploadModal}
           visible={this.state.isUploadModalVisible}
@@ -572,7 +566,7 @@ class Documents extends React.Component {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           message={this.state.snackbarMessage}
         />
-      </div>
+      </Scaffold>
     );
   }
 }
