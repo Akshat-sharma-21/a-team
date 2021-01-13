@@ -177,15 +177,14 @@ function Dashboard(props) {
         <Navbar />
         {inviteModal()}
         <Grid container direction="column">
-          <Grid item></Grid>
           <Grid item>
             <Grid container alignItems="flex-start">
               <Box
                 className="dashboard-heading"
-                paddingTop={10}
+                paddingTop={6}
                 paddingLeft={3}
+                paddingBottom={3}
               >
-                {" "}
                 My Transactions
               </Box>
             </Grid>
@@ -195,13 +194,13 @@ function Dashboard(props) {
               <img src={dashboardImg} alt="" className="dashboard-img" />
             </Grid>
           </Grid>
-          <Grid item>
-            <Box className="dashboard-heading" paddingTop={4}>
+          <Grid item style={{ textAlign: "center" }}>
+            <Box className="dashboard-heading" paddingTop={5}>
               Feels Empty here...
             </Box>
           </Grid>
-          <Grid item>
-            <Box className="dashbaord-text" paddingTop={1.5}>
+          <Grid item style={{ textAlign: "center" }}>
+            <Box className="dashbaord-text" paddingTop={1.5} paddingBottom={1}>
               Sit tight and get your Game Face Ready. <b>Reallos</b> will send
               <br />
               Leads your way very soon!

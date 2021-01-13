@@ -3,7 +3,7 @@ body {
 }
 
 .dashboard-img {
-  height: 300px;
+  height: 40vh;
   width: auto;
 }
 
@@ -27,7 +27,7 @@ body {
   font-weight: bold !important;
   text-transform: none !important;
   padding: 12px 35px !important;
-  box-shadow: 0px 0px 26px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16) !important;
 }
 
 .invite-heading {
