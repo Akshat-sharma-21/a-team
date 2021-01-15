@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./transactionCard.css";
-import Button from "@material-ui/core/Button";
 import moment from "moment";
-
-import { VersionsIcon, OrganizationIcon } from "@primer/octicons-react";
-
+import {
+  VersionsIcon,
+  OrganizationIcon,
+  PersonIcon,
+} from "@primer/octicons-react";
 import {
   Grid,
   Box,
@@ -14,9 +15,8 @@ import {
   CardContent,
   CircularProgress,
   CardActionArea,
+  Button,
 } from "@material-ui/core";
-
-import { PersonIcon } from "@primer/octicons-react";
 
 const useStyles = makeStyles((theme) => ({
   gridList: {
@@ -56,7 +56,6 @@ function RenderCard(items) {
             <CardContent>
               <Grid
                 container
-                spacing={0}
                 direction="row"
                 justify="center"
                 alignItems="center"
@@ -81,7 +80,7 @@ function RenderCard(items) {
                           <svg width="300" height="4">
                             <linearGradient id="linearColors">
                               <stop offset="20%" stopColor="#7C67E8" />
-                              <stop offset="90%" stopColor="#1BB0EE" />
+                              <stop offset="80%" stopColor="#1BB0EE" />
                             </linearGradient>
                           </svg>
                           <CircularProgress

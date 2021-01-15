@@ -12,17 +12,18 @@ import {
   makeStyles,
   Button,
   GridListTile,
-  TextField,
 } from "@material-ui/core";
 import Navbar from "../navbar/navbar";
 import Modal from "../utilities/modal/modal";
 import NavRail from "../navigation_rail/NavRail";
+import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import {
   PackageIcon,
   SearchIcon,
   DeviceMobileIcon,
   MailIcon,
   DotFillIcon,
+  PaperAirplaneIcon,
 } from "@primer/octicons-react";
 import { useState } from "react";
 
@@ -199,7 +200,12 @@ function PeopleInvolved(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12} className="empty-div-space"></Grid>
-          <Grid item xs={12}></Grid>
+          <Grid item xs={12} style={{ textAlign: "right" }}>
+            <ReallosButton primary>
+              <PaperAirplaneIcon size={20} />
+              &nbsp;&nbsp;Send Mail
+            </ReallosButton>
+          </Grid>
         </Grid>
       </Modal>
 
