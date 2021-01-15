@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 import { createUseStyles } from "react-jss";
-import { Button } from "@material-ui/core";
+import ReallosButton from "../../utilities/reallos_button/ReallosButton";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import PauseIcon from "../../../assets/pause-icon.svg";
 import { CheckIcon, UploadIcon } from "@primer/octicons-react";
@@ -199,9 +199,7 @@ function DocUploadStatus({
       </div>
 
       <div id="upload-doc-action-footer">
-        <Button
-          variant="outlined"
-          color="primary"
+        <ReallosButton
           onClick={() => {
             let uploadCancelled = uploadStatus.uploadTask.cancel();
             if (uploadCancelled || uploadStatus.isPaused)
@@ -216,17 +214,16 @@ function DocUploadStatus({
           }}
         >
           Cancel
-        </Button>
-        <Button
-          variant="outlined"
-          color="primary"
+        </ReallosButton>
+        <ReallosButton
+          primary
           onClick={() => {
             if (!uploadStatus.isPaused) pauseUpload();
             else resumeUpload();
           }}
         >
           {!uploadStatus.isPaused ? "Pause" : "Resume"}
-        </Button>
+        </ReallosButton>
       </div>
     </>
   );

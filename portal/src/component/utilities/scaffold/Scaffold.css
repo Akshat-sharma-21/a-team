@@ -1,0 +1,9 @@
+.scaffold-root.scaffold-navrail {
+    margin-left: 80px;
+}
+
+@media (min-width: 1350px) {
+    .MuiContainer-root {
+        max-width: 1350px !important;
+    }
+}
