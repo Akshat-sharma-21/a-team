@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useDropzone } from "react-dropzone";
-import { Button } from "@material-ui/core";
 import AddFiles from "../../../assets/add_files.svg";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import { ModalActionFooter } from "../../utilities/modal/modal";
+import ReallosButton from "../../utilities/reallos_button/ReallosButton";
 import { bytesToSize } from "../../../utils";
 import "./DocUploadDropzone.css";
 
@@ -120,17 +120,16 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
         </div>
       </div>
       <ModalActionFooter marginTop={20}>
-        <Button variant="outlined" onClick={dismissCallback} color="primary">
+        <ReallosButton onClick={dismissCallback}>
           Cancel
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
+        </ReallosButton>
+        <ReallosButton
+          primary
           disabled={acceptedFiles.length === 0 || acceptedFiles[0].size === 0}
           onClick={() => uploadDocumentCallback(acceptedFiles)}
         >
           Upload
-        </Button>
+        </ReallosButton>
       </ModalActionFooter>
     </>
   );
