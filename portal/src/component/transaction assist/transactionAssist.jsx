@@ -21,7 +21,8 @@ import {
 } from "@primer/octicons-react";
 import { useState } from "react";
 import NavRail from "../navigation_rail/NavRail";
-import Navbar from "../navbar/navbar.js";
+import Navbar from "../navbar/navbar.jsx";
+import Scaffold from "../utilities/scaffold/Scaffold";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
@@ -159,9 +160,7 @@ function TransactionAssist(props) {
   }
 
   return (
-    <Container>
-      <NavRail />
-      <Navbar />
+    <Scaffold navBar navRail>
       {firstTimeModal()}
       <Box component="div" paddingTop={5} paddingBottom={1}>
         <Grid
@@ -184,7 +183,7 @@ function TransactionAssist(props) {
         </Grid>
         {displayExpansionPanels()}
       </Box>
-    </Container>
+    </Scaffold>
   );
 }
 

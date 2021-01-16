@@ -22,12 +22,11 @@ import {
 import Navbar from "../navbar/navbar";
 import GraphImage from "../../assets/summary_graph.png";
 import ReallosButton from "../utilities/reallos_button/ReallosButton";
+import Scaffold from "../utilities/scaffold/Scaffold";
 
 function ProfileSummary(props) {
   return (
-    <Container>
-      <Navbar />
-
+    <Scaffold navBar>
       <Box component="div" paddingTop={6} paddingBottom={1}>
         <Grid container direction="row" alignItems="center" justify="center">
           <Grid item xs={6}>
@@ -398,7 +397,7 @@ function ProfileSummary(props) {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </Scaffold>
   );
 }
 
