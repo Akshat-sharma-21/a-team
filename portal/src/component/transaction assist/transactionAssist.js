@@ -21,7 +21,7 @@ import {
 } from "@primer/octicons-react";
 import { useState } from "react";
 import NavRail from "../navigation_rail/NavRail";
-import Navbar from "../navbar/navbar.js";
+import Navbar from "../navbar/navbar";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
