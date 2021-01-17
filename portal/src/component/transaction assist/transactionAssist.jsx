@@ -20,8 +20,6 @@ import {
   CheckCircleIcon,
 } from "@primer/octicons-react";
 import { useState } from "react";
-import NavRail from "../navigation_rail/NavRail";
-import Navbar from "../navbar/navbar.jsx";
 import Scaffold from "../utilities/scaffold/Scaffold";
 
 function TransactionAssist(props) {

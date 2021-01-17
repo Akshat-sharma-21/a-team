@@ -15,7 +15,6 @@
   margin-left: 10px !important;
 }
 
-.navbar-profile-menu-popup ul > div,
 .navbar-notification-popup ul > div {
   outline: none;
 }
@@ -24,14 +23,8 @@ ul[role="menu"] {
   padding-right: 0 !important;
 }
 
-.navbar-profile-menu-popup,
 .navbar-notification-popup {
   font-family: "Roboto Slab";
-}
-
-.profile-popup-info {
-  padding-top: 10px;
-  padding-bottom: 20px;
 }
 
 .navbar-logo {
@@ -50,64 +43,4 @@ ul[role="menu"] {
 .navlink {
   margin-left: 5px !important;
   margin-top: 7px !important;
-}
-
-.menu-design {
-  width: 800px !important;
-  max-width: 400px;
-}
-
-.avatar-large {
-  height: 50px !important;
-  width: 50px !important;
-}
-
-.profile-padding h2 {
-  margin-top: 0;
-}
-
-.profile-heading {
-  font-size: 24px;
-}
-
-.profile-subheading {
-  font-size: 16px;
-  margin-bottom: 0;
-}
-
-.profile-subheading-small {
-  font-size: 13px;
-  margin-top: 10px !important;
-}
-
-.profile-progress-link {
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #000000;
-}
-
-.profile-progress-bar {
-  margin-top: 10px;
-  border-radius: 5px !important;
-  height: 5px !important;
-  width: 90% !important;
-}
-
-.divider-profile {
-  width: 360px !important;
-  height: 2px !important;
-}
-
-.profile-popup-action-group {
-  padding-top: 10px;
-}
-
-.profile-popup-action-group button {
-  padding-bottom: 5px !important;
-  font-family: "Roboto Slab" !important;
-  text-transform: none !important;
-  letter-spacing: normal !important;
-  margin: 5px;
-  max-width: 150px;
 }
