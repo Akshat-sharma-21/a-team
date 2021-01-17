@@ -21,6 +21,7 @@ import {
   InfoIcon,
   PaperAirplaneIcon,
 } from "@primer/octicons-react";
+import Scaffold from "../utilities/scaffold/Scaffold";
 
 function Dashboard(props) {
   const [invite, setInvitation] = useState(false);
@@ -173,8 +174,7 @@ function Dashboard(props) {
   if (true) {
     // from the database
     return (
-      <Container>
-        <Navbar />
+      <Scaffold navBar>
         {inviteModal()}
         <Grid container direction="column">
           <Grid item>
@@ -224,7 +224,7 @@ function Dashboard(props) {
             </Grid>
           </Grid>
         </Grid>
-      </Container>
+      </Scaffold>
     );
   } else {
     return <TransactionCard />;

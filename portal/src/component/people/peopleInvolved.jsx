@@ -26,6 +26,7 @@ import {
   PaperAirplaneIcon,
 } from "@primer/octicons-react";
 import { useState } from "react";
+import Scaffold from "../utilities/scaffold/Scaffold";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -169,10 +170,7 @@ function PeopleInvolved(props) {
   }
 
   return (
-    <Container>
-      <NavRail />
-      <Navbar />
-
+    <Scaffold navBar navRail>
       <Modal
         title="Send Mail"
         modalWidth={600}
@@ -255,7 +253,7 @@ function PeopleInvolved(props) {
         </Grid>
         {renderPeopleCard()}
       </Box>
-    </Container>
+    </Scaffold>
   );
 }
 
