@@ -1,0 +1,103 @@
+.onboarding {
+  height: 100vh !important;
+  overflow: hidden;
+  padding: 30px 30px 20px 30px !important;
+  background: linear-gradient(
+    to bottom,
+    var(--color-gradient-start),
+    var(--color-gradient-stop)
+  );
+}
+
+.onboarding-heading {
+  text-align: left !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 32px !important;
+  color: var(--color-white) !important;
+}
+
+.onboard-empty-div {
+  height: 4vh;
+}
+
+.onboarding-subheading {
+  text-align: center !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 28px !important;
+  color: var(--color-white) !important;
+}
+
+.onboarding-text {
+  text-align: center !important;
+  font-family: "Segoe UI", sans-serif !important;
+  font-size: 20px !important;
+  color: var(--color-white) !important;
+}
+
+.stepper {
+  background-color: rgba(0, 0, 0, 0) !important;
+  position: absolute !important;
+  bottom: 140px !important;
+  left: 42% !important;
+}
+
+.MuiMobileStepper-dot {
+  background-color: var(--color-white) !important;
+}
+
+.MuiMobileStepper-dotActive {
+  padding: 2px;
+}
+
+.onboarding-next-btn {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  position: absolute !important;
+  bottom: 35px !important;
+  right: 35px !important;
+}
+
+.onboarding-next-icon {
+  color: var(--color-white) !important;
+}
+
+.onboarding-white {
+  height: 100vh !important;
+  overflow: hidden;
+  padding: 30px 30px 20px 30px !important;
+  background: var(--color-white);
+}
+
+.onboarding-subheading-dark {
+  text-align: center !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 28px !important;
+  color: var(--color-dark) !important;
+}
+
+.onboarding-text-dark {
+  text-align: center !important;
+  font-family: "Segoe UI", sans-serif !important;
+  font-size: 20px !important;
+  color: var(--color-dark) !important;
+}
+
+.onboarding-next-btn-blue {
+  background-color: var(--color-primary) !important;
+  position: absolute !important;
+  bottom: 35px !important;
+  right: 35px !important;
+}
+
+.onboarding-lets-go-btn {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 15px !important;
+  position: absolute !important;
+  bottom: 35px !important;
+  width: 85% !important;
+}
