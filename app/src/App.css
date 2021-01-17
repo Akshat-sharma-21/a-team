@@ -11,6 +11,8 @@
 
 :root {
   --color-primary: #0432FA;
+  --color-white: #ffffff;
+  --color-dark: #707070;
   --color-gradient-start: #7C67E8;
   --color-gradient-stop: #16B3EF;
 }
