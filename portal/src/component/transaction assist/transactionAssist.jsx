@@ -1,6 +1,7 @@
 import "./transactionAssist.css";
 import transactionImg from "../../assets/transaction-assist-first-time.png";
 import Modal from "../utilities/modal/modal";
+import doc from "./doc.png";
 import {
   Container,
   Grid,
@@ -11,6 +12,9 @@ import {
   ExpansionPanelSummary,
   Box,
   Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 import {
   DotFillIcon,
@@ -18,12 +22,19 @@ import {
   PackageIcon,
   SearchIcon,
   CheckCircleIcon,
+  CheckIcon,
 } from "@primer/octicons-react";
 import { useState } from "react";
 import Scaffold from "../utilities/scaffold/Scaffold";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
+  let [taskList, setTaskList] = useState([
+    { name: "Task1", date: "10 July", completed: true },
+    { name: "Task2", date: "11 July", completed: true },
+    { name: "Task3", date: "12 July", completed: false },
+    { name: "Task4", date: "13 July", completed: false },
+  ]);
 
   function firstTimeModal() {
     // function to display the first time modal
@@ -111,9 +122,61 @@ function TransactionAssist(props) {
                 </Grid>
               </Grid>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails className="exppanel">
               {
-                //This is where the expansion panel will be placed
+                <div>
+                  <div className="heading">
+                    <h1 className="title">Tasks</h1>
+                    <h6 className="track">2 of 7 tasks completed</h6>
+                    <button className="custom-btn">Add new task</button>
+                  </div>
+
+                  {taskList.map((task) => {
+                    return (
+                      <ListItem
+                        className={
+                          task.completed ? "assist-task-completed" : ""
+                        }
+                      >
+                        <ListItemIcon>
+                          {task.completed ? (
+                            <CheckIcon className="checkicon-transaction" />
+                          ) : (
+                            <DotFillIcon />
+                          )}
+                        </ListItemIcon>
+                        <ListItemText>
+                          <span className="assist-task-date">{task.date}</span>
+                          {task.name}
+                        </ListItemText>
+                      </ListItem>
+                    );
+                  })}
+
+                  <div className="timeline"></div>
+                  <div className="docBox">
+                    <div className="heading-2">
+                      <h1 className="title-2">Documents</h1>
+                      <h6 className="track-2">1 of 2 completed</h6>
+                    </div>
+                    <div class="docs">
+                      <div class="doc">
+                        <img src={doc} alt="doc-svg" />
+                        <div className="doc-details">
+                          <p>Document 1</p>
+                          <p>Document is filled in</p>
+                        </div>
+                      </div>
+                      <div class="doc">
+                        <img src={doc} alt="doc-svg" />
+                        <div className="doc-details">
+                          <p>Document 1</p>
+                          <p>Document is filled in</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               }
             </ExpansionPanelDetails>
           </ExpansionPanel>
