@@ -1,0 +1,25 @@
+.modal-sheet-content {
+  --modal-sheet-handle-size: 100px;
+  
+  position: relative;
+  padding: 10px 20px 10px 20px;
+  margin-top: 20px;
+}
+
+/* Make space for modal sheet handle */
+.swipeable-modal-sheet .modal-sheet-content {
+  padding: 30px 20px 10px 20px;
+}
+
+/* Handle indicates that the modal sheet can close on swipe gesture */
+.swipeable-modal-sheet .modal-sheet-content::before {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  height: 5px;
+  width: var(--modal-sheet-handle-size);
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--modal-sheet-handle-size) / 2);
+}
