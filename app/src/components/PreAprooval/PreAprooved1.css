@@ -1,0 +1,120 @@
+* {
+  margin-left: 5px;
+}
+
+html {
+  background:linear-gradient(to bottom ,#33ccff 0%,#2B44FF  90%);
+  height: 100%;
+
+}
+
+#pbar{
+  width: 75%;
+  margin-left: 10rem;
+}
+
+#heading{
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3.5em;
+  color: white;
+  margin-left: -5px;
+}
+
+#content {
+  color:white;
+  margin-left: -5px;
+  font-size: 1.5em;
+  margin-top: -12px;
+}
+
+#button {
+  width: 30vw;
+  height: 8vh;
+  background:rgba(255, 255, 255, 0.2);
+  color:darkblue;
+  margin-top: 5vh;
+}
+
+#arrowbicon{
+    background:rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 50%;
+    width: 5vh;
+    height: 5vh;
+}
+
+#arrowficon{
+  background:rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 50%;
+  width: 5vh;
+  height: 5vh;
+  margin-left: 90vw;
+}
+
+/* media queries for responisve page */
+
+/* all phones under 600px */
+@media only screen and (max-width:600px){
+  html{
+    width: 100%;
+    height: 100%;
+  }
+  #heading{
+    font-size: 2.5em;
+  }
+  #content{
+    font-size: 1em;
+  }
+
+  #aicons{
+    width: 50%;
+  }
+
+  #pbar{
+    width: 75%;
+    margin-left: 5px;
+  }
+
+  #arrowficon{
+    margin-left: 60vw;
+  }
+
+  #button{
+    width: 75%;
+  }
+}
+
+/* for i-pads and tablets */
+
+@media only screen and (min-width:600px) and (max-width:768px){
+
+  html{
+    width: 100%;
+    height: 100%;
+  }
+  #heading{
+    font-size: 3em;
+  }
+  #content{
+    font-size: 1.5em;
+  }
+
+  #aicons{
+    width: 50%;
+  }
+
+  #pbar{
+    width: 75%;
+    margin-left: 5px;
+  }
+
+  #arrowficon{
+    margin-left: 80vw;
+  }
+
+  #button{
+    width: 50%;
+  }
+
+}
