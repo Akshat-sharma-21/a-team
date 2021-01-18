@@ -10,9 +10,8 @@ function Onboarding3(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
-        <Grid item xs={12} className="onboard-empty-div"></Grid>
 
-        <Grid item xs={8} style={{ textAlign: "center" }}>
+        <Grid item xs={10} style={{ textAlign: "center" }}>
           <img src={Logo3} alt="" width="100%" />
         </Grid>
 
@@ -26,8 +25,7 @@ function Onboarding3(props) {
 
         <Grid item xs={12}>
           <div className="onboarding-text">
-            We will guide you throughout the process and will do all the
-            hardwork!
+            We will connect you to all the professionals you need
           </div>
         </Grid>
       </Grid>

@@ -10,9 +10,8 @@ function Onboarding2(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
-        <Grid item xs={12} className="onboard-empty-div"></Grid>
 
-        <Grid item xs={8} style={{ textAlign: "center", paddingLeft: "35px" }}>
+        <Grid item xs={10} style={{ textAlign: "center" }}>
           <img src={Logo2} alt="" width="100%" />
         </Grid>
 
