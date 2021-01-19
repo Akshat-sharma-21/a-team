@@ -18,7 +18,7 @@ import { ArrowRightIcon, LockIcon, PencilIcon } from "@primer/octicons-react";
 function Roadmap() {
   function getSteps() {
     return [
-      "Pre-Approval",
+      "Pre-approval",
       "Find an Agent",
       "Make an offer",
       "Finalize your Deal",
@@ -41,10 +41,9 @@ function Roadmap() {
 
   function stepIcon(props) {
     const { active, completed } = props;
-
     return (
       <div className="step-icon-div">
-        {completed ? (
+        {completed || active ? (
           <IconButton className="step-completed-icon" disabled>
             <LockIcon size={16} className="step-completed-icon" />
           </IconButton>
@@ -97,10 +96,10 @@ function Roadmap() {
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
-                      size="medium"
+                      size="small"
                       onClick={handleNext}
                     >
-                      <ArrowRightIcon size={24} className="roadmap-next-btn" />
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
                   </div>
                 </StepContent>
