@@ -2,6 +2,7 @@ import React from "react";
 import "./PreAprooved.css";
 import { Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import preaprooved from "../../assets/preaprooved.png";
 
 function PreAprooved() {
   return (
@@ -11,7 +12,7 @@ function PreAprooved() {
       </div>
 
       <div>
-        <img src="preaprooved.png" alt="logo" id="logo"></img>
+        <img src={preaprooved} alt="logo" id="logo"></img>
       </div>
 
       <div>
