@@ -9,9 +9,8 @@ function Onboarding4(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
-        <Grid item xs={12} className="onboard-empty-div"></Grid>
 
-        <Grid item xs={7} style={{ textAlign: "center" }}>
+        <Grid item xs={10} style={{ textAlign: "center" }}>
           <img src={Logo4} alt="" width="100%" />
         </Grid>
 
@@ -25,8 +24,8 @@ function Onboarding4(props) {
 
         <Grid item xs={12}>
           <div className="onboarding-text-dark">
-            We will guide you throughout the process and will do all the
-            hardwork!
+            Upload & Share all your documents hassle free and we'll keep it
+            safe!
           </div>
         </Grid>
       </Grid>
