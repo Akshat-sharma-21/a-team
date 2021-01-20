@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, Button } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ReallosModal from "./modal.js";
-import cimage from "../../assets/cimag.png";
+import cimage from "../../assets/cimage.png";
 import verified from "../../assets/verified.png";
 
 function Email() {

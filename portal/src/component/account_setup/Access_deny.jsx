@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import ReallosModal from "./modal";
-import cimage from "../../assets/cimag.png";
+import cimage from "../../assets/cimage.png";
 import deny from "../../assets/deny.png";
 
 function Access_deny() {
