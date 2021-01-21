@@ -26,18 +26,18 @@ function PreAprooved4() {
   return (
     <div>
       <div style={{ paddingTop: "25px" }}>
-        <BorderLinearProgress id="pbar" variant="determinate" value="50" />
+        <BorderLinearProgress id="pbar5" variant="determinate" value="50" />
       </div>
 
       <div>
-        <p id="heading">
+        <p id="heading5">
           Are You <br />
           Pre-Approoved ?
         </p>
       </div>
 
       <div>
-        <p id="content">
+        <p id="content5">
           Lorem ipsum is a placeholder text commonly
           <br /> used to demonstrate the visual form of a <br />
           document or a typeface without <br /> relying on meaningful content.
@@ -45,18 +45,22 @@ function PreAprooved4() {
       </div>
 
       <div>
-        <Button id="button" variant="filled" startIcon={<Avatar src={yes} />}>
+        <Button id="button5" variant="filled" startIcon={<Avatar src={yes} />}>
           YES
         </Button>
       </div>
 
       <div>
-        <Button id="button" variant="ooutlined" startIcon={<Avatar src={no} />}>
+        <Button
+          id="button5"
+          variant="ooutlined"
+          startIcon={<Avatar src={no} />}
+        >
           NO
         </Button>
       </div>
 
-      <div id="aicons " style={{ marginTop: "5vh" }}>
+      <div id="aicons5 " style={{ marginTop: "5vh" }}>
         <ArrowBackIcon id="arrowbicon" />
       </div>
     </div>
