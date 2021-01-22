@@ -18,11 +18,12 @@
 }
 
 :root {
-  --color-primary: #0432FA;
+  --color-primary: #0432fa;
   --color-white: #ffffff;
   --color-dark: #707070;
-  --color-gradient-start: #7C67E8;
-  --color-gradient-stop: #16B3EF;
+  --color-dark-grey: #474747;
+  --color-gradient-start: #7c67e8;
+  --color-gradient-stop: #16b3ef;
 }
 
 .App {
@@ -84,5 +85,5 @@ a:active,
 }
 
 .reallos-menu-root * {
-  font-family: 'Gilroy' !important;
+  font-family: "Gilroy" !important;
 }

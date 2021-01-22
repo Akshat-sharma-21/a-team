@@ -3,8 +3,9 @@ import "./PreAprooved4.css";
 import { Avatar, Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { LinearProgress } from "@material-ui/core";
-import {withStyles } from '@material-ui/core/styles'
-
+import { withStyles } from "@material-ui/core/styles";
+import yes from "../../assets/yes.png";
+import no from "../../assets/no.png";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -12,11 +13,12 @@ const BorderLinearProgress = withStyles((theme) => ({
     borderRadius: 5,
   },
   colorPrimary: {
-    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: '#1a90ff',
+    backgroundColor: "#1a90ff",
   },
 }))(LinearProgress);
 
@@ -24,8 +26,7 @@ function PreAprooved4() {
   return (
     <div>
       <div style={{ paddingTop: "25px" }}>
-        <BorderLinearProgress id='pbar' variant='determinate' value='50'/>
-
+        <BorderLinearProgress id="pbar" variant="determinate" value="50" />
       </div>
 
       <div>
@@ -44,26 +45,18 @@ function PreAprooved4() {
       </div>
 
       <div>
-        <Button
-          id="button"
-          variant="filled"
-          startIcon={<Avatar src={"yes.png"} />}
-        >
+        <Button id="button" variant="filled" startIcon={<Avatar src={yes} />}>
           YES
         </Button>
       </div>
 
       <div>
-        <Button
-          id="button"
-          variant="ooutlined"
-          startIcon={<Avatar src={"no.png"} />}
-        >
+        <Button id="button" variant="ooutlined" startIcon={<Avatar src={no} />}>
           NO
         </Button>
       </div>
 
-      <div  id='aicons ' style={{marginTop:'5vh'}}>
+      <div id="aicons " style={{ marginTop: "5vh" }}>
         <ArrowBackIcon id="arrowbicon" />
       </div>
     </div>
