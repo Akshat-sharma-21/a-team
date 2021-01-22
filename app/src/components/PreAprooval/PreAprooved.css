@@ -1,15 +1,15 @@
-html{
-  background:linear-gradient(to bottom ,#33ccff 0%,#2B44FF  90%);
+html {
+  background: linear-gradient(#7c67e8 0%, #16b3ef 100%);
   height: 100%;
 }
 
-#logo{
+#logo1 {
   margin-left: 40vw;
   margin-top: 5vh;
   background: transparent;
 }
 
-#content{
+#content1 {
   margin-left: 40vw;
   margin-top: 5vh;
   background: transparent;
@@ -17,7 +17,7 @@ html{
   font-size: 25px;
 }
 
-#button{
+#button1 {
   color: blue;
   background: white;
   margin-left: 40vw;
@@ -26,10 +26,10 @@ html{
   height: 5vh;
 }
 
-#arrow-icon{
+#arrow-icon1 {
   color: white;
   background: transparent;
-  margin-left: 2vh;
+  margin-left: -1vh;
   margin-top: 2vh;
 }
 
@@ -37,48 +37,47 @@ html{
 
 /* for phones  */
 
-@media only screen and (max-width:600px){
-  html{
+@media only screen and (max-width: 600px) {
+  html {
     width: 100%;
     height: 100%;
   }
 
-  #logo{
-    margin-left: 25vw;
+  #logo1 {
+    margin-left: 20vw;
+    margin-top: -1vh;
   }
 
-  #content{
+  #content1 {
     font-size: 1.5em;
-    margin-left: 25vw;
+    margin-left: 12vw;
+    margin-top: -0.5vh;
   }
 
-  #button{
-    width: 50vw;
+  #button1 {
+    width: 75%;
+    margin-left: 12vw;
   }
-
 }
 
 /* for i-pads and tablets */
 
-@media only screen and (min-width:600px) and (max-width:768px){
-
-  html{
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  html {
     width: 100%;
     height: 100%;
   }
 
-  #logo{
+  #logo1 {
     margin-left: 35vw;
   }
-  #content{
+  #content1 {
+    margin-left: 25vw;
     font-size: 2em;
   }
 
-  #button{
-    width: 50vw;
+  #button1 {
+    width: 60vw;
+    margin-left: 25vw;
   }
-  
-
-
 }
-

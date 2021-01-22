@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ReallosModal from "./modal.js";
+import ReallosModal from "../utilities/modal/modal";
 import cimage from "../../assets/cimage.png";
 
 function Create_Account1() {
