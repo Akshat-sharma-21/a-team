@@ -1,31 +1,10 @@
 import Main from "./MainComponent";
 import { BrowserRouter } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { muiThemeOptions } from './utils.js';
 import "./App.css";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#2B56FF",
-    },
-    secondary: {
-      main: "#21DAF1",
-    },
-    common: {
-      white: "#ffffff",
-      black: "#000000",
-    },
-    success: {
-      main: "#01AE4B",
-    },
-    error: {
-      main: "#EB0000",
-    },
-    warning: {
-      main: "#F6AC00",
-    },
-  },
-});
+const theme = createMuiTheme(muiThemeOptions);
 
 function App() {
   return (
