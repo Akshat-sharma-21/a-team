@@ -1,117 +1,114 @@
-*{
-    margin-left: 5px;
+* {
+  margin-left: 5px;
 }
 
-html{
-    background:linear-gradient(to bottom ,#33ccff 0%,#2B44FF  90%);
-    height: 100%;
+html {
+  background: linear-gradient(#7c67e8 0%, #16b3ef 100%);
+  height: 100%;
 }
 
-p{
-    font-size: 1.5em;
-    color: white;
-    
+p {
+  font-size: 1.5em;
+  color: white;
 }
 
-h1{
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 8vh;
-    color: white;
-    font-size: 3.5em;
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 8vh;
+  color: white;
+  font-size: 3.5em;
 }
 
-#textfield{
-    width: 30vw;
+#textfield3 {
+  width: 30vw;
 }
 
-#arrowicons{
-    display: flex;
-    flex-direction: row;
-    margin-top: 28.5vh;
+#arrowicons3 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 28.5vh;
 }
 
-#backicon{
-    border-radius:50%;
-    background:rgba(255, 255, 255, 0.2);
-    width: 6vh;
-    height: 6vh;
-    color: white;
+#backicon3 {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  width: 6vh;
+  height: 6vh;
+  color: white;
 }
 
-#forwardicon{
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);;
-    width: 6vh;
-    height: 6vh;
-    color: white;
-    margin-left: 90vw;
+#forwardicon3 {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  width: 6vh;
+  height: 6vh;
+  color: white;
+  margin-left: 90vw;
 }
 
 /* media query for responsive designs */
 
 /* for phones  */
 
-@media only screen and (max-width:600px){
-    html{
-      width: 100%;
-      height: 100%;
-    }
-    h1{
-      font-size: 2.5em;
-    }
+@media only screen and (max-width: 600px) {
+  html {
+    width: 100%;
+    height: 100%;
+  }
+  h1 {
+    font-size: 2.5em;
+  }
 
-    p{
-      font-size: 1em;
-    }
-  
-    #arrowicons{
-      width: 50%;
-    }
-  
-    #pbar{
-      width: 75%;
-      margin-left: 5px;
-    }
-  
-    #forwardicon{
-      margin-left: 60vw;
-    }
-  
-    #textfield{
-      width: 60vw;
-    }
+  p {
+    font-size: 1em;
   }
-  
-  /* for i-pads and tablets */
-  
-  @media only screen and (min-width:600px) and (max-width:768px){
-  
-    html{
-      width: 100%;
-      height: 100%;
-    }
-    h1{
-      font-size: 3em;
-    }
-    p{
-      font-size: 1.5em;
-    }
-  
-    #arrowicons{
-      width: 50%;
-    }
-  
-    #pbar{
-      width: 75%;
-      margin-left: 5px;
-    }
-  
-    #forwardicon{
-      margin-left: 75vw;
-    }
-  
-    #textfield{
-      width: 60vw;
-    }
-  
+
+  #arrowicons3 {
+    width: 50%;
   }
+
+  #pbar3 {
+    width: 75%;
+    margin-left: 5px;
+  }
+
+  #forwardicon3 {
+    margin-left: 60vw;
+  }
+
+  #textfield3 {
+    width: 60vw;
+  }
+}
+
+/* for i-pads and tablets */
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  html {
+    width: 100%;
+    height: 100%;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  p {
+    font-size: 1.5em;
+  }
+
+  #arrowicons3 {
+    width: 50%;
+  }
+
+  #pbar3 {
+    width: 75%;
+    margin-left: 5px;
+  }
+
+  #forwardicon3 {
+    margin-left: 75vw;
+  }
+
+  #textfield3 {
+    width: 60vw;
+  }
+}

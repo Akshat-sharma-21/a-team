@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ReallosModal from "./modal.js";
+import ReallosModal from "../utilities/modal/modal";
 import cimage from "../../assets/cimage.png";
 import verified from "../../assets/verified.png";
 
@@ -30,11 +30,11 @@ function Email() {
             height="60px"
           ></img>
 
-          <h2 style={{ marginLeft: "320", marginTop: "-320px" }}>
+          <h2 style={{ marginLeft: "300px", marginTop: "-300px" }}>
             Email Verification
           </h2>
 
-          <p style={{ marginLeft: "275px", marginTop: "-270px" }}>
+          <p style={{ marginLeft: "275px", marginTop: "-260px" }}>
             A confirmation code has sent to your email . Please enter it to
             proceed.
           </p>
@@ -43,7 +43,7 @@ function Email() {
             className="item3"
             style={{
               marginLeft: "275px",
-              marginTop: "-200px",
+              marginTop: "-180px",
               display: "flex",
               flexDirection: "row",
             }}
@@ -66,7 +66,7 @@ function Email() {
             ></TextField>
           </div>
 
-          <p style={{ marginLeft: "280px", marginTop: "-120px" }}>
+          <p style={{ marginLeft: "280px", marginTop: "-100px" }}>
             Did'nt get the code ?
             <a href="#" style={{ color: "blue" }}>
               resend it
