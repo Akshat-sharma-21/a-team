@@ -1,0 +1,50 @@
+.bottom-nav-root {
+  z-index: 10;
+  height: 90px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  
+  background: linear-gradient(
+    to right,
+    var(--color-gradient-start),
+    var(--color-gradient-stop)
+  );
+}
+
+.bottom-nav-items-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* @TODO: MAKE THE WIDTH AND HEIGHT EQUAL */
+
+.bottom-nav-item {
+  border: none;
+  outline: none;
+  padding: 18px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #ffffff;
+  transform: scale(1);
+
+  transition: all 250ms ease;
+}
+
+.bottom-nav-item.active {
+  padding: 18px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #000000;
+  transform: scale(1.1);
+}
