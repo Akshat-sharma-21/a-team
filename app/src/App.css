@@ -9,6 +9,14 @@
     url("./fonts/Gilroy-Extrabold.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "Segoe UI";
+  font-style: normal;
+  font-weight: bold;
+  src: local("Segoe UI"),
+    url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css") format("woff2");
+}
+
 :root {
   --color-primary: #0432FA;
   --color-white: #ffffff;
@@ -18,7 +26,7 @@
 }
 
 .App {
-  font-family: 'Roboto Slab', 'Segoe UI', 'Roboto', 'Gilroy';
+  font-family: 'Gilroy', 'Roboto Slab', 'Segoe UI', 'Roboto';
 }
 
 a,
