@@ -1,0 +1,58 @@
+.signin-top-subheading {
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.signin-top-heading-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signin-top-heading-group img {
+  margin-right: -2vw;
+}
+
+.signin-top-heading {
+  width: 20ch;
+}
+
+.signin-top-heading h1 {
+  margin: 0;
+  font-size: 35px;
+}
+
+.signin-form {
+  margin-top: 30px;
+}
+
+.signin-form > * {
+  margin-top: 15px !important;
+}
+
+.signin-form > button {
+  margin-top: 25px !important;
+}
+
+.signin-input > div {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.social-signin-group {
+  margin: 60px auto 50px auto;
+  display: flex;
+  width: 80%;
+  justify-content: space-around;
+}
+
+.social-signin-group > button {
+  padding: 35px;
+}
+
+.signin-no-account {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
