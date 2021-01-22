@@ -179,7 +179,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <Scaffold bottomNav className="signup-page-root">
+      <Scaffold className="signup-page-root">
         <div className="signup-reallos-decoration">
           <img src={ReallosLogo} alt=""/>
         </div>
