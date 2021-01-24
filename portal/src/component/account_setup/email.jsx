@@ -10,7 +10,7 @@ import verified from "../../assets/verified.png";
 function Email() {
   return (
     <Scaffold>
-      <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
+      <ReallosModal visible="true" modalWidth="50%   " modalHeight="65%">
         <div className="container" style={container}>
           <div
             className="item1"
@@ -20,24 +20,24 @@ function Email() {
               src={cimage}
               alt="left component"
               width="300px"
-              height="400px"
-            ></img>
+              height="438px"
+            />
           </div>
 
           <div className="item2" style={item2}>
             <img
-              style={{ marginTop: "-380px", marginLeft: "380px" }}
+              style={{ marginTop: "-400px", marginLeft: "400px" }}
               src={verified}
               alt="verified logo"
               width="60px"
               height="60px"
             ></img>
 
-            <h2 style={{ marginLeft: "300px", marginTop: "-300px" }}>
+            <h2 style={{ marginLeft: "320px", marginTop: "-320px" }}>
               Email Verification
             </h2>
 
-            <p style={{ marginLeft: "275px", marginTop: "-260px" }}>
+            <p style={{ marginLeft: "275px", marginTop: "-270px" }}>
               A confirmation code has sent to your email . Please enter it to
               proceed.
             </p>
@@ -61,7 +61,7 @@ function Email() {
               ></TextField>
             </div>
 
-            <p style={{ marginLeft: "280px", marginTop: "-100px" }}>
+            <p style={{ marginLeft: "280px", marginTop: "-120px" }}>
               Did'nt get the code ?
               <a href="#" style={{ color: "blue" }}>
                 resend it
@@ -72,8 +72,8 @@ function Email() {
               style={{
                 display: "flex",
                 flexdirection: "row",
-                marginLeft: "320px",
-                marginTop: "-60px",
+                marginLeft: "360px",
+                marginTop: "-75px",
               }}
             >
               <div>
@@ -109,10 +109,11 @@ const container = {
 const item2 = {
   display: "grid",
   gridtemplaterows: "auto auto auto auto auto",
+  marginLeft: "20px",
 };
 const item3 = {
   marginLeft: "275px",
-  marginTop: "-180px",
+  marginTop: "-200px",
   display: "flex",
   flexDirection: "row",
 };
