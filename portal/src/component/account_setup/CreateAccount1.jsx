@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import ArrowRightIcon from "@material-ui/icons/ArrowForward";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import cimage from "../../assets/cimage.png";
 
@@ -13,8 +13,8 @@ function CreateAccount1() {
             <img
               src={cimage}
               alt="left component"
-              width="320px"
-              height="438px"
+              width="375px"
+              height="481px"
             ></img>
           </div>
 
@@ -28,12 +28,17 @@ function CreateAccount1() {
               style={subitem2}
               variant="outlined"
               label="Email"
-            ></TextField>
+            />
             <div style={subitem3}>
               <ReallosButton primary buttonWidth="100%" style={subitem3}>
                 Next
-                <div style={{ marginTop: "-20px", marginLeft: "6vw" }}>
-                  <ArrowForwardIcon />
+                <div
+                  style={{
+                    marginTop: "-20px",
+                    marginLeft: "5vw",
+                  }}
+                >
+                  <ArrowRightIcon />
                 </div>
               </ReallosButton>
             </div>
@@ -50,8 +55,8 @@ const container = {
 };
 
 const item1 = {
-  marginTop: "-33px",
-  marginLeft: "-45px",
+  marginTop: "-34px",
+  marginLeft: "-46px",
 };
 
 const item2 = {
@@ -61,18 +66,18 @@ const item2 = {
 
 const subitem1 = {
   marginTop: "-420px",
-  marginLeft: "300px",
+  marginLeft: "360px",
 };
 
 const subitem2 = {
   width: "275px",
   top: "-350px",
-  left: "300px",
+  left: "360px",
 };
 
 const subitem3 = {
-  marginTop: "-140px",
-  marginLeft: "300px",
+  marginTop: "-135px",
+  marginLeft: "360px",
 };
 
 export default CreateAccount1;
