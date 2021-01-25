@@ -1,0 +1,97 @@
+.documents {
+  padding: 40px 30px 20px 30px !important;
+  background: var(--color-white);
+}
+
+.documents-heading {
+  text-align: left !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 38px !important;
+  color: var(--color-dark-grey) !important;
+}
+
+.documents-subheading {
+  text-align: center !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 30px !important;
+  color: var(--color-dark) !important;
+}
+
+.documents-empty-div {
+  height: 3vh;
+}
+
+.documents-text {
+  text-align: center !important;
+  font-family: "Segoe UI", sans-serif !important;
+  font-size: 20px !important;
+  color: var(--color-dark) !important;
+}
+
+.doc-searchbar {
+  background-color: #ececec !important;
+  font-family: "Segoe UI", sans-serif !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  color: var(--color-dark) !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+}
+
+.search-icon {
+  color: var(--color-dark) !important;
+}
+
+.documents-heading-2 {
+  text-align: left !important;
+  font-family: "Gilroy Extrabold" !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  color: var(--color-dark-grey) !important;
+}
+
+.doc-divider {
+  padding: 1px 0 !important;
+  margin: 10px 0 !important;
+}
+
+.doc-card-root:hover {
+  transform: translateY(-5px);
+}
+
+.doc-card-root:hover .doc-card {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.doc-card {
+  border-radius: 10px !important;
+  cursor: pointer;
+}
+
+.doc-card-main {
+  padding: 10px 10px 0 0;
+}
+
+.doc-card-heading {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Roboto Slab";
+  font-size: 10px;
+  color: #000000;
+}
+
+.doc-card-text {
+  font-family: "Roboto Slab";
+  font-size: 8px;
+  color: #000000;
+}
+
+.doc-avtar {
+  height: 15px !important;
+  width: 15px !important;
+}

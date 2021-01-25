@@ -1,0 +1,5 @@
+.reallos-gradient-bg {
+  min-height: 100vh;
+  color: #ffffff;
+  background: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-stop));
+}

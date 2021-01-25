@@ -1,85 +1,91 @@
-html{
-    background:linear-gradient(to bottom ,#33ccff 10%,#2B44FF  90%);
-    height: 100%;
+html {
+  background: linear-gradient(#7c67e8 0%, #16b3ef 100%);
+  height: 100%;
 }
 
-#backicon{
-    margin-left: 2vh;
-    margin-top: 2vh;
-    background: transparent;
-    color: white;
+#backicon4 {
+  margin-left: -1vh;
+  margin-top: 2vh;
+  background: transparent;
+  color: white;
 }
 
-#logo{
-    margin-left: 42vw;
+#logo4 {
+  margin-left: 42vw;
 }
 
-p{
-    font-size: 1.75em;
-    color: white;
-    margin-left: 38vw;
+#p4 {
+  font-size: 1.75em;
+  color: white;
+  margin-left: 38vw;
 }
 
-#b1{
-    width: 25vw;
-    height: 5vh;
-    margin-left: 38vw;
-    margin-top: 18vh;
+#b1 {
+  width: 25vw;
+  height: 5vh;
+  margin-left: 38vw;
+  margin-top: 18vh;
+  border-radius: 10px 10px 10px 10px;
+  background: white;
+  color: blue;
 }
 
-#b2{
-    width: 25vw;
-    height: 5vh;
-    margin-left: 38vw;
-    margin-top: 5vh;
-
+#b2 {
+  width: 25vw;
+  height: 5vh;
+  margin-left: 38vw;
+  margin-top: 5vh;
+  border: 2px solid white;
+  border-radius: 10px 10px 10px 10px;
+  background: transparent;
+  color: white;
 }
 
 /* medai query for responsive designs */
 
 /* for phones  */
 
-@media only screen and (max-width:600px){
-    html{
-      width: 100%;
-      height: 100%;
-    }
-
-    #logo{
-        margin-left: 30vw;
-    }
-    p{
-      font-size: 1.25em;
-      margin-left: 25vw;
-    }
-  
-    #b1,#b2{
-      width: 50vw;
-      margin-left: 25vw;
-    }
+@media only screen and (max-width: 600px) {
+  html {
+    width: 100%;
+    height: 100%;
   }
-  
-  /* for i-pads and tablets */
-  
-  @media only screen and (min-width:600px) and (max-width:768px){
-  
-    html{
-      width: 100%;
-      height: 100%;
-    }
 
-    #logo{
-        margin-left: 30vw;
-    }
-    
-    p{
-      font-size: 2em;
-      margin-left: 25vw;
-    }
-    
-    #b1,#b2{
-        width: 45vw;
-        margin-left: 25vw;
-    }
-  
+  #logo4 {
+    margin-left: 20vw;
   }
+  #p4 {
+    font-size: 1.25em;
+    margin-left: 15vw;
+  }
+
+  #b1,
+  #b2 {
+    width: 60%;
+    margin-left: 15vw;
+  }
+}
+
+/* for i-pads and tablets */
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  #logo4 {
+    margin-left: 30vw;
+  }
+
+  #p4 {
+    font-size: 2em;
+    margin-left: 25vw;
+  }
+
+  #b1,
+  #b2 {
+    width: 45vw;
+    margin-left: 25vw;
+  }
+}
