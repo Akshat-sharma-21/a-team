@@ -1,13 +1,10 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ReallosModal from "../utilities/modal/modal";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
-import Scaffold from "../utilities/scaffold/Scaffold";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import cimage from "../../assets/cimage.png";
 import verified from "../../assets/verified.png";
 
-function Email() {
+function EmailVerification() {
   return (
     <Scaffold>
       <ReallosModal visible="true" modalWidth="50%   " modalHeight="65%">
@@ -118,4 +115,4 @@ const item3 = {
   flexDirection: "row",
 };
 
-export default Email;
+export default EmailVerification;

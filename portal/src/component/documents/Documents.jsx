@@ -1,9 +1,5 @@
 import React from "react";
 import DocUploadModal from "./uploader/DocUploadModal";
-import Scaffold from "../utilities/scaffold/Scaffold";
-import Modal, { ModalActionFooter } from "../utilities/modal/modal";
-import SearchBar from "../utilities/searchbar/SearchBar";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import UserAvatar from "../../assets/user.png";
 import PdfLogo from "../../assets/pdf_icon_duotone.svg";
 import { ReactComponent as StampIcon } from "../../assets/stamp_icon.svg";
@@ -11,6 +7,15 @@ import NoDocument from "../../assets/no-document-image.png";
 import CardThumbnail from "./CardThumbnail";
 import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
+
+import {
+  ReallosModal,
+  ModalActionFooter,
+  ReallosButton,
+  Scaffold,
+  SearchBar
+} from "../utilities/core";
+
 import {
   getTransactionID,
   getEffectiveDocumentName,
@@ -438,7 +443,7 @@ class Documents extends React.Component {
             </MenuItem>
           </Menu>
 
-          <Modal
+          <ReallosModal
             title="Can't Upload"
             visible={this.state.isDocumentExistsModalVisible}
             dismissCallback={() =>
@@ -480,7 +485,7 @@ class Documents extends React.Component {
                 Close
               </ReallosButton>
             </ModalActionFooter>
-          </Modal>
+          </ReallosModal>
         </Grid>
       );
     }

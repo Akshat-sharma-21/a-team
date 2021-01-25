@@ -1,9 +1,10 @@
-import "./transactionAssist.css";
+import { useState } from "react";
 import transactionImg from "../../assets/transaction-assist-first-time.png";
-import Modal from "../utilities/modal/modal";
+import { ReallosModal, Scaffold } from "../utilities/core";
 import doc from "./doc.png";
+import "./TransactionAssist.css";
+
 import {
-  Container,
   Grid,
   Typography,
   Button,
@@ -16,6 +17,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
+
 import {
   DotFillIcon,
   TriangleDownIcon,
@@ -24,8 +26,6 @@ import {
   CheckCircleIcon,
   CheckIcon,
 } from "@primer/octicons-react";
-import { useState } from "react";
-import Scaffold from "../utilities/scaffold/Scaffold";
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
@@ -39,7 +39,7 @@ function TransactionAssist(props) {
   function firstTimeModal() {
     // function to display the first time modal
     return (
-      <Modal
+      <ReallosModal
         visible={modalVisibile ? true : false}
         modalWidth={750}
         modalHeight={500}
@@ -82,7 +82,7 @@ function TransactionAssist(props) {
             </Button>
           </Grid>
         </Grid>
-      </Modal>
+      </ReallosModal>
     );
   }
 
