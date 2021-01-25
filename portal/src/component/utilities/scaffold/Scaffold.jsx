@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from '@material-ui/core';
-import NavBar from '../../navbar/navbar';
-import NavRail from '../../navigation_rail/NavRail';
+import NavBar from '../../navbar/Navbar';
+import NavRail from '../../navrail/NavRail';
 import './Scaffold.css';
 
 /**

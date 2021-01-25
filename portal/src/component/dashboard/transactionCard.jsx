@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import "./transactionCard.css";
 import moment from "moment";
+import "./TransactionCard.css";
+
 import {
   VersionsIcon,
   OrganizationIcon,
   PersonIcon,
 } from "@primer/octicons-react";
+
 import {
   Grid,
   Box,

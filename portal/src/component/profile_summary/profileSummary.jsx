@@ -1,8 +1,10 @@
-import "./profileSummary.css";
+import GraphImage from "../../assets/summary_graph.png";
+import { ReallosButton, Scaffold } from "../utilities/core";
+import "./ProfileSummary.css";
+
 import {
   Box,
   Card,
-  Container,
   Grid,
   Typography,
   Divider,
@@ -13,16 +15,13 @@ import {
   CardActions,
   Button,
 } from "@material-ui/core";
+
 import {
   ArrowLeftIcon,
   ChevronDownIcon,
   IssueClosedIcon,
   IssueOpenedIcon,
 } from "@primer/octicons-react";
-import Navbar from "../navbar/navbar";
-import GraphImage from "../../assets/summary_graph.png";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
-import Scaffold from "../utilities/scaffold/Scaffold";
 
 function ProfileSummary(props) {
   return (

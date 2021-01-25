@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes, { object, string } from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import { isEqual } from 'lodash';
 import { OutlinedInput, FormControl, InputAdornment} from '@material-ui/core';
 import { SearchIcon } from '@primer/octicons-react';
-import './searchbar.css';
+import './SearchBar.css';
 
 /**
  * Renders a search bar.

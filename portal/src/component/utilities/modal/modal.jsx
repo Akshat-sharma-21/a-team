@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { XIcon } from "@primer/octicons-react";
-import "./modal.css";
+import "./Modal.css";
 
 /**
  * Display a modal

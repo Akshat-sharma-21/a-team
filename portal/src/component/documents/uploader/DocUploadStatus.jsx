@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 import { createUseStyles } from "react-jss";
-import ReallosButton from "../../utilities/reallos_button/ReallosButton";
+import { ReallosButton } from "../../utilities/core";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import PauseIcon from "../../../assets/pause-icon.svg";
 import { CheckIcon, UploadIcon } from "@primer/octicons-react";

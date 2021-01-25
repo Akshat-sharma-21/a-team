@@ -1,6 +1,8 @@
-import "./peopleInvolved.css";
+import { useState } from "react";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
+import "./PeopleInvolved.css";
+
 import {
-  Container,
   Grid,
   Box,
   FormControl,
@@ -13,10 +15,7 @@ import {
   Button,
   GridListTile,
 } from "@material-ui/core";
-import Navbar from "../navbar/navbar";
-import Modal from "../utilities/modal/modal";
-import NavRail from "../navigation_rail/NavRail";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
+
 import {
   PackageIcon,
   SearchIcon,
@@ -25,8 +24,6 @@ import {
   DotFillIcon,
   PaperAirplaneIcon,
 } from "@primer/octicons-react";
-import { useState } from "react";
-import Scaffold from "../utilities/scaffold/Scaffold";
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -171,7 +168,7 @@ function PeopleInvolved(props) {
 
   return (
     <Scaffold navBar navRail>
-      <Modal
+      <ReallosModal
         title="Send Mail"
         modalWidth={600}
         visible={modalVisible}
@@ -205,7 +202,7 @@ function PeopleInvolved(props) {
             </ReallosButton>
           </Grid>
         </Grid>
-      </Modal>
+      </ReallosModal>
 
       <Box component="div" paddingTop={5} paddingBottom={1}>
         <Grid

@@ -1,12 +1,9 @@
 import React from "react";
-import { TextField, Button } from "@material-ui/core";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ReallosModal from "../utilities/modal/modal";
-import Scaffold from "../utilities/scaffold/Scaffold";
+import { TextField } from "@material-ui/core";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import cimage from "../../assets/cimage.png";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
 
-function Create_Account2() {
+function CreateAccount2() {
   return (
     <Scaffold>
       <ReallosModal visible="true" modalWidth="50%" modalHeight="65%">
@@ -96,4 +93,4 @@ const subitem3 = {
   left: "300px",
 };
 
-export default Create_Account2;
+export default CreateAccount2;

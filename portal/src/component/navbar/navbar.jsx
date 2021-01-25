@@ -13,7 +13,7 @@ import {
 import { BellIcon, GraphIcon } from "@primer/octicons-react";
 import UserProfilePopup from '../account_setup/UserProfilePopup';
 import UserProfileEditDrawer from '../account_setup/UserProfileEditDrawer';
-import "./navbar.css";
+import "./Navbar.css";
 
 function Navbar(props) {
   let [isUserProfileEditDrawerVisible, setUserProfileEditDrawerVisibility] = useState(false);

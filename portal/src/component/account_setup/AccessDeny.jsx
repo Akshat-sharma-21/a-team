@@ -4,7 +4,7 @@ import ReallosModal from "./modal";
 import cimage from "../../assets/cimage.png";
 import deny from "../../assets/deny.png";
 
-function Access_deny() {
+function AccessDeny() {
   return (
     <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
       <div className="container" style={container}>
@@ -70,4 +70,4 @@ const item2 = {
   gridtemplaterows: "auto auto auto",
 };
 
-export default Access_deny;
+export default AccessDeny;

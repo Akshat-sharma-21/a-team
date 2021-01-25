@@ -1,19 +1,18 @@
 import { useState } from "react";
-import "./dashboard.css";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
+import TransactionCard from "./TransactionCard";
+import dashboardImg from "../../assets/dashboard-empty.png";
+import "./Dashboard.css";
+
 import {
   Box,
   Button,
-  Container,
   Grid,
   Typography,
   TextField,
   Divider,
 } from "@material-ui/core";
-import Modal from "../utilities/modal/modal";
-import TransactionCard from "./transactionCard";
-import Navbar from "../navbar/navbar";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
-import dashboardImg from "../../assets/dashboard-empty.png";
+
 import {
   PlusIcon,
   MailIcon,
@@ -21,7 +20,6 @@ import {
   InfoIcon,
   PaperAirplaneIcon,
 } from "@primer/octicons-react";
-import Scaffold from "../utilities/scaffold/Scaffold";
 
 function Dashboard(props) {
   const [invite, setInvitation] = useState(false);
@@ -39,7 +37,7 @@ function Dashboard(props) {
   function inviteModal() {
     // function to display the invitation modal
     return (
-      <Modal
+      <ReallosModal
         visible={invite ? true : false}
         dismissCallback={closeInvitation}
         modalWidth={780}
@@ -167,7 +165,7 @@ function Dashboard(props) {
             </Grid>
           </Grid>
         </Grid>
-      </Modal>
+      </ReallosModal>
     );
   } // first time modal done
 
