@@ -10,7 +10,7 @@ import verified from "../../assets/verified.png";
 function Email() {
   return (
     <Scaffold>
-      <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
+      <ReallosModal visible="true" modalWidth="50%" modalHeight="65%">
         <div className="container" style={container}>
           <div
             className="item1"
@@ -19,21 +19,21 @@ function Email() {
             <img
               src={cimage}
               alt="left component"
-              width="300px"
-              height="400px"
+              width="320px"
+              height="438px"
             ></img>
           </div>
 
           <div className="item2" style={item2}>
             <img
-              style={{ marginTop: "-390px", marginLeft: "380px" }}
+              style={{ marginTop: "-400px", marginLeft: "400px" }}
               src={verified}
               alt="verified logo"
               width="60px"
               height="60px"
             ></img>
 
-            <h2 style={{ marginLeft: "300px", marginTop: "-315px" }}>
+            <h2 style={{ marginLeft: "320px", marginTop: "-320px" }}>
               Phone Verification
             </h2>
 
@@ -46,7 +46,7 @@ function Email() {
               className="item3"
               style={{
                 marginLeft: "275px",
-                marginTop: "-185px",
+                marginTop: "-200px",
                 display: "flex",
                 flexDirection: "row",
               }}
@@ -69,7 +69,7 @@ function Email() {
               ></TextField>
             </div>
 
-            <p style={{ marginLeft: "280px", marginTop: "-115px" }}>
+            <p style={{ marginLeft: "280px", marginTop: "-120px" }}>
               Did'nt get the code ?
               <a href="#" style={{ color: "blue" }}>
                 resend it
@@ -80,8 +80,8 @@ function Email() {
               style={{
                 display: "flex",
                 flexdirection: "row",
-                marginLeft: "330px",
-                marginTop: "-60px",
+                marginLeft: "360px",
+                marginTop: "-75px",
               }}
             >
               <div>
@@ -117,6 +117,7 @@ const container = {
 const item2 = {
   display: "grid",
   gridtemplaterows: "auto auto auto auto auto",
+  marginLeft: "20px",
 };
 
 export default Email;

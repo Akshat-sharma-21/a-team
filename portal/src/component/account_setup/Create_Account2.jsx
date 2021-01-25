@@ -9,21 +9,21 @@ import ReallosButton from "../utilities/reallos_button/ReallosButton";
 function Create_Account2() {
   return (
     <Scaffold>
-      <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
+      <ReallosModal visible="true" modalWidth="50%" modalHeight="65%">
         <div className="container" style={container}>
           <div className="item1" style={item1}>
             <img
               src={cimage}
               alt="left component"
-              width="300px"
-              height="400px"
+              width="320px"
+              height="438px"
             ></img>
           </div>
 
           <div className="item2" style={item2}>
             <h1
               className="subitem1"
-              style={{ marginTop: "-380px", marginLeft: "280px" }}
+              style={{ marginTop: "-420px", marginLeft: "300px" }}
             >
               Account Setup
             </h1>
@@ -49,7 +49,7 @@ function Create_Account2() {
                 marginTop: "-80px",
               }}
             >
-              <div>
+              <div style={{ marginLeft: "50px" }}>
                 <ReallosButton>BACK</ReallosButton>
               </div>
 
@@ -85,15 +85,15 @@ const item2 = {
 const subitem2 = {
   width: "275px",
   height: "10px",
-  top: "-300px",
-  left: "275px",
+  top: "-350px",
+  left: "300px",
 };
 
 const subitem3 = {
   width: "275px",
   height: "10px",
-  top: "-240px",
-  left: "275px",
+  top: "-280px",
+  left: "300px",
 };
 
 export default Create_Account2;

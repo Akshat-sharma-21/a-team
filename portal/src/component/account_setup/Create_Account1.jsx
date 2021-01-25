@@ -9,14 +9,14 @@ import cimage from "../../assets/cimage.png";
 function Create_Account1() {
   return (
     <Scaffold>
-      <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
+      <ReallosModal visible="true" modalWidth="50%" modalHeight="65%">
         <div className="container" style={container}>
           <div className="item1" style={item1}>
             <img
               src={cimage}
               alt="left component"
-              width="300px"
-              height="400px"
+              width="320px"
+              height="438px"
             ></img>
           </div>
 
@@ -32,9 +32,11 @@ function Create_Account1() {
               label="Email"
             ></TextField>
             <div style={subitem3}>
-              <ReallosButton primary buttonWidth="105%" style={subitem3}>
+              <ReallosButton primary buttonWidth="100%" style={subitem3}>
                 Next
-                <ArrowForwardIcon style={{ marginLeft: "10px" }} />
+                <div style={{ marginTop: "-20px", marginLeft: "6vw" }}>
+                  <ArrowForwardIcon />
+                </div>
               </ReallosButton>
             </div>
           </div>
@@ -60,19 +62,19 @@ const item2 = {
 };
 
 const subitem1 = {
-  marginTop: "-380px",
-  marginLeft: "270px",
+  marginTop: "-420px",
+  marginLeft: "300px",
 };
 
 const subitem2 = {
   width: "275px",
-  top: "-300px",
-  left: "270px",
+  top: "-350px",
+  left: "300px",
 };
 
 const subitem3 = {
   marginTop: "-140px",
-  marginLeft: "270px",
+  marginLeft: "300px",
 };
 
 export default Create_Account1;
