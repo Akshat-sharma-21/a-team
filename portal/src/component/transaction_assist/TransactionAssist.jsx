@@ -45,11 +45,11 @@ function TransactionAssist(props) {
         modalHeight={500}
         dismissCallback={closeModal}
       >
-        <Grid container direction="column">
-          <Grid item>
+        <Grid container direction="column" justify="center">
+          <Grid item xs={12} style={{textAlign: "center"}}>
             <img src={transactionImg} alt="" style={{ height: 290 }} />
           </Grid>
-          <Grid item>
+          <Grid item xs={12} style={{textAlign: "center"}}>
             <Typography
               style={{
                 fontSize: 25,
@@ -61,7 +61,7 @@ function TransactionAssist(props) {
               Transaction Tracker
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} style={{textAlign: "center"}}>
             <Typography
               style={{
                 fontSize: 18,
@@ -72,7 +72,7 @@ function TransactionAssist(props) {
               Exactly know the progress of your client's Transaction!
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} style={{textAlign: "center"}}>
             <Button
               variant="contained"
               className="continue-button"
