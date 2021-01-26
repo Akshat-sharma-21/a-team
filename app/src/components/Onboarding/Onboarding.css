@@ -84,14 +84,14 @@
   font-size: 15px !important;
   position: absolute !important;
   bottom: 35px !important;
-  width: 88% !important;
+  width: 83% !important;
   margin: 0 20px 0 0 !important;
 }
 
 .stepper {
   position: absolute !important;
   bottom: 140px !important;
-  left: 42% !important;
+  left: 40% !important;
 }
 
 .MuiMobileStepper-dotActive {
