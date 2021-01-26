@@ -1,24 +1,27 @@
-.Stepper {
-  position: relative;
-}
-
-.Stepper__step {
-  position: relative;
+.step-container {
   display: table-cell;
   text-align: center;
   padding: 0.5rem;
 }
 
-.Stepper__info {
-  position: relative;
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
+.step {
+  margin: 0.2rem;
+  width: 0.6rem;
+  height: 0.6rem;
   border-radius: 50%;
-  background-color: #e3e8ec;
-  font-size: 1.25rem;
-  line-height: 2.5rem;
-  text-align: center;
-  color: #fff;
-  z-index: 2;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.dot-stepper-white {
+  background-color: #ffffff;
+}
+
+.dot-stepper-blue {
+  background-color: #2855ff;
+}
+
+.active {
+  width: 0.9rem !important;
+  height: 0.9rem !important;
 }

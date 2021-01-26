@@ -4,7 +4,6 @@ import {
   Grid,
   IconButton,
   MobileStepper,
-  makeStyles,
   Button,
 } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
@@ -14,6 +13,7 @@ import Logo2 from "../../assets/Onboarding_logo_2.png";
 import Logo3 from "../../assets/Onboarding_logo_3.png";
 import Logo4 from "../../assets/Onboarding_logo_4.png";
 import "./Onboarding.css";
+import DotStepper from "../utilities/DotStepper/DotStepper";
 
 function Screen1({ page, increment }) {
   // Code for screen 1
@@ -44,12 +44,11 @@ function Screen1({ page, increment }) {
         </Grid>
       </Grid>
 
-      <MobileStepper
-        variant="dots"
+      <DotStepper
+        variant="blue"
         steps={4}
-        position="static"
         activeStep={page}
-        className={"stepper"}
+        className="stepper"
       />
 
       <IconButton

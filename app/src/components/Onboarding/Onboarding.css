@@ -84,11 +84,11 @@
   font-size: 15px !important;
   position: absolute !important;
   bottom: 35px !important;
-  width: 85% !important;
+  width: 88% !important;
+  margin: 0 20px 0 0 !important;
 }
 
 .stepper {
-  background-color: rgba(0, 0, 0, 0) !important;
   position: absolute !important;
   bottom: 140px !important;
   left: 42% !important;
