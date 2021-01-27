@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RenderCard(items) {
-  const [progress, setProgress] = useState(10);
+  const [progress, setProgress] = useState(40);
   const classes = useStyles();
   // mapping the transactions
   return (
@@ -91,7 +91,7 @@ function RenderCard(items) {
                             disableShrink
                             size={110}
                             thickness={7}
-                            value={100}
+                            value={progress}
                             classes={{ circle: classes.circle }}
                           />
                         </div>
@@ -165,7 +165,7 @@ function RenderCard(items) {
                         <tr>
                           <td
                             style={{
-                              paddingBottom: "4.5px",
+                              paddingBottom: "4px",
                               paddingRight: "24px",
                             }}
                           >
@@ -188,7 +188,7 @@ function RenderCard(items) {
                         <tr>
                           <td
                             style={{
-                              paddingBottom: "4.5px",
+                              paddingBottom: "4px",
                               paddingRight: "18px",
                             }}
                           >
@@ -214,7 +214,7 @@ function RenderCard(items) {
                         <tr>
                           <td
                             style={{
-                              paddingBottom: "4.5px",
+                              paddingBottom: "4px",
                               paddingRight: "24px",
                             }}
                           >
