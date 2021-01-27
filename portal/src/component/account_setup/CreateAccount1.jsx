@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import ArrowRightIcon from "@material-ui/icons/ArrowForward";
+import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import cimage from "../../assets/cimage.png";
 

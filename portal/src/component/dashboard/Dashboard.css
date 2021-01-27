@@ -64,3 +64,13 @@ body {
 .invite-send-icon {
   margin-bottom: 1px;
 }
+
+.dashboard-search-bar {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 8px !important;
+}
+
+.dashboard-search-icon {
+  align-self: center !important;
+  fill: rgba(0, 0, 0, 0.5);
+}
