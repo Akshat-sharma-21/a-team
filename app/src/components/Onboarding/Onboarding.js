@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Grid,
-  IconButton,
-  MobileStepper,
-  makeStyles,
-  Button,
-} from "@material-ui/core";
+import { Container, Grid, IconButton, Button } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import RedHeart from "../../assets/Red_heart.png";
 import Logo1 from "../../assets/Onboarding_logo_1.png";
@@ -14,6 +7,7 @@ import Logo2 from "../../assets/Onboarding_logo_2.png";
 import Logo3 from "../../assets/Onboarding_logo_3.png";
 import Logo4 from "../../assets/Onboarding_logo_4.png";
 import "./Onboarding.css";
+import DotStepper from "./DotStepper";
 
 function Screen1({ page, increment }) {
   // Code for screen 1
@@ -44,13 +38,9 @@ function Screen1({ page, increment }) {
         </Grid>
       </Grid>
 
-      <MobileStepper
-        variant="dots"
-        steps={4}
-        position="static"
-        activeStep={page}
-        className={"stepper"}
-      />
+      <div className="stepper">
+        <DotStepper variant="white" steps={4} activeStep={page} />
+      </div>
 
       <IconButton
         className="onboarding-next-btn"
@@ -90,13 +80,9 @@ function Screen2({ page, increment }) {
         </Grid>
       </Grid>
 
-      <MobileStepper
-        variant="dots"
-        steps={4}
-        position="static"
-        activeStep={page}
-        className={"stepper"}
-      />
+      <div className="stepper">
+        <DotStepper variant="blue" steps={4} activeStep={page} />
+      </div>
 
       <IconButton
         className="onboarding-next-btn-blue"
@@ -135,13 +121,9 @@ function Screen3({ page, increment }) {
         </Grid>
       </Grid>
 
-      <MobileStepper
-        variant="dots"
-        steps={4}
-        position="static"
-        activeStep={page}
-        className={"stepper"}
-      />
+      <div className="stepper">
+        <DotStepper variant="white" steps={4} activeStep={page} />
+      </div>
 
       <IconButton
         className="onboarding-next-btn"
@@ -181,13 +163,9 @@ function Screen4({ page }) {
         </Grid>
       </Grid>
 
-      <MobileStepper
-        variant="dots"
-        steps={4}
-        position="static"
-        activeStep={page}
-        className={"stepper"}
-      />
+      <div className="stepper">
+        <DotStepper variant="blue" steps={4} activeStep={page} />
+      </div>
 
       <Button className="onboarding-lets-go-btn">Let's Go!</Button>
     </Container>

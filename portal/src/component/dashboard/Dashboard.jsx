@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import TransactionCard from "./TransactionCard";
 import dashboardImg from "../../assets/dashboard-empty.png";
 import "./Dashboard.css";
+import { ReallosModal, ReallosButton, Scaffold, SearchBar } from "../utilities/core";
 
 import {
   Box,
@@ -11,6 +11,9 @@ import {
   Typography,
   TextField,
   Divider,
+  InputAdornment,
+  OutlinedInput,
+  FormControl,
 } from "@material-ui/core";
 
 import {
@@ -19,6 +22,7 @@ import {
   DeviceMobileIcon,
   InfoIcon,
   PaperAirplaneIcon,
+  SearchIcon,
 } from "@primer/octicons-react";
 
 function Dashboard(props) {
@@ -154,7 +158,7 @@ function Dashboard(props) {
           <Grid item style={{ marginTop: 35 }}>
             <Grid container direction="row" justify="flex-end" spacing={2}>
               <Grid item>
-                <ReallosButton>Cancel</ReallosButton>
+                <ReallosButton onClick={closeInvitation}>Cancel</ReallosButton>
               </Grid>
               <Grid item>
                 <ReallosButton primary>
@@ -169,7 +173,7 @@ function Dashboard(props) {
     );
   } // first time modal done
 
-  if (true) {
+  if (false) {
     // from the database
     return (
       <Scaffold navBar>
@@ -225,7 +229,58 @@ function Dashboard(props) {
       </Scaffold>
     );
   } else {
-    return <TransactionCard />;
+    return (
+      <Scaffold navBar>
+        <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+          <Grid item xs={12}>
+            <Grid container alignItems="flex-start">
+              <Box
+                className="dashboard-heading"
+                paddingTop={6}
+                paddingLeft={3}
+                paddingBottom={3}
+              >
+                My Transactions
+              </Box>
+            </Grid>
+          </Grid>
+
+          <Grid  item xs={12}style={{paddingBottom: 20,paddingTop: 5,}}>
+            <FormControl fullWidth variant="outlined">
+              <OutlinedInput
+                className="dashboard-search-bar"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <div style={{
+                      paddingRight: 10,
+                      paddingLeft: 10
+                    }}>
+                      <SearchIcon className="dashboard-search-icon" size={18} />
+                    </div>
+                  </InputAdornment>
+                }
+                placeholder="Search"
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <TransactionCard />
+          </Grid>
+          <Grid item xs={6}>
+            <TransactionCard />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TransactionCard />
+          </Grid>
+          <Grid item xs={6}>
+            <TransactionCard />
+          </Grid>
+
+        </Grid>
+      </Scaffold>
+      );
   }
 }
 
