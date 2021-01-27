@@ -26,7 +26,7 @@ class ReallosModal extends React.Component {
 
     /**
      * Title to be displayed for the Modal. Will be ignored
-     * if `bootstrapModal` is set to `false`
+     * if `rawModal` is set to `true`
      */
     title: PropTypes.string.isRequired,
 
