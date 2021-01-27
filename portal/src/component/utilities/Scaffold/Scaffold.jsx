@@ -35,6 +35,11 @@ import './Scaffold.css';
 class Scaffold extends React.Component {
     static propTypes = {
         /**
+         * CSS class name to be applied to this component
+         */
+        className: PropTypes.string,
+
+        /**
          * If set to `true`, the page would include
          * a navigation bar.
          */
@@ -52,11 +57,11 @@ class Scaffold extends React.Component {
     }
 
     render() {
-        let { children, navBar=false, navRail=false } = this.props;
+        let { children, className='', navBar=false, navRail=false } = this.props;
         let navRailClassName = navRail ? 'scaffold-navrail' : '';
 
         return (
-            <div className={`scaffold-root ${navRailClassName}`}>
+            <div className={`scaffold-root ${navRailClassName} ${className}`}>
                 <Container>
                     {(navBar) ? <NavBar /> : this._noop()}
                     {(navRail) ? <NavRail /> : this._noop()}

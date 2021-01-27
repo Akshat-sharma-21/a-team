@@ -21,6 +21,7 @@
 
 a,
 .link {
+  color: var(--color-primary);
   text-decoration: none;
   transition: opacity 150ms ease-in;
 }
@@ -33,10 +34,6 @@ a:hover,
 a:active,
 .link:active {
   opacity: 0.8;
-}
-
-.link {
-  color: #61dafb;
 }
 
 .reallos-fab {
@@ -96,6 +93,30 @@ a:active,
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slide-from-left-anim {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-from-right-anim {
+  0% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
