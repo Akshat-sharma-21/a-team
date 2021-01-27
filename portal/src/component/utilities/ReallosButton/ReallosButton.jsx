@@ -71,6 +71,16 @@ class ReallosButton extends React.Component {
         cta: PropTypes.bool,
 
         /**
+         * If set to `true`, the button will take up the
+         * full available width of the parent component.
+         * 
+         * NOTE: Overrides `buttonWidth` prop.
+         * 
+         * _(Default: `false`)_
+         */
+        fullWidth: PropTypes.bool,
+
+        /**
          * Set the width of button.
          * _(Default: `auto`)_
          */
@@ -85,6 +95,7 @@ class ReallosButton extends React.Component {
     render() {
         let {
             children,
+            fullWidth=false,
             primary,
             disabled,
             cta,
@@ -93,7 +104,7 @@ class ReallosButton extends React.Component {
         } = this.props;
 
         let buttonCTAClassName = (cta) ? 'reallos-button-cta' : '';
-        let buttonClassName = (primary || cta)
+        let buttonClassName = (primary)
                                 ? 'reallos-button-primary'
                                 : 'reallos-button-secondary';
 
@@ -102,7 +113,7 @@ class ReallosButton extends React.Component {
                 onClick={onClick}
                 disabled={disabled}
                 className={`reallos-button ${buttonClassName} ${buttonCTAClassName}`}
-                style={{ width: buttonWidth }}
+                style={{ width: fullWidth ? '100%' : buttonWidth }}
             >
                 {children}
             </button>

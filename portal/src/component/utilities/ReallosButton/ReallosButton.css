@@ -13,7 +13,8 @@
     transition: all 150ms ease;
 }
 
-.reallos-button:not([disabled]):hover {
+.reallos-button:not([disabled]):hover,
+.reallos-button:not([disabled]):focus {
     transform: scale(1.04);
 }
 
@@ -39,6 +40,7 @@
 .reallos-button-secondary {
     z-index: 0;
     display: flex;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
     background-clip: padding-box;
