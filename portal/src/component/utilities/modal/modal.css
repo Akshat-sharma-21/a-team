@@ -47,12 +47,8 @@
   box-shadow: #0000000d 0 6px 6px;
 }
 
-.modal-container {
+.modal-basic .modal-container {
   margin: 30px 40px;
-}
-
-.modal-container a {
-  color: #3f88c5;
 }
 
 .modal-heading {

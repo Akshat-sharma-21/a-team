@@ -11,7 +11,22 @@ import "./Modal.css";
 class ReallosModal extends React.Component {
   static propTypes = {
     /**
-     * Title to be displayed for the Modal
+     * CSS class name to be applied to this component
+     */
+    className: PropTypes.string,
+
+    /**
+     * If set to `true`, a raw modal will be returned, i.e.,
+     * the styling and default elements (like `title`)
+     * will not be set by default.
+     *
+     * _(Default: `false`)_
+     */
+    rawModal: PropTypes.bool,
+
+    /**
+     * Title to be displayed for the Modal. Will be ignored
+     * if `bootstrapModal` is set to `false`
      */
     title: PropTypes.string.isRequired,
 
@@ -56,41 +71,44 @@ class ReallosModal extends React.Component {
 
   render() {
     let {
+      className='',
+      rawModal=false,
       title,
       visible,
       dismissCallback,
       modalWidth,
       modalHeight,
-      disableBackdropBlur = false,
+      disableBackdropBlur=false,
       children,
     } = this.props;
+
+    let modalTemplateClassName = !rawModal ? 'modal-basic' : '';
+    let modalDisableBackdropBlurClassName = disableBackdropBlur ? 'modal-no-bg-blur' : '';
 
     return (
       <>
         <div
-          className={`modal-bg ${
-            disableBackdropBlur ? "modal-no-bg-blur" : ""
-          }`}
+          className={[
+            'modal-bg',
+            modalDisableBackdropBlurClassName,
+            modalTemplateClassName
+          ].join(' ')}
           visible={visible.toString()}
           aria-modal="true"
         >
           <div
-            className="modal"
+            className={`modal ${className}`}
             style={{ width: modalWidth, height: modalHeight }}
           >
             <div className="modal-container">
-              {dismissCallback ? (
+              {dismissCallback && (
                 <div className="modal-close-btn">
                   <IconButton onClick={dismissCallback}>
                     <XIcon size="small" />
                   </IconButton>
                 </div>
-              ) : (
-                <></>
               )}
-
-              <h1 className="modal-heading">{title}</h1>
-
+              {!rawModal && <h1 className="modal-heading">{title}</h1>}
               {children}
             </div>
           </div>
