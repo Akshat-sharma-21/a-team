@@ -1,14 +1,3 @@
-.continue-button {
-  background-image: linear-gradient(270deg, #16b3ef, #7d67e8);
-  color: white !important;
-  margin-top: 20px !important;
-  padding: 7.5px 60px !important;
-  font-size: 15px !important;
-  font-family: "Gilroy" !important;
-  text-transform: none !important;
-  border-radius: 7.5px !important;
-}
-
 .transaction-heading {
   font-family: "Roboto Slab";
   font-weight: lighter;
@@ -41,18 +30,6 @@
   margin: 0;
   font-size: 1.4rem;
   font-family: "Roboto", sans-serif;
-}
-
-.heading .custom-btn {
-  border: none;
-  font-size: 0.65rem;
-  padding: 0.5rem 0.6rem;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-family: "Roboto", sans-serif;
-  background: rgb(182, 143, 255);
-  background: -webkit-linear-gradient(right, #16b2ee, #716ee8);
 }
 
 .heading .track {

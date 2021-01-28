@@ -1,6 +1,11 @@
 import { useState } from "react";
 import transactionImg from "../../assets/transaction-assist-first-time.png";
-import { ReallosModal, Scaffold } from "../utilities/core";
+import {
+  ReallosModal,
+  Scaffold,
+  ReallosButton,
+  SideDrawer,
+} from "../utilities/core";
 import doc from "./doc.png";
 import "./TransactionAssist.css";
 
@@ -29,12 +34,33 @@ import {
 
 function TransactionAssist(props) {
   const [modalVisibile, setModal] = useState(true);
+  const [drawerVisible, setDrawer] = useState(false);
   let [taskList, setTaskList] = useState([
     { name: "Task1", date: "10 July", completed: true },
     { name: "Task2", date: "11 July", completed: true },
     { name: "Task3", date: "12 July", completed: false },
     { name: "Task4", date: "13 July", completed: false },
   ]);
+
+  function addTaskDrawer() {
+    // fucntion to display the add task drawer
+    return (
+      <SideDrawer
+        visible={drawerVisible}
+        side={"right"}
+        dismissCallback={closeDrawer}
+        title="Add a Task"
+      ></SideDrawer>
+    );
+  }
+
+  function openDrawer() {
+    setDrawer(true);
+  }
+
+  function closeDrawer() {
+    setDrawer(false);
+  }
 
   function firstTimeModal() {
     // function to display the first time modal
@@ -46,10 +72,10 @@ function TransactionAssist(props) {
         dismissCallback={closeModal}
       >
         <Grid container direction="column" justify="center">
-          <Grid item xs={12} style={{textAlign: "center"}}>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
             <img src={transactionImg} alt="" style={{ height: 290 }} />
           </Grid>
-          <Grid item xs={12} style={{textAlign: "center"}}>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
             <Typography
               style={{
                 fontSize: 25,
@@ -61,7 +87,7 @@ function TransactionAssist(props) {
               Transaction Tracker
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{textAlign: "center"}}>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
             <Typography
               style={{
                 fontSize: 18,
@@ -72,14 +98,10 @@ function TransactionAssist(props) {
               Exactly know the progress of your client's Transaction!
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{textAlign: "center"}}>
-            <Button
-              variant="contained"
-              className="continue-button"
-              onClick={closeModal}
-            >
+          <Grid item xs={12} style={{ textAlign: "center", paddingTop: "4%" }}>
+            <ReallosButton primary buttonWidth={"32%"} onClick={closeModal}>
               Continue
-            </Button>
+            </ReallosButton>
           </Grid>
         </Grid>
       </ReallosModal>
@@ -128,7 +150,11 @@ function TransactionAssist(props) {
                   <div className="heading">
                     <h1 className="title">Tasks</h1>
                     <h6 className="track">2 of 7 tasks completed</h6>
-                    <button className="custom-btn">Add new task</button>
+                    <div style={{}}>
+                      <ReallosButton primary onClick={openDrawer}>
+                        Add New Task
+                      </ReallosButton>
+                    </div>
                   </div>
 
                   {taskList.map((task) => {
@@ -222,6 +248,7 @@ function TransactionAssist(props) {
 
   return (
     <Scaffold navBar navRail>
+      {addTaskDrawer()}
       {firstTimeModal()}
       <Box component="div" paddingTop={5} paddingBottom={1}>
         <Grid
