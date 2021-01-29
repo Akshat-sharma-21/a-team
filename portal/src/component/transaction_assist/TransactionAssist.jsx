@@ -12,7 +12,6 @@ import "./TransactionAssist.css";
 import {
   Grid,
   Typography,
-  Button,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -21,6 +20,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  FormGroup,
+  TextField,
 } from "@material-ui/core";
 
 import {
@@ -30,6 +31,10 @@ import {
   SearchIcon,
   CheckCircleIcon,
   CheckIcon,
+  PencilIcon,
+  TagIcon,
+  CalendarIcon,
+  IssueOpenedIcon,
 } from "@primer/octicons-react";
 
 function TransactionAssist(props) {
@@ -50,7 +55,46 @@ function TransactionAssist(props) {
         side={"right"}
         dismissCallback={closeDrawer}
         title="Add a Task"
-      ></SideDrawer>
+      >
+        <Typography className="task-subheading">
+          What is the task about?
+        </Typography>
+        <FormGroup row style={{ marginTop: "10%" }}>
+          <TagIcon size={30} className="tag-icon" />
+          <TextField variant="outlined" label="Title" className="form-fields" />
+        </FormGroup>
+        <FormGroup row style={{ marginTop: "5%" }}>
+          <PencilIcon size={30} className="tag-icon" />
+          <TextField
+            variant="outlined"
+            multiline
+            rows={8}
+            label="Description"
+            className="form-fields"
+          />
+        </FormGroup>
+        <FormGroup row style={{ marginTop: "5%" }}>
+          <CalendarIcon size={30} className="tag-icon" />
+          <TextField variant="outlined" label="Date" className="form-fields" />
+        </FormGroup>
+        <FormGroup row style={{ marginTop: "5%" }}>
+          <IssueOpenedIcon size={30} className="tag-icon" />
+          <TextField
+            variant="outlined"
+            label="Priority"
+            className="form-fields"
+          />
+        </FormGroup>
+        <div className="task-add-button-group" style={{ marginTop: "10%" }}>
+          <ReallosButton cta className="task-add-button-group-buttons">
+            Back
+          </ReallosButton>
+
+          <ReallosButton cta primary className="task-add-button-group-buttons">
+            Add Task
+          </ReallosButton>
+        </div>
+      </SideDrawer>
     );
   }
 
@@ -98,7 +142,7 @@ function TransactionAssist(props) {
               Exactly know the progress of your client's Transaction!
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{ textAlign: "center", paddingTop: "4%" }}>
+          <Grid item xs={12} style={{ textAlign: "center", paddingTop: "3%" }}>
             <ReallosButton primary buttonWidth={"32%"} onClick={closeModal}>
               Continue
             </ReallosButton>
@@ -151,7 +195,11 @@ function TransactionAssist(props) {
                     <h1 className="title">Tasks</h1>
                     <h6 className="track">2 of 7 tasks completed</h6>
                     <div style={{}}>
-                      <ReallosButton primary onClick={openDrawer}>
+                      <ReallosButton
+                        primary
+                        onClick={openDrawer}
+                        className="add-task-button"
+                      >
                         Add New Task
                       </ReallosButton>
                     </div>
@@ -235,11 +283,6 @@ function TransactionAssist(props) {
                 </Grid>
               </Grid>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              {
-                //This is where the expansion panel will be placed
-              }
-            </ExpansionPanelDetails>
           </ExpansionPanel>
         </Grid>
       </Grid>
