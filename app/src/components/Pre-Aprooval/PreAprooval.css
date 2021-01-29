@@ -1,0 +1,23 @@
+.arrow-icon {
+  margin-top: 2px;
+  margin-left: -50px;
+}
+
+.child-container > img {
+  margin-left: 35vw;
+}
+
+.child-container > p {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: 32vw;
+}
+
+.child-container > Button {
+  width: 25%;
+  margin-left: 32vw;
+  margin-top: 5vh;
+  background-color: white;
+  color: blue;
+  border-radius: 10px 10px 10px 10px;
+}
