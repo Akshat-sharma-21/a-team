@@ -1,0 +1,84 @@
+.account-setup-root {
+  background-image: url(../../assets/reallos-sprites.png);
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.account-setup-modal {
+  width: 55%;
+  box-shadow: #00000045 0 0px 16px;
+}
+
+.account-setup-content-root {
+  display: flex;
+  flex-direction: row;
+}
+
+.account-setup-content-form {
+  width: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 30px 40px;
+
+  animation: slide-from-right-anim 250ms forwards;
+}
+
+.account-setup-content-form-main {
+  flex: 1 1 auto;
+  line-height: 25px;
+}
+
+.account-setup-content-form-main > h1 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: 'Gilroy', 'Roboto Slab';
+}
+
+.account-setup-content-form-main > .MuiTextField-root {
+  display: flex;
+  margin-top: 15px;
+}
+
+.account-setup-action-footer-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reallos-account-setup-decoration {
+  --reallos-decoration-border-radius: 20px;
+
+  z-index: 0;
+  min-height: 65vh;
+  width: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(../../assets/reallos_home_bg.png);
+  background-position: 30% center;
+  background-size: cover;
+  border-top-left-radius: var(--reallos-decoration-border-radius);
+  border-bottom-left-radius: var(--reallos-decoration-border-radius);
+}
+
+.reallos-account-setup-decoration::before {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.8;
+  border-top-left-radius: var(--reallos-decoration-border-radius);
+  border-bottom-left-radius: var(--reallos-decoration-border-radius);
+
+  background: linear-gradient(
+    to bottom,
+    var(--color-gradient-start),
+    var(--color-gradient-stop)
+  );
+}
