@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SideDrawer from "../utilities/side drawer/SideDrawer";
-import Modal, { ModalActionFooter } from "../utilities/modal/modal";
-import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import { PencilIcon } from "@primer/octicons-react";
 // import PhotoUploadModal from "../photo_uploader/PhotoUploader";
+
+import {
+  ReallosModal,
+  ModalActionFooter,
+  ReallosButton,
+  SideDrawer
+} from "../utilities/core";
 
 import {
   USER_ROLES,
@@ -604,7 +608,7 @@ class UserProfileEditDrawer extends React.Component {
     }
 
     return (
-      <Modal
+      <ReallosModal
         visible={this.state.isUpdateModalVisible}
         title={modalTitle}
         disableBackdropBlur={true}
@@ -612,7 +616,7 @@ class UserProfileEditDrawer extends React.Component {
         modalWidth={520}
       >
         {ModalContent}
-      </Modal>
+      </ReallosModal>
     );
   }
 

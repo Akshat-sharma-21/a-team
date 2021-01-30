@@ -1,0 +1,166 @@
+.transaction-heading {
+  font-family: "Roboto Slab";
+  font-weight: lighter;
+}
+
+.expansion-heading {
+  font-size: 18px !important;
+  padding: 9px !important;
+  font-family: "Gilroy" !important;
+}
+
+/*Expansion Panel*/
+
+.exppanel {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.exppanel .MuiAccordion-root {
+  width: 60%;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+}
+
+.heading .title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.heading .track {
+  margin: 0 1rem;
+  font-size: 0.8rem;
+  font-family: "Roboto", sans-serif;
+  color: grey;
+  position: relative;
+}
+
+.heading .track::before {
+  content: "";
+  width: 5.5px;
+  height: 5.5px;
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: grey;
+  margin-right: 0.5rem;
+}
+
+.heading-2 {
+  display: flex;
+  align-items: center;
+}
+
+.heading-2 .title-2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.heading-2 .track-2 {
+  margin: 0 1rem;
+  font-size: 0.8rem;
+  font-family: "Roboto", sans-serif;
+  color: grey;
+  position: relative;
+}
+
+.heading-2 .track-2::before {
+  content: "";
+  width: 5.5px;
+  height: 5.5px;
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: grey;
+  margin-right: 0.5rem;
+}
+
+.docs {
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.doc {
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  border: 1.5px solid grey;
+}
+
+.doc img {
+  width: 60px;
+}
+
+.doc-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.doc-details p {
+  margin: 0;
+  margin-left: 0.8rem;
+}
+
+.assist-task-date {
+  background: #eeeeee;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.assist-task-completed .assist-task-date {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.exppanel .checkicon-transaction {
+  color: #0dd663;
+  size: 22%;
+}
+
+.add-task-button {
+  font-size: 13px !important;
+  padding: 10 10 !important;
+}
+
+.task-subheading {
+  font-size: 22px !important;
+  font-family: "Roboto slab" !important;
+  font-weight: bold !important;
+}
+
+.tag-icon {
+  align-self: center !important;
+  margin-left: 0px !important;
+  margin-right: 15px !important;
+}
+
+.form-fields {
+  width: 260px !important;
+  margin-right: 0px !important;
+  padding-bottom: 10px !important;
+}
+
+.task-add-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.task-add-button-group-buttons {
+  font-size: 13px;
+}

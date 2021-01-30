@@ -1,0 +1,78 @@
+.reallos-button {
+    font-family: "Gilroy" !important;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    padding: 12px 30px !important;
+    border: none;
+    outline: none;
+
+    transition: all 150ms ease;
+}
+
+.reallos-button:not([disabled]):hover,
+.reallos-button:not([disabled]):focus {
+    transform: scale(1.04);
+}
+
+.reallos-button:not([disabled]):active {
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+.reallos-button-cta {
+    padding: 15px 50px !important;
+}
+
+.reallos-button-primary {
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgb(43, 68, 255, 0.3);
+    background: linear-gradient(
+        to right,
+        var(--color-gradient-start),
+        var(--color-gradient-stop)
+    );
+}
+
+.reallos-button-secondary {
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-clip: padding-box;
+
+    position: relative;
+    color: var(--color-primary);
+    border-radius: 10px;
+    background: linear-gradient(
+        to right,
+        var(--color-gradient-start),
+        var(--color-gradient-stop)
+    );
+}
+
+.reallos-button-secondary::before {
+    z-index: -1;
+    border-radius: 8px;
+    content: '';
+    display: flex;
+    margin: 2.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    background: #ffffff;
+}
+
+.reallos-button[disabled] {
+    cursor: default;
+    opacity: 0.5;
+}

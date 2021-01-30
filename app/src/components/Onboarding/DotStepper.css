@@ -1,0 +1,27 @@
+.step-container {
+  display: table-cell;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.step {
+  margin: 0.2rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.dot-stepper-white {
+  background-color: #ffffff;
+}
+
+.dot-stepper-blue {
+  background-color: #2855ff;
+}
+
+.active {
+  width: 0.9rem !important;
+  height: 0.9rem !important;
+}

@@ -2,9 +2,9 @@ import React, { useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import AddFiles from "../../../assets/add_files.svg";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
-import { ModalActionFooter } from "../../utilities/modal/modal";
-import ReallosButton from "../../utilities/reallos_button/ReallosButton";
+import { ModalActionFooter, ReallosButton } from "../../utilities/core";
 import { bytesToSize } from "../../../utils";
+
 import "./DocUploadDropzone.css";
 
 const rootStyles = {

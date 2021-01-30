@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from 'react-router';
-import Modal from "../../utilities/modal/modal";
+import { ReallosModal } from "../../utilities/core";
 import DocUploadDropzone from "./DocUploadDropzone";
 import DocUploadStatus from "./DocUploadStatus";
 import { getTransactionID } from '../../../utils';
@@ -128,7 +128,7 @@ function DocUploadModal({
   };
 
   return (
-    <Modal
+    <ReallosModal
       title="Upload Document"
       dismissCallback={dismissCallback}
       visible={visible}
@@ -148,7 +148,7 @@ function DocUploadModal({
           onSuccessCallback={onSuccessCallback}
         />
       )}
-    </Modal>
+    </ReallosModal>
   );
 }
 
