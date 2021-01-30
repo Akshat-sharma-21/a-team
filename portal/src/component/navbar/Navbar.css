@@ -15,6 +15,11 @@
   margin-left: 10px !important;
 }
 
+.navbar-btn-group .MuiBadge-dot {
+  border: #ffffff 2px solid;
+  transform: scale(1.6) translate(50%, -50%) !important;
+}
+
 .navbar-notification-popup ul > div {
   outline: none;
 }
