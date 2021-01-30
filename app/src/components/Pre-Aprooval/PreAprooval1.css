@@ -1,25 +1,25 @@
-.child-container-1 > p {
+.preaprooval-child-container-1 > p {
   color: grey;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.child-container-1 > Button,
-#button2 {
+#cc1-button1 {
+  margin-top: 5vh;
   width: 25%;
   border: 1px solid grey;
   border-radius: 10px 10px 10px 10px;
   color: blue;
 }
 
-.child-container-1 > Button {
-  margin-top: 5vh;
-}
-
-#button2 {
+#cc1-button2 {
   margin-top: 2vh;
+  width: 25%;
+  border: 1px solid grey;
+  border-radius: 10px 10px 10px 10px;
+  color: blue;
 }
 
-#arrow-icon-1 {
+#cc1-arrow-icon-1 {
   background: blue;
   border-radius: 50%;
   width: 4vw;

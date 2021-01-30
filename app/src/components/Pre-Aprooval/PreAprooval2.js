@@ -22,7 +22,7 @@ function PreAprooval2() {
   return (
     <Scaffold bgVariant="gradient">
       <BorderLinearProgress value={50} variant="determinate" />
-      <div className="child-container-2">
+      <div className="preaprooval-child-container-2">
         <h1>Enter Your Name</h1>
         <p>
           Lorem Ipsum is simply dummy text of the

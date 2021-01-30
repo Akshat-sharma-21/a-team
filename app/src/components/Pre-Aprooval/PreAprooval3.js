@@ -24,10 +24,10 @@ function PreAprooval3() {
   return (
     <Scaffold bgVariant="gradient">
       <BorderLinearProgress value={50} variant="determinate" />
-      <div className="child-container-3">
+      <div className="preaprooval-child-container-3">
         <h1>
           Are You <br />
-          Pre-Aprooved ?{" "}
+          Pre-Aprooved ?
         </h1>
         <p className="cc3-paragraph">
           Lorem Ipsum is simply dummy text of the

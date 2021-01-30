@@ -23,7 +23,7 @@ function PreAprooval1() {
   return (
     <Scaffold>
       <BorderLinearProgress value={50} variant="determinate" />
-      <div className="child-container-1">
+      <div className="preapproval-child-container-1">
         <h1>
           Are you <br />
           Pre-Aprooved ?
@@ -36,13 +36,15 @@ function PreAprooval1() {
           Lorem Ipsum has been the industry's <br />
           standard dummy text ever since the 1500s...
         </p>
-        <Button startIcon={<Avatar src={Logo1} />}>YES</Button>
+        <Button id="cc1-button1" startIcon={<Avatar src={Logo1} />}>
+          YES
+        </Button>
         <div>
-          <Button id="button2" startIcon={<Avatar src={Logo2} />}>
+          <Button id="cc1-button2" startIcon={<Avatar src={Logo2} />}>
             NO
           </Button>
           <div>
-            <ArrowBackIcon id="arrow-icon-1" />
+            <ArrowBackIcon id="cc1-arrow-icon-1" />
           </div>
         </div>
       </div>

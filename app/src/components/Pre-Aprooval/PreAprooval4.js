@@ -2,16 +2,16 @@ import React from "react";
 import "./PreAprooval4.css";
 import { Avatar, Button } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import LOGO3 from "../../assets/preaprooved3.png";
-import REFRESH from "../../assets/refresh.png";
+import Logo3 from "../../assets/preaprooved3.png";
+import Refresh from "../../assets/refresh.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
 
 function PreAprooval4() {
   return (
     <Scaffold bgVariant="gradient">
       <ArrowBackIcon />
-      <div className="child-container-4">
-        <img src={LOGO3} alt="logo goes here" />
+      <div className="preaprooval-child-container-4">
+        <img src={Logo3} alt="logo goes here" />
         <p>
           You've answered all <br /> the questions ! Do you want
           <br />
@@ -43,7 +43,7 @@ function PreAprooval4() {
             }}
             className="cc4-button2"
             variant="outlined"
-            startIcon={<Avatar src={REFRESH} />}
+            startIcon={<Avatar src={Refresh} />}
           >
             Start Over
           </Button>

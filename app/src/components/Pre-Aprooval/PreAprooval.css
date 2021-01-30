@@ -3,17 +3,17 @@
   margin-left: -50px;
 }
 
-.child-container > img {
+.preaprooval-child-container > img {
   margin-left: 35vw;
 }
 
-.child-container > p {
+.preaprooval-child-container > p {
   font-size: 30px;
   color: rgba(255, 255, 255, 0.9);
   margin-left: 32vw;
 }
 
-.child-container > Button {
+.preaprooval-child-container > Button {
   width: 25%;
   margin-left: 32vw;
   margin-top: 5vh;

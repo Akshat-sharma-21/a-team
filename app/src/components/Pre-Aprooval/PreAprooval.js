@@ -11,7 +11,7 @@ function PreAprooval() {
       <div className="arrow-icon">
         <ArrowBackIcon />
       </div>
-      <div className="child-container">
+      <div className="preaprooval-child-container">
         <img src={Logo} alt="logo goes here" />
         <p>
           Answer few questions
