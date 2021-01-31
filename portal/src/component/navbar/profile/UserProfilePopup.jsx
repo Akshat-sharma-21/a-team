@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getRoleLabel } from '../../utils';
+import { getRoleLabel } from '../../../utils';
+import './UserProfilePopup.css';
 
 import {
   Menu,
@@ -19,8 +20,6 @@ import {
   SignOutIcon,
   TagIcon
 } from '@primer/octicons-react';
-
-import './UserProfilePopup.css';
 
 /**
  * Displays a User Profile Popup

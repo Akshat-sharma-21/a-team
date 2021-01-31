@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 
 import { BellIcon, GraphIcon } from "@primer/octicons-react";
-import UserProfilePopup from '../account_setup/UserProfilePopup';
-import UserProfileEditDrawer from '../account_setup/UserProfileEditDrawer';
+import UserProfilePopup from './profile/UserProfilePopup';
+import UserProfileEditDrawer from './profile/UserProfileEditDrawer';
 import NotificationPopup from './notifications/NotificationPopup';
 import { getUnreadNotificationsCount } from './notifications/utils';
 import "./Navbar.css";
