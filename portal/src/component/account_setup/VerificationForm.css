@@ -1,0 +1,18 @@
+.account-setup-verification-root {
+  text-align: center;
+}
+
+.account-setup-verification-root .account-setup-content-form-main > img {
+  margin-top: 10px;
+}
+
+.account-setup-verification-code-textfield-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.account-setup-verification-code-textfield-group input {
+  text-align: center;
+}

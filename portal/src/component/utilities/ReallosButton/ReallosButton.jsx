@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './ReallosButton.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./ReallosButton.css";
 
 /**
  * Reallos Button Component
@@ -40,74 +40,91 @@ import './ReallosButton.css';
  * @augments {React.Component<Props>}
  */
 class ReallosButton extends React.Component {
-    static propTypes = {
-        /**
-         * If set to `true`, the button will use primary
-         * button styling.
-         *
-         * When having a group of buttons, use atmost
-         * one primary button which will convey the user
-         * the default or recommended action.
-         *
-         * _(Default: `false`)_
-         */
-        primary: PropTypes.bool,
+  static propTypes = {
+    /**
+     * CSS class name to be applied to this component
+     */
+    className: PropTypes.string,
 
-        /**
-         * If set to `true`, the button will be disabled,
-         * i.e, `onClick` will be ignored.
-         *
-         * _(Default: `false`)_
-         */
-        disabled: PropTypes.bool,
+    /**
+     * If set to `true`, the button will use primary
+     * button styling.
+     *
+     * When having a group of buttons, use atmost
+     * one primary button which will convey the user
+     * the default or recommended action.
+     *
+     * _(Default: `false`)_
+     */
+    primary: PropTypes.bool,
 
-        /**
-         * If set to `true`, the button will be optimized
-         * for a Call-to-Action button. Width of the CTA
-         * will override if `buttonWidth` is used.
-         *
-         * _(Default: `false`)_
-         */
-        cta: PropTypes.bool,
+    /**
+     * If set to `true`, the button will be disabled,
+     * i.e, `onClick` will be ignored.
+     *
+     * _(Default: `false`)_
+     */
+    disabled: PropTypes.bool,
 
-        /**
-         * Set the width of button.
-         * _(Default: `auto`)_
-         */
-        buttonWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /**
+     * If set to `true`, the button will be optimized
+     * for a Call-to-Action button. Width of the CTA
+     * will override if `buttonWidth` is used.
+     *
+     * _(Default: `false`)_
+     */
+    cta: PropTypes.bool,
 
-        /**
-         * Function to execute when pressed.
-         */
-        onClick: PropTypes.func
-    }
+    /**
+     * If set to `true`, the button will take up the
+     * full available width of the parent component.
+     *
+     * NOTE: Overrides `buttonWidth` prop.
+     *
+     * _(Default: `false`)_
+     */
+    fullWidth: PropTypes.bool,
 
-    render() {
-        let {
-            children,
-            primary,
-            disabled,
-            cta,
-            buttonWidth='auto',
-            onClick=()=>{}
-        } = this.props;
+    /**
+     * Set the width of button.
+     * _(Default: `auto`)_
+     */
+    buttonWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-        let buttonCTAClassName = (cta) ? 'reallos-button-cta' : '';
-        let buttonClassName = (primary || cta)
-                                ? 'reallos-button-primary'
-                                : 'reallos-button-secondary';
+    /**
+     * Function to execute when pressed.
+     */
+    onClick: PropTypes.func,
+  };
 
-        return (
-            <button
-                onClick={onClick}
-                disabled={disabled}
-                className={`reallos-button ${buttonClassName} ${buttonCTAClassName}`}
-                style={{ width: buttonWidth }}
-            >
-                {children}
-            </button>
-        )
-    }
+  render() {
+    let {
+      children,
+      className,
+      fullWidth = false,
+      primary,
+      disabled,
+      cta,
+      buttonWidth = "auto",
+      onClick = () => {},
+    } = this.props;
+
+    let buttonCTAClassName = cta ? "reallos-button-cta" : "";
+    let buttonClassName = primary
+      ? "reallos-button-primary"
+      : "reallos-button-secondary";
+
+    return (
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        className={`reallos-button ${buttonClassName} ${buttonCTAClassName} ${className}`}
+        style={{ width: fullWidth ? "100%" : buttonWidth }}
+      >
+        {children}
+      </button>
+    );
+  }
 }
 
 export default ReallosButton;

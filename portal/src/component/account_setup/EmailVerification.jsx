@@ -1,88 +1,130 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import { TextField } from "@material-ui/core";
+import { ArrowRightIcon } from '@primer/octicons-react';
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
-import cimage from "../../assets/cimage.png";
-import verified from "../../assets/verified.png";
+import VerifiedLogo from "../../assets/verified.png";
+import ReallosLogo from "../../assets/reallos_white_logo.png";
 
-function EmailVerification() {
+function EmailVerification(props) {
+  let { onNext, onPrev } = props;
+
+  /**
+   * @type [
+   *   string[],
+   *   React.Dispatch<React.SetStateAction<string[]>>
+   * ]
+   */
+  let [verificationCodeList, setVerificationCodeList] = useState(Array(4).fill(''));
+
+  /**
+   * Handles input change when anything is typed in the
+   * verification code text box.
+   *
+   * @param {KeyboardEvent} event
+   * @param {number} index
+   */
+  const handleInputKeyDown = (event, index) => {
+    /** @type string */
+    let key = event.key;
+    let isNumeric = !!key.match(/^\d$/);
+
+    if (isNumeric || ['Backspace', 'Delete'].includes(key)) {
+      let currentVerificationCodeList = [...verificationCodeList];
+      currentVerificationCodeList[index] = (isNumeric ? key : '');
+
+      setVerificationCodeList(currentVerificationCodeList);
+
+      if (key !== 'Backspace') {
+        let nextSibling = event.target.parentElement.parentElement.nextSibling;
+        if (nextSibling) nextSibling.querySelector('input').focus();
+      }
+
+      else {
+        let prevSibling = event.target.parentElement.parentElement.previousSibling;
+        if (prevSibling) prevSibling.querySelector('input').focus();
+      }
+    }
+  }
+
   return (
-    <Scaffold>
-      <ReallosModal visible="true" modalWidth="50%   " modalHeight="65%">
-        <div className="container" style={container}>
-          <div
-            className="item1"
-            style={{ marginTop: "-33px", marginLeft: "-45px" }}
-          >
-            <img
-              src={cimage}
-              alt="left component"
-              width="300px"
-              height="438px"
-            />
+    <Scaffold className="account-setup-root account-setup-verification-root">
+      <ReallosModal
+        visible
+        rawModal
+        disableBackdropBlur
+        className="account-setup-modal"
+      >
+        <div className="account-setup-content-root">
+          <div className="reallos-account-setup-decoration">
+            <img src={ReallosLogo} alt="" />
           </div>
 
-          <div className="item2" style={item2}>
-            <img
-              style={{ marginTop: "-400px", marginLeft: "400px" }}
-              src={verified}
-              alt="verified logo"
-              width="60px"
-              height="60px"
-            ></img>
+          <div className="account-setup-content-form">
+            <div className="account-setup-content-form-main">
+              <img
+                src={VerifiedLogo}
+                alt=""
+                width={70}
+                height={70}
+              />
 
-            <h2 style={{ marginLeft: "320px", marginTop: "-320px" }}>
-              Email Verification
-            </h2>
+              <h1 style={{ marginTop: 20, marginBottom: 10 }}>
+                Email Verification
+              </h1>
 
-            <p style={{ marginLeft: "275px", marginTop: "-270px" }}>
-              A confirmation code has sent to your email . Please enter it to
-              proceed.
-            </p>
+              <p>
+                A confirmation code has sent to your email.
+                Please enter it to proceed.
+              </p>
 
-            <div className="item3" style={item3}>
-              <TextField
-                variant="outlined"
-                style={(mystyle, { marginLeft: "-5px" })}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                style={(mystyle, { marginLeft: "10px" })}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                style={(mystyle, { marginLeft: "10px" })}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                style={(mystyle, { marginLeft: "10px" })}
-              ></TextField>
+              <div className="account-setup-verification-code-textfield-group">
+                {verificationCodeList.map((code, index) => (
+                  <TextField
+                    key={index}
+                    value={code}
+                    variant="outlined"
+                    aria-label={`Verification code digit ${index + 1}`}
+                    onKeyDown={(event) => handleInputKeyDown(event, index)}
+                    onFocus={(event) => event.target.select()}
+                    inputProps={{
+                      maxLength: 1,
+                      autocomplete: "new-password"
+                    }}
+                    type="numeric"
+                  />
+                ))}
+              </div>
+
+              <p>
+                Didn't get the code?
+                <a style={{ marginLeft: 8, cursor: 'pointer' }}>
+                  Resend it
+                </a>
+              </p>
             </div>
 
-            <p style={{ marginLeft: "280px", marginTop: "-120px" }}>
-              Did'nt get the code ?
-              <a href="#" style={{ color: "blue" }}>
-                resend it
-              </a>
-            </p>
+            <div className="account-setup-action-footer-group">
+              <ReallosButton
+                cta
+                fullWidth
+                onClick={onPrev}
+              >
+                Back
+              </ReallosButton>
 
-            <div
-              style={{
-                display: "flex",
-                flexdirection: "row",
-                marginLeft: "360px",
-                marginTop: "-75px",
-              }}
-            >
-              <div>
-                <ReallosButton>BACK</ReallosButton>
-              </div>
+              <ReallosButton
+                cta
+                primary
+                fullWidth
+                onClick={onNext}
+              >
+                Next
 
-              <div style={{ marginLeft: "10px" }}>
-                <ReallosButton primary>
-                  NEXT
-                  {/* <ArrowForwardIcon /> */}
-                </ReallosButton>
-              </div>
+                <span style={{ marginLeft: 5 }}>
+                  <ArrowRightIcon size={18} />
+                </span>
+              </ReallosButton>
             </div>
           </div>
         </div>
@@ -91,28 +133,18 @@ function EmailVerification() {
   );
 }
 
-const mystyle = {
-  width: "50px",
-  height: "10px",
-  borderradius: " 12px 12px 12px 12px ",
-  marginTop: "-20px",
-};
+EmailVerification.propTypes = {
+  /**
+   * Callback function called when next screen
+   * is requested.
+   */
+  onNext: PropTypes.func,
 
-const container = {
-  display: "grid",
-  gridtemplatecolumns: "auto auto",
-};
-
-const item2 = {
-  display: "grid",
-  gridtemplaterows: "auto auto auto auto auto",
-  marginLeft: "20px",
-};
-const item3 = {
-  marginLeft: "275px",
-  marginTop: "-200px",
-  display: "flex",
-  flexDirection: "row",
-};
+  /**
+   * Callback function called when previous screen
+   * is requested.
+   */
+  onPrev: PropTypes.func,
+}
 
 export default EmailVerification;

@@ -1,73 +1,83 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import ReallosModal from "./modal";
-import cimage from "../../assets/cimage.png";
-import deny from "../../assets/deny.png";
+import PropTypes from "prop-types";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
+import DeniedLogo from "../../assets/deny.png";
+import ReallosLogo from "../../assets/reallos_white_logo.png";
 
-function AccessDeny() {
+function AccessDeny(props) {
+  let { onPrev=()=>{}, state={} } = props;
+  
   return (
-    <ReallosModal visible="true" modalWidth="620px" modalHeight="391px">
-      <div className="container" style={container}>
-        <div
-          className="item1"
-          style={{ marginLeft: "-50px", marginTop: "-38px" }}
-        >
-          <img
-            src={cimage}
-            alt="left component"
-            width="300px"
-            height="400px"
-          ></img>
+    <Scaffold className="account-setup-root account-setup-verification-root">
+      <ReallosModal
+        visible
+        rawModal
+        disableBackdropBlur
+        className="account-setup-modal"
+      >
+        <div className="account-setup-content-root">
+          <div className="reallos-account-setup-decoration">
+            <img src={ReallosLogo} alt="" />
+          </div>
+
+          <div className="account-setup-content-form">
+            <div className="account-setup-content-form-main">
+              <img
+                src={DeniedLogo}
+                alt=""
+                width="70px"
+                height="70px"
+                style={{ marginTop: 30, marginBottom: 10 }}
+              ></img>
+
+              <h1 style={{ marginTop: 20 }}>
+                Access Denied
+              </h1>
+
+              <p>
+                We are a closed platform and your email
+                
+                <strong>
+                  &nbsp;"{state.email}"&nbsp;
+                </strong>
+                
+                doesn't seem to be in our list.
+                To be a part of our platform, fill out a form at
+
+                <a href="#" style={{ marginLeft: 5, fontWeight: 'bold' }}>
+                  reallos.com
+                </a>
+              </p>
+            </div>
+
+            <div className="account-setup-action-footer-group">
+              <ReallosButton
+                cta
+                fullWidth
+                onClick={onPrev}
+              >
+                Go Back
+              </ReallosButton>
+            </div>
+          </div>
         </div>
-
-        <div className="item2" style={item2}>
-          <img
-            style={{ marginLeft: "380px", marginTop: "-375px" }}
-            src={deny}
-            width="70px"
-            height="70x"
-            alt=" Access denied logo"
-          ></img>
-
-          <h2 style={{ marginLeft: "340px", marginTop: "-300px" }}>
-            Access Denied
-          </h2>
-
-          <p style={{ marginTop: "-240px", marginLeft: "275px" }}>
-            We are a closed platform and your email does'nt seems to be in our
-            list.To be a part of our platform fill out a form at
-            <a href="#" style={{ color: "blue" }}>
-              {" "}
-              reallos.com
-            </a>
-          </p>
-
-          <Button
-            variant="outlined"
-            style={{
-              left: "350px",
-              top: "-60px",
-              width: "120px",
-              height: "40px",
-            }}
-          >
-            Go Back
-          </Button>
-        </div>
-      </div>
-    </ReallosModal>
+      </ReallosModal>
+    </Scaffold>
   );
 }
 
-const container = {
-  display: "grid",
-  gridtemplatecolumns: "auto auto",
-  padding: "5px",
-};
+AccessDeny.propTypes = {
+  /**
+   * State information for current component.
+   * Should contain `email`
+   */
+  state: PropTypes.object,
 
-const item2 = {
-  display: "grid",
-  gridtemplaterows: "auto auto auto",
-};
+  /**
+   * Callback function called when previous screen
+   * is requested.
+   */
+  onPrev: PropTypes.func,
+}
 
 export default AccessDeny;
