@@ -53,8 +53,8 @@ function PeopleInvolved(props) {
   function renderPeopleCard() {
     return (
       <div className={classes.root}>
-        <GridList cellHeight={200} className={classes.gridList}>
-          <GridListTile className="tile">
+        <Grid container direction="row" cellHeight={200} className={classes.gridList}>
+          <Grid item className="tile" xs={5}>
             <Grid
               container
               direction="row"
@@ -105,9 +105,9 @@ function PeopleInvolved(props) {
                 </Grid>
               </Grid>
             </Grid>
-          </GridListTile>
+          </Grid>
 
-          <GridListTile className="tile">
+          <Grid item className="tile" xs={5}>
             <Grid
               container
               direction="row"
@@ -160,8 +160,8 @@ function PeopleInvolved(props) {
                 </Grid>
               </Grid>
             </Grid>
-          </GridListTile>
-        </GridList>
+          </Grid>
+        </Grid>
       </div>
     );
   }

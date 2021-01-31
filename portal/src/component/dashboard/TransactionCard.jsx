@@ -133,7 +133,7 @@ function RenderCard(items) {
                     <Typography
                       style={{
                         fontSize: "24px",
-                        fontFamily: "Roboto Slab",
+                        fontFamily: "Gilroy",
                         fontWeight: "bold",
                       }}
                     >
@@ -147,7 +147,7 @@ function RenderCard(items) {
                           >
                             <PersonIcon size={25} />
                           </td>
-                          <td>abc</td>
+                          <td>Vedant Tandon</td>
                         </tr>
                       </table>
                     </Typography>
@@ -156,7 +156,7 @@ function RenderCard(items) {
                     <Typography
                       style={{
                         fontSize: "24px",
-                        fontFamily: "Roboto Slab",
+                        fontFamily: "Gilroy",
                         fontWeight: "bold",
                         lineHeight: "50px",
                       }}
@@ -179,7 +179,7 @@ function RenderCard(items) {
                   <Box paddingLeft={11}>
                     <Typography
                       style={{
-                        fontSize: "18px",
+                        fontSize: "20px",
                         fontFamily: "Roboto Slab",
                         lineHeight: "30px",
                       }}
@@ -189,14 +189,14 @@ function RenderCard(items) {
                           <td
                             style={{
                               paddingBottom: "4px",
-                              paddingRight: "18px",
+                              paddingRight: "10px",
                             }}
                           >
-                            <Button id="Big-Button">
+                            <Button className="Big-Button">
                               {moment().format("DD")} {moment().format("MMM")}
                             </Button>
                           </td>
-                          <td>select a Proposal</td>
+                          <td>Select a Proposal</td>
                         </tr>
                       </table>
                     </Typography>
@@ -225,9 +225,9 @@ function RenderCard(items) {
                       </table>
                     </Typography>
                   </Box>
-                  <Box paddingLeft={11} style={{ fontSize: "18px" }}>
-                    <Typography noWrap style={{ fontFamily: "Roboto Slab" }}>
-                      {items.Address}
+                  <Box paddingLeft={11} paddingRight={8} style={{ fontSize: "18px" }}>
+                    <Typography style={{ fontFamily: "Roboto Slab" }}>
+                    Mountain View, California, United States
                     </Typography>
                   </Box>
                 </Grid>

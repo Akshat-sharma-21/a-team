@@ -14,6 +14,7 @@ import {
   InputAdornment,
   OutlinedInput,
   FormControl,
+  Fab,
 } from "@material-ui/core";
 
 import {
@@ -231,21 +232,21 @@ function Dashboard(props) {
   } else {
     return (
       <Scaffold navBar>
-        <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+        <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12}>
             <Grid container alignItems="flex-start">
               <Box
                 className="dashboard-heading"
-                paddingTop={6}
+                paddingTop={5}
                 paddingLeft={3}
-                paddingBottom={3}
+                paddingBottom={2}
               >
                 My Transactions
               </Box>
             </Grid>
           </Grid>
 
-          <Grid  item xs={12}style={{paddingBottom: 20,paddingTop: 5,}}>
+          <Grid item xs={12} style={{paddingBottom: 18, paddingTop: 4,}}>
             <FormControl fullWidth variant="outlined">
               <OutlinedInput
                 className="dashboard-search-bar"
@@ -264,21 +265,32 @@ function Dashboard(props) {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
 
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
-          <Grid item xs={6}>
-            <TransactionCard />
+          <Grid xs={12} className="transaction-list" container direction="row" justify="center" alignItems="center" spacing={2}>
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
+
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
           </Grid>
 
         </Grid>
+        
+        <Fab
+          variant="contained"
+          className="dashboard-button"
+          onClick={openInvitation}
+        >
+          <PlusIcon size={20} /> New Transaction
+        </Fab>
       </Scaffold>
       );
   }
