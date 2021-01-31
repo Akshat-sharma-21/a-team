@@ -1,0 +1,998 @@
+.Appo{
+  padding: 0.7rem;
+}
+
+.xo{
+  padding-right: 0px;
+  padding-bottom:1rem;
+}
+
+.headero{
+  margin-top: 0px;
+  margin-right: 40px;
+  font-size: 5rem;
+  font-family: "Gilroy Extrabold";
+}
+
+.card_imageo img {
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.cardso {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+.cardo {
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: left;
+}
+
+.card_contento {
+  padding: 0;
+}
+
+.card_titleo {
+  text-align: left;
+  color: black;
+  letter-spacing: 1px;
+  text-transform:none;
+  margin: 0px;
+  font-family: "Gilroy Extrabold";
+  font-weight:400;
+}
+
+.card_interesto {
+  text-align: left;
+  padding-left: 0.7rem;
+  color: black;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.71rem;
+  text-transform:none;
+  line-height: 0;  
+  font-weight: 400;
+}
+
+.card_annualo {
+  text-align: left;
+  padding-top: 0.5rem;
+  padding-left: 0.7rem;
+  color: black;
+  text-transform:none;
+  font-size: 0.71rem;
+  font-family: "Segoe UI", sans-serif;
+  line-height: 0;
+  margin-bottom: 1.3rem;    
+  font-weight: 400;
+}
+
+.fromo{  
+  text-align: left;
+  padding-left: 0.7rem;
+  text-transform:none;
+  padding-bottom: 0.3rem;
+  color: black;
+  font-size: 0.71rem;
+  font-weight: 400;
+  font-family: "Segoe UI", sans-serif;
+  letter-spacing: 1px;
+  margin: 0px;
+}
+
+.searchbaro {
+  width: 100%;
+  background:  #D3D3D3;  
+  border-radius: 0.5rem;
+  position: relative;
+  display: flex;
+  padding-bottom: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.searchTermo {
+  width: 100%;
+  border-right: none;
+  background: #D3D3D3;  
+  border-radius: 0.5rem;
+  height: 1.2rem;
+  border: none;
+  outline: none;
+  padding-top: 3px;
+  padding-left: 10px;
+  color: black;
+  font-size: 1.2rem; 
+  text-align: left;
+  font-weight: 600;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.searchTermo:focus{
+  color: #696969;
+  font-size: 1.2rem;
+}
+
+.filtero {
+  width: 30px;
+  height: 40px;
+  text-align: center;
+  border-radius: 0 5px 5px 0;
+  font-size: 20px;
+  padding-right: 10px;
+}
+
+.topo {
+  z-index: 1;
+}
+
+.backo{
+  color: white;
+}
+
+.topo img{
+  display: block;
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+  margin: 0%;
+  z-index: -1;
+}
+
+.topo .backo{
+  position: absolute; top:1rem; left:1rem;
+}
+
+.card_conto {
+  display:block;
+  padding: 1rem;
+  align-content: center;
+  margin-top: -3rem;
+  background-color: white;
+  border-radius: 1rem;
+  position: absolute;
+}
+
+.card_nameo {
+  color: black;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+  font-family: "Gilroy Extrabold";
+  font-weight: 300;
+}
+
+.card_abouto{
+  color: black;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  font-family: "Segoe UI", sans-serif;
+  width: auto;
+  font-weight: 300;
+}
+
+.e-mailhead{
+  color: black;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+  font-family: "Gilroy Extrabold";
+  width: auto;
+  font-weight: 300;
+}
+
+.e-mailo{  
+  padding-top: 0.5rem;
+  padding-bottom: 0.8rem;
+  padding-left: 0.8rem;
+  color: black;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+  font-family: "Segoe UI", sans-serif;
+  border: 2px solid #DCDCDC;
+  border-radius: 1rem;
+  width: auto;
+  font-weight: 300;
+}
+
+.contacthead{
+  color: black;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+  font-family: "Gilroy Extrabold";
+  width: auto;
+  justify-content: space-between;
+  font-weight: 300;
+}
+
+.numbero{  
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  padding-left: 0.8rem;
+  color: black;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+  font-family: "Segoe UI", sans-serif;
+  border: 2px solid #DCDCDC;
+  border-radius: 1rem;
+  width: auto;
+  justify-content: space-between;
+  font-weight: 300;
+}
+
+.button_confirmo{
+  align-content: center;
+  padding-top: 2rem;
+}
+
+.button_confirmo button{
+  display: block;
+  width: 100%;
+  box-shadow: 0px 8px 16px rgba(43, 68, 255, 0.3);
+  background-color: #2B44FF;
+  font-family: "Gilroy Extrabold";
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  font-size: 1.2rem;  
+  border-radius: 1rem;
+  text-align: center;
+}
+
+
+
+
+@media only screen and (min-width: 260px) {
+     
+  .headero {
+    margin-top: 0px;
+    margin-right: 40px;
+    font-size: 1.5rem;
+    padding-left: 1.8rem;
+    font-family: "Gilroy Extrabold";
+  }
+  
+  img {
+  height: 5.1rem;
+  width: 7rem;
+  } 
+  
+  .cardso {
+  padding-right: 1rem;
+  padding-left: 0.1rem;
+  
+  }
+  
+  .card_titleo {
+  padding-top: 0.77rem;
+  padding-left: 0.77rem;
+  font-size: 0.8rem;
+  }
+  
+  .card_interesto {
+  padding-left: 0.77rem;
+  font-size: 0.5rem;
+  line-height: 0; 
+  }
+
+  .card_annualo {
+  padding-top: 0.55rem;
+  padding-left: 0.77rem;
+  font-size: 0.45rem;
+  line-height: 0;
+  margin-bottom: 1.3rem;   
+  }
+
+  .fromo{  
+  padding-left: 0.77rem;
+  padding-bottom: 0.33rem;
+  font-size: 0.45rem;
+  font-weight: 300;
+  }
+
+  .searchTermo { 
+    border-radius: 0.5rem;
+    height: 1.8rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 10px;
+    font-size: 1.1rem; 
+  }
+  
+  .searchTermo:focus{
+    font-size: 1.1rem;
+  }
+
+  .card_nameo {
+    font-size: 1.9rem;
+    letter-spacing: 1px;
+  }
+  
+  .card_abouto{
+    font-size: 1.0rem;
+  }
+  
+  .e-mailo{  
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-left: 0.8rem;
+    font-size: 1.0rem;
+  }
+  .numbero{  
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-left: 0.8rem;
+    font-size: 1.0rem;
+  }
+}
+
+@media only screen and (min-width:310px) {
+     
+  .headero {
+    margin-top: 0px;
+    margin-right: 40px;
+    font-size: 2rem;
+    padding-left: 1rem;
+    font-family: "Gilroy Extrabold";
+  }
+
+  img {
+  height: 6.6rem;
+  width: 9rem;
+  }
+    
+  .cardso {
+  padding: 0;
+  
+  }
+  
+  .cards_itemo {
+  display: flex;
+  padding: 0em;
+  padding-bottom: 1rem;
+  padding-left: 0.1rem;  
+  }
+  
+  .card_titleo {
+  padding-top: 0.77rem;
+  padding-left: 0.77rem;
+  font-size: 0.8rem;
+  }
+  
+  .card_interesto {
+  padding-left: 0.77rem;
+  font-size: 0.6rem;
+  line-height: 0;
+  }
+
+  .card_annualo {
+  padding-top: 0.55rem;
+  padding-left: 0.77rem;
+  font-size: 0.6rem;
+  line-height: 0;
+  margin-bottom: 1.3rem;    
+  }
+
+  .fromo{  
+  padding-left: 0.77rem;
+  padding-bottom: 0.33rem;
+  font-size: 0.6rem;
+  }
+
+  .searchTermo {  
+    border-radius: 0.5rem;
+    height: 1.8rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 10px;
+    font-size: 1.1rem; 
+  }
+  
+  .searchTermo:focus{
+    font-size: 1.1rem;
+  }
+  }
+
+  @media only screen and (min-width:360px) {
+     
+    .headero{
+      margin-top: 0px;
+      margin-right: 40px;
+      font-size: 2rem;
+      padding-left: 1rem;
+      font-family: "Gilroy Extrabold";
+    }
+        
+    .card_imageo img {
+    height: 7rem;
+    width: 9.5rem;
+    } 
+    
+    .cardso {
+    padding-right: 0.3rem;
+    padding-left: 0.1rem;
+    
+    }
+    
+    .cards_itemo {
+    display: flex;
+    padding: 0em;
+    padding-bottom: 1rem;
+    padding-left: 0.1rem;
+    
+    
+    }
+    
+    .card_titleo {
+    padding-top: 0.77rem;
+    padding-left: 0.77rem;
+    font-size: 0.9rem;
+    }
+    
+    .card_interesto {
+    padding-left: 0.77rem;
+    color: black;
+    font: Segoe UI;
+    font-size: 0.65rem;
+    line-height: 0;  
+    font-weight: 300;
+    }
+
+    .card_annualo {
+    padding-top: 0.55rem;
+    padding-left: 0.77rem;
+    color: black;
+    font-size: 0.65rem;
+    font: Segoe UI;
+    line-height: 0;
+    margin-bottom: 1.3rem;    
+    font-weight: 300;
+    }
+
+    .fromo{  
+    padding-left: 0.77rem;
+    padding-bottom: 0.33rem;
+    color: black;
+    font-size: 0.65rem;
+    font-weight: 300;
+    font: Segoe UI;
+    letter-spacing: 1px;
+    margin: 0px;
+    }
+
+    .searchbaro {
+      width: 100%;
+      background:  #D3D3D3;  
+      border-radius: 0.5rem;
+      position: relative;
+      display: flex;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .searchTermo{
+      width: 100%;
+      border-right: none;
+      background: #D3D3D3;  
+      border-radius: 0.5rem;
+      height: 1.8rem;
+      border: none;
+      outline: none;
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      padding-left: 10px;
+      color: black;
+      font-size: 1.2rem; 
+      text-align: left;
+      font-weight: 600;
+      font: "Segoe UI Bold";
+    }
+    
+    .searchTermo:focus{
+      color: #696969;
+      font-size: 1.2rem;
+    }
+    }
+
+@media only screen and (min-width:400px) {
+     
+  .headero {
+  margin-top: 0px;
+  margin-right: 40px;
+  font-size: 2.5rem;
+  padding-left: 1rem;
+  font-family: "Gilroy Extrabold";
+}
+
+.card_imageo img {
+height: 8.11rem;
+width: 11rem;
+}
+
+.cardso {
+padding: 0;
+
+}
+
+.cards_itemo {
+display: flex;
+padding: 0em;
+padding-bottom: 1rem;
+padding-left: 0.1rem;
+}
+
+.card_titleo {
+padding-top: 0.77rem;
+padding-left: 0.77rem;
+font-size: 1rem;
+}
+
+.card_interesto {
+padding-left: 0.77rem;
+font-size: 0.7rem;
+line-height: 0;  
+}
+
+.card_annualo {
+padding-top: 0.55rem;
+padding-left: 0.77rem;
+font-size: 0.7rem;
+line-height: 0;
+margin-bottom: 1.3rem; 
+}
+
+.fromo{  
+padding-left: 0.77rem;
+padding-bottom: 0.33rem;
+font-size: 0.7rem;
+}
+
+.searchTermo { 
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 10px;
+  font-size: 1.5rem; 
+}
+
+.searchTermo:focus{
+  font-size: 1.5rem;
+}
+}
+
+@media only screen and (min-width:500px) {
+     
+  .headero{
+    margin-top: 0px;
+    margin-right: 40px;
+    font-size: 2.5rem;
+    padding-left: 1rem;
+    font-family: "Gilroy Extrabold";
+  }
+  
+  .card_imageo img {
+  height: 10.1rem;
+  width: 13.8rem;
+  }
+  
+  .cardso {
+  padding: 0;
+  
+  }
+  
+  .cards_itemo {
+  display: flex;
+  padding: 0em;
+  padding-bottom: 1rem;
+  padding-left: 0.1rem;
+  
+  
+  }
+  
+  .card_titleo {
+  padding-top: 0.77rem;
+  padding-left: 0.77rem;
+  font-size: 1.1rem;
+  }
+  
+  .card_interesto {
+  padding-left: 0.77rem;
+  font-size: 0.8rem;
+  line-height: 0;  
+  font-weight: 300;
+  }
+
+  .card_annualo {
+  padding-top: 0.55rem;
+  padding-left: 0.77rem;
+  font-size: 0.8rem;
+  line-height: 0;
+  margin-bottom: 1.3rem;
+  }
+
+  .fromo{  
+  padding-left: 0.77rem;
+  padding-bottom: 0.33rem;
+  font-size: 0.8rem;
+  }
+
+  .searchTermo{ 
+    border-radius: 0.5rem;
+    height: 2rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 10px;
+    font-size: 1.2rem; 
+  }
+  
+  .searchTermo:focus{
+    font-size: 1.5rem;
+  }
+  }
+
+@media only screen and (min-width: 600px) {
+   
+  .headero {
+  margin-top: 0px;
+  margin-right: 40px;
+  font-weight: 300;
+  font-size: 2.5rem;
+  font-family: "Gilroy Extrabold";
+}
+
+.card_imageo img {
+height: 13.27rem;
+width: 18rem;
+}
+
+.cardso {
+padding: 0;
+
+}
+
+.cards_itemo {
+display: flex;
+padding: 0em;
+padding-bottom: 1rem;
+padding-left: 0.1rem;
+
+}
+
+.card_titleo {
+padding-top: 0.9rem;
+padding-left: 0.9rem;
+font-size: 1.3rem;
+}
+
+.card_interesto {
+padding-left: 0.9rem;
+font-size: 0.9rem;
+line-height: 0;  
+}
+
+.card_annualo{
+padding-top: 0.6rem;
+padding-left: 0.9rem;
+font-size: 0.9rem;
+line-height: 0;
+margin-bottom: 1.3rem;    
+}
+
+.fromo{  
+padding-left: 0.9rem;
+padding-bottom: 0.4rem;
+font-size: 0.9rem;
+}
+
+.searchTermo{
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 10px;
+  font-size: 1.5rem; 
+}
+
+.searchTermo:focus{
+  font-size: 1.5rem;
+}
+}
+
+
+@media only screen and (min-width: 768px) {
+ 
+  .headero{
+  margin-top: 0px;
+  margin-right: 40px;
+  font-size: 3rem;
+  font-family: "Gilroy Extrabold";
+}
+
+.card_imageo img {
+height: 16.2rem;
+width: 22rem;
+}
+
+.cardso {
+padding: 0;
+
+}
+
+.cards_itemo {
+display: flex;
+padding: 0em;
+padding-bottom: 1rem;
+padding-left: 0.1rem;
+}
+
+.card_titleo {
+padding-top: 0.95rem;
+padding-left: 0.95rem;
+font-size: 1.3rem;
+}
+
+.card_interesto {
+padding-left: 0.95rem;
+font-size: 0.9rem;
+line-height: 0;  
+}
+
+.card_annualo {
+padding-top: 0.65rem;
+padding-left: 0.95rem;
+font-size: 0.9rem;
+line-height: 0;
+margin-bottom: 1.3rem; 
+}
+
+.fromo{  
+padding-left: 0.95rem;
+padding-bottom: 0.45rem;
+font-size: 0.9rem;
+}
+
+.searchTermo { 
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 10px;
+  font-size: 1.5rem; 
+}
+
+.searchTermo:focus{
+  font-size: 1.5rem;
+}
+} 
+
+
+@media only screen and (min-width: 992px) {
+  .x{
+    padding-right: 0px;
+    padding-bottom:1rem;
+    width: 3rem;
+    height: 3rem;
+    font-weight: 300;
+  }
+
+  .headero {
+    margin-top: 0px;
+    margin-right: 40px;
+    font-size: 4rem;
+    font-family: "Gilroy Extrabold";
+    text-align: left;
+    font-weight: 300;
+  }
+  
+  .card_imageo img {
+  height: 20.6rem;
+  width: 28rem;
+  }
+  
+  .cardso {
+  padding: 0;
+  
+  }
+  
+  .cards_itemo{
+  display: flex;
+  padding: 0em;
+  padding-bottom: 1rem;
+  padding-left: 0.1rem;
+  }
+  
+  .card_titleo {
+  padding-top: 0.98rem;
+  padding-left: 0.98rem;
+  font-size: 1.32rem;
+  }
+  
+  .card_interesto {
+  padding-left: 0.98rem;
+  font-size: 1rem;
+  line-height: 0;  
+  }
+
+  .card_annualo {
+  padding-top: 0.7rem;
+  padding-left: 0.98rem;
+  font-size: 1rem;
+  line-height: 0;
+  margin-bottom: 1.83rem;  
+  }
+
+  .fromo{  
+  padding-left: 0.98rem;
+  padding-bottom: 0.59rem;
+  font-size: 0.98rem;
+  }
+  
+  .searchTermo {
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 10px;
+    font-size: 1.5rem; 
+  }
+  
+  .searchTermo:focus{
+    font-size: 1.5rem;
+  } 
+  } 
+  
+
+@media only screen and (min-width: 1200px) {
+  
+  .x{
+    padding-right: 0px;
+    padding-bottom:1rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .headero {
+      margin-top: 0px;
+      margin-right: 40px;
+      font-size: 5rem;
+      font-family: "Gilroy Extrabold";
+  }
+  
+  .card_imageo img {
+    height: 23.6rem;
+    width: 32rem;
+  }
+  
+  .cardso {
+    padding: 1rem;
+  
+  }
+  
+  .card_titleo{
+    padding-top: 1.27rem;
+    padding-left: 1.27rem;
+    font-size: 1.5rem;
+  }
+  
+  .card_interesto {
+    padding-left: 1.27rem;
+    font-size: 1.11rem;
+    line-height: 0;  
+  }
+
+  .card_annualo {
+    padding-top: 0.9rem;
+    padding-left: 1.27rem;
+    font-size: 1.11rem;
+    margin-bottom: 1.3rem; 
+  }
+
+  .fromo{  
+    padding-left: 1.27rem;
+    padding-bottom: 0.54rem;
+    font-size: 1.11rem;
+  }
+  
+  .searchTermo {
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 10px;
+    font-size: 1.5rem; 
+  }
+  
+  .searchTermo:focus{
+    font-size: 1.5rem;
+  } 
+  }
+
+
+@media only screen and (min-width: 1440px) {
+  .x{
+    padding-right: 0px;
+  }
+  
+  .headero{
+      margin-top: 0px;
+      margin-right: 40px;
+      font-size: 6rem;
+      font-family: "Gilroy Extrabold";
+  }
+  
+  .card_imageo img {
+    height: 29.4rem;
+    width: 40rem;
+  }
+  
+  .cardso {
+    padding: 1rem;
+  
+  }
+  
+  .cards_itemo {
+    display: flex;
+    padding: 0em;
+    padding-bottom: 1rem;
+    padding-left: 0.1rem;
+  
+  
+  }
+  
+  .card_titleo {
+    padding-top: 1.27rem;
+    padding-left: 1.27rem;
+    font-size: 1.5rem;
+  }
+  
+  .card_interesto {
+    padding-left: 1.27rem;
+    font-size: 1.11rem;
+    line-height: 0;
+  }
+
+  .card_annualo {
+    padding-top: 0.9rem;
+    padding-left: 1.27rem;
+    font-size: 1.11rem;
+    line-height: 0;
+    margin-bottom: 1.3rem;
+  }
+
+  .fromo{  
+    padding-left: 1.27rem;
+    padding-bottom: 0.54rem;
+    font-size: 1.11rem;
+  }
+
+.searchTermo { 
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 10px;
+  font-size: 1.5rem; 
+}
+
+.searchTermo:focus{
+  font-size: 1.5rem;
+} 
+}

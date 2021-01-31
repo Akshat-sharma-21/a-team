@@ -1,0 +1,109 @@
+.notification-list-item-root {
+  --color-notification-unread-bg: #ddefff;
+  --color-notification-unread-bg-hover: #cee9ff;
+  --color-notification-unread-fg: #0366d6;
+  --color-notification-read-bg: #ffffff;
+  --color-notification-read-bg-hover: #f0f0f0;
+  
+  margin: 8px;
+}
+
+.notification-list-item:hover {
+  opacity: 1;
+  transition: background 200ms ease;
+}
+
+.notification-unread .notification-list-item {
+  background: var(--color-notification-unread-bg);
+}
+
+.notification-unread .notification-list-item:hover {
+  background: var(--color-notification-unread-bg-hover);
+}
+
+.notification-unread .notification-list-item-content {
+  color: var(--color-notification-unread-fg);
+}
+
+.notification-list-item {
+  background: var(--color-notification-read-bg);
+}
+
+.notification-list-item:hover {
+  background: var(--color-notification-read-bg-hover);
+}
+
+.notification-list-item {
+  display: flex;
+  padding: 20px 10px 10px 10px;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.notification-list-item-icon {
+  margin-left: 5px;
+}
+
+.notification-list-item-content {
+  width: 100%;
+  margin-left: 20px;
+}
+
+.notification-list-item-primary-text {
+  font-family: 'Gilroy';
+  font-size: 16px;
+}
+
+.notification-list-item-secondary-text {
+  font-family: 'Roboto Slab';
+  font-size: 14px;
+  margin-top: 5px;
+  line-height: 20px;
+}
+
+.notification-list-item-misc-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: 'Gilroy';
+}
+
+.notification-list-item-relative-time {
+  opacity: 0.5;
+}
+
+.notification-item-action-group {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-right: 10px;
+
+  transform: translateX(10px);
+  opacity: 0;
+  transition: all 150ms ease;
+}
+
+.notification-list-item:hover .notification-item-action-group {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification-item-action {
+  background: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+  font-family: 'Gilroy' !important;
+}
+
+.notification-unread .notification-item-action {
+  color: var(--color-notification-unread-fg);
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.notification-item-action-text {
+  margin-left: 8px;
+  margin-right: 5px;
+}
