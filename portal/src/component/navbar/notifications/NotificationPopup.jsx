@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Grid, Box, List, CircularProgress } from '@material-ui/core';
 import NotificationListItem from "./NotificationListItem";
 import './NotificationPopup.css';
 import { BellIcon } from '@primer/octicons-react';
+
+import {
+  Menu,
+  Grid,
+  Box,
+  List,
+  CircularProgress,
+  ButtonGroup,
+  Button,
+  Divider
+} from '@material-ui/core';
 
 /**
  * Component for showing notifications in a popup.
@@ -30,7 +40,21 @@ class NotificationPopup extends React.Component {
      */
     notifications: PropTypes.arrayOf(
       PropTypes.object
-    )
+    ),
+
+    /**
+     * Maximum number of notifications to be
+     * displayed per page
+     */
+    maxNotificationsPerPage: PropTypes.number
+  }
+
+  constructor() {
+    super();
+
+    this.state = {
+      notificationStartIndex: 0
+    };
   }
 
   /**
@@ -46,7 +70,12 @@ class NotificationPopup extends React.Component {
   }
 
   render() {
-    const { notificationAnchor, dismissCallback } = this.props;
+    const {
+      notifications,
+      notificationAnchor,
+      dismissCallback,
+      maxNotificationsPerPage=20
+    } = this.props;
 
     return (
       <Menu
@@ -98,16 +127,55 @@ class NotificationPopup extends React.Component {
             </Box>
           </Grid>
 
-          {(this.props.notifications !== null)
-            ? (this.props.notifications.length !== 0)
+          {(notifications !== null)
+            ? (notifications.length !== 0)
               ? (
                 <List className="notification-list">
-                  {this.props.notifications.map((notification, index) => (
+                  {notifications.slice(
+                    this.state.notificationStartIndex,
+                    this.state.notificationStartIndex + maxNotificationsPerPage
+                  ).map((notification, index) => (
                     <NotificationListItem
                       key={`notification-${index}-${notification.id}`}
                       notificationData={notification}
                     />
                   ))}
+
+                  <Divider variant="middle" />
+
+                  <div className="notification-pagination-nav-root">
+                    Showing {
+                      this.state.notificationStartIndex + 1
+                    }-{
+                      Math.min(
+                        this.state.notificationStartIndex + maxNotificationsPerPage,
+                        notifications.length
+                      )
+                    } of {
+                      notifications.length
+                    }
+
+                    <div className="notification-pagination-button-group">
+                      <ButtonGroup>
+                        <Button
+                          disabled={this.state.notificationStartIndex <= 0}
+                          onClick={() => this.setState((state) => ({
+                            notificationStartIndex: state.notificationStartIndex - maxNotificationsPerPage
+                          }))}
+                        >
+                          Prev
+                        </Button>
+                        <Button
+                          disabled={this.state.notificationStartIndex + maxNotificationsPerPage >= notifications.length}
+                          onClick={() => this.setState((state) => ({
+                            notificationStartIndex: state.notificationStartIndex + maxNotificationsPerPage
+                          }))}
+                        >
+                          Next
+                        </Button>
+                      </ButtonGroup>
+                    </div>
+                  </div>
                 </List>
               )
 

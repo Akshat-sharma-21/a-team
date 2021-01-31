@@ -79,7 +79,7 @@ function Navbar(props) {
   const notificationSubscriber = async () => {
     console.log('Subscribe to Notification API...');
 
-    _dummyNotificationsApi(1)
+    _dummyNotificationsApi(5)
       .then((notifications) => {
         setNotifications(notifications);
       });
@@ -142,6 +142,15 @@ function Navbar(props) {
           timestamp: 1610033529112,
           tid: 'kuAsdbh2198',
           name: 'Chandler Bing'
+        },
+        {
+          id: 'jhgfsdkq',
+          type: 'DOC_UPDATE',
+          isRead: true,
+          timestamp: 1609593529112,
+          tid: 'kuAsdbh2198',
+          name: 'Income & Employment',
+          lastModifiedBy: 'Joeseph Tribbiani'
         },
       ]
 
@@ -257,6 +266,7 @@ function Navbar(props) {
         dismissCallback={hideNotificationPopup}
         notifications={notifications}
         notificationAnchor={notificationPopupAnchorEl}
+        maxNotificationsPerPage={15}
       />
 
       <UserProfilePopup
