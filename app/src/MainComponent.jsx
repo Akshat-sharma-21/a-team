@@ -5,9 +5,13 @@ import Document from "./components/Documents/Documents";
 import Document2 from "./components/Documents/Documents2";
 import Signin from "./components/account/SignIn/SignIn";
 import Signup from "./components/account/SignUp/SignUp";
-import PreApproval from "./components/PreApproval/PreApproval";
-import PreApproval2 from "./components/PreApproval2/PreApproval2";
-
+import PreAprooval from "./components/Pre-Aprooval/PreAprooval";
+import PreAprooval1 from "./components/Pre-Aprooval/PreAprooval1";
+import PreAprooval2 from "./components/Pre-Aprooval/PreAprooval2";
+import PreAprooval3 from "./components/Pre-Aprooval/PreAprooval3";
+import PreAprooval4 from "./components/Pre-Aprooval/PreAprooval4";
+import PreApprovalDashboard from "./components/PreApprovalDashboard/PreApprovalDashboard";
+import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
 function Main() {
   return (
     <Switch>
@@ -17,8 +21,13 @@ function Main() {
       <Route path="/documents2" component={Document2} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
-      <Route path="/preapproval" component={PreApproval} />
-      <Route path="/preapproval2" component={PreApproval2} />
+      <Route path="/pre1" component={PreAprooval} />
+      <Route path="/pre2" component={PreAprooval1} />
+      <Route path="/pre3" component={PreAprooval2} />
+      <Route path="/pre4" component={PreAprooval3} />
+      <Route path="/pre5" component={PreAprooval4} />
+      <Route path="/preapproval-dashboard" component={PreApprovalDashboard} />
+      <Route path="/tasks_dashboard" component={TasksDashboard} />
     </Switch>
   );
 }

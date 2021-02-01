@@ -1,7 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocActiveLogo from "../../assets/doc_logo_active.png";
 import { Scaffold } from "../utilities/core";
-import "./PreApproval.css";
+import "./TasksDashboard.css";
 import {
   CheckCircleIcon,
   QuestionIcon,
@@ -33,7 +33,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
-function PreApproval() {
+function TasksDashboard() {
   let documents = [
     {
       title: "Tax Returns",
@@ -57,7 +57,7 @@ function PreApproval() {
   ];
 
   return (
-    <Scaffold bottom>
+    <Scaffold>
       <IconButton>
         <ArrowLeftIcon size={22} />
       </IconButton>
@@ -66,14 +66,14 @@ function PreApproval() {
         <BorderLinearProgress variant="determinate" value="50" />
       </div>
 
-      <div className="preapproval-tasks-completed">
+      <div className="tasks-dashboard-tasks-completed">
         <CheckCircleIcon />
         &nbsp; 2 / 5 Tasks Completed
       </div>
       <h3>Documents</h3>
-      <List className="preapproval-list">
+      <List className="tasks-dashboard-list">
         {documents.map((doc) => (
-          <ListItem className="preapproval-list-item">
+          <ListItem className="tasks-dashboard-list-item">
             <ListItemAvatar>
               <img src={DocActiveLogo} />
             </ListItemAvatar>
@@ -88,9 +88,9 @@ function PreApproval() {
       </List>
 
       <h3>Tasks</h3>
-      <List className="preapproval-list">
+      <List className="tasks-dashboard-list">
         {tasks.map((task) => (
-          <ListItem className="preapproval-list-item">
+          <ListItem className="tasks-dashboard-list-item">
             <ListItemAvatar>
               <ListUnorderedIcon size={20} />
             </ListItemAvatar>
@@ -102,4 +102,4 @@ function PreApproval() {
   );
 }
 
-export default PreApproval;
+export default TasksDashboard;

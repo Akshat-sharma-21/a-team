@@ -1,7 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocActiveLogo from "../../assets/doc_logo_active.png";
 import { Scaffold } from "../utilities/core";
-import "./PreApproval2.css";
+import "./PreApprovalDashboard.css";
 import {
   CheckCircleIcon,
   QuestionIcon,
@@ -57,7 +57,7 @@ function PreApproval() {
   ];
 
   return (
-    <Scaffold bottom>
+    <Scaffold>
       <IconButton>
         <ArrowLeftIcon size={22} />
       </IconButton>
