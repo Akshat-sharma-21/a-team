@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RenderCard(items) {
-  const [progress, setProgress] = useState(40);
+  const [progress, setProgress] = useState(60);
   const classes = useStyles();
   // mapping the transactions
   return (
@@ -81,8 +81,8 @@ function RenderCard(items) {
                           />
                           <svg width="300" height="4">
                             <linearGradient id="linearColors">
-                              <stop offset="20%" stopColor="#7C67E8" />
-                              <stop offset="80%" stopColor="#1BB0EE" />
+                              <stop offset="20%" stopColor="#1BB0EE" />
+                              <stop offset="80%" stopColor="#7C67E8" />
                             </linearGradient>
                           </svg>
                           <CircularProgress
