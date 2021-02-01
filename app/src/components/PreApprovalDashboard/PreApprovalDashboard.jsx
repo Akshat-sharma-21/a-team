@@ -70,6 +70,15 @@ function PreApproval() {
         <CheckCircleIcon />
         &nbsp; 2 / 5 Tasks Completed
       </div>
+
+      <div className="lender-class">
+        <h3>Lender</h3>
+        <p>You haven't selected any</p>
+        <button className="button-lender" type="button">
+          <div className="offers-lender">View all offers</div>
+        </button>
+      </div>
+
       <h3>Documents</h3>
       <List className="preapproval-list">
         {documents.map((doc) => (

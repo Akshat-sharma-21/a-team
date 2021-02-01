@@ -17,87 +17,89 @@ import {
   ListItemSecondaryAction,
   IconButton,
 } from "@material-ui/core";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-const BorderLinearProgress = withStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: 10,
-    borderRadius: 5,
+    width: "100%",
   },
-  colorPrimary: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
   },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: "#1a90ff",
-  },
-}))(LinearProgress);
+}));
 
 function TasksDashboard() {
-  let documents = [
-    {
-      title: "Tax Returns",
-      description: "Lorum Ipsum fit amet",
-    },
-    {
-      title: "ID",
-      description: "Lorum Ipsum fit amet",
-    },
-    {
-      title: "Income & Employment",
-      description: "Lorum Ipsum fit amet",
-    },
-  ];
-
-  let tasks = [
-    {
-      title: "Tax Returns",
-      description: "Lorum Ipsum fit amet",
-    },
-  ];
+  const classes = useStyles();
 
   return (
-    <Scaffold>
-      <IconButton>
-        <ArrowLeftIcon size={22} />
-      </IconButton>
-      <h1>Pre-approval</h1>
-      <div>
-        <BorderLinearProgress variant="determinate" value="50" />
-      </div>
+    <Scaffold bottomNav>
+      <h1>Tasks</h1>
+      <div>SearchBar(To add)</div>
+      <h2>Preapproval</h2>
 
-      <div className="tasks-dashboard-tasks-completed">
-        <CheckCircleIcon />
-        &nbsp; 2 / 5 Tasks Completed
-      </div>
-      <h3>Documents</h3>
-      <List className="tasks-dashboard-list">
-        {documents.map((doc) => (
-          <ListItem className="tasks-dashboard-list-item">
-            <ListItemAvatar>
-              <img src={DocActiveLogo} />
-            </ListItemAvatar>
-            <ListItemText primary={doc.title} secondary={doc.description} />
-            <ListItemSecondaryAction>
-              <IconButton>
-                <QuestionIcon size={20} />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+      <div className={classes.root}>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <div className="tasks-dashboard-accordion-date">10 July </div>
 
-      <h3>Tasks</h3>
-      <List className="tasks-dashboard-list">
-        {tasks.map((task) => (
-          <ListItem className="tasks-dashboard-list-item">
-            <ListItemAvatar>
-              <ListUnorderedIcon size={20} />
-            </ListItemAvatar>
-            <ListItemText primary={task.title} secondary={task.description} />
-          </ListItem>
-        ))}
-      </List>
+            <Typography className={classes.heading}>Upload Photo ID</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <div className="tasks-dashboard-accordion-date">10 July </div>
+            <Typography className={classes.heading}>Upload Photo ID</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <div className="tasks-dashboard-accordion-date">10 July </div>
+            <Typography className={classes.heading}>Upload Photo ID</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+              eget.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </Scaffold>
   );
 }

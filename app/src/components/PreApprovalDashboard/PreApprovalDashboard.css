@@ -11,3 +11,12 @@
 .preapproval-tasks-completed {
   margin-top: 8px;
 }
+
+.button-lender {
+  border-style: solid;
+  border-radius: 5px;
+  background-color: #2b44ff;
+}
+.offers-lender {
+  color: white;
+}
