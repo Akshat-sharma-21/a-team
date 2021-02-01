@@ -21,3 +21,24 @@
   color: blue;
   border-radius: 10px 10px 10px 10px;
 }
+
+@media only screen and (max-width: 600px) {
+  .preaprooval-child-container > img {
+    margin-left: 16vw;
+  }
+
+  .preaprooval-child-container > p {
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-left: 14vw;
+  }
+
+  .preaprooval-child-container > Button {
+    width: 80%;
+    margin-left: 14vw;
+    margin-top: 12vh;
+    background-color: white;
+    color: blue;
+    border-radius: 10px 10px 10px 10px;
+  }
+}

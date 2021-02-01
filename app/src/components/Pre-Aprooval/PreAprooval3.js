@@ -11,8 +11,9 @@ import Scaffold from "../utilities/Scaffold/Scaffold";
 
 const BorderLinearProgress = withStyles({
   root: {
-    height: 10,
+    height: 8,
     width: 1200,
+    borderRadius: "12px 12px 12px 12px ",
     backgroundColor: "rgba(255,255,255,0.2)",
   },
   bar: {
@@ -23,7 +24,11 @@ const BorderLinearProgress = withStyles({
 function PreAprooval3() {
   return (
     <Scaffold bgVariant="gradient">
-      <BorderLinearProgress value={50} variant="determinate" />
+      <BorderLinearProgress
+        id="pre-cc3-pbar"
+        value={50}
+        variant="determinate"
+      />
       <div className="preaprooval-child-container-3">
         <h1>
           Are You <br />
@@ -58,14 +63,8 @@ function PreAprooval3() {
             NO
           </Button>
         </div>
-        <ArrowBackIcon
-          style={{ width: "4vw", height: "6vh" }}
-          className="cc3-backicon"
-        />
-        <ArrowForwardIcon
-          style={{ width: "4vw", height: "6vh" }}
-          className="cc3-forwardicon"
-        />
+        <ArrowBackIcon className="cc3-backicon" />
+        <ArrowForwardIcon className="cc3-forwardicon" />
       </div>
     </Scaffold>
   );

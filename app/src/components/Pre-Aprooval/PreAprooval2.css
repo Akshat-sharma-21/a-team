@@ -7,12 +7,39 @@
   width: 30vw;
 }
 
-.cc2-back-icon,
-.cc2-forward-icon {
+#pre-cc2-back-icon,
+#pre-cc2-forward-icon {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
 }
 
-.cc2-forward-icon {
+#pre-cc2-forward-icon {
   margin-left: 80vw;
+}
+
+@media only screen and (max-width: 600px) {
+  .preaprooval-child-container-2 > p {
+    margin-top: 5vh;
+    color: darkgrey;
+  }
+
+  #pre-cc2-pbar {
+    width: 100%;
+  }
+
+  .cc2-textfield {
+    width: 80vw;
+  }
+
+  #pre-cc2-back-icon,
+  #pre-cc2-forward-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 8vw;
+    height: 4vh;
+  }
+
+  #pre-cc2-forward-icon {
+    margin-left: 70vw;
+  }
 }
