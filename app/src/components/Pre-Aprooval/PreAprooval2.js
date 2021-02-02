@@ -9,8 +9,9 @@ import Scaffold from "../utilities/Scaffold/Scaffold";
 
 const BorderLinearProgress = withStyles({
   root: {
-    height: 10,
+    height: 8,
     width: 1200,
+    borderRadius: "12px 12px 12px 12px ",
     backgroundColor: "rgba(255,255,255,0.2)",
   },
   bar: {
@@ -21,7 +22,11 @@ const BorderLinearProgress = withStyles({
 function PreAprooval2() {
   return (
     <Scaffold bgVariant="gradient">
-      <BorderLinearProgress value={50} variant="determinate" />
+      <BorderLinearProgress
+        id="pre-cc2-pbar"
+        value={50}
+        variant="determinate"
+      />
       <div className="preaprooval-child-container-2">
         <h1>Enter Your Name</h1>
         <p>
@@ -38,15 +43,11 @@ function PreAprooval2() {
           variant="outlined"
           label="Name"
         />
-        <div style={{ marginTop: "40vh" }}>
-          <ArrowBackIcon
-            style={{ width: "4vw", height: "6vh" }}
-            className="cc2-back-icon"
-          />
-          <ArrowForwardIcon
-            style={{ width: "4vw", height: "6vh" }}
-            className="cc2-forward-icon"
-          />
+        <div
+          style={{ marginTop: "40vh", display: "flex", flexDirection: "row" }}
+        >
+          <ArrowBackIcon id="pre-cc2-back-icon" />
+          <ArrowForwardIcon id="pre-cc2-forward-icon" />
         </div>
       </div>
     </Scaffold>

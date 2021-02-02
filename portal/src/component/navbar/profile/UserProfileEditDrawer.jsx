@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { PencilIcon } from "@primer/octicons-react";
+import "./UserProfileEditDrawer.css";
 // import PhotoUploadModal from "../photo_uploader/PhotoUploader";
 
 import {
@@ -8,13 +9,13 @@ import {
   ModalActionFooter,
   ReallosButton,
   SideDrawer
-} from "../utilities/core";
+} from "../../utilities/core";
 
 import {
   USER_ROLES,
   getRoleLabel,
   validateFormField,
-} from "../../utils";
+} from "../../../utils";
 
 import {
   List,
@@ -35,7 +36,6 @@ import {
   FormHelperText,
   Snackbar,
 } from "@material-ui/core";
-import "./UserProfileEditDrawer.css";
 
 /**
  * Display a "User Profile Edit" Side Drawer

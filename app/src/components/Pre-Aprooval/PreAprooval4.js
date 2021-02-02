@@ -18,14 +18,14 @@ function PreAprooval4() {
           to submit them ?
         </p>
         <Button
-          className="cc4-button1"
+          id="cc4-button1"
           variant="outlined"
           style={{
-            marginLeft: "32vw",
+            marginLeft: "14vw",
             marginTop: "10vh",
             background: "white",
             color: "blue",
-            width: "20vw",
+            width: "60vw",
             borderRadius: "10px 10px 10px 10px",
           }}
         >
@@ -34,14 +34,14 @@ function PreAprooval4() {
         <div>
           <Button
             style={{
-              marginLeft: "32vw",
+              marginLeft: "14vw",
               marginTop: "2vh",
+              width: "60vw",
               background: "transparent",
               borderColor: " 2px solid white",
-              width: "20vw",
               borderRadius: "10px 10px 10px 10px",
             }}
-            className="cc4-button2"
+            id="cc4-button2"
             variant="outlined"
             startIcon={<Avatar src={Refresh} />}
           >
