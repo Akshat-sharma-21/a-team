@@ -10,8 +10,9 @@ import Scaffold from "../utilities/Scaffold/Scaffold";
 
 const BorderLinearProgress = withStyles({
   root: {
-    height: 10,
+    height: 8,
     width: 1200,
+    borderRadius: "12px 12px 12px 12px ",
     backgroundColor: "grey",
   },
   bar: {
@@ -22,7 +23,7 @@ const BorderLinearProgress = withStyles({
 function PreAprooval1() {
   return (
     <Scaffold>
-      <BorderLinearProgress value={50} variant="determinate" />
+      <BorderLinearProgress id="cc1-pbar" value={50} variant="determinate" />
       <div className="preapproval-child-container-1">
         <h1>
           Are you <br />
