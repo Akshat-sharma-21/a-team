@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   bottom: {
     opacity: "0.6",
-    color: "#ffffff",
+    color: "#eeeeee",
   },
   top: {
     position: "absolute",
@@ -225,9 +225,13 @@ function RenderCard(items) {
                       </table>
                     </Typography>
                   </Box>
-                  <Box paddingLeft={11} paddingRight={8} style={{ fontSize: "18px" }}>
+                  <Box
+                    paddingLeft={11}
+                    paddingRight={8}
+                    style={{ fontSize: "18px" }}
+                  >
                     <Typography style={{ fontFamily: "Roboto Slab" }}>
-                    Mountain View, California, United States
+                      Mountain View, California, United States
                     </Typography>
                   </Box>
                 </Grid>

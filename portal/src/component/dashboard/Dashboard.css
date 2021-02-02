@@ -38,13 +38,19 @@ body {
   overflow-x: hidden !important;
   height: 470px !important;
   padding-top: 20px !important;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
 }
 
-.transaction-list ::-webkit-scrollbar {
-  height: 0px !important;
-  width: 0px !important;
+.transaction-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.transaction-list::-webkit-scrollbar-thumb {
+  background: #cdcdcd;
+}
+
+.transaction-list::-webkit-scrollbar-thumb:hover {
+  background: #a6a6a6;
 }
 
 .invite-heading {

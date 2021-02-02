@@ -9,11 +9,9 @@ import {
   OutlinedInput,
   InputAdornment,
   Typography,
-  GridList,
   Avatar,
   makeStyles,
   Button,
-  GridListTile,
 } from "@material-ui/core";
 
 import {
@@ -53,7 +51,12 @@ function PeopleInvolved(props) {
   function renderPeopleCard() {
     return (
       <div className={classes.root}>
-        <Grid container direction="row" cellHeight={200} className={classes.gridList}>
+        <Grid
+          container
+          direction="row"
+          cellHeight={200}
+          className={classes.gridList}
+        >
           <Grid item className="tile" xs={5}>
             <Grid
               container
