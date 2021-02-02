@@ -121,7 +121,7 @@ class SearchBar extends React.Component {
     for (let i = 0; i < this.props.filterByFields.length; i++) {
       let filter = this.props.filterByFields[i];
 
-      if (this._getObjectValue(item, filter).toLowerCase().indexOf(this.searchValue) !== -1)
+      if (this._getObjectValue(item, filter)?.toLowerCase().includes(this.searchValue))
         return true;
     }
 
@@ -135,6 +135,7 @@ class SearchBar extends React.Component {
       <FormControl fullWidth variant="outlined">
         <OutlinedInput
           className="search-bar"
+          type="search"
           startAdornment={
             <InputAdornment position="start">
               <div style={{
