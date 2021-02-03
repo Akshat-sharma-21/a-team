@@ -8,6 +8,7 @@
 export const USER_ROLES = [
   { value: "buyer", label: "Buyer" },
   { value: "seller", label: "Seller" },
+  { value: "lender", label: "Lender" },
   { value: "buyer-agent", label: "Buyer Agent" },
   { value: "seller-agent", label: "Seller Agent" },
   { value: "title-agent", label: "Title Agent" },
