@@ -75,11 +75,11 @@ function RenderCard(items) {
                           <CircularProgress
                             variant="determinate"
                             className={classes.bottom}
-                            size={110}
-                            thickness={7}
+                            size={150}
+                            thickness={10}
                             value={100}
                           />
-                          <svg width="300" height="4">
+                          <svg width="100" height="4">
                             <linearGradient id="linearColors">
                               <stop offset="20%" stopColor="#1BB0EE" />
                               <stop offset="80%" stopColor="#7C67E8" />
@@ -89,8 +89,8 @@ function RenderCard(items) {
                             variant="static"
                             className={classes.top}
                             disableShrink
-                            size={110}
-                            thickness={7}
+                            size={150}
+                            thickness={10}
                             value={progress}
                             classes={{ circle: classes.circle }}
                           />
@@ -132,7 +132,7 @@ function RenderCard(items) {
                   <Box paddingLeft={4}>
                     <Typography
                       style={{
-                        fontSize: "24px",
+                        fontSize: "22px",
                         fontFamily: "Gilroy",
                         fontWeight: "bold",
                       }}
@@ -155,7 +155,7 @@ function RenderCard(items) {
                   <Box paddingLeft={4}>
                     <Typography
                       style={{
-                        fontSize: "24px",
+                        fontSize: "21px",
                         fontFamily: "Gilroy",
                         fontWeight: "bold",
                         lineHeight: "50px",
@@ -179,7 +179,7 @@ function RenderCard(items) {
                   <Box paddingLeft={11}>
                     <Typography
                       style={{
-                        fontSize: "20px",
+                        fontSize: "17px",
                         fontFamily: "Roboto Slab",
                         lineHeight: "30px",
                       }}
@@ -203,11 +203,11 @@ function RenderCard(items) {
                   </Box>
                   <Box paddingLeft={4}>
                     <Typography
-                      style={{ fontSize: "24px", lineHeight: "50px" }}
+                      style={{ fontSize: "21px", lineHeight: "50px" }}
                     >
                       <table
                         style={{
-                          fontFamily: "Roboto Slab",
+                          fontFamily: "Gilroy",
                           fontWeight: "bold",
                         }}
                       >
@@ -228,7 +228,7 @@ function RenderCard(items) {
                   <Box
                     paddingLeft={11}
                     paddingRight={8}
-                    style={{ fontSize: "18px" }}
+                    style={{ fontSize: "17px" }}
                   >
                     <Typography style={{ fontFamily: "Roboto Slab" }}>
                       Mountain View, California, United States
