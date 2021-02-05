@@ -77,11 +77,6 @@
 }
 
 .onboarding-lets-go-btn {
-  background-color: var(--color-primary) !important;
-  color: var(--color-white) !important;
-  font-family: "Gilroy Extrabold" !important;
-  font-weight: bold !important;
-  font-size: 15px !important;
   position: absolute !important;
   bottom: 35px !important;
   width: 83% !important;
