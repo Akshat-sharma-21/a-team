@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Container, Grid, IconButton, Button } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import RedHeart from "../../assets/Red_heart.png";
-import Logo1 from "../../assets/Onboarding_logo_1.png";
-import Logo2 from "../../assets/Onboarding_logo_2.png";
-import Logo3 from "../../assets/Onboarding_logo_3.png";
-import Logo4 from "../../assets/Onboarding_logo_4.png";
+import Logo1 from "../../assets/Onboarding_1.png";
+import Logo2 from "../../assets/Onboarding_2.png";
+import Logo3 from "../../assets/Onboarding_3.png";
+import Logo4 from "../../assets/Onboarding_4.png";
 import "./Onboarding.css";
-import DotStepper from "./DotStepper";
+import DotStepper from "../utilities/DotStepper/DotStepper";
+import { ReallosButton } from "../utilities/core";
 
 function Screen1({ page, increment }) {
   // Code for screen 1
@@ -167,7 +168,13 @@ function Screen4({ page }) {
         <DotStepper variant="blue" steps={4} activeStep={page} />
       </div>
 
-      <Button className="onboarding-lets-go-btn">Let's Go!</Button>
+      <ReallosButton
+        primary
+        variant="primary"
+        className="onboarding-lets-go-btn"
+      >
+        Let's Go!
+      </ReallosButton>
     </Container>
   );
 }
