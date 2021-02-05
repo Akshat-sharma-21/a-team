@@ -7,64 +7,74 @@ import './SideDrawer.css';
  * @augments {React.Component<Props>}
  */
 class SideDrawer extends React.Component {
-    static propTypes = {
-        /**
-         * The title to be displayed on the Side Drawer
-         */
-        title: PropTypes.string.isRequired,
+  static propTypes = {
+    /**
+     * CSS class name to be applied to this component
+     */
+    className: PropTypes.string,
 
-        /**
-         * Specify whether the Side Drawer is visible
-         */
-        visible: PropTypes.bool.isRequired,
+    /**
+     * The title to be displayed on the Side Drawer
+     */
+    title: PropTypes.string.isRequired,
 
-        /**
-         * Specify the side where the drawer should
-         * be displayed. (_Default: "right"_)
-         */
-        side: PropTypes.oneOf([
-            "right",
-            "left"
-        ]),
+    /**
+     * Specify whether the Side Drawer is visible
+     */
+    visible: PropTypes.bool.isRequired,
 
-        /**
-         * Callback function which is called when user clicks
-         * outside the side drawer.
-         * 
-         * This function typically should contain code to set
-         * visiblity to false. If left unspecified, the
-         * side drawer will not close when user clicks outside
-         * the side drawer.
-         */
-        dismissCallback: PropTypes.func
-    }
+    /**
+     * Specify the side where the drawer should
+     * be displayed. (_Default: "right"_)
+     */
+    side: PropTypes.oneOf([
+      "right",
+      "left"
+    ]),
 
-    render() {
-        let {
-            title,
-            visible,
-            side="right",
-            dismissCallback,
-            children
-        } = this.props;
+    /**
+     * Callback function which is called when user clicks
+     * outside the side drawer.
+     * 
+     * This function typically should contain code to set
+     * visiblity to false. If left unspecified, the
+     * side drawer will not close when user clicks outside
+     * the side drawer.
+     */
+    dismissCallback: PropTypes.func
+  }
 
-        return (
-            <div className="side-drawer-root" visible={visible.toString()} side={side.toString()}>
-                <div onClick={dismissCallback} className="side-drawer-backdrop" />
-                <div className="side-drawer-container">
-                    <div className="side-drawer">
-                        <div className="side-drawer-content">
-                            <h1 className="side-drawer-heading">
-                                {title}
-                            </h1>
+  render() {
+    let {
+      title,
+      className,
+      visible,
+      side = "right",
+      dismissCallback,
+      children
+    } = this.props;
 
-                            {children}
-                        </div>
-                    </div>
-                </div>
+    return (
+      <div
+        className="side-drawer-root"
+        visible={visible.toString()}
+        side={side.toString()}
+      >
+        <div onClick={dismissCallback} className="side-drawer-backdrop" />
+        <div className={`side-drawer-container ${className}`}>
+          <div className="side-drawer">
+            <div className="side-drawer-content">
+              <h1 className="side-drawer-heading">
+                {title}
+              </h1>
+
+              {children}
             </div>
-        )
-    }
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default SideDrawer;

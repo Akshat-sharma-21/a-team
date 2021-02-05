@@ -38,6 +38,20 @@ a:active,
   opacity: 0.8;
 }
 
+.link-basic {
+  color: unset;
+  text-decoration: unset;
+}
+
+.link-basic:hover,
+.link-basic:focus {
+  opacity: unset;
+}
+
+.link-basic:active {
+  opacity: unset;
+}
+
 .reallos-fab {
   font-family: "Gilroy" !important;
   font-size: 18px !important;
