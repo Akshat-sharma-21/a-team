@@ -1,6 +1,6 @@
 import React from 'react';
 import DocIcon from "../../assets/doc_icon.png";
-import DocGrayscaleIcon from "../../assets/doc_icon_greyscale.png";
+import DocGrayscaleIcon from "../../assets/doc_icon_grayscale.png";
 import AssistAccordion from './AssistAccordion';
 import { ReallosButton, SideDrawer } from '../utilities/core';
 
