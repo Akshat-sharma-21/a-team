@@ -8,12 +8,12 @@ import Logo3 from "../../assets/Onboarding_3.png";
 import Logo4 from "../../assets/Onboarding_4.png";
 import "./Onboarding.css";
 import DotStepper from "../utilities/DotStepper/DotStepper";
-import { ReallosButton } from "../utilities/core";
+import { Scaffold, ReallosButton } from "../utilities/core";
 
 function Screen1({ page, increment }) {
   // Code for screen 1
   return (
-    <Container className="onboarding">
+    <Scaffold bgVariant="gradient">
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={7}>
           <div className="onboarding-heading">Congrats, {"Akshat"}</div>
@@ -49,14 +49,14 @@ function Screen1({ page, increment }) {
       >
         <ArrowRightIcon size={24} className="onboarding-next-icon" />
       </IconButton>
-    </Container>
+    </Scaffold>
   );
 }
 
 function Screen2({ page, increment }) {
   // Code for scren 2
   return (
-    <Container className="onboarding-white">
+    <Scaffold>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
@@ -91,14 +91,14 @@ function Screen2({ page, increment }) {
       >
         <ArrowRightIcon size={24} className="onboarding-next-icon" />
       </IconButton>
-    </Container>
+    </Scaffold>
   );
 }
 
 function Screen3({ page, increment }) {
   // Code for screen 3
   return (
-    <Container className="onboarding">
+    <Scaffold bgVariant="gradient">
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
@@ -132,14 +132,14 @@ function Screen3({ page, increment }) {
       >
         <ArrowRightIcon size={24} className="onboarding-next-icon" />
       </IconButton>
-    </Container>
+    </Scaffold>
   );
 }
 
 function Screen4({ page }) {
   // Code fpor screen 4
   return (
-    <Container className="onboarding-white">
+    <Scaffold>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} className="onboard-empty-div"></Grid>
         <Grid item xs={12} className="onboard-empty-div"></Grid>
@@ -175,7 +175,7 @@ function Screen4({ page }) {
       >
         Let's Go!
       </ReallosButton>
-    </Container>
+    </Scaffold>
   );
 }
 

@@ -1,14 +1,3 @@
-.onboarding {
-  height: 100vh !important;
-  overflow: hidden;
-  padding: 30px 30px 20px 30px !important;
-  background: linear-gradient(
-    to bottom,
-    var(--color-gradient-start),
-    var(--color-gradient-stop)
-  );
-}
-
 .onboarding-heading {
   text-align: left !important;
   font-family: "Gilroy Extrabold" !important;
@@ -45,13 +34,6 @@
 
 .onboarding-next-icon {
   color: var(--color-white) !important;
-}
-
-.onboarding-white {
-  height: 100vh !important;
-  overflow: hidden;
-  padding: 30px 30px 20px 30px !important;
-  background: var(--color-white);
 }
 
 .onboarding-subheading-dark {

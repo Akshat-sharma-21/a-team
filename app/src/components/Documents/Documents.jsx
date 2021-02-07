@@ -20,7 +20,7 @@ function Documents() {
   if (true) {
     // If there are no documents that are uploaded for the user
     return (
-      <Scaffold bottomNav={true}>
+      <Scaffold bottomNav>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={7}>
             <div className="documents-heading">Documents</div>
