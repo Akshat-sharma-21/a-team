@@ -55,6 +55,7 @@ class ReallosModal extends React.Component {
      * will automatically be determined by the content
      * inside the modal.
      *
+     * @deprecated
      * (_Usage not recommended_)
      */
     modalHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

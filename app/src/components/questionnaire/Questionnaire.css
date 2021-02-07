@@ -1,0 +1,18 @@
+.questionnaire {
+  padding: 0 !important;
+}
+.questionnaire-back-button {
+  padding-top: 10% !important;
+}
+
+.questionnaire-empty-div {
+  height: 4.5vh;
+}
+
+.questionnaire-text {
+  font-family: Gilroy;
+  font-weight: normal;
+  font-size: 26px !important;
+  text-align: center;
+  color: #fff;
+}
