@@ -2,6 +2,13 @@
   background-color: #efefef;
 }
 
+.navbar-main.navbar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+
 .navbar-root {
   border-radius: 10px;
   background-color: white !important;

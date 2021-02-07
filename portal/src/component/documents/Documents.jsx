@@ -13,7 +13,8 @@ import {
   ModalActionFooter,
   ReallosButton,
   Scaffold,
-  SearchBar
+  SearchBar,
+  ReallosPageHeader,
 } from "../utilities/core";
 
 import {
@@ -165,7 +166,7 @@ class Documents extends React.Component {
         Uses Firebase
         @TODO: Logic to be replaced
       */
-      
+
       // const thumbnailRef = myStorage
       //   .ref()
       //   .child(
@@ -190,7 +191,7 @@ class Documents extends React.Component {
       Return dummy. (Uses Firebase)
       @TODO: Logic to be replaced
     */
-    
+
     let documents = [
       {
         name: 'Document 1',
@@ -494,32 +495,19 @@ class Documents extends React.Component {
   render() {
     return (
       <Scaffold navBar navRail>
-        <Box component="div" paddingTop={6} paddingBottom={1}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid item>
-              <PackageIcon size={28} />
-            </Grid>
-            <Grid item style={{
-              fontSize: 20
-            }}>
-              Transaction 1
-            </Grid>
-          </Grid>
-          <h1 style={{
-            marginTop: 15
-          }}>
-            Documents
-          </h1>
-        </Box>
+        <ReallosPageHeader
+          transactionName="Transaction 1"
+          pageName="Documents"
+        />
+
         <div style={{
           paddingBottom: 20,
-          paddingTop: 5,
-          display: (this.state.documents?.length === 0) ? 'none' : 'block'
+          paddingTop: 20,
+          display: (this.state.documents?.length === 0) ? 'none' : 'block',
+          background: '#eeeeeee8',
+          position: 'sticky',
+          top: 84,
+          zIndex: 120
         }}>
           <SearchBar
             placeholder="Search by document name and creator"

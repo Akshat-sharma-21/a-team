@@ -1,7 +1,3 @@
-.people-involved-card-root {
-  max-width: none !important;
-}
-
 .people-involved-card {
   display: flex;
   flex-direction: row;

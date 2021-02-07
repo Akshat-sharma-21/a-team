@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { ReallosModal, ReallosButton, SearchBar, Scaffold } from "../utilities/core";
 import PeopleInvolvedCard from './PeopleInvolvedCard';
 import "./PeopleInvolved.css";
+
+import {
+  ReallosModal,
+  ReallosButton,
+  SearchBar,
+  ReallosPageHeader,
+  Scaffold
+} from "../utilities/core";
 
 import {
   Grid,
@@ -13,7 +20,6 @@ import {
 } from "@material-ui/core";
 
 import {
-  PackageIcon,
   PaperAirplaneIcon,
   SearchIcon
 } from "@primer/octicons-react";
@@ -73,6 +79,33 @@ function PeopleInvolved() {
       phone: '9227354839',
       email: 'drake_ramoray@gmail.com',
       profilePicUrl: 'https://thesecondangle.com/tsa-content/uploads/2020/08/Screenshot_20200813-175656_Chrome-scaled.jpg'
+    },
+    {
+      id: 'dsfhbiwqiw',
+      name: 'Pheobe Buffay',
+      role: 'buyer',
+      organization: null,
+      phone: '9022324812',
+      email: 'regina.phelange@gmail.com',
+      profilePicUrl: null
+    },
+    {
+      id: 'hdwqwehhwei',
+      name: 'Rachel Green',
+      role: 'buyer',
+      organization: null,
+      phone: '92279103169',
+      email: 'rachelgreen@gmail.com',
+      profilePicUrl: null
+    },
+    {
+      id: 'snuqiwbdaqqo',
+      name: 'Monica Geller',
+      role: 'buyer',
+      organization: null,
+      phone: '8230654839',
+      email: 'mon.geller@gmail.com',
+      profilePicUrl: null
     },
   ];
 
@@ -139,32 +172,18 @@ function PeopleInvolved() {
 
   return (
     <Scaffold navBar navRail>
-      <Box component="div" paddingTop={6} paddingBottom={1}>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item>
-            <PackageIcon size={28} />
-          </Grid>
-          <Grid item style={{
-            fontSize: 20
-          }}>
-            Transaction 1
-          </Grid>
-        </Grid>
-        <h1 style={{
-          marginTop: 15
-        }}>
-          People Involved
-        </h1>
-      </Box>
+      <ReallosPageHeader
+        transactionName="Transaction 1"
+        pageName="People Involved"
+      />
 
       <div style={{
         paddingBottom: 20,
-        paddingTop: 5,
+        paddingTop: 20,
+        background: '#eeeeeee8',
+        position: 'sticky',
+        top: 84,
+        zIndex: 120
       }}>
         <SearchBar
           filterByFields={[

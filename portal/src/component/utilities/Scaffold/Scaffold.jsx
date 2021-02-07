@@ -63,7 +63,7 @@ class Scaffold extends React.Component {
         return (
             <div className={`scaffold-root ${navRailClassName} ${className}`}>
                 <Container>
-                    {(navBar) ? <NavBar /> : this._noop()}
+                    {(navBar) ? <NavBar sticky /> : this._noop()}
                     {(navRail) ? <NavRail /> : this._noop()}
 
                     {children}

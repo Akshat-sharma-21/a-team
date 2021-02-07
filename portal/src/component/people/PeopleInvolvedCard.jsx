@@ -66,46 +66,48 @@ class PeopleInvolvedCard extends React.Component {
           animationDelay: `${itemIndex * 30}ms`
         }}
       >
-        <Card className="people-involved-card">
-          <div className="people-involved-card-avatar">
-            <Avatar
-              src={personDetails.profilePicUrl}
-            />
-          </div>
-
-          <div className="people-involved-card-details-wrapper">
-            <h2 className="people-involved-card-name">
-              {personDetails.name}
-            </h2>
-
-            <div className="people-involved-card-role">
-              {getRoleLabel(personDetails.role)}
-              {
-                (personDetails.organization)
-                  ? ` ● ${personDetails.organization}`
-                  : ''
-              }
+        <div className="people-involved-card-outer">
+          <Card className="people-involved-card">
+            <div className="people-involved-card-avatar">
+              <Avatar
+                src={personDetails.profilePicUrl}
+              />
             </div>
 
-            <div className="people-involved-card-contact-details">
-              <div className="people-involved-card-phone">
-                <PhoneIcon style={{ fontSize: 24 }} />
-                +1 {this.getFormattedPhoneNumber}
+            <div className="people-involved-card-details-wrapper">
+              <h2 className="people-involved-card-name">
+                {personDetails.name}
+              </h2>
+
+              <div className="people-involved-card-role">
+                {getRoleLabel(personDetails.role)}
+                {
+                  (personDetails.organization)
+                    ? ` ● ${personDetails.organization}`
+                    : ''
+                }
               </div>
 
-              <div className="people-involved-card-email">
-                <MailIcon style={{ fontSize: 24 }} />
+              <div className="people-involved-card-contact-details">
+                <div className="people-involved-card-phone">
+                  <PhoneIcon style={{ fontSize: 24 }} />
+                  +1 {this.getFormattedPhoneNumber}
+                </div>
 
-                <div className="people-involved-card-email-content">
-                  {personDetails.email}
-                  <button className="link" onClick={onSendMail}>
-                    Send Mail
-                  </button>
+                <div className="people-involved-card-email">
+                  <MailIcon style={{ fontSize: 24 }} />
+
+                  <div className="people-involved-card-email-content">
+                    {personDetails.email}
+                    <button className="link" onClick={onSendMail}>
+                      Send Mail
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </Grid>
     )
   }
