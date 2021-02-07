@@ -1,6 +1,6 @@
 import React from "react";
 import "./PreAprooval.css";
-import { Button } from "@material-ui/core";
+import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Logo from "../../assets/preaprooved.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
@@ -14,13 +14,20 @@ function PreAprooval() {
       <div className="preaprooval-child-container">
         <img src={Logo} alt="logo goes here" />
         <p>
-          Answer few questions
+          Answer a few questions
           <br />
           to get started on your
           <br />
           Pre-Aprooval
         </p>
-        <Button>Let's Start</Button>
+        <ReallosButton
+          className="cc-reallosbutton"
+          primary
+          variant="light"
+          buttonWidth={275}
+        >
+          Let's Start
+        </ReallosButton>
       </div>
     </Scaffold>
   );
