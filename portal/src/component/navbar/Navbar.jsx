@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 import {
   AppBar,
@@ -24,6 +25,8 @@ function Navbar(props) {
   let [userProfilePopupAnchorEl, setUserProfilePopupAnchorEl] = useState(null);
   let [notificationPopupAnchorEl, setNotificationPopupAnchorEl] = useState(null);
   let [notifications, setNotifications] = useState(null);
+
+  const navbarStickyClassName = (props.sticky) ? 'navbar-sticky' : '';
 
   /**
    * Shows the User Profile Popup
@@ -190,11 +193,16 @@ function Navbar(props) {
     notificationSubscriber();
 
     // Cleanup on unmount
-    return removeNotificationSubscription;
+    return () => {
+      removeNotificationSubscription();
+    };
   }, []);
 
   return (
-    <div className="navbar-main" style={{ marginTop: 20 }}>
+    <div
+      className={`navbar-main ${navbarStickyClassName}`}
+      style={{ paddingTop: 20 }}
+    >
       <Grid container direction="row" justify="center" alignitems="center">
         <AppBar className="navbar-root" position="static">
           <Toolbar>
@@ -287,6 +295,14 @@ function Navbar(props) {
       />
     </div>
   );
+}
+
+Navbar.propTypes = {
+  /**
+   * If set to `true`, navbar will stay onscreen
+   * even when scrolled past the bounds.
+   */
+  sticky: PropTypes.bool,
 }
 
 export default Navbar;
