@@ -10,7 +10,8 @@ import PreAprooval1 from "./components/Pre-Aprooval/PreAprooval1";
 import PreAprooval2 from "./components/Pre-Aprooval/PreAprooval2";
 import PreAprooval3 from "./components/Pre-Aprooval/PreAprooval3";
 import PreAprooval4 from "./components/Pre-Aprooval/PreAprooval4";
-
+import PreApprovalDashboard from "./components/PreApprovalDashboard/PreApprovalDashboard";
+import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
 function Main() {
   return (
     <Switch>
@@ -24,6 +25,8 @@ function Main() {
       <Route path="/pre3" component={PreAprooval2} />
       <Route path="/pre4" component={PreAprooval3} />
       <Route path="/pre5" component={PreAprooval4} />
+      <Route path="/preapproval-dashboard" component={PreApprovalDashboard} />
+      <Route path="/tasks_dashboard" component={TasksDashboard} />
       <Route path="/questions" component={Questionnaire} />
     </Switch>
   );

@@ -1,0 +1,18 @@
+.tasks-dashboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tasks-dashboard-list-item {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.tasks-dashboard-tasks-completed {
+  margin-top: 8px;
+}
+
+.tasks-dashboard-accordion-date {
+  border-style: solid;
+  border-radius: 5px;
+}
