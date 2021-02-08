@@ -1,9 +1,9 @@
 :root {
     --drawer-width: 400px;
+    --drawer-z-index: 1300;
 }
 
 .side-drawer-backdrop {
-    z-index: 1300;
     position: fixed;
     top: 0;
     left: 0;
@@ -20,7 +20,6 @@
 }
 
 .side-drawer-container {
-    z-index: 1300;
     position: fixed;
     display: flex;
     justify-content: flex-end;
@@ -46,6 +45,8 @@
 }
 
 .side-drawer-root {
+    z-index: var(--drawer-z-index);
+    position: relative;
     visibility: hidden;
     opacity: 0;
 

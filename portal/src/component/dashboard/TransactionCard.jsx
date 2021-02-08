@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   bottom: {
     opacity: "0.6",
-    color: "#ffffff",
+    color: "#eeeeee",
   },
   top: {
     position: "absolute",
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RenderCard(items) {
-  const [progress, setProgress] = useState(40);
+  const [progress, setProgress] = useState(60);
   const classes = useStyles();
   // mapping the transactions
   return (
@@ -75,22 +75,22 @@ function RenderCard(items) {
                           <CircularProgress
                             variant="determinate"
                             className={classes.bottom}
-                            size={110}
-                            thickness={7}
+                            size={150}
+                            thickness={10}
                             value={100}
                           />
-                          <svg width="300" height="4">
+                          <svg width="100" height="4">
                             <linearGradient id="linearColors">
-                              <stop offset="20%" stopColor="#7C67E8" />
-                              <stop offset="80%" stopColor="#1BB0EE" />
+                              <stop offset="20%" stopColor="#1BB0EE" />
+                              <stop offset="80%" stopColor="#7C67E8" />
                             </linearGradient>
                           </svg>
                           <CircularProgress
                             variant="static"
                             className={classes.top}
                             disableShrink
-                            size={110}
-                            thickness={7}
+                            size={150}
+                            thickness={10}
                             value={progress}
                             classes={{ circle: classes.circle }}
                           />
@@ -132,8 +132,8 @@ function RenderCard(items) {
                   <Box paddingLeft={4}>
                     <Typography
                       style={{
-                        fontSize: "24px",
-                        fontFamily: "Roboto Slab",
+                        fontSize: "22px",
+                        fontFamily: "Gilroy",
                         fontWeight: "bold",
                       }}
                     >
@@ -147,7 +147,7 @@ function RenderCard(items) {
                           >
                             <PersonIcon size={25} />
                           </td>
-                          <td>abc</td>
+                          <td>Vedant Tandon</td>
                         </tr>
                       </table>
                     </Typography>
@@ -155,8 +155,8 @@ function RenderCard(items) {
                   <Box paddingLeft={4}>
                     <Typography
                       style={{
-                        fontSize: "24px",
-                        fontFamily: "Roboto Slab",
+                        fontSize: "21px",
+                        fontFamily: "Gilroy",
                         fontWeight: "bold",
                         lineHeight: "50px",
                       }}
@@ -179,7 +179,7 @@ function RenderCard(items) {
                   <Box paddingLeft={11}>
                     <Typography
                       style={{
-                        fontSize: "18px",
+                        fontSize: "17px",
                         fontFamily: "Roboto Slab",
                         lineHeight: "30px",
                       }}
@@ -189,25 +189,25 @@ function RenderCard(items) {
                           <td
                             style={{
                               paddingBottom: "4px",
-                              paddingRight: "18px",
+                              paddingRight: "10px",
                             }}
                           >
-                            <Button id="Big-Button">
+                            <Button className="Big-Button">
                               {moment().format("DD")} {moment().format("MMM")}
                             </Button>
                           </td>
-                          <td>select a Proposal</td>
+                          <td>Select a Proposal</td>
                         </tr>
                       </table>
                     </Typography>
                   </Box>
                   <Box paddingLeft={4}>
                     <Typography
-                      style={{ fontSize: "24px", lineHeight: "50px" }}
+                      style={{ fontSize: "21px", lineHeight: "50px" }}
                     >
                       <table
                         style={{
-                          fontFamily: "Roboto Slab",
+                          fontFamily: "Gilroy",
                           fontWeight: "bold",
                         }}
                       >
@@ -225,9 +225,13 @@ function RenderCard(items) {
                       </table>
                     </Typography>
                   </Box>
-                  <Box paddingLeft={11} style={{ fontSize: "18px" }}>
-                    <Typography noWrap style={{ fontFamily: "Roboto Slab" }}>
-                      {items.Address}
+                  <Box
+                    paddingLeft={11}
+                    paddingRight={8}
+                    style={{ fontSize: "17px" }}
+                  >
+                    <Typography style={{ fontFamily: "Roboto Slab" }}>
+                      Mountain View, California, United States
                     </Typography>
                   </Box>
                 </Grid>

@@ -1,0 +1,64 @@
+.preaprooval-child-container-1 > p {
+  color: grey;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#cc1-button1 {
+  margin-top: 5vh;
+  width: 25%;
+  border: 1px solid grey;
+  border-radius: 10px 10px 10px 10px;
+  color: blue;
+}
+
+#cc1-button2 {
+  margin-top: 2vh;
+  width: 25%;
+  border: 1px solid grey;
+  border-radius: 10px 10px 10px 10px;
+  color: blue;
+}
+
+#cc1-arrow-icon-1 {
+  background: blue;
+  border-radius: 70%;
+  color: white;
+  margin-top: 25vh;
+  width: 2.5vw;
+  height: 2.5vw;
+}
+
+@media only screen and (max-width: 600px) {
+  #cc1-pbar {
+    width: 100%;
+  }
+  .preaprooval-child-container-1 > p {
+    color: grey;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  #cc1-button1 {
+    margin-top: 5vh;
+    width: 80%;
+    border: 1px solid grey;
+    border-radius: 10px 10px 10px 10px;
+    color: blue;
+  }
+
+  #cc1-button2 {
+    margin-top: 2vh;
+    width: 80%;
+    border: 1px solid grey;
+    border-radius: 10px 10px 10px 10px;
+    color: blue;
+  }
+
+  #cc1-arrow-icon-1 {
+    background: blue;
+    border-radius: 70%;
+    color: white;
+    margin-top: 25vh;
+    width: 10vw;
+    height: 5vh;
+  }
+}

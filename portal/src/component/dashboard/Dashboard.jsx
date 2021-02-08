@@ -2,7 +2,12 @@ import { useState } from "react";
 import TransactionCard from "./TransactionCard";
 import dashboardImg from "../../assets/dashboard-empty.png";
 import "./Dashboard.css";
-import { ReallosModal, ReallosButton, Scaffold, SearchBar } from "../utilities/core";
+import {
+  ReallosModal,
+  ReallosButton,
+  Scaffold,
+  SearchBar,
+} from "../utilities/core";
 
 import {
   Box,
@@ -14,6 +19,7 @@ import {
   InputAdornment,
   OutlinedInput,
   FormControl,
+  Fab,
 } from "@material-ui/core";
 
 import {
@@ -231,30 +237,33 @@ function Dashboard(props) {
   } else {
     return (
       <Scaffold navBar>
-        <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+        {inviteModal()}
+        <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12}>
             <Grid container alignItems="flex-start">
               <Box
                 className="dashboard-heading"
-                paddingTop={6}
+                paddingTop={5}
                 paddingLeft={3}
-                paddingBottom={3}
+                paddingBottom={2}
               >
                 My Transactions
               </Box>
             </Grid>
           </Grid>
 
-          <Grid  item xs={12}style={{paddingBottom: 20,paddingTop: 5,}}>
+          <Grid item xs={12} style={{ paddingBottom: 18, paddingTop: 4 }}>
             <FormControl fullWidth variant="outlined">
               <OutlinedInput
                 className="dashboard-search-bar"
                 startAdornment={
                   <InputAdornment position="start">
-                    <div style={{
-                      paddingRight: 10,
-                      paddingLeft: 10
-                    }}>
+                    <div
+                      style={{
+                        paddingRight: 10,
+                        paddingLeft: 10,
+                      }}
+                    >
                       <SearchIcon className="dashboard-search-icon" size={18} />
                     </div>
                   </InputAdornment>
@@ -264,23 +273,40 @@ function Dashboard(props) {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
+          <Grid
+            xs={12}
+            className="transaction-list"
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
 
-          <Grid item xs={6}>
-            <TransactionCard />
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
+            <Grid item xs={6}>
+              <TransactionCard />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <TransactionCard />
-          </Grid>
-
         </Grid>
+        <Button
+          variant="contained"
+          startIcon={<PlusIcon size={20} />}
+          className="dashboard-button"
+          onClick={openInvitation}
+        >
+          New Transaction
+        </Button>
       </Scaffold>
-      );
+    );
   }
 }
 

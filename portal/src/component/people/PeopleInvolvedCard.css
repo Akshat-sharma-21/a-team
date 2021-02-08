@@ -1,0 +1,51 @@
+.people-involved-card {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 30px;
+}
+
+.people-involved-card-avatar > * {
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.people-involved-card-details-wrapper {
+  max-width: 80vw;
+}
+
+.people-involved-card-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Gilroy';
+}
+
+.people-involved-card-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.people-involved-card-contact-details > div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.people-involved-card-email-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.people-involved-card-email-content > button {
+  cursor: pointer;
+  font-family: 'Gilroy';
+  font-size: 15px;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  text-align: unset;
+}

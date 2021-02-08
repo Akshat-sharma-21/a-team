@@ -13,6 +13,7 @@
   --color-primary: #0432FA;
   --color-gradient-start: #7C67E8;
   --color-gradient-stop: #16B3EF;
+  --reallos-scrollbar-width: 8px;
 }
 
 .App {
@@ -27,13 +28,29 @@ a,
 }
 
 a:hover,
-.link:hover {
+a:focus,
+.link:hover,
+.link:focus {
   opacity: 0.6;
 }
 
 a:active,
 .link:active {
   opacity: 0.8;
+}
+
+.link-basic {
+  color: unset;
+  text-decoration: unset;
+}
+
+.link-basic:hover,
+.link-basic:focus {
+  opacity: unset;
+}
+
+.link-basic:active {
+  opacity: unset;
 }
 
 .reallos-fab {
@@ -79,6 +96,38 @@ a:active,
   -moz-backdrop-filter: none !important;
   -ms-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+
+.reallos-scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.08);
+}
+
+.reallos-scroll-area::-webkit-scrollbar {
+  height: var(--reallos-scrollbar-width);
+  width: var(--reallos-scrollbar-width);
+}
+
+.reallos-scroll-area::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.reallos-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.reallos-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.reallos-scroll-area::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.reallos-scroll-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
 }
 
 .slide-up-animation {
