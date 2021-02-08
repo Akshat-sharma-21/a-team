@@ -1,6 +1,7 @@
 import React from "react";
 import "./PreAprooval1.css";
-import { Button, Avatar } from "@material-ui/core";
+import { IconButton, Avatar } from "@material-ui/core";
+import ReallosButton from "../utilities/reallos_button/ReallosButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { withStyles } from "@material-ui/core/styles";
 import { LinearProgress } from "@material-ui/core";
@@ -12,8 +13,8 @@ const BorderLinearProgress = withStyles({
   root: {
     height: 8,
     width: 1200,
-    borderRadius: "12px 12px 12px 12px ",
-    backgroundColor: "grey",
+    borderRadius: "16px 16px 16px 16px ",
+    backgroundColor: "lightgrey",
   },
   bar: {
     backgroundColor: "blue",
@@ -25,11 +26,11 @@ function PreAprooval1() {
     <Scaffold>
       <BorderLinearProgress id="cc1-pbar" value={50} variant="determinate" />
       <div className="preapproval-child-container-1">
-        <h1>
+        <h1 className="cc1-heading">
           Are you <br />
           Pre-Aprooved ?
         </h1>
-        <p>
+        <p className="cc1-paragraph">
           Lorem Ipsum is simply dummy text of the
           <br />
           printing and typesetting industry.
@@ -37,16 +38,31 @@ function PreAprooval1() {
           Lorem Ipsum has been the industry's <br />
           standard dummy text ever since the 1500s...
         </p>
-        <Button id="cc1-button1" startIcon={<Avatar src={Logo1} />}>
+        <ReallosButton
+          primary
+          variant="light"
+          buttonWidth={275}
+          className="cc1-button1"
+          startIcon={<Avatar src={Logo1} />}
+        >
           YES
-        </Button>
+        </ReallosButton>
         <div>
-          <Button id="cc1-button2" startIcon={<Avatar src={Logo2} />}>
+          <ReallosButton
+            primary
+            variant="light"
+            buttonWidth={275}
+            className="cc1-button2"
+            startIcon={<Avatar src={Logo2} />}
+          >
             NO
-          </Button>
-          <div>
-            <ArrowBackIcon id="cc1-arrow-icon-1" />
-          </div>
+          </ReallosButton>
+          <IconButton>
+            <ArrowBackIcon
+              style={{ width: "10vw", height: "5vh" }}
+              className="cc1-arrow-icon-1"
+            />
+          </IconButton>
         </div>
       </div>
     </Scaffold>
