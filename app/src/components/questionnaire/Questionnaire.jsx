@@ -9,25 +9,36 @@ import {
   LinearProgress,
   withStyles,
   Button,
+  TextField,
 } from "@material-ui/core";
 import {
   ArrowLeftIcon,
   RocketIcon,
   ThumbsdownIcon,
+  ArrowRightIcon,
 } from "@primer/octicons-react";
 
 const ProgressBarSimple = withStyles((theme) => ({
+  // ProgressBar for the light background
   root: {
     height: 8,
     borderRadius: 5,
-  },
-  colorPrimary: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.type === "light" ? 200 : 700],
+    backgroundColor: "rgba(119,119,119,0.4)",
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: "##000000",
+  },
+}))(LinearProgress);
+
+const ProgressBarGradient = withStyles((theme) => ({
+  // ProgressBar for the Gradient background
+  root: {
+    height: 8,
+    borderRadius: 5,
+    backgroundColor: "rgba(255,255,255,0.2)",
+  },
+  bar: {
+    borderRadius: 5,
   },
 }))(LinearProgress);
 
@@ -40,9 +51,6 @@ function QuestionStarting({ changeQuestion }) {
             <ArrowLeftIcon size={"35"} />
           </IconButton>
         </Grid>
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
         <Grid item xs={6}>
           <img
             src={QuestionnaireImg}
@@ -51,17 +59,12 @@ function QuestionStarting({ changeQuestion }) {
             className="questionnaire-img"
           />
         </Grid>
-        <Grid item xs={12} className="questionnaire-empty-div" />
         <Grid item xs={10}>
           <Typography className="questionnaire-text">
             Answer a few questions to get started on your Pre-Approval
           </Typography>
         </Grid>
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-
-        <Grid item xs={10}>
+        <Grid item xs={10} className="questionnaire-start-button">
           <ReallosButton
             primary
             variant="light"
@@ -78,19 +81,14 @@ function QuestionStarting({ changeQuestion }) {
 
 function QuestionBasic({ changeQuestion }) {
   return (
-    <Scaffold className="questionnaire-progressbar">
+    <Scaffold>
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <ProgressBarSimple
-            variant="determinate"
-            value={50}
-          ></ProgressBarSimple>
+        <Grid item xs={12} className="questionnaire-progressbar">
+          <ProgressBarSimple variant="determinate" value={50} />
         </Grid>
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
         <Grid item xs={12}>
           <Typography className="questionnaire-questions">
-            Are you Pre-Approved ?{" "}
+            Are you Pre-Approved ?
             {/*Question will be dynamically fetched from the database*/}
           </Typography>
         </Grid>
@@ -109,6 +107,7 @@ function QuestionBasic({ changeQuestion }) {
             variant="outlined"
             fullWidth
             className="questionnaire-answers-options"
+            onClick={() => changeQuestion()}
             startIcon={
               <RocketIcon size={25} className="questionnaire-answer-icons" />
             }
@@ -121,6 +120,7 @@ function QuestionBasic({ changeQuestion }) {
             variant="outlined"
             fullWidth
             className="questionnaire-answers-options"
+            onClick={() => changeQuestion()}
             startIcon={
               <ThumbsdownIcon
                 size={25}
@@ -131,14 +131,54 @@ function QuestionBasic({ changeQuestion }) {
             No
           </Button>
         </Grid>
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
-        <Grid item xs={12} className="questionnaire-empty-div" />
         <Grid item xs={12}>
           <IconButton className="questionnaire-arrow-button">
             <ArrowLeftIcon
+              size={25}
+              className="questionnaire-arrow-button-arrow"
+            />
+          </IconButton>
+        </Grid>
+      </Grid>
+    </Scaffold>
+  );
+}
+
+function QuestionGradient({ changeQuestion }) {
+  return (
+    <Scaffold bgVariant="gradient">
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={12} className="questionnaire-progressbar">
+          <ProgressBarGradient variant="determinate" value={50} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className="questionnaire-questions">
+            Enter Your Name
+            {/*Question will be dynamically fetched from the database*/}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className="questionnaire-helped-text-gradient">
+            Your name is required to lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Nullam cursus magna lectus, ut euismod neque
+            feugiat sed.
+            {/*Helper text will be dynamically fetched from the database*/}
+          </Typography>
+        </Grid>
+        {/* The type of input to be collected will be fetched from the database*/}
+        <Grid item xs={12} className="questionnaire-answers">
+          <TextField variant="outlined" label="Name" fullWidth />
+        </Grid>
+        <Grid item xs={12}>
+          <IconButton className="questionnaire-arrow-button-light">
+            <ArrowLeftIcon
+              size={25}
+              className="questionnaire-arrow-button-arrow"
+            />
+          </IconButton>
+
+          <IconButton className="questionnaire-arrow-button-light-right">
+            <ArrowRightIcon
               size={25}
               className="questionnaire-arrow-button-arrow"
             />
@@ -161,12 +201,12 @@ function Questionnaire() {
     }
   }
 
-  if (questions == 1) {
+  if (questions == 0) {
     return <QuestionStarting changeQuestion={changeQuestion} />;
-  } else if (questions == 0) {
+  } else if (questions == 1) {
     return <QuestionBasic changeQuestion={changeQuestion} />;
   } else {
-    return <Scaffold bgVariant="gradient"></Scaffold>;
+    return <QuestionGradient changeQuestion={changeQuestion} />;
   }
 }
 
