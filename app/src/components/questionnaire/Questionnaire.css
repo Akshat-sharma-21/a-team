@@ -99,3 +99,19 @@
   margin-top: 105% !important;
   margin-left: 60% !important;
 }
+
+.questionnaire-confirm-answer-button {
+  width: 100% !important;
+}
+
+.questionnaire-finish-button {
+  margin-top: 25% !important;
+}
+
+.questionnaire-finish-second-button {
+  margin-top: 5% !important;
+}
+
+.questionnaire-refresh-icon {
+  margin-right: 3% !important;
+}

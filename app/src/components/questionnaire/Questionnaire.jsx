@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Questionnaire.css";
 import QuestionnaireImg from "../../assets/QuestionsImg.png";
+import QuestionnaireImgEnd from "../../assets/QuestionsImgEnd.png";
 import { Scaffold, ReallosButton } from "../utilities/core";
 import {
   Grid,
@@ -16,6 +17,7 @@ import {
   RocketIcon,
   ThumbsdownIcon,
   ArrowRightIcon,
+  SyncIcon,
 } from "@primer/octicons-react";
 
 const ProgressBarSimple = withStyles((theme) => ({
@@ -177,7 +179,10 @@ function QuestionGradient({ changeQuestion }) {
             />
           </IconButton>
 
-          <IconButton className="questionnaire-arrow-button-light-right">
+          <IconButton
+            className="questionnaire-arrow-button-light-right"
+            onClick={() => changeQuestion()}
+          >
             <ArrowRightIcon
               size={25}
               className="questionnaire-arrow-button-arrow"
@@ -189,24 +194,75 @@ function QuestionGradient({ changeQuestion }) {
   );
 }
 
+function EndQuestion({ changeQuestion }) {
+  return (
+    <Scaffold bgVariant="gradient" className="questionnaire">
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={12}>
+          <IconButton className="questionnaire-back-button">
+            <ArrowLeftIcon size={"35"} />
+          </IconButton>
+        </Grid>
+        <Grid item xs={7}>
+          <img
+            src={QuestionnaireImgEnd}
+            alt=""
+            width="100%"
+            className="questionnaire-img"
+          />
+        </Grid>
+        <Grid item xs={10}>
+          <Typography className="questionnaire-text">
+            You've answered all the questions! Do you want to submit them?
+          </Typography>
+        </Grid>
+        <Grid item xs={10} className="questionnaire-finish-button">
+          <ReallosButton
+            primary
+            variant="light"
+            className="questionnaire-confirm-answer-button"
+            onClick={() => changeQuestion()}
+          >
+            Yeah Sure!
+          </ReallosButton>
+        </Grid>
+        <Grid item xs={10} className="questionnaire-finish-second-button">
+          <ReallosButton
+            variant="light"
+            className="questionnaire-confirm-answer-button"
+            onClick={() => changeQuestion()}
+          >
+            <SyncIcon size={18} className="questionnaire-refresh-icon" />
+            Startover
+          </ReallosButton>
+        </Grid>
+      </Grid>
+    </Scaffold>
+  );
+}
+
 function Questionnaire() {
   const [questions, updateQuestion] = useState(0); // The initial state of the questions is 0 which represents the starting page
   function changeQuestion() {
-    if (questions == 0) {
+    if (questions === 0) {
       updateQuestion(1); // To set the questions to 1 intially when the first question is asked
-    } else if (questions == 1) {
+    } else if (questions === 1) {
       updateQuestion(2); // To set the question to 2 when it's 1
+    } else if (questions === 2) {
+      updateQuestion(3); // To set the question to 1 when it's 2
     } else {
-      updateQuestion(1); // To set the question to 1 when it's 2
+      updateQuestion(0);
     }
   }
 
-  if (questions == 0) {
+  if (questions === 0) {
     return <QuestionStarting changeQuestion={changeQuestion} />;
-  } else if (questions == 1) {
+  } else if (questions === 1) {
     return <QuestionBasic changeQuestion={changeQuestion} />;
-  } else {
+  } else if (questions === 2) {
     return <QuestionGradient changeQuestion={changeQuestion} />;
+  } else {
+    return <EndQuestion changeQuestion={changeQuestion} />;
   }
 }
 
