@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TransactionCard from "./TransactionCard";
 import dashboardImg from "../../assets/dashboard-empty.png";
+import Skeleton from '@material-ui/lab/Skeleton';
 import "./Dashboard.css";
+
 import {
   ReallosModal,
   ReallosButton,
   Scaffold,
   SearchBar,
+  ReallosPageHeader,
+  ReallosFab
 } from "../utilities/core";
 
 import {
   Box,
-  Button,
   Grid,
   Typography,
   TextField,
-  Divider,
-  InputAdornment,
-  OutlinedInput,
-  FormControl,
-  Fab,
 } from "@material-ui/core";
 
 import {
@@ -28,42 +26,134 @@ import {
   DeviceMobileIcon,
   InfoIcon,
   PaperAirplaneIcon,
-  SearchIcon,
+  SearchIcon
 } from "@primer/octicons-react";
 
+
 function Dashboard(props) {
-  const [invite, setInvitation] = useState(false);
+  let [isInvitationModalVisible, setInvitationModalVisiblity] = useState(false);
+  let [transactionList, setTransactionList] = useState(null);
+  let [filteredList, setFilteredList] = useState(null);
+  let [invitationEmail, setInvitationEmail] = useState('');
+  let [invitationPhone, setInvitationPhone] = useState('');
 
-  function openInvitation() {
-    // function to open the invitation modal
-    setInvitation(true);
+  useEffect(async () => {
+    // onMount
+    let transactions = await _dummyApi(false, 2000);
+
+    setTransactionList(transactions);
+    setFilteredList(transactions);
+
+    // onUnmount
+    return () => {}
+  }, []);
+
+  const _dummyApi = async (returnEmpty=false, responseTimeout=2000) => {
+    let response = new Promise((resolve, _) => {
+      let dummyResponse = [
+        {
+          id: 'qwyetquwe',
+          transaction: 'Transaction 1',
+          progress: 0.6,
+          createdBy: 'John Doe',
+          latestTask: {
+            title: 'Home Insurance',
+            subtask: {
+              title: 'Select a Proposal',
+              dueTimestamp: 1612764397,
+            }
+          },
+          address: 'Mountain View, California, United States',
+          linkTo: '/assist'
+        },
+        {
+          id: 'jsdjaihwyd',
+          transaction: 'Transaction 2',
+          progress: 0.2,
+          createdBy: 'Joseph Tribbiani',
+          latestTask: {
+            title: 'Pre-approval',
+            subtask: {
+              title: 'Choose an agent',
+              dueTimestamp: 1612764397,
+            }
+          },
+          address: 'Mountain View, California, United States',
+          linkTo: '/assist'
+        },
+        {
+          id: 'pwiiqudquq',
+          transaction: 'Transaction 3',
+          progress: 0.5,
+          createdBy: 'Chandler Bing',
+          latestTask: {
+            title: 'Home Insurance',
+            subtask: {
+              title: 'Select a Proposal',
+              dueTimestamp: 1612764397,
+            }
+          },
+          address: 'Mountain View, California, United States',
+          linkTo: '/assist'
+        },
+        {
+          id: 'kkdlqoeuwi',
+          transaction: 'Transaction 4',
+          progress: 0.9,
+          createdBy: 'Ross Geller',
+          latestTask: {
+            title: 'Pre-approval',
+            subtask: {
+              title: 'Choose an agent',
+              dueTimestamp: 1612764397,
+            }
+          },
+          address: 'Mountain View, California, United States',
+          linkTo: '/assist'
+        },
+      ];
+
+      setTimeout(()=> {
+        resolve((returnEmpty) ? [] : dummyResponse);
+      }, responseTimeout);
+    });
+
+    return response;
+  };
+
+  /**
+   * Opens Invitation Modal
+   */
+  const showInvitationModal = () => {
+    setInvitationModalVisiblity(true);
   }
 
-  function closeInvitation() {
-    // function to close the invitation modal
-    setInvitation(false);
+  /**
+   * Hides Invitation Modal
+   */
+  const closeInvitation = () => {
+    setInvitationModalVisiblity(false);
   }
 
-  function inviteModal() {
-    // function to display the invitation modal
+  /**
+   * Renders Invitation Modal
+   */
+  const InvitationModal = () => {
     return (
       <ReallosModal
-        visible={invite ? true : false}
+        visible={isInvitationModalVisible}
+        title="Send Invitation"
         dismissCallback={closeInvitation}
         modalWidth={780}
-        modalHeight={550}
       >
         <Grid container direction="column">
           <Grid item>
-            <Typography className="invite-heading">Send Invitation</Typography>
+            <div style={{ marginTop: -10 }}>
+              Invite your client using their email or their phone number.
+            </div>
           </Grid>
-          <Grid item>
-            <Typography className="invite-text">
-              Invite your client using their Email or their Phone No.
-            </Typography>
-          </Grid>
-          <Grid item style={{ marginTop: 50, marginLeft: 50 }}>
-            <Typography className="invite-input-text">
+          <Grid item style={{ marginTop: 35, marginLeft: 50 }}>
+            <Typography className="dashboard-invite-input-helper-text">
               Enter the email of the recipient in order to send an invite link
               to them
             </Typography>
@@ -81,50 +171,25 @@ function Dashboard(props) {
               </Grid>
               <Grid item>
                 <TextField
+                  value={invitationEmail}
                   label="Email"
                   variant="outlined"
+                  type="email"
+                  onChange={(event) => setInvitationEmail(event.target.value)}
                   style={{ width: 650, marginLeft: 20 }}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 20 }}>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justify="center"
-              spacing={2}
-            >
-              <Grid item>
-                <Divider
-                  style={{ width: 125, height: 2.5, background: "#707070" }}
-                />
-              </Grid>
-              <Grid item>
-                <Typography
-                  style={{
-                    fontFamily: "Gilroy",
-                    fontSize: 18.5,
-                    opacity: "60%",
-                  }}
-                >
-                  OR
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Divider
-                  style={{
-                    width: 125,
-                    height: 2.5,
-                    background: "#707070",
-                  }}
-                />
-              </Grid>
-            </Grid>
+
+          <Grid className="dashboard-invite-or-divider" item style={{ marginTop: 20 }}>
+            <div>
+              OR
+            </div>
           </Grid>
+
           <Grid item style={{ marginLeft: 50, marginTop: 20 }}>
-            <Typography className="invite-input-text">
+            <Typography className="dashboard-invite-input-helper-text">
               Enter the cell number of the recipient in order to send them an
               invite
             </Typography>
@@ -142,34 +207,48 @@ function Dashboard(props) {
               </Grid>
               <Grid item>
                 <TextField
+                  value={invitationPhone}
                   label="Phone"
                   variant="outlined"
+                  type="tel"
+                  onChange={(event) => setInvitationPhone(event.target.value)}
                   style={{ width: 650, marginLeft: 20 }}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 20 }}>
+          <Grid item style={{ marginTop: 30 }}>
             <Grid container direction="row" spacing={3}>
-              <Grid item style={{ marginLeft: 10 }}>
-                <InfoIcon className="invite-info-icon" size={20} />
+              <Grid item style={{ marginLeft: 5 }}>
+                <InfoIcon className="dashboard-invite-info-icon" size={20} />
               </Grid>
               <Grid item>
-                <Typography className="invite-info-text">
-                  The user will be invited though e-mail and SMS.
+                <Typography className="dashboard-invite-info-text">
+                  {
+                    (invitationEmail && invitationPhone)
+                      ? 'The user will be invited though e-mail and SMS.'
+                      : (invitationEmail)
+                        ? 'The user will be invited though e-mail.'
+                        : (invitationPhone)
+                          ? 'The user will be invited though SMS.'
+                          : 'Enter e-mail or phone number or both to invite.'
+                  }
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 35 }}>
-            <Grid container direction="row" justify="flex-end" spacing={2}>
+          <Grid item style={{ marginTop: 30 }}>
+            <Grid container direction="row" justify="flex-end" spacing={1}>
               <Grid item>
                 <ReallosButton onClick={closeInvitation}>Cancel</ReallosButton>
               </Grid>
               <Grid item>
-                <ReallosButton primary>
-                  Send Invite &nbsp;&nbsp;
-                  <PaperAirplaneIcon className="invite-send-icon" />
+                <ReallosButton
+                  primary
+                  disabled={!invitationEmail && !invitationPhone}
+                >
+                  Send Invite
+                  <PaperAirplaneIcon className="dashboard-invite-send-icon" />
                 </ReallosButton>
               </Grid>
             </Grid>
@@ -177,137 +256,181 @@ function Dashboard(props) {
         </Grid>
       </ReallosModal>
     );
-  } // first time modal done
+  }
 
-  if (false) {
-    // from the database
-    return (
-      <Scaffold navBar>
-        {inviteModal()}
-        <Grid container direction="column">
-          <Grid item>
-            <Grid container alignItems="flex-start">
-              <Box
-                className="dashboard-heading"
-                paddingTop={6}
-                paddingLeft={3}
-                paddingBottom={3}
-              >
-                My Transactions
-              </Box>
+  /**
+   * Renders primary content.
+   */
+  const PrimaryContent = () => {
+    if ([transactionList, filteredList].some(list => list === null)) {
+      // Loading - Fetching transactions
+
+      return (
+        <Grid
+          container
+          spacing={2}
+        >
+          {Array(6).fill(0).map(() => (
+            <Grid item xs={12} sm={6} md={6} lg={4}>
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                height={280}
+                style={{ borderRadius: 10 }}
+              />
             </Grid>
-          </Grid>
+          ))}
+        </Grid>
+      )
+    }
+
+    else if (transactionList.length === 0) {
+      // No transactions created
+
+      return (
+        <div className="zoom-in-animation">
           <Grid item>
             <Grid container alignItems="center" justify="center">
               <img src={dashboardImg} alt="" className="dashboard-img" />
             </Grid>
           </Grid>
           <Grid item style={{ textAlign: "center" }}>
-            <Box className="dashboard-heading" paddingTop={5}>
-              Feels Empty here...
+            <Box
+              component="h1"
+              fontFamily="Gilroy"
+              marginTop={5}
+              marginBottom={0}
+            >
+              Feels empty here...
             </Box>
           </Grid>
           <Grid item style={{ textAlign: "center" }}>
-            <Box className="dashbaord-text" paddingTop={1.5} paddingBottom={1}>
-              Sit tight and get your Game Face Ready. <b>Reallos</b> will send
-              <br />
-              Leads your way very soon!
+            <Box
+              fontSize={18}
+              paddingTop={1.5}
+              paddingBottom={1}
+              margin={'auto'}
+              width="50ch"
+            >
+              Sit tight and get your Game Face ready.
+              <strong> Reallos </strong>
+              will send leads your way very soon!
+            </Box>
+          </Grid>
+        </div>
+      )
+    }
+
+    else if (filteredList.length === 0) {
+      // If no search results
+
+      return (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justify="center"
+          spacing={2}
+          className="zoom-in-animation"
+        >
+          <Grid item style={{
+            paddingTop: 50,
+            paddingBottom: 60,
+            opacity: 0.5
+          }}>
+            <SearchIcon size={150} />
+          </Grid>
+          <Grid item>
+            <Box marginTop={-3} marginLeft={4}>
+              <Typography className="document-heading reallos-text">
+                No results found
+              </Typography>
             </Box>
           </Grid>
           <Grid item>
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
-            >
-              <Button
-                variant="contained"
-                startIcon={<PlusIcon size={20} />}
-                className="dashboard-button"
-                onClick={openInvitation}
-              >
-                New Transaction
-              </Button>
-            </Grid>
+            <Box marginTop={-1} marginLeft={4}>
+              <Typography className="document-subheading reallos-text">
+                The entered search term did not match any transactions
+              </Typography>
+            </Box>
           </Grid>
         </Grid>
-      </Scaffold>
-    );
-  } else {
-    return (
-      <Scaffold navBar>
-        {inviteModal()}
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12}>
-            <Grid container alignItems="flex-start">
-              <Box
-                className="dashboard-heading"
-                paddingTop={5}
-                paddingLeft={3}
-                paddingBottom={2}
-              >
-                My Transactions
-              </Box>
-            </Grid>
-          </Grid>
+      )
+    }
 
-          <Grid item xs={12} style={{ paddingBottom: 18, paddingTop: 4 }}>
-            <FormControl fullWidth variant="outlined">
-              <OutlinedInput
-                className="dashboard-search-bar"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <div
-                      style={{
-                        paddingRight: 10,
-                        paddingLeft: 10,
-                      }}
-                    >
-                      <SearchIcon className="dashboard-search-icon" size={18} />
-                    </div>
-                  </InputAdornment>
-                }
-                placeholder="Search"
-              />
-            </FormControl>
-          </Grid>
+    else {
+      // Render transactions as cards
 
+      return (
+        <>
           <Grid
-            xs={12}
-            className="transaction-list"
             container
-            direction="row"
-            justify="center"
-            alignItems="center"
             spacing={2}
+            className="transaction-list"
           >
-            <Grid item xs={6}>
-              <TransactionCard />
-            </Grid>
-            <Grid item xs={6}>
-              <TransactionCard />
-            </Grid>
-
-            <Grid item xs={6}>
-              <TransactionCard />
-            </Grid>
-            <Grid item xs={6}>
-              <TransactionCard />
-            </Grid>
+            {filteredList.map((transaction) => (
+              <TransactionCard key={transaction.id} transactionDetails={transaction} />
+            ))}
           </Grid>
-        </Grid>
-        <Button
-          variant="contained"
-          startIcon={<PlusIcon size={20} />}
-          className="dashboard-button"
-          onClick={openInvitation}
-        >
-          New Transaction
-        </Button>
-      </Scaffold>
-    );
+        </>
+      )
+    }
   }
+
+  return (
+    <Scaffold navBar>
+      <Grid container direction="column">
+        <div style={{
+          background: '#eeeeee',
+          position: 'sticky',
+          top: 84,
+          zIndex: 120
+        }}>
+          <ReallosPageHeader pageName="My Transactions" />
+
+          <div style={{
+            paddingBottom: (transactionList?.length !== 0) ? 20 : 0,
+            paddingTop: (transactionList?.length !== 0) ? 20 : 0,
+          }}>
+            {(transactionList === null) ? (
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                height={56}
+                style={{ borderRadius: 10 }}
+              />
+              ) : (transactionList.length !== 0) && (
+                <SearchBar
+                  placeholder="Search by transaction name, creator, task or address"
+                  list={transactionList}
+                  filterByFields={[
+                    'transaction',
+                    'createdBy',
+                    'latestTask.title',
+                    'address'
+                  ]}
+                  onUpdate={(filteredTransactionList) => {
+                    setFilteredList(filteredTransactionList);
+                  }}
+                />
+              )
+            }
+          </div>
+        </div>
+
+        {PrimaryContent()}
+        {InvitationModal()}
+
+        {(transactionList !== null) &&
+          <ReallosFab
+            title="New Transaction"
+            LeadingIcon={<PlusIcon size={20} />}
+            onClick={() => showInvitationModal()}
+          />
+        }
+      </Grid>
+    </Scaffold>
+  );
 }
 
 export default Dashboard;

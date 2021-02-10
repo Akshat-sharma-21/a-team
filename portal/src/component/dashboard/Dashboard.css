@@ -3,7 +3,8 @@ body {
 }
 
 .dashboard-img {
-  height: 40vh;
+  height: 35vh;
+  margin-top: 20px;
   width: auto;
 }
 
@@ -13,79 +14,65 @@ body {
   font-weight: bolder;
 }
 
-.dashbaord-text {
-  font-size: 20px;
-  font-family: "Roboto Slab";
-}
-
-.dashboard-button {
-  position: absolute !important;
-  right: 40px !important;
-  bottom: 40px !important;
-  color: #2b44ff !important;
-  background-color: #ffffff !important;
-  border-radius: 60px !important;
-  font-size: 18px !important;
-  font-family: "Gilroy" !important;
-  font-weight: bold !important;
-  text-transform: none !important;
-  padding: 12px 35px !important;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16) !important;
-}
-
 .transaction-list {
-  overflow: scroll !important;
-  overflow-x: hidden !important;
-  height: 470px !important;
-  padding-top: 20px !important;
-  scrollbar-width: thin;
+  padding-bottom: 20px !important;
 }
 
-.transaction-list::-webkit-scrollbar {
-  width: 7px;
-}
-
-.transaction-list::-webkit-scrollbar-thumb {
-  background: #cdcdcd;
-}
-
-.transaction-list::-webkit-scrollbar-thumb:hover {
-  background: #a6a6a6;
-}
-
-.invite-heading {
-  font-family: "Roboto Slab" !important;
-  font-weight: bold !important;
-  font-size: 35px !important;
-}
-
-.invite-text {
+.dashboard-invite-input-helper-text {
   font-family: "Roboto Slab" !important;
   font-weight: normal !important;
-  font-size: 17.5px;
-}
-
-.invite-input-text {
-  font-family: "Roboto Slab" !important;
-  font-weight: normal !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
   opacity: 60% !important;
 }
 
-.invite-info-icon {
+.dashboard-invite-or-divider {
+  display: flex;
+  justify-content: center;
+
+  font-family: "Gilroy";
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.dashboard-invite-or-divider > div {
+  position: relative;
+}
+
+.dashboard-invite-or-divider > div::before,
+.dashboard-invite-or-divider > div::after {
+  content: '';
+  width: 125px;
+  height: 2.5px;
+  background-color: #707070;
+}
+
+.dashboard-invite-or-divider > div::before {
+  position: absolute;
+  top: 10px;
+  left: -140px;
+}
+
+.dashboard-invite-or-divider > div::after {
+  position: absolute;
+  top: 10px;
+  left: 45px;
+}
+
+.dashboard-invite-info-icon {
   color: #2b56ff;
   margin-top: 3px;
 }
 
-.invite-info-text {
+.dashboard-invite-info-text {
   color: #2b56ff !important;
   font-family: "Gilroy" !important;
   font-weight: normal !important;
   font-size: 17.5 !important;
 }
 
-.invite-send-icon {
+.dashboard-invite-send-icon {
   margin-bottom: 1px;
+  margin-left: 10px;
 }
 
 .dashboard-search-bar {

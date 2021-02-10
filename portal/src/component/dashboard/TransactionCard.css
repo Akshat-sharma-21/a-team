@@ -1,5 +1,81 @@
 .transaction-card-item {
-  min-height: 296px;
+  /* min-height: 296px; */
+}
+
+.transaction-card-content-root {
+  --graph-size: 130px;
+  
+  padding: 30px 20px !important;
+  position: relative;
+}
+
+.transaction-card-graph {
+  position: relative;
+  height: var(--graph-size);
+  width: var(--graph-size);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.transaction-card-graph > * {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+}
+
+.transaction-card-graph > div:nth-child(1) {
+  color: #eeeeee;
+}
+
+.transaction-card-progress-text {
+  font-family: 'Roboto Slab';
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--graph-size);
+  width: var(--graph-size);
+}
+
+.transaction-card-transaction-name {
+  margin-top: 20px;
+  font-family: 'Gilroy';
+  font-size: 20px;
+}
+
+.transaction-card-detail-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.transaction-card-detail-main {
+  font-weight: bold;
+  font-family: 'Gilroy';
+  font-size: 18px;
+}
+
+.transaction-card-detail-main > :nth-child(1) {
+  margin-right: 20px;
+}
+
+.transaction-card-detail-sub {
+  margin-top: 10px;
+  margin-left: 40px;
+  font-size: 14px;
+  font-family: 'Roboto Slab';
+  font-weight: 400;
+}
+
+.transaction-card-detail-subtask-date {
+  background-color: #afafaf;
+  color: #ffffff;
+  font-family: 'Gilroy';
+  font-weight: bold;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .transaction-card {
