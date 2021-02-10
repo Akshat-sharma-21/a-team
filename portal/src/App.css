@@ -53,23 +53,6 @@ a:active,
   opacity: unset;
 }
 
-.reallos-fab {
-  font-family: "Gilroy" !important;
-  font-size: 18px !important;
-  font-weight: bold !important;
-  text-transform: none !important;
-  letter-spacing: normal !important;
-  border-radius: 25px !important;
-  align-items: center !important;
-  padding: 25px 30px !important;
-  color: var(--color-primary) !important;
-  background-color: white !important;
-
-  position: fixed !important;
-  bottom: 30px;
-  right: 30px;
-}
-
 .reallos-text {
   font-family: "Roboto Slab" !important;
 }
