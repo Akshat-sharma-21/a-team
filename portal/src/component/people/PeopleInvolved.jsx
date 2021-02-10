@@ -172,31 +172,35 @@ function PeopleInvolved() {
 
   return (
     <Scaffold navBar navRail>
-      <ReallosPageHeader
-        transactionName="Transaction 1"
-        pageName="People Involved"
-      />
-
       <div style={{
-        paddingBottom: 20,
-        paddingTop: 20,
-        background: '#eeeeeee8',
+        background: '#eeeeee',
+        outline: '2px solid #eeeeee',
         position: 'sticky',
         top: 84,
         zIndex: 120
       }}>
-        <SearchBar
-          filterByFields={[
-            'name',
-            'role',
-            'organization',
-            'phone',
-            'email'
-          ]}
-          list={peopleList}
-          onUpdate={(filtered) => setFilteredPeopleList(filtered)}
-          placeholder="Search by name, role, organization, phone or email"
+        <ReallosPageHeader
+          transactionName="Transaction 1"
+          pageName="People Involved"
         />
+
+        <div style={{
+          paddingBottom: 20,
+          paddingTop: 20,
+        }}>
+          <SearchBar
+            filterByFields={[
+              'name',
+              'role',
+              'organization',
+              'phone',
+              'email'
+            ]}
+            list={peopleList}
+            onUpdate={(filtered) => setFilteredPeopleList(filtered)}
+            placeholder="Search by name, role, organization, phone or email"
+          />
+        </div>
       </div>
 
       {primaryContent()}
