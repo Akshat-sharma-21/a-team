@@ -64,6 +64,12 @@
   color: #ffffff !important;
 }
 
+.step-desc {
+  margin-left: 3px !important;
+  border-left: 10px solid #d3d3d3 !important;
+}
+
 .MuiStepConnector-line {
-  border-left: 10px solid #000000 !important;
+  margin-left: 3px !important;
+  border-left: 10px solid #d3d3d3 !important;
 }
