@@ -2,19 +2,18 @@ import { useState } from "react";
 import TransactionAssistIllustration from "../../assets/transaction-assist-first-time.png";
 import AssistPreApproval from "./AssistPreApproval";
 import AssistFindAgent from "./AssistFindAgent";
-import { PackageIcon } from "@primer/octicons-react";
 import "./TransactionAssist.css";
 
 import {
   ReallosModal,
   Scaffold,
   ReallosButton,
+  ReallosPageHeader,
 } from "../utilities/core";
 
 import {
   Grid,
   Typography,
-  Box,
 } from "@material-ui/core";
 
 
@@ -98,28 +97,12 @@ function TransactionAssist() {
 
   return (
     <Scaffold navBar navRail>
-      <Box component="div" paddingTop={6} paddingBottom={1}>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item>
-            <PackageIcon size={28} />
-          </Grid>
-          <Grid item style={{
-            fontSize: 20
-          }}>
-            Transaction 1
-          </Grid>
-        </Grid>
-        <h1 style={{
-          marginTop: 15
-        }}>
-          Transaction Assist
-        </h1>
-      </Box>
+      <div style={{ paddingBottom: 10 }}>
+        <ReallosPageHeader
+          transactionName="Transaction 1"
+          pageName="Transaction Assist"
+        />
+      </div>
 
       {displayAccordions()}
       {initModal()}
