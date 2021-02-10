@@ -22,7 +22,7 @@ function PreAprooval4() {
           variant="outlined"
           style={{
             marginLeft: "14vw",
-            marginTop: "10vh",
+            marginTop: "25vh",
             background: "white",
             color: "blue",
             width: "60vw",
@@ -37,11 +37,11 @@ function PreAprooval4() {
               marginLeft: "14vw",
               marginTop: "2vh",
               width: "60vw",
+              height: "5vh",
               background: "transparent",
-              borderColor: " 2px solid white",
+              border: "2px solid white",
               borderRadius: "10px 10px 10px 10px",
             }}
-            id="cc4-button2"
             variant="outlined"
             startIcon={<Avatar src={Refresh} />}
           >

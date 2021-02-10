@@ -1,6 +1,6 @@
 import React from "react";
 import "./PreAprooval3.css";
-import { Button, Avatar } from "@material-ui/core";
+import { IconButton, Button, Avatar } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { withStyles } from "@material-ui/core/styles";
@@ -30,22 +30,27 @@ function PreAprooval3() {
         variant="determinate"
       />
       <div className="preaprooval-child-container-3">
-        <h1>
+        <h1 className="cc3-heading">
           Are You <br />
           Pre-Aprooved ?
         </h1>
         <p className="cc3-paragraph">
-          Lorem Ipsum is simply dummy text of the
+          Lorem Ipsum is simply dummy text
           <br />
           printing and typesetting industry.
           <br />
           Lorem Ipsum has been the industry's <br />
-          standard dummy text ever since the 1500s...
+          standard dummy text ever since 1500s...
         </p>
         <Button
           variant="outlined"
-          style={{ marginTop: "5vh", background: "rgba(255, 255, 255, 0.2)" }}
           className="cc3-button1"
+          style={{
+            marginTop: "2.5vh",
+            background: "rgba(255,255,255,0.2)",
+            width: "75vw",
+            borderRadius: "10px 10px",
+          }}
           startIcon={<Avatar src={Logo1} />}
         >
           YES
@@ -53,18 +58,30 @@ function PreAprooval3() {
         <div>
           <Button
             variant="outlined"
+            className="cc3-button2"
             style={{
               marginTop: "2.5vh",
-              background: "rgba(255, 255, 255, 0.2)",
+              background: "rgba(255,255,255,0.2)",
+              width: "75vw",
+              borderRadius: "10px 10px",
             }}
-            className="cc3-button2"
             startIcon={<Avatar src={Logo2} />}
           >
             NO
           </Button>
         </div>
-        <ArrowBackIcon className="cc3-backicon" />
-        <ArrowForwardIcon className="cc3-forwardicon" />
+        <IconButton style={{ marginTop: "30vh" }}>
+          <ArrowBackIcon
+            style={{ width: "10vw", height: "5vh" }}
+            className="cc3-arrowbackicon"
+          />
+        </IconButton>
+        <IconButton style={{ marginTop: "30vh" }}>
+          <ArrowForwardIcon
+            style={{ width: "10vw", height: "5vh" }}
+            className="cc3-arrowforwardicon"
+          />
+        </IconButton>
       </div>
     </Scaffold>
   );

@@ -14,7 +14,8 @@
   font-style: normal;
   font-weight: bold;
   src: local("Segoe UI"),
-    url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css") format("woff2");
+    url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css")
+      format("woff2");
 }
 
 :root {
@@ -24,10 +25,11 @@
   --color-dark-grey: #474747;
   --color-gradient-start: #7c67e8;
   --color-gradient-stop: #16b3ef;
+  --color-light: #77cef5;
 }
 
 .App {
-  font-family: 'Gilroy', 'Roboto Slab', 'Segoe UI', 'Roboto';
+  font-family: "Gilroy", "Roboto Slab", "Segoe UI", "Roboto";
 }
 
 a,

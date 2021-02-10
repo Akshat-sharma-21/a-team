@@ -1,34 +1,34 @@
-.Appo{
+.Recommend{
   padding: 0.7rem;
 }
 
-.xo{
+.Recommend_x{
   padding-right: 0px;
   padding-bottom:1rem;
 }
 
-.headero{
+.Recommend_header{
   margin-top: 0px;
   margin-right: 40px;
   font-size: 5rem;
   font-family: "Gilroy Extrabold";
 }
 
-.card_imageo img {
+.Recommend_card_image img {
   object-fit: cover;
   vertical-align: middle;
 }
 
-.cardso {
+.Recommend_cards {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-left: -1rem;
 
 }
 
-.cardo {
+.Recommend_card {
   border-radius: 0.5rem;
   background: #fff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
@@ -39,11 +39,11 @@
   align-items: left;
 }
 
-.card_contento {
+.Recommend_card_content {
   padding: 0;
 }
 
-.card_titleo {
+.Recommend_card_title {
   text-align: left;
   color: black;
   letter-spacing: 1px;
@@ -53,7 +53,7 @@
   font-weight:400;
 }
 
-.card_interesto {
+.Recommend_card_interest {
   text-align: left;
   padding-left: 0.7rem;
   color: black;
@@ -64,7 +64,7 @@
   font-weight: 400;
 }
 
-.card_annualo {
+.Recommend_card_annual {
   text-align: left;
   padding-top: 0.5rem;
   padding-left: 0.7rem;
@@ -77,7 +77,7 @@
   font-weight: 400;
 }
 
-.fromo{  
+.Recommend_from{  
   text-align: left;
   padding-left: 0.7rem;
   text-transform:none;
@@ -90,7 +90,7 @@
   margin: 0px;
 }
 
-.searchbaro {
+.Recommend_searchbar {
   width: 100%;
   background:  #D3D3D3;  
   border-radius: 0.5rem;
@@ -100,7 +100,7 @@
   margin-bottom: 1rem;
 }
 
-.searchTermo {
+.Recommend_searchTerm {
   width: 100%;
   border-right: none;
   background: #D3D3D3;  
@@ -117,12 +117,12 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-.searchTermo:focus{
+.Recommend_searchTerm:focus{
   color: #696969;
   font-size: 1.2rem;
 }
 
-.filtero {
+.Recommend_filter {
   width: 30px;
   height: 40px;
   text-align: center;
@@ -131,15 +131,15 @@
   padding-right: 10px;
 }
 
-.topo {
+.Recommend_top {
   z-index: 1;
 }
 
-.backo{
+.Recommend_back{
   color: white;
 }
 
-.topo img{
+.Recommend_top img{
   display: block;
   height: 20rem;
   width: 100%;
@@ -148,11 +148,11 @@
   z-index: -1;
 }
 
-.topo .backo{
+.Recommend_top .Recommend_back{
   position: absolute; top:1rem; left:1rem;
 }
 
-.card_conto {
+.Recommend_card_cont {
   display:block;
   padding: 1rem;
   align-content: center;
@@ -162,7 +162,7 @@
   position: absolute;
 }
 
-.card_nameo {
+.Recommend_card_name {
   color: black;
   font-size: 2rem;
   letter-spacing: 1px;
@@ -172,7 +172,7 @@
   font-weight: 300;
 }
 
-.card_abouto{
+.Recommend_card_about{
   color: black;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -182,7 +182,7 @@
   font-weight: 300;
 }
 
-.e-mailhead{
+.Recommend_e-mailhead{
   color: black;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -193,7 +193,7 @@
   font-weight: 300;
 }
 
-.e-mailo{  
+.Recommend_e-mail{  
   padding-top: 0.5rem;
   padding-bottom: 0.8rem;
   padding-left: 0.8rem;
@@ -209,7 +209,7 @@
   font-weight: 300;
 }
 
-.contacthead{
+.Recommend_contacthead{
   color: black;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -221,7 +221,7 @@
   font-weight: 300;
 }
 
-.numbero{  
+.Recommend_number{  
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   padding-left: 0.8rem;
@@ -238,12 +238,12 @@
   font-weight: 300;
 }
 
-.button_confirmo{
+.Recommend_button_confirm{
   align-content: center;
   padding-top: 2rem;
 }
 
-.button_confirmo button{
+.Recommend_button_confirm button{
   display: block;
   width: 100%;
   box-shadow: 0px 8px 16px rgba(43, 68, 255, 0.3);
@@ -262,7 +262,7 @@
 
 @media only screen and (min-width: 260px) {
      
-  .headero {
+  .Recommend_header {
     margin-top: 0px;
     margin-right: 40px;
     font-size: 1.5rem;
@@ -270,30 +270,30 @@
     font-family: "Gilroy Extrabold";
   }
   
-  img {
-  height: 5.1rem;
-  width: 7rem;
+  .Recommend_card_image img {
+  height: 4.9rem;
+  width: 6.5rem;
   } 
   
-  .cardso {
+  .Recommend_cards {
   padding-right: 1rem;
   padding-left: 0.1rem;
   
   }
   
-  .card_titleo {
+  .Recommend_card_title {
   padding-top: 0.77rem;
   padding-left: 0.77rem;
   font-size: 0.8rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
   padding-left: 0.77rem;
   font-size: 0.5rem;
   line-height: 0; 
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
   padding-top: 0.55rem;
   padding-left: 0.77rem;
   font-size: 0.45rem;
@@ -301,14 +301,14 @@
   margin-bottom: 1.3rem;   
   }
 
-  .fromo{  
+  .Recommend_from{  
   padding-left: 0.77rem;
   padding-bottom: 0.33rem;
   font-size: 0.45rem;
   font-weight: 300;
   }
 
-  .searchTermo { 
+  .Recommend_searchTerm { 
     border-radius: 0.5rem;
     height: 1.8rem;
     padding-top: 0.3rem;
@@ -317,26 +317,26 @@
     font-size: 1.1rem; 
   }
   
-  .searchTermo:focus{
+  .Recommend_searchTerm:focus{
     font-size: 1.1rem;
   }
 
-  .card_nameo {
+  .Recommend_card_name {
     font-size: 1.9rem;
     letter-spacing: 1px;
   }
   
-  .card_abouto{
+  .Recommend_card_about{
     font-size: 1.0rem;
   }
   
-  .e-mailo{  
+  .Recommend_e-mail{  
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     padding-left: 0.8rem;
     font-size: 1.0rem;
   }
-  .numbero{  
+  .Recommend_number{  
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
     padding-left: 0.8rem;
@@ -346,7 +346,7 @@
 
 @media only screen and (min-width:310px) {
      
-  .headero {
+  .Recommend_header {
     margin-top: 0px;
     margin-right: 40px;
     font-size: 2rem;
@@ -354,36 +354,36 @@
     font-family: "Gilroy Extrabold";
   }
 
-  img {
+  .Recommend_card_image img {
   height: 6.6rem;
-  width: 9rem;
+  width: 8rem;
   }
     
-  .cardso {
+  .Recommend_cards {
   padding: 0;
   
   }
   
-  .cards_itemo {
+  .Recommend_cards_item {
   display: flex;
   padding: 0em;
   padding-bottom: 1rem;
   padding-left: 0.1rem;  
   }
   
-  .card_titleo {
+  .Recommend_card_title {
   padding-top: 0.77rem;
   padding-left: 0.77rem;
   font-size: 0.8rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
   padding-left: 0.77rem;
   font-size: 0.6rem;
   line-height: 0;
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
   padding-top: 0.55rem;
   padding-left: 0.77rem;
   font-size: 0.6rem;
@@ -391,13 +391,13 @@
   margin-bottom: 1.3rem;    
   }
 
-  .fromo{  
+  .Recommend_from{  
   padding-left: 0.77rem;
   padding-bottom: 0.33rem;
   font-size: 0.6rem;
   }
 
-  .searchTermo {  
+  .Recommend_searchTerm {  
     border-radius: 0.5rem;
     height: 1.8rem;
     padding-top: 0.3rem;
@@ -406,14 +406,14 @@
     font-size: 1.1rem; 
   }
   
-  .searchTermo:focus{
+  .Recommend_searchTerm:focus{
     font-size: 1.1rem;
   }
   }
 
   @media only screen and (min-width:360px) {
      
-    .headero{
+    .Recommend_header{
       margin-top: 0px;
       margin-right: 40px;
       font-size: 2rem;
@@ -421,18 +421,18 @@
       font-family: "Gilroy Extrabold";
     }
         
-    .card_imageo img {
+    .Recommend_card_image img {
     height: 7rem;
-    width: 9.5rem;
+    width: 9rem;
     } 
     
-    .cardso {
+    .Recommend_cards {
     padding-right: 0.3rem;
     padding-left: 0.1rem;
     
     }
     
-    .cards_itemo {
+    .Recommend_cards_item {
     display: flex;
     padding: 0em;
     padding-bottom: 1rem;
@@ -441,13 +441,13 @@
     
     }
     
-    .card_titleo {
+    .Recommend_card_title {
     padding-top: 0.77rem;
     padding-left: 0.77rem;
     font-size: 0.9rem;
     }
     
-    .card_interesto {
+    .Recommend_card_interest {
     padding-left: 0.77rem;
     color: black;
     font: Segoe UI;
@@ -456,7 +456,7 @@
     font-weight: 300;
     }
 
-    .card_annualo {
+    .Recommend_card_annual {
     padding-top: 0.55rem;
     padding-left: 0.77rem;
     color: black;
@@ -467,7 +467,7 @@
     font-weight: 300;
     }
 
-    .fromo{  
+    .Recommend_from{  
     padding-left: 0.77rem;
     padding-bottom: 0.33rem;
     color: black;
@@ -478,7 +478,7 @@
     margin: 0px;
     }
 
-    .searchbaro {
+    .Recommend_searchbar {
       width: 100%;
       background:  #D3D3D3;  
       border-radius: 0.5rem;
@@ -488,7 +488,7 @@
       overflow: hidden;
     }
 
-    .searchTermo{
+    .Recommend_searchTerm{
       width: 100%;
       border-right: none;
       background: #D3D3D3;  
@@ -506,7 +506,7 @@
       font: "Segoe UI Bold";
     }
     
-    .searchTermo:focus{
+    .Recommend_searchTerm:focus{
       color: #696969;
       font-size: 1.2rem;
     }
@@ -514,7 +514,7 @@
 
 @media only screen and (min-width:400px) {
      
-  .headero {
+  .Recommend_header {
   margin-top: 0px;
   margin-right: 40px;
   font-size: 2.5rem;
@@ -522,36 +522,36 @@
   font-family: "Gilroy Extrabold";
 }
 
-.card_imageo img {
-height: 8.11rem;
-width: 11rem;
+.Recommend_card_image img {
+height: 8rem;
+width: 10.7rem;
 }
 
-.cardso {
+.Recommend_cards {
 padding: 0;
 
 }
 
-.cards_itemo {
+.Recommend_cards_item {
 display: flex;
 padding: 0em;
 padding-bottom: 1rem;
 padding-left: 0.1rem;
 }
 
-.card_titleo {
+.Recommend_card_title {
 padding-top: 0.77rem;
 padding-left: 0.77rem;
 font-size: 1rem;
 }
 
-.card_interesto {
+.Recommend_card_interest {
 padding-left: 0.77rem;
 font-size: 0.7rem;
 line-height: 0;  
 }
 
-.card_annualo {
+.Recommend_card_annual {
 padding-top: 0.55rem;
 padding-left: 0.77rem;
 font-size: 0.7rem;
@@ -559,13 +559,13 @@ line-height: 0;
 margin-bottom: 1.3rem; 
 }
 
-.fromo{  
+.Recommend_from{  
 padding-left: 0.77rem;
 padding-bottom: 0.33rem;
 font-size: 0.7rem;
 }
 
-.searchTermo { 
+.Recommend_searchTerm { 
   border-radius: 0.5rem;
   height: 2.5rem;
   padding-top: 0.3rem;
@@ -574,14 +574,14 @@ font-size: 0.7rem;
   font-size: 1.5rem; 
 }
 
-.searchTermo:focus{
+.Recommend_searchTerm:focus{
   font-size: 1.5rem;
 }
 }
 
 @media only screen and (min-width:500px) {
      
-  .headero{
+  .Recommend_header{
     margin-top: 0px;
     margin-right: 40px;
     font-size: 2.5rem;
@@ -589,17 +589,17 @@ font-size: 0.7rem;
     font-family: "Gilroy Extrabold";
   }
   
-  .card_imageo img {
-  height: 10.1rem;
-  width: 13.8rem;
+  .Recommend_card_image img {
+  height: 10rem;
+  width: 13.5rem;
   }
   
-  .cardso {
+  .Recommend_cards {
   padding: 0;
   
   }
   
-  .cards_itemo {
+  .Recommend_cards_item {
   display: flex;
   padding: 0em;
   padding-bottom: 1rem;
@@ -608,20 +608,20 @@ font-size: 0.7rem;
   
   }
   
-  .card_titleo {
+  .Recommend_card_title {
   padding-top: 0.77rem;
   padding-left: 0.77rem;
   font-size: 1.1rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
   padding-left: 0.77rem;
   font-size: 0.8rem;
   line-height: 0;  
   font-weight: 300;
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
   padding-top: 0.55rem;
   padding-left: 0.77rem;
   font-size: 0.8rem;
@@ -629,13 +629,13 @@ font-size: 0.7rem;
   margin-bottom: 1.3rem;
   }
 
-  .fromo{  
+  .Recommend_from{  
   padding-left: 0.77rem;
   padding-bottom: 0.33rem;
   font-size: 0.8rem;
   }
 
-  .searchTermo{ 
+  .Recommend_searchTerm{ 
     border-radius: 0.5rem;
     height: 2rem;
     padding-top: 0.3rem;
@@ -644,14 +644,14 @@ font-size: 0.7rem;
     font-size: 1.2rem; 
   }
   
-  .searchTermo:focus{
+  .Recommend_searchTerm:focus{
     font-size: 1.5rem;
   }
   }
 
 @media only screen and (min-width: 600px) {
    
-  .headero {
+  .Recommend_header {
   margin-top: 0px;
   margin-right: 40px;
   font-weight: 300;
@@ -659,17 +659,17 @@ font-size: 0.7rem;
   font-family: "Gilroy Extrabold";
 }
 
-.card_imageo img {
+.Recommend_card_image img {
 height: 13.27rem;
-width: 18rem;
+width: 16rem;
 }
 
-.cardso {
+.Recommend_cards {
 padding: 0;
 
 }
 
-.cards_itemo {
+.Recommend_cards_item {
 display: flex;
 padding: 0em;
 padding-bottom: 1rem;
@@ -677,19 +677,19 @@ padding-left: 0.1rem;
 
 }
 
-.card_titleo {
+.Recommend_card_title {
 padding-top: 0.9rem;
 padding-left: 0.9rem;
 font-size: 1.3rem;
 }
 
-.card_interesto {
+.Recommend_card_interest {
 padding-left: 0.9rem;
 font-size: 0.9rem;
 line-height: 0;  
 }
 
-.card_annualo{
+.Recommend_card_annual{
 padding-top: 0.6rem;
 padding-left: 0.9rem;
 font-size: 0.9rem;
@@ -697,13 +697,13 @@ line-height: 0;
 margin-bottom: 1.3rem;    
 }
 
-.fromo{  
+.Recommend_from{  
 padding-left: 0.9rem;
 padding-bottom: 0.4rem;
 font-size: 0.9rem;
 }
 
-.searchTermo{
+.Recommend_searchTerm{
   border-radius: 0.5rem;
   height: 2.5rem;
   padding-top: 0.3rem;
@@ -712,7 +712,7 @@ font-size: 0.9rem;
   font-size: 1.5rem; 
 }
 
-.searchTermo:focus{
+.Recommend_searchTerm:focus{
   font-size: 1.5rem;
 }
 }
@@ -720,43 +720,43 @@ font-size: 0.9rem;
 
 @media only screen and (min-width: 768px) {
  
-  .headero{
+  .Recommend_header{
   margin-top: 0px;
   margin-right: 40px;
   font-size: 3rem;
   font-family: "Gilroy Extrabold";
 }
 
-.card_imageo img {
+.Recommend_card_image img {
 height: 16.2rem;
 width: 22rem;
 }
 
-.cardso {
+.Recommend_cards {
 padding: 0;
 
 }
 
-.cards_itemo {
+.Recommend_cards_item {
 display: flex;
 padding: 0em;
 padding-bottom: 1rem;
 padding-left: 0.1rem;
 }
 
-.card_titleo {
+.Recommend_card_title {
 padding-top: 0.95rem;
 padding-left: 0.95rem;
 font-size: 1.3rem;
 }
 
-.card_interesto {
+.Recommend_card_interest {
 padding-left: 0.95rem;
 font-size: 0.9rem;
 line-height: 0;  
 }
 
-.card_annualo {
+.Recommend_card_annual {
 padding-top: 0.65rem;
 padding-left: 0.95rem;
 font-size: 0.9rem;
@@ -764,13 +764,13 @@ line-height: 0;
 margin-bottom: 1.3rem; 
 }
 
-.fromo{  
+.Recommend_from{  
 padding-left: 0.95rem;
 padding-bottom: 0.45rem;
 font-size: 0.9rem;
 }
 
-.searchTermo { 
+.Recommend_searchTerm { 
   border-radius: 0.5rem;
   height: 2.5rem;
   padding-top: 0.3rem;
@@ -779,14 +779,14 @@ font-size: 0.9rem;
   font-size: 1.5rem; 
 }
 
-.searchTermo:focus{
+.Recommend_searchTerm:focus{
   font-size: 1.5rem;
 }
 } 
 
 
 @media only screen and (min-width: 992px) {
-  .x{
+  .Recommend_x{
     padding-right: 0px;
     padding-bottom:1rem;
     width: 3rem;
@@ -794,7 +794,7 @@ font-size: 0.9rem;
     font-weight: 300;
   }
 
-  .headero {
+  .Recommend_header {
     margin-top: 0px;
     margin-right: 40px;
     font-size: 4rem;
@@ -803,36 +803,36 @@ font-size: 0.9rem;
     font-weight: 300;
   }
   
-  .card_imageo img {
+  .Recommend_card_image img {
   height: 20.6rem;
   width: 28rem;
   }
   
-  .cardso {
+  .Recommend_cards {
   padding: 0;
   
   }
   
-  .cards_itemo{
+  .Recommend_cards_item{
   display: flex;
   padding: 0em;
   padding-bottom: 1rem;
   padding-left: 0.1rem;
   }
   
-  .card_titleo {
+  .Recommend_card_title {
   padding-top: 0.98rem;
   padding-left: 0.98rem;
   font-size: 1.32rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
   padding-left: 0.98rem;
   font-size: 1rem;
   line-height: 0;  
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
   padding-top: 0.7rem;
   padding-left: 0.98rem;
   font-size: 1rem;
@@ -840,13 +840,13 @@ font-size: 0.9rem;
   margin-bottom: 1.83rem;  
   }
 
-  .fromo{  
+  .Recommend_from{  
   padding-left: 0.98rem;
   padding-bottom: 0.59rem;
   font-size: 0.98rem;
   }
   
-  .searchTermo {
+  .Recommend_searchTerm {
     border-radius: 0.5rem;
     height: 2.5rem;
     padding-top: 0.3rem;
@@ -855,7 +855,7 @@ font-size: 0.9rem;
     font-size: 1.5rem; 
   }
   
-  .searchTermo:focus{
+  .Recommend_searchTerm:focus{
     font-size: 1.5rem;
   } 
   } 
@@ -863,55 +863,55 @@ font-size: 0.9rem;
 
 @media only screen and (min-width: 1200px) {
   
-  .x{
+  .Recommend_x{
     padding-right: 0px;
     padding-bottom:1rem;
     width: 4rem;
     height: 4rem;
   }
-  .headero {
+  .Recommend_header {
       margin-top: 0px;
       margin-right: 40px;
       font-size: 5rem;
       font-family: "Gilroy Extrabold";
   }
   
-  .card_imageo img {
+  .Recommend_card_image img {
     height: 23.6rem;
     width: 32rem;
   }
   
-  .cardso {
+  .Recommend_cards {
     padding: 1rem;
   
   }
   
-  .card_titleo{
+  .Recommend_card_title{
     padding-top: 1.27rem;
     padding-left: 1.27rem;
     font-size: 1.5rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
     padding-left: 1.27rem;
     font-size: 1.11rem;
     line-height: 0;  
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
     padding-top: 0.9rem;
     padding-left: 1.27rem;
     font-size: 1.11rem;
     margin-bottom: 1.3rem; 
   }
 
-  .fromo{  
+  .Recommend_from{  
     padding-left: 1.27rem;
     padding-bottom: 0.54rem;
     font-size: 1.11rem;
   }
   
-  .searchTermo {
+  .Recommend_searchTerm {
     border-radius: 0.5rem;
     height: 2.5rem;
     padding-top: 0.3rem;
@@ -920,35 +920,35 @@ font-size: 0.9rem;
     font-size: 1.5rem; 
   }
   
-  .searchTermo:focus{
+  .Recommend_searchTerm:focus{
     font-size: 1.5rem;
   } 
   }
 
 
 @media only screen and (min-width: 1440px) {
-  .x{
+  .Recommend_x{
     padding-right: 0px;
   }
   
-  .headero{
+  .Recommend_header{
       margin-top: 0px;
       margin-right: 40px;
       font-size: 6rem;
       font-family: "Gilroy Extrabold";
   }
   
-  .card_imageo img {
+  .Recommend_card_image img {
     height: 29.4rem;
     width: 40rem;
   }
   
-  .cardso {
+  .Recommend_cards {
     padding: 1rem;
   
   }
   
-  .cards_itemo {
+  .Recommend_cards_item {
     display: flex;
     padding: 0em;
     padding-bottom: 1rem;
@@ -957,19 +957,19 @@ font-size: 0.9rem;
   
   }
   
-  .card_titleo {
+  .Recommend_card_title {
     padding-top: 1.27rem;
     padding-left: 1.27rem;
     font-size: 1.5rem;
   }
   
-  .card_interesto {
+  .Recommend_card_interest {
     padding-left: 1.27rem;
     font-size: 1.11rem;
     line-height: 0;
   }
 
-  .card_annualo {
+  .Recommend_card_annual {
     padding-top: 0.9rem;
     padding-left: 1.27rem;
     font-size: 1.11rem;
@@ -977,13 +977,13 @@ font-size: 0.9rem;
     margin-bottom: 1.3rem;
   }
 
-  .fromo{  
+  .Recommend_from{  
     padding-left: 1.27rem;
     padding-bottom: 0.54rem;
     font-size: 1.11rem;
   }
 
-.searchTermo { 
+.Recommend_searchTerm { 
   border-radius: 0.5rem;
   height: 2.5rem;
   padding-top: 0.3rem;
@@ -992,7 +992,7 @@ font-size: 0.9rem;
   font-size: 1.5rem; 
 }
 
-.searchTermo:focus{
+.Recommend_searchTerm:focus{
   font-size: 1.5rem;
 } 
 }

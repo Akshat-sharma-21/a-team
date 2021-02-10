@@ -5,14 +5,113 @@
   padding-top: 10% !important;
 }
 
-.questionnaire-empty-div {
-  height: 4.5vh;
-}
-
 .questionnaire-text {
   font-family: Gilroy;
   font-weight: normal;
-  font-size: 26px !important;
+  font-size: 3.2vh !important;
   text-align: center;
   color: #fff;
+  margin-top: 15% !important;
+}
+
+.questionnaire-questions {
+  font-family: Gilroy;
+  font-weight: normal;
+  font-size: 4.5vh !important;
+  margin-top: 23% !important;
+}
+
+.questionnaire-helped-text {
+  padding-top: 5%;
+  font-family: Segoe !important;
+  opacity: 40% !important;
+  font-size: 2.2vh !important;
+}
+
+.questionnaire-answers {
+  padding-top: 10%;
+}
+
+.questionnaire-answers-options {
+  align-content: unset !important;
+  justify-content: left !important;
+  padding: 3% 3% !important;
+  border-radius: 10px !important;
+  color: var(--color-primary) !important;
+  text-transform: none !important;
+  font-size: 2.5vh !important;
+}
+
+.questionnaire-answers-sub {
+  padding-top: 4% !important;
+}
+
+.questionnaire-answer-icons {
+  color: var(--color-dark-grey) !important;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+.questionnaire-arrow-button {
+  background-color: var(--color-primary) !important;
+  border-radius: 100% !important;
+  padding: 5% !important;
+  color: #fff;
+  margin-top: 50% !important;
+}
+
+.questionnaire-arrow-button-light {
+  background-color: var(--color-light) !important;
+  border-radius: 100% !important;
+  padding: 5% !important;
+  color: #fff;
+  margin-top: 105% !important;
+}
+
+.questionnaire-arrow-button-arrow {
+  color: var(--color-white) !important;
+}
+
+.questionnaire-progressbar {
+  margin-top: 10% !important;
+}
+
+.questionnaire-img {
+  margin-top: 35% !important;
+}
+
+.questionnaire-start-button {
+  margin-top: 40% !important;
+}
+
+.questionnaire-helped-text-gradient {
+  padding-top: 5%;
+  font-family: Segoe !important;
+  opacity: 60% !important;
+  font-size: 2.2vh !important;
+}
+
+.questionnaire-arrow-button-light-right {
+  background-color: var(--color-light) !important;
+  border-radius: 100% !important;
+  padding: 5% !important;
+  color: #fff;
+  margin-top: 105% !important;
+  margin-left: 60% !important;
+}
+
+.questionnaire-confirm-answer-button {
+  width: 100% !important;
+}
+
+.questionnaire-finish-button {
+  margin-top: 25% !important;
+}
+
+.questionnaire-finish-second-button {
+  margin-top: 5% !important;
+}
+
+.questionnaire-refresh-icon {
+  margin-right: 3% !important;
 }

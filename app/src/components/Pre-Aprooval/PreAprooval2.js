@@ -1,6 +1,6 @@
 import React from "react";
 import "./PreAprooval2.css";
-import { TextField } from "@material-ui/core";
+import { TextField, IconButton } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { withStyles } from "@material-ui/core/styles";
@@ -30,12 +30,12 @@ function PreAprooval2() {
       <div className="preaprooval-child-container-2">
         <h1>Enter Your Name</h1>
         <p>
-          Lorem Ipsum is simply dummy text of the
+          Lorem Ipsum is simply dummy text of
           <br />
           printing and typesetting industry.
           <br />
           Lorem Ipsum has been the industry's <br />
-          standard dummy text ever since the 1500s...
+          standard dummy text ever since 1500s...
         </p>
         <TextField
           style={{ marginTop: "5vh" }}
@@ -46,8 +46,10 @@ function PreAprooval2() {
         <div
           style={{ marginTop: "40vh", display: "flex", flexDirection: "row" }}
         >
-          <ArrowBackIcon id="pre-cc2-back-icon" />
-          <ArrowForwardIcon id="pre-cc2-forward-icon" />
+          <IconButton>
+            <ArrowBackIcon style={{width:'10vw',height:'5vh'}} id="pre-cc2-back-icon" />
+            <ArrowForwardIcon style={{width:'10vw',height:'5vh'}} id="pre-cc2-forward-icon" />
+          </IconButton>
         </div>
       </div>
     </Scaffold>
