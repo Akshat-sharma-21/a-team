@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PackageIcon } from '@primer/octicons-react';
+import { HomeIcon, PackageIcon } from '@primer/octicons-react';
 import { Box, Grid } from '@material-ui/core'
 
 
@@ -20,10 +20,10 @@ class ReallosPageHeader extends React.Component {
      */
     pageName: PropTypes.string,
   };
-  
+
   render() {
     const { transactionName, pageName } = this.props;
-    
+
     return (
       <Box component="div" paddingTop={6} paddingBottom={1}>
         <Grid
@@ -33,17 +33,20 @@ class ReallosPageHeader extends React.Component {
           spacing={2}
         >
           <Grid item>
-            <PackageIcon size={28} />
+            {(transactionName)
+              ? <PackageIcon size={28} />
+              : <HomeIcon size={28} />
+            }
           </Grid>
           <Grid item style={{
             fontSize: 20
           }}>
-            {transactionName}
+            {transactionName ?? 'Home'}
           </Grid>
         </Grid>
         <h1 style={{
           marginTop: 15,
-          marginBottom: 10
+          marginBottom: 10,
         }}>
           {pageName}
         </h1>
