@@ -174,6 +174,7 @@ function Dashboard(props) {
                   value={invitationEmail}
                   label="Email"
                   variant="outlined"
+                  type="email"
                   onChange={(event) => setInvitationEmail(event.target.value)}
                   style={{ width: 650, marginLeft: 20 }}
                 />
@@ -209,6 +210,7 @@ function Dashboard(props) {
                   value={invitationPhone}
                   label="Phone"
                   variant="outlined"
+                  type="tel"
                   onChange={(event) => setInvitationPhone(event.target.value)}
                   style={{ width: 650, marginLeft: 20 }}
                 />
