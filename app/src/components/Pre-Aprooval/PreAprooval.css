@@ -1,44 +1,20 @@
-.arrow-icon {
-  margin-top: 2px;
-  margin-left: -50px;
-}
-
-.preaprooval-child-container > img {
-  margin-left: 35vw;
-}
-
-.preaprooval-child-container > p {
-  font-size: 30px;
-  color: rgba(255, 255, 255, 0.9);
-  margin-left: 32vw;
-}
-
-.preaprooval-child-container > Button {
-  width: 25%;
-  margin-left: 32vw;
-  margin-top: 5vh;
-  background-color: white;
-  color: blue;
-  border-radius: 10px 10px 10px 10px;
-}
-
 @media only screen and (max-width: 600px) {
   .preaprooval-child-container > img {
-    margin-left: 16vw;
+    margin-left: 15vw;
+    margin-top: 10vh;
   }
 
   .preaprooval-child-container > p {
     font-size: 25px;
     color: rgba(255, 255, 255, 0.9);
-    margin-left: 14vw;
+    margin-top: 10vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
   }
 
-  .preaprooval-child-container > Button {
-    width: 80%;
-    margin-left: 14vw;
-    margin-top: 12vh;
-    background-color: white;
-    color: blue;
-    border-radius: 10px 10px 10px 10px;
+  .cc-reallosbutton {
+    margin-left: 6vw;
+    margin-top: 14vh;
+    height: 6vh;
   }
 }

@@ -1,64 +1,41 @@
-.preaprooval-child-container-1 > p {
-  color: grey;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#cc1-button1 {
-  margin-top: 5vh;
-  width: 25%;
-  border: 1px solid grey;
-  border-radius: 10px 10px 10px 10px;
-  color: blue;
-}
-
-#cc1-button2 {
-  margin-top: 2vh;
-  width: 25%;
-  border: 1px solid grey;
-  border-radius: 10px 10px 10px 10px;
-  color: blue;
-}
-
-#cc1-arrow-icon-1 {
-  background: blue;
-  border-radius: 70%;
-  color: white;
-  margin-top: 25vh;
-  width: 2.5vw;
-  height: 2.5vw;
-}
-
 @media only screen and (max-width: 600px) {
+  .root-cc1 {
+    overflow: hidden;
+  }
+
   #cc1-pbar {
     width: 100%;
   }
-  .preaprooval-child-container-1 > p {
-    color: grey;
+
+  .cc1-heading {
+    color: #000000;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  #cc1-button1 {
+    font-weight: normal;
+    text-align: left;
     margin-top: 5vh;
-    width: 80%;
-    border: 1px solid grey;
-    border-radius: 10px 10px 10px 10px;
-    color: blue;
   }
 
-  #cc1-button2 {
-    margin-top: 2vh;
-    width: 80%;
-    border: 1px solid grey;
-    border-radius: 10px 10px 10px 10px;
-    color: blue;
+  .cc1-paragraph {
+    color: rgba(0, 0, 0, 0.42);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    text-align: left;
   }
 
-  #cc1-arrow-icon-1 {
-    background: blue;
-    border-radius: 70%;
+  .cc1-button1 {
+    margin-top: 2.5vh;
+    border: 0.5px solid rgba(0, 0, 0, 0.42);
+  }
+
+  .cc1-button2 {
+    margin-top: 2.5vh;
+    border: 0.5px solid rgba(0, 0, 0, 0.42);
+  }
+
+  .cc1-arrow-icon-1 {
+    background-color: #2855ff;
+    border-radius: 50%;
     color: white;
-    margin-top: 25vh;
-    width: 10vw;
-    height: 5vh;
+    margin-top: 30vh;
   }
 }

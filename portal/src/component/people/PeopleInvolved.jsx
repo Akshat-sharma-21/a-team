@@ -107,6 +107,33 @@ function PeopleInvolved() {
       email: "mon.geller@gmail.com",
       profilePicUrl: null,
     },
+    {
+      id: "dsfhbiwqiw",
+      name: "Pheobe Buffay",
+      role: "buyer",
+      organization: null,
+      phone: "9022324812",
+      email: "regina.phelange@gmail.com",
+      profilePicUrl: null,
+    },
+    {
+      id: "hdwqwehhwei",
+      name: "Rachel Green",
+      role: "buyer",
+      organization: null,
+      phone: "92279103169",
+      email: "rachelgreen@gmail.com",
+      profilePicUrl: null,
+    },
+    {
+      id: "snuqiwbdaqqo",
+      name: "Monica Geller",
+      role: "buyer",
+      organization: null,
+      phone: "8230654839",
+      email: "mon.geller@gmail.com",
+      profilePicUrl: null,
+    },
   ];
 
   /**

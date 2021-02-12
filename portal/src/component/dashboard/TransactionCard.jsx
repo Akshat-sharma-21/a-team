@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
+import { Link } from "react-router-dom";
 import "./TransactionCard.css";
 
 import {
@@ -11,237 +13,156 @@ import {
 
 import {
   Grid,
-  Box,
-  Typography,
   Card,
-  CardContent,
   CircularProgress,
   CardActionArea,
-  Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  gridList: {
-    width: 1243,
-    height: 450,
-  },
-  nested: {
-    paddingLeft: theme.spacing(9),
-  },
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-  },
-  bottom: {
-    opacity: "0.6",
-    color: "#eeeeee",
-  },
-  top: {
-    position: "absolute",
-  },
   circle: {
-    stroke: "url(#linearColors)",
+    stroke: "url(#reallosGradient)",
   },
 }));
 
-function RenderCard(items) {
-  const [progress, setProgress] = useState(60);
+
+function TransactionCard({ transactionDetails }) {
   const classes = useStyles();
-  // mapping the transactions
+  let [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProgress(transactionDetails.progress);
+    })
+  }, []);
+
   return (
-    <div className={classes.root}>
-      <Card className="transaction-card" variant="outlined">
-        <CardActionArea>
-          <Box paddingTop={2} paddingBottom={1}>
-            <CardContent>
+    <Grid item xs={12} sm={6} md={6} lg={4}>
+      <Card variant="outlined">
+        <Link className="link-basic" to={transactionDetails.linkTo}>
+          <CardActionArea
+            className="transaction-card-content-root"
+            aria-label={[
+              `${transactionDetails.transaction} by ${transactionDetails.createdBy}`,
+              `${Math.round(transactionDetails.progress * 100)}% completed`
+            ].join(' - ')}
+          >
+            <Grid
+              container
+              direction="row"
+              spacing={2}
+              alignItems="center"
+            >
+              {/* GRAPH SIDE */}
               <Grid
-                container
-                direction="row"
+                item
+                direction="column"
                 justify="center"
-                alignItems="center"
+                style={{
+                  textAlign: 'center',
+                  textOverflow: 'ellipsis',
+                  width: '40%'
+                }}
               >
-                <Grid item md={4}>
-                  <Box paddingLeft={1}>
-                    <Box
-                      position="relative"
-                      display="inline-flex"
-                      paddingLeft={2}
-                      style={{ width: "78%" }}
-                    >
-                      <div className={classes.root} style={{ width: "100%" }}>
-                        <div className={classes.root}>
-                          <CircularProgress
-                            variant="determinate"
-                            className={classes.bottom}
-                            size={150}
-                            thickness={10}
-                            value={100}
-                          />
-                          <svg width="100" height="4">
-                            <linearGradient id="linearColors">
-                              <stop offset="20%" stopColor="#1BB0EE" />
-                              <stop offset="80%" stopColor="#7C67E8" />
-                            </linearGradient>
-                          </svg>
-                          <CircularProgress
-                            variant="static"
-                            className={classes.top}
-                            disableShrink
-                            size={150}
-                            thickness={10}
-                            value={progress}
-                            classes={{ circle: classes.circle }}
-                          />
-                        </div>
-                      </div>
-                      <Box
-                        top={0}
-                        left={0}
-                        bottom={0}
-                        right={0}
-                        position="absolute"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        paddingLeft={2}
-                      >
-                        <Typography
-                          variant="h6"
-                          style={{ color: "#786AE8" }}
-                          component="div"
-                        >{`${Math.round(progress)}%`}</Typography>
-                      </Box>
-                    </Box>
-                    <Box marginTop={2}>
-                      <div
-                        style={{
-                          fontFamily: "Roboto Slab",
-                          fontWeight: "bold",
-                          fontSize: 24,
-                          textAlign: "center",
-                        }}
-                      >
-                        Transaction 1
-                      </div>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item md={8}>
-                  <Box paddingLeft={4}>
-                    <Typography
-                      style={{
-                        fontSize: "22px",
-                        fontFamily: "Gilroy",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <table>
-                        <tr>
-                          <td
-                            style={{
-                              paddingBottom: "4.5px",
-                              paddingRight: "24px",
-                            }}
-                          >
-                            <PersonIcon size={25} />
-                          </td>
-                          <td>Vedant Tandon</td>
-                        </tr>
-                      </table>
-                    </Typography>
-                  </Box>
-                  <Box paddingLeft={4}>
-                    <Typography
-                      style={{
-                        fontSize: "21px",
-                        fontFamily: "Gilroy",
-                        fontWeight: "bold",
-                        lineHeight: "50px",
-                      }}
-                    >
-                      <table>
-                        <tr>
-                          <td
-                            style={{
-                              paddingBottom: "4px",
-                              paddingRight: "24px",
-                            }}
-                          >
-                            <VersionsIcon size={25} />
-                          </td>
-                          <td>Home Insurance</td>
-                        </tr>
-                      </table>
-                    </Typography>
-                  </Box>
-                  <Box paddingLeft={11}>
-                    <Typography
-                      style={{
-                        fontSize: "17px",
-                        fontFamily: "Roboto Slab",
-                        lineHeight: "30px",
-                      }}
-                    >
-                      <table>
-                        <tr>
-                          <td
-                            style={{
-                              paddingBottom: "4px",
-                              paddingRight: "10px",
-                            }}
-                          >
-                            <Button className="Big-Button">
-                              {moment().format("DD")} {moment().format("MMM")}
-                            </Button>
-                          </td>
-                          <td>Select a Proposal</td>
-                        </tr>
-                      </table>
-                    </Typography>
-                  </Box>
-                  <Box paddingLeft={4}>
-                    <Typography
-                      style={{ fontSize: "21px", lineHeight: "50px" }}
-                    >
-                      <table
-                        style={{
-                          fontFamily: "Gilroy",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        <tr>
-                          <td
-                            style={{
-                              paddingBottom: "4px",
-                              paddingRight: "24px",
-                            }}
-                          >
-                            <OrganizationIcon size={25} />
-                          </td>
-                          <td>Address</td>
-                        </tr>
-                      </table>
-                    </Typography>
-                  </Box>
-                  <Box
-                    paddingLeft={11}
-                    paddingRight={8}
-                    style={{ fontSize: "17px" }}
-                  >
-                    <Typography style={{ fontFamily: "Roboto Slab" }}>
-                      Mountain View, California, United States
-                    </Typography>
-                  </Box>
-                </Grid>
+                <div className="transaction-card-graph">
+                  <CircularProgress
+                    variant="determinate"
+                    size={130}
+                    thickness={10}
+                    value={100}
+                  />
+                  <svg width="100" height="4">
+                    <linearGradient id="reallosGradient">
+                      <stop offset="20%" stopColor="var(--color-gradient-stop)" />
+                      <stop offset="80%" stopColor="var(--color-gradient-start)" />
+                    </linearGradient>
+                  </svg>
+                  <CircularProgress
+                    variant="determinate"
+                    size={130}
+                    thickness={10}
+                    value={progress * 100}
+                    classes={{ circle: classes.circle }}
+                  />
+
+                  <div className="transaction-card-progress-text">
+                    {`${Math.round(progress * 100)}%`}
+                  </div>
+                </div>
+
+                <div className="transaction-card-transaction-name">
+                  {transactionDetails.transaction}
+                </div>
               </Grid>
-            </CardContent>
-          </Box>
-        </CardActionArea>
+
+              {/* DETAILS SIDE */}
+              <Grid
+                item
+                direction="column"
+                className="transaction-card-detail-wrapper"
+                style={{
+                  textOverflow: 'ellipsis',
+                  width: '60%',
+                }}
+              >
+                <div className="transaction-card-detail-main">
+                  <PersonIcon size={20} />
+                  {transactionDetails.createdBy}
+                </div>
+
+                <div className="transaction-card-detail-main">
+                  <VersionsIcon size={20} />
+                  {transactionDetails.latestTask.title}
+
+                  <div
+                    className="transaction-card-detail-sub"
+                    style={{ lineHeight: '27px' }}
+                  >
+                    <span className="transaction-card-detail-subtask-date">
+                      {
+                        moment
+                          .unix(transactionDetails.latestTask.subtask.dueTimestamp)
+                          .format('DD MMM')
+                      }
+                    </span>
+
+                    <span style={{ textOverflow: 'ellipsis' }}>
+                      {transactionDetails.latestTask.subtask.title}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="transaction-card-detail-main">
+                  <OrganizationIcon size={20} />
+                  Address
+
+                  <div className="transaction-card-detail-sub">
+                    {transactionDetails.address}
+                  </div>
+                </div>
+              </Grid>
+            </Grid>
+          </CardActionArea>
+        </Link>
       </Card>
-    </div>
+    </Grid>
   );
 }
 
-export default RenderCard;
+TransactionCard.propTypes = {
+  transactionDetails: PropTypes.shape({
+    id: PropTypes.string,
+    transaction: PropTypes.string,
+    completionStatus: PropTypes.number,
+    createdBy: PropTypes.string,
+    latestTask: {
+        title: PropTypes.string,
+        subtask: {
+            name: PropTypes.string,
+            dueTimestamp: PropTypes.number,
+        },
+    },
+    address: PropTypes.string,
+  })
+}
+
+export default TransactionCard;
