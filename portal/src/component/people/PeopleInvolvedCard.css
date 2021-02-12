@@ -17,7 +17,7 @@
 .people-involved-card-name {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
 }
 
 .people-involved-card-contact-details {
@@ -41,7 +41,7 @@
 
 .people-involved-card-email-content > button {
   cursor: pointer;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-size: 15px;
   background: none;
   border: none;

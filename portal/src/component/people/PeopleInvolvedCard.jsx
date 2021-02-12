@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getRoleLabel } from '../../utils';
-import { Avatar, Card, Grid } from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/PhoneOutlined';
-import MailIcon from '@material-ui/icons/MailOutlined';
-import './PeopleInvolvedCard.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { getRoleLabel } from "../../utils";
+import { Avatar, Card, Grid } from "@material-ui/core";
+import PhoneIcon from "@material-ui/icons/PhoneOutlined";
+import MailIcon from "@material-ui/icons/MailOutlined";
+import "./PeopleInvolvedCard.css";
 
 /**
  * Renders a card for a given person for
  * displaying in People Involved page
- * 
+ *
  * @augments {React.Component<Props>}
  */
 class PeopleInvolvedCard extends React.Component {
@@ -24,7 +24,7 @@ class PeopleInvolvedCard extends React.Component {
       organization: PropTypes.string,
       phone: PropTypes.string,
       email: PropTypes.string,
-      profilePicUrl: PropTypes.string
+      profilePicUrl: PropTypes.string,
     }),
 
     /**
@@ -36,42 +36,45 @@ class PeopleInvolvedCard extends React.Component {
     /**
      * Index of the item in rendered grid. Required
      * for staggered animation.
-     * 
+     *
      * _(Default: 0)_
      */
     itemIndex: PropTypes.number,
-  }
+  };
 
   /**
    * Returns a formatted phone number.
    * @returns {string}
    */
   get getFormattedPhoneNumber() {
-    return this.props.personDetails
-      .phone
-      .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    return this.props.personDetails.phone.replace(
+      /(\d{3})(\d{3})(\d{4})/,
+      "$1-$2-$3"
+    );
   }
-  
+
   render() {
-    let { personDetails, onSendMail=()=>{}, itemIndex=0 } = this.props;
-    
+    let { personDetails, onSendMail = () => {}, itemIndex = 0 } = this.props;
+
     return (
       <Grid
         className="people-involved-card-root"
-        item xs={12} sm={12} md={6} lg={4}
+        item
+        xs={12}
+        sm={12}
+        md={6}
+        lg={4}
         key={personDetails.id}
         style={{
           opacity: 0,
-          animation: 'slide-up-anim 150ms ease-out forwards',
-          animationDelay: `${itemIndex * 30}ms`
+          animation: "slide-up-anim 150ms ease-out forwards",
+          animationDelay: `${itemIndex * 30}ms`,
         }}
       >
         <div className="people-involved-card-outer">
           <Card className="people-involved-card">
             <div className="people-involved-card-avatar">
-              <Avatar
-                src={personDetails.profilePicUrl}
-              />
+              <Avatar src={personDetails.profilePicUrl} />
             </div>
 
             <div className="people-involved-card-details-wrapper">
@@ -81,11 +84,9 @@ class PeopleInvolvedCard extends React.Component {
 
               <div className="people-involved-card-role">
                 {getRoleLabel(personDetails.role)}
-                {
-                  (personDetails.organization)
-                    ? ` ● ${personDetails.organization}`
-                    : ''
-                }
+                {personDetails.organization
+                  ? ` ● ${personDetails.organization}`
+                  : ""}
               </div>
 
               <div className="people-involved-card-contact-details">
@@ -109,7 +110,7 @@ class PeopleInvolvedCard extends React.Component {
           </Card>
         </div>
       </Grid>
-    )
+    );
   }
 }
 
