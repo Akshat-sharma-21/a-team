@@ -65,18 +65,18 @@
 }
 
 .step-desc {
-  margin-left: 5px !important;
+  margin-left: 7px !important;
   border-left: 6px solid #d3d3d3 !important;
 }
 
 .MuiStepConnector-line {
-  margin-left: 5px !important;
+  margin-left: 7px !important;
   border-left: 6px solid #d3d3d3 !important;
 }
 
 .MuiStepContent-root {
   margin-top: 0px !important;
-  margin-left: 17px !important;
+  margin-left: 19px !important;
 }
 
 .MuiStepConnector-vertical {
