@@ -23,11 +23,11 @@ function Roadmap() {
       <div className="step-icon-div">
         {completed || active ? (
           <IconButton className="step-completed-icon" disabled>
-            <LockIcon size={16} className="step-completed-icon" />
+            <LockIcon size={20} className="step-completed-icon" />
           </IconButton>
         ) : (
           <IconButton className="step-icon">
-            <LockIcon size={16} className="step-icon" />
+            <LockIcon size={20} className="step-icon" />
           </IconButton>
         )}
       </div>
@@ -54,6 +54,7 @@ function Roadmap() {
             </Fab> */}
         </Grid>
 
+        <Grid item xs={12} style={{ height: "15px" }}></Grid>
         <Grid item xs={12}>
           <Stepper activeStep={activeStep} orientation="vertical">
             <Step>

@@ -7,7 +7,7 @@
   text-align: left !important;
   font-family: "Gilroy Extrabold" !important;
   font-weight: bold !important;
-  font-size: 38px !important;
+  font-size: 35px !important;
   color: var(--color-dark) !important;
   padding-left: 10px;
 }
@@ -16,7 +16,7 @@
   text-align: left !important;
   font-family: "Gilroy Extrabold" !important;
   font-weight: bold !important;
-  font-size: 24px !important;
+  font-size: 22px !important;
   color: var(--color-dark) !important;
   padding-left: 10px;
 }
@@ -38,7 +38,7 @@
   color: var(--color-white) !important;
   background-color: #0000003d !important;
   margin-left: 15px !important;
-  margin-right: 30px !important;
+  margin-right: 15px !important;
   padding: 7px 18px !important;
 }
 
@@ -65,11 +65,24 @@
 }
 
 .step-desc {
-  margin-left: 3px !important;
-  border-left: 10px solid #d3d3d3 !important;
+  margin-left: 5px !important;
+  border-left: 6px solid #d3d3d3 !important;
 }
 
 .MuiStepConnector-line {
-  margin-left: 3px !important;
-  border-left: 10px solid #d3d3d3 !important;
+  margin-left: 5px !important;
+  border-left: 6px solid #d3d3d3 !important;
+}
+
+.MuiStepContent-root {
+  margin-top: 0px !important;
+  margin-left: 17px !important;
+}
+
+.MuiStepConnector-vertical {
+  padding: 0px !important;
+}
+
+.MuiStepConnector-lineVertical {
+  height: 50px !important;
 }
