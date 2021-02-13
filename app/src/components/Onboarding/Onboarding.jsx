@@ -82,7 +82,7 @@ function Screen2({ page, increment }) {
       </Grid>
 
       <div className="stepper">
-        <DotStepper variant="blue" steps={4} activeStep={page} />
+        <DotStepper variant="primary" steps={4} activeStep={page} />
       </div>
 
       <IconButton
@@ -165,7 +165,7 @@ function Screen4({ page }) {
       </Grid>
 
       <div className="stepper">
-        <DotStepper variant="blue" steps={4} activeStep={page} />
+        <DotStepper variant="primary" steps={4} activeStep={page} />
       </div>
 
       <ReallosButton
