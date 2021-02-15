@@ -1,31 +1,40 @@
+.documents-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 40px;
+  min-height: calc(100vh - 360px);
+}
+
+.documents-single-view-container > img {
+  width: 50%;
+  margin-bottom: 50px;
+}
+
 .documents-heading {
-  text-align: left !important;
-  font-family: "Gilroy Extrabold" !important;
-  font-weight: bold !important;
-  font-size: 36px !important;
-  color: var(--color-dark-grey) !important;
-  padding-top: 20%;
+  font-family: "Gilroy";
+  font-weight: bold;
+  font-size: 36px;
+  color: var(--color-dark-grey);
+  margin-top: 30px;
 }
 
 .documents-subheading {
-  text-align: center !important;
-  font-family: "Gilroy Extrabold" !important;
-  font-weight: bold !important;
-  font-size: 28px !important;
-  color: var(--color-dark) !important;
-  padding-top: 2%;
-}
-
-.documents-empty-div {
-  height: 5vh;
+  text-align: center;
+  font-family: "Gilroy";
+  font-weight: bold;
+  font-size: 28px;
+  color: var(--color-dark);
 }
 
 .documents-text {
-  text-align: center !important;
-  font-family: "Segoe UI" !important;
-  font-size: 18px !important;
-  color: var(--color-dark) !important;
-  padding-top: 5%;
+  text-align: center;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  color: var(--color-dark);
+  margin-top: 0;
 }
 
 .doc-searchbar {
@@ -56,10 +65,6 @@
   margin: 10px 0 !important;
 }
 
-.doc-card-root:hover {
-  transform: translateY(-5px);
-}
-
 .doc-card-root:hover .doc-card {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -67,11 +72,13 @@
 
 .doc-card {
   border-radius: 10px !important;
+  border: 2px solid #dddddd;
   cursor: pointer;
 }
 
-.doc-card-main {
-  padding: 10px 10px 0 0;
+.doc-card .MuiCardContent-root {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .doc-card-heading {
@@ -89,7 +96,45 @@
   color: #000000;
 }
 
-.doc-avtar {
+.doc-avatar {
   height: 15px !important;
   width: 15px !important;
+}
+
+.doc-card-context-menu-root {
+  font-family: 'Gilroy';
+  padding: 0;
+}
+
+.doc-card-context-menu-root {
+  padding: 10px 0 !important;
+}
+
+.doc-card-context-menu-header {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.doc-card-context-menu-header > h1 {
+  margin-bottom: 10px;
+}
+
+.doc-card-context-menu-header .MuiAvatar-root {
+  height: 30px;
+  width: 30px;
+}
+
+.doc-card-context-menu-header > div {
+  display: flex;
+  align-items: center;
+  font-family: 'Segoe UI';
+}
+
+.doc-card-context-menu-actions-list {
+  padding-top: 30px !important;
+}
+
+.doc-card-context-menu-actions-list li {
+  font-size: 20px;
+  padding: 20px 30px;
 }
