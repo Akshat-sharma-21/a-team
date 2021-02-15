@@ -86,6 +86,7 @@ class DocumentCard extends React.Component {
                 <Card
                   className="doc-card"
                   title={docData.name}
+                  elevation={0}
                 >
                   <CardMedia>
                     <CardThumbnail
