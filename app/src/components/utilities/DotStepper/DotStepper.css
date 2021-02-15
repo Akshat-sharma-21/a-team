@@ -1,10 +1,10 @@
-.step-container {
+.dot-stepper-step-container {
   display: table-cell;
   text-align: center;
   padding: 0.5rem;
 }
 
-.step {
+.dot-stepper-step {
   margin: 0.2rem;
   width: 0.6rem;
   height: 0.6rem;
@@ -17,11 +17,11 @@
   background-color: #ffffff;
 }
 
-.dot-stepper-blue {
-  background-color: #2855ff;
+.dot-stepper-primary {
+  background-color: var(--color-primary);
 }
 
-.active {
+.dot-stepper-step.active {
   width: 0.9rem !important;
   height: 0.9rem !important;
 }

@@ -76,6 +76,22 @@ a:active,
   backdrop-filter: none !important;
 }
 
+.page-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  outline: 15px solid #ffffff;
+  padding-bottom: 20px;
+  z-index: 120;
+}
+
+@media(max-height: 500px) {
+  .page-header {
+    position: static;
+  }
+}
+
 /* Custom Material UI Styling */
 
 .MuiPaper-rounded {
