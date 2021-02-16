@@ -1,5 +1,4 @@
 import { withStyles } from "@material-ui/core/styles";
-import DocActiveLogo from "../../assets/doc_logo_active.png";
 import { Scaffold } from "../utilities/core";
 import "./TasksDashboard.css";
 import {
