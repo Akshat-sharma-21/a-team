@@ -35,6 +35,11 @@ import './ModalSheet.css';
 class ModalSheet extends React.Component {
   static propTypes = {
     /**
+     * CSS class to be applied to the component.
+     */
+    className: PropTypes.string,
+    
+    /**
      * If set to `true`, the modal sheet will
      * be visible.
      */
@@ -80,6 +85,7 @@ class ModalSheet extends React.Component {
   render() {
     const {
       children,
+      className='',
       onClose,
       isOpen,
       shouldSwipeToClose=true,
@@ -88,7 +94,10 @@ class ModalSheet extends React.Component {
 
     const ModalSheetContent = (
       <div
-        className="modal-sheet-content"
+        className={[
+          "modal-sheet-content",
+          className
+        ].join(' ')}
         style={{
           maxHeight: shouldLimitContentHeight ? '50vh' : 'unset'
         }}

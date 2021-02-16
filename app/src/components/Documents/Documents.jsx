@@ -1,269 +1,176 @@
-import React from "react";
-import "./Documents.css";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { Scaffold, SearchBar } from "../utilities/core";
 import NoDoc from "../../assets/Documents-Img.png";
-import PdfImg from "../../assets/Doc-example.png";
+import DocumentCard from "./DocumentCard";
+import { SearchIcon } from '@primer/octicons-react';
+import "./Documents.css";
+
 import {
   Grid,
-  CardContent,
-  Avatar,
-  Card,
-  CardMedia,
-  TextField,
-  InputAdornment,
   Divider,
+  Box,
+  CircularProgress,
 } from "@material-ui/core";
-import { SearchIcon, FilterIcon } from "@primer/octicons-react";
 
-import { Scaffold } from "../utilities/core";
 
 function Documents() {
-  if (true) {
-    // If there are no documents that are uploaded for the user
-    return (
-      <Scaffold bottomNav>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={7}>
-            <div className="documents-heading">Documents</div>
+  let [documents, setDocuments] = useState(null);
+  let [filteredDocuments, setFilteredDocuments] = useState(null);
+
+  useEffect(async () => {
+    // Dummy values
+    const _documents = await _dummyApi();
+
+    setDocuments(_documents);
+    setFilteredDocuments(_documents);
+
+    return () => {
+      // Cleanup
+    }
+  }, []);
+
+  const _dummyApi = (emptyResponse=false, timeout=2000) => {
+    return new Promise((resolve, _) => {
+      const _documents = [
+        {
+          id: 'reqsqwexyg',
+          name: 'Document 1',
+          creator: 'John Doe',
+          path: ''
+        },
+        {
+          id: 'fhuwierwieo',
+          name: 'Document 2',
+          creator: 'You',
+          path: ''
+        },
+        {
+          id: 'sjqiwuewdad',
+          name: 'Document 3',
+          creator: 'Mr. Bean',
+          path: ''
+        },
+        {
+          id: 'ascnoqwewqe',
+          name: 'Document 4',
+          creator: 'Mr. Bean',
+          path: ''
+        }
+      ];
+      
+      setTimeout(() => {
+        resolve(emptyResponse ? [] : _documents);
+      }, timeout);
+    })
+  }
+
+  const PrimaryContent = () => {
+    if (documents === null || filteredDocuments === null) {
+      return (
+        <div className="documents-single-view-container">
+          <CircularProgress />
+
+          <div style={{
+            marginTop: 50,
+            fontSize: 20,
+          }}>
+            Fetching Documents...
+          </div>
+        </div>
+      )
+    } else if (documents.length === 0) {
+      // If there are no documents that are uploaded for the user
+      return (
+        <div className="documents-single-view-container">
+          <img src={NoDoc} alt="" />
+
+          <h2 className="documents-subheading">
+            Find all your documents right here!
+          </h2>
+
+          <p className="documents-text">
+            View all the documents uploaded in your transaction all in one
+            place...
+          </p>
+        </div>
+      )
+    } else if (filteredDocuments.length === 0) {
+      // If no documents matched the search term
+      return (
+        <div
+          className="documents-single-view-container"
+          style={{ textAlign: 'center' }}
+        >
+          <Grid
+            item
+            style={{
+              paddingBottom: 20,
+              opacity: 0.5,
+            }}
+          >
+            <SearchIcon size={150} />
           </Grid>
-          <Grid item xs={5}></Grid>
-
-          <Grid item xs={12} className="documents-empty-div"></Grid>
-          <Grid item xs={12} className="documents-empty-div"></Grid>
-
-          <Grid item xs={7} style={{ textAlign: "center" }}>
-            <img src={NoDoc} alt="" width="100%" />
+          <Grid item>
+            <Box marginTop={-3} component="h1">
+              <h4>No results found</h4>
+            </Box>
           </Grid>
-
-          <Grid item xs={12} className="documents-empty-div"></Grid>
-
-          <Grid item xs={12}>
-            <div className="documents-subheading">
-              Find all your documents right here!
+          <Grid item>
+            <Box marginTop={-2} style={{ fontSize: 18, fontFamily: 'Segoe UI' }}>
+              The entered search term did not match any documents
+            </Box>
+          </Grid>
+        </div>
+      );
+    } else {
+      // If documents are present to be rendered
+      return (
+        <div>
+          <div style={{ marginTop: 20, marginBottom: 20 }}>
+            <div className="documents-heading-2">
+              Pre-approval
             </div>
-          </Grid>
 
-          <Grid item xs={12}>
-            <div className="documents-text">
-              View all the documents uploaded in your transaction all in one
-              place...
-            </div>
-          </Grid>
-        </Grid>
-      </Scaffold>
-    );
-  } else {
-    return (
-      <Scaffold>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={7}>
-            <div className="documents-heading">Documents</div>
-          </Grid>
-          <Grid item xs={5}></Grid>
+            <Divider variant="fullWidth" className="doc-divider" />
+          </div>
 
-          <Grid item xs={12} className="documents-empty-div"></Grid>
+          <Grid container spacing={2}>
+            {filteredDocuments.map((docData) => (
+              <DocumentCard
+                key={docData.id}
+                docData={docData}
+              />
+            ))}
+          </Grid>
+        </div>
+      )
+    }
+  }
 
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              className="doc-searchbar"
-              placeholder="Search"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon size={16} className="search-icon" />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <FilterIcon size={16} className="search-icon" />
-                  </InputAdornment>
-                ),
+  return (
+    <Scaffold bottomNav>
+      <Grid container direction="column">
+        <div className="page-header">
+          <h1 className="documents-heading">
+            Documents
+          </h1>
+
+          {documents && (
+            <SearchBar
+              filterByFields={['name', 'creator']}
+              list={documents}
+              onUpdate={(filtered) => {
+                setFilteredDocuments(filtered);
               }}
             />
-          </Grid>
+          )}
+        </div>
 
-          <Grid item xs={12} className="documents-empty-div"></Grid>
-
-          <Grid item xs={7}>
-            <div className="documents-heading-2">Pre-approval</div>
-          </Grid>
-          <Grid item xs={5}></Grid>
-
-          <Grid item xs={12}>
-            <Divider variant="fullWidth" className="doc-divider" />
-          </Grid>
-
-          <Grid item xs={12} style={{ marginTop: "10px" }}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={2}
-            >
-              <Grid item xs={6}>
-                <div className="doc-card-root">
-                  <div className="doc-card-main">
-                    <Card className={"doc-card "}>
-                      <CardMedia
-                        image={PdfImg}
-                        style={{
-                          height: 130,
-                          width: "100%",
-                          backgroundPositionY: "top",
-                        }}
-                      />
-                      <CardContent>
-                        <h2 className="doc-card-heading">Document 1</h2>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar className="doc-avtar" />
-
-                          <span
-                            style={{ marginLeft: 10 }}
-                            className="doc-card-text"
-                          >
-                            Uploaded by <strong>John Doe</strong>
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={6}>
-                <div className="doc-card-root">
-                  <div className="doc-card-main">
-                    <Card className={"doc-card "}>
-                      <CardMedia
-                        image={PdfImg}
-                        style={{
-                          height: 130,
-                          width: "100%",
-                          backgroundPositionY: "top",
-                        }}
-                      />
-                      <CardContent>
-                        <h2 className="doc-card-heading">Document 1</h2>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar className="doc-avtar" />
-
-                          <span
-                            style={{ marginLeft: 10 }}
-                            className="doc-card-text"
-                          >
-                            Uploaded by <strong>John Doe</strong>
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12} style={{ marginTop: "10px" }}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={2}
-            >
-              <Grid item xs={6}>
-                <div className="doc-card-root">
-                  <div className="doc-card-main">
-                    <Card className={"doc-card "}>
-                      <CardMedia
-                        image={PdfImg}
-                        style={{
-                          height: 130,
-                          width: "100%",
-                          backgroundPositionY: "top",
-                        }}
-                      />
-                      <CardContent>
-                        <h2 className="doc-card-heading">Document 1</h2>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar className="doc-avtar" />
-
-                          <span
-                            style={{ marginLeft: 10 }}
-                            className="doc-card-text"
-                          >
-                            Uploaded by <strong>John Doe</strong>
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </Grid>
-
-              <Grid item xs={6}>
-                <div className="doc-card-root">
-                  <div className="doc-card-main">
-                    <Card className={"doc-card "}>
-                      <CardMedia
-                        image={PdfImg}
-                        style={{
-                          height: 130,
-                          width: "100%",
-                          backgroundPositionY: "top",
-                        }}
-                      />
-                      <CardContent>
-                        <h2 className="doc-card-heading">Document 1</h2>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar className="doc-avtar" />
-
-                          <span
-                            style={{ marginLeft: 10 }}
-                            className="doc-card-text"
-                          >
-                            Uploaded by <strong>John Doe</strong>
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Scaffold>
-    );
-  }
+        {PrimaryContent()}
+      </Grid>
+    </Scaffold>
+  )
 }
 
 export default Documents;

@@ -48,3 +48,14 @@ export const muiThemeOptions = {
 export const navigateTo = (location, historyObject) => {
   historyObject.push(location);
 }
+
+/**
+ * Returns document name with the extension stripped off.
+ *
+ * @param {string} docName
+ * Document name
+ */
+export const getEffectiveDocumentName = (docName) => {
+  docName = String(docName);
+  return docName.replace(/\.pdf$/, "");
+};
