@@ -1,22 +1,83 @@
+.preapproval-back-icon {
+  color: #707070;
+}
+
+.preapproval-heading {
+  font-size: 32px !important;
+  font-weight: bold !important;
+  color: #707070 !important;
+  margin-bottom: 25px;
+}
+
+.preapproval-subtext {
+  font-family: "Segoe UI";
+  font-size: 16px !important;
+  color: #707070 !important;
+}
+
+.preapproval-subheading {
+  font-size: 24px !important;
+  font-weight: bold !important;
+  color: #474747 !important;
+}
+
 .preapproval-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  margin: 5px 0 !important;
 }
 
 .preapproval-list-item {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  padding: 15px 25px !important;
+  margin-bottom: 8px !important;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
 }
 
-.preapproval-tasks-completed {
-  margin-top: 8px;
+.preapproval-lender-list {
+  padding: 25px 10px 25px 20px !important;
+  margin-bottom: 8px !important;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(69, 71, 70, 0.3);
 }
 
-.button-lender {
-  border-style: solid;
-  border-radius: 5px;
-  background-color: #2b44ff;
+.doc-list-title {
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 900 !important;
+  font-size: 16px !important;
+  color: #474747 !important;
 }
-.offers-lender {
-  color: white;
+
+.doc-list-subtext {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px !important;
+  color: #474747 !important;
+}
+
+.doc-list-subtext2 {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px !important;
+  color: #474747 !important;
+}
+
+.lender-list-title {
+  font-weight: bold !important;
+  font-size: 20px !important;
+}
+
+.lender-btn {
+  background-color: #2b44ff !important;
+  color: #ffffff !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
+  font-family: "Gilroy" !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  padding: 7px 20px !important;
 }
