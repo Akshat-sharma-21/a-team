@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import CardThumbnail from "./CardThumbnail";
 import { getEffectiveDocumentName } from "../../utils";
 import { ModalSheet } from '../utilities/core';
-import { DownloadIcon, TrashIcon } from '@primer/octicons-react';
+import { DownloadIcon, TrashIcon, KebabHorizontalIcon } from '@primer/octicons-react';
 
 import {
   Grid,
@@ -15,6 +15,7 @@ import {
   List,
   MenuItem,
   ListItemIcon,
+  IconButton,
 } from "@material-ui/core";
 
 
@@ -76,6 +77,16 @@ class DocumentCard extends React.Component {
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <div className="doc-card-root" onContextMenu={(event) => this.showContextMenu(event)}>
+            <IconButton
+              aria-label={`Show options for ${docData.name}`}
+              className="doc-card-top-action-btn"
+              onClick={(event) =>
+                this.showContextMenu(event)
+              }
+            >
+              <KebabHorizontalIcon />
+            </IconButton>
+            
             <div className="doc-card-main">
               <NavLink
                 to={{
@@ -117,7 +128,7 @@ class DocumentCard extends React.Component {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        fontFamily: "Segoe UI",
+                        fontFamily: "Open Sans",
                       }}
                     >
                       <Avatar />

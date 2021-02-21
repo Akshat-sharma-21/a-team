@@ -20,7 +20,7 @@
 
 .onboarding-text {
   text-align: center !important;
-  font-family: "Segoe UI", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   font-size: 20px !important;
   color: var(--color-white) !important;
 }
@@ -46,7 +46,7 @@
 
 .onboarding-text-dark {
   text-align: center !important;
-  font-family: "Segoe UI", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   font-size: 20px !important;
   color: var(--color-dark) !important;
 }

@@ -51,6 +51,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    -webkit-background-clip: padding-box;
     background-clip: padding-box;
 
     position: relative;
@@ -84,6 +85,7 @@
 
 .reallos-button-primary.reallos-button-variant-primary {
     color: #ffffff;
+    border: var(--color-primary) 2px solid;
     box-shadow: 0 8px 16px rgb(43, 68, 255, 0.3);
     background: var(--color-primary);
 }
@@ -106,6 +108,27 @@
     box-shadow: 0 8px 16px rgb(0, 0, 0, 0.1);
     background: #ffffff;
 }
+
+@supports (-webkit-background-clip: text) {
+    .reallos-button-primary.reallos-button-variant-light:not(.reallos-button-no-auto-text-color)
+    .reallos-button-child-wrapper {
+        background: -webkit-linear-gradient(bottom, #16b2ee, #716ee8);
+        background-attachment: fixed;
+        background-size: 100vw 100vh;
+
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+    }
+}
+
+/* @supports (background-clip: text) {
+    .reallos-button-primary.reallos-button-variant-light:not(.reallos-button-no-auto-text-color)
+    .reallos-button-child-wrapper {
+        background-attachment: scroll;
+    }
+} */
 
 .reallos-button-secondary.reallos-button-variant-light {
     display: flex;

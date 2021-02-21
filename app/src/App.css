@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;531;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 @font-face {
   font-family: "Gilroy";
@@ -7,15 +8,6 @@
   font-weight: bold;
   src: local("Gilroy Extrabold"),
     url("./fonts/Gilroy-Extrabold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Segoe UI";
-  font-style: normal;
-  font-weight: bold;
-  src: local("Segoe UI"),
-    url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css")
-      format("woff2");
 }
 
 :root {
@@ -29,7 +21,7 @@
 }
 
 .App {
-  font-family: "Gilroy", "Roboto Slab", "Segoe UI", "Roboto";
+  font-family: "Gilroy", "Roboto Slab", "Open Sans", "Roboto";
 }
 
 a,
@@ -84,6 +76,29 @@ a:active,
   outline: 15px solid #ffffff;
   padding-bottom: 20px;
   z-index: 120;
+}
+
+.page-header-heading {
+  font-family: "Gilroy";
+  font-weight: bold;
+  font-size: 36px;
+  color: var(--color-dark-grey);
+  margin-top: 30px;
+}
+
+.single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 40px;
+  min-height: calc(100vh - 360px);
+}
+
+.single-view-container > img {
+  width: 50%;
+  margin-bottom: 50px;
 }
 
 @media(max-height: 500px) {

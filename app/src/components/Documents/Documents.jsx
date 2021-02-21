@@ -117,7 +117,7 @@ function Documents() {
             </Box>
           </Grid>
           <Grid item>
-            <Box marginTop={-2} style={{ fontSize: 18, fontFamily: 'Segoe UI' }}>
+            <Box marginTop={-2} style={{ fontSize: 18, fontFamily: 'Open Sans' }}>
               The entered search term did not match any documents
             </Box>
           </Grid>

@@ -114,6 +114,7 @@ class SignIn extends React.Component {
             primary
             dense
             variant="light"
+            innerContentColor="#1dadee"
             onClick={() => navigateTo('/signup', this.props.history)}
           >
             Signup

@@ -55,15 +55,15 @@ class ReallosButton extends React.Component {
          * CSS class name to be applied to this component
          */
         className: PropTypes.string,
-        
+
         /**
          * Adjusts the styling of button based on the
          * preferred button variant.
-         * 
+         *
          * _(Default: "gradient")_
          */
         variant: PropTypes.oneOf(['gradient', 'primary', 'light']),
-        
+
         /**
          * If set to `true`, the button will use primary
          * button styling.
@@ -75,6 +75,24 @@ class ReallosButton extends React.Component {
          * _(Default: `false`)_
          */
         primary: PropTypes.bool,
+
+        /**
+         * Color to be applied to inner child content
+         * like text and icons. Accepts keyword "primary"
+         * and "auto". Also accepts valid CSS color.
+         *
+         * Only affects "light" variant
+         *
+         * @description Option "auto" currently behaves
+         * differently on Firefox
+         *
+         * _(Default: "auto")_
+         */
+        innerContentColor: PropTypes.oneOf(
+            "auto",
+            "primary",
+            PropTypes.string
+        ),
 
         /**
          * If set to `true`, the button will be disabled,
@@ -95,24 +113,24 @@ class ReallosButton extends React.Component {
         /**
          * If set to `true`, the button will take up the
          * full available width of the parent component.
-         * 
+         *
          * NOTE: Overrides `buttonWidth` prop.
-         * 
+         *
          * _(Default: `false`)_
          */
         fullWidth: PropTypes.bool,
 
         /**
          * Set the width of button.
-         * 
+         *
          * Usage of `buttonWidth` is not recommended.
          * If required, the left and right padding of the button
          * can be adjusted accordingly or a min-width could be
          * specified. Use the `className` for referencing
          * the particular button.
-         * 
+         *
          * _(Default: `auto`)_
-         * 
+         *
          * @deprecated
          */
         buttonWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -127,6 +145,7 @@ class ReallosButton extends React.Component {
         let {
             children,
             className='',
+            innerContentColor='auto',
             variant='gradient',
             primary=false,
             disabled=false,
@@ -138,10 +157,14 @@ class ReallosButton extends React.Component {
 
         let buttonVariantClassName = '';
         let buttonDenseClassName = (dense) ? 'reallos-button-dense' : '';
+        let noAutoColorClassName = (innerContentColor !== 'auto')
+                                    ? 'reallos-button-no-auto-text-color'
+                                    : '';
+
         let buttonClassName = (primary)
                                 ? 'reallos-button-primary'
                                 : 'reallos-button-secondary';
-        
+
         switch (variant) {
             case 'light':
                 buttonVariantClassName = 'reallos-button-variant-light';
@@ -166,7 +189,29 @@ class ReallosButton extends React.Component {
                 ].join(' ')}
                 style={{ width: fullWidth ? '100%' : buttonWidth }}
             >
-                {children}
+                <div
+                    className={[
+                        'reallos-button-child-wrapper',
+                        noAutoColorClassName
+                    ].join(' ')}
+
+                    style={{
+                        color: (
+                            primary &&
+                            variant === 'light' &&
+                            !['auto', 'primary'].includes(innerContentColor)
+                        )
+                            ? innerContentColor
+                            : '',
+
+                        WebkitTextFillColor:
+                            (innerContentColor !== 'auto')
+                                ? 'unset'
+                                : '',
+                    }}
+                >
+                    {children}
+                </div>
             </button>
         )
     }

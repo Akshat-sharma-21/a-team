@@ -31,7 +31,7 @@
 
 .documents-text {
   text-align: center;
-  font-family: "Segoe UI";
+  font-family: "Open Sans";
   font-size: 18px;
   color: var(--color-dark);
   margin-top: 0;
@@ -39,7 +39,7 @@
 
 .doc-searchbar {
   background-color: #ececec !important;
-  font-family: "Segoe UI", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   font-size: 20px !important;
   font-weight: bold !important;
   color: var(--color-dark) !important;
@@ -65,6 +65,10 @@
   margin: 10px 0 !important;
 }
 
+.doc-card-root {
+  position: relative;
+}
+
 .doc-card-root:hover .doc-card {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -79,6 +83,14 @@
 .doc-card .MuiCardContent-root {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.doc-card-top-action-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 2px 0.5px #00000040;
 }
 
 .doc-card-heading {
@@ -127,7 +139,7 @@
 .doc-card-context-menu-header > div {
   display: flex;
   align-items: center;
-  font-family: 'Segoe UI';
+  font-family: 'Open Sans';
 }
 
 .doc-card-context-menu-actions-list {
