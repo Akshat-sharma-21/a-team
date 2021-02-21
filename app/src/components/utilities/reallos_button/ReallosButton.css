@@ -85,6 +85,7 @@
 
 .reallos-button-primary.reallos-button-variant-primary {
     color: #ffffff;
+    border: var(--color-primary) 2px solid;
     box-shadow: 0 8px 16px rgb(43, 68, 255, 0.3);
     background: var(--color-primary);
 }

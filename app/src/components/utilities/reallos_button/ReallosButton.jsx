@@ -204,7 +204,7 @@ class ReallosButton extends React.Component {
                             ? innerContentColor
                             : '',
 
-                        "-webkit-text-fill-color":
+                        WebkitTextFillColor:
                             (innerContentColor !== 'auto')
                                 ? 'unset'
                                 : '',
