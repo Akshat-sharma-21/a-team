@@ -1,7 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocLogo from "../../assets/doc_logo.svg";
 import ProfilePic from "../../assets/postmalone.jpg";
-import { ModalSheet, Scaffold } from "../utilities/core";
+import { ModalSheet, ReallosButton, Scaffold } from "../utilities/core";
 import "./PreApprovalDashboard.css";
 import {
   CheckCircleIcon,
@@ -200,7 +200,7 @@ function PreApproval() {
                       variant="rounded"
                       style={{ backgroundColor: "#00000000" }}
                     >
-                      <img src={DocLogo} />
+                      <img src={DocLogo} alt="" />
                     </Avatar>
                   </Grid>
                   <Grid item xs={1}></Grid>
@@ -213,7 +213,7 @@ function PreApproval() {
                     </Grid>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton>
+                    <IconButton onClick={() => toggleModal(true)}>
                       <QuestionIcon size={18} style={{ color: "#707070" }} />
                     </IconButton>
                   </Grid>
@@ -256,11 +256,41 @@ function PreApproval() {
           </List>
         </Grid>
       </Grid>
-      {/* 
-      <ModalSheet
-        isOpen={isModalOpen}
-        onClose={toggleModal(isModalOpen, true)}
-      ></ModalSheet> */}
+
+      <ModalSheet isOpen={isModalOpen} onClose={() => toggleModal(false)}>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={2} style={{ textAlign: "center" }}>
+            <Avatar variant="rounded" style={{ backgroundColor: "#00000000" }}>
+              <img src={DocLogo} alt="" />
+            </Avatar>
+          </Grid>
+          <Grid item xs={10} style={{ textAlign: "left" }}>
+            <div className="preapproval-modal-heading">Tax Return</div>
+          </Grid>
+          <Grid item xs={12} style={{ height: "25px" }}></Grid>
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="preapproval-modal-text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              cursus magna lectus, ut euismod neque feugiat sed. Phasellus
+              ultrices est lacus, porttitor venenatis erat condimentum posuere.
+            </div>
+          </Grid>
+          <Grid item xs={12} style={{ height: "15px" }}></Grid>
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="preapproval-modal-text">
+              Nunc sit amet volutpat ligula. Duis nec risus eu erat molestie
+              maximus quis non augue.
+            </div>
+          </Grid>
+          <Grid item xs={12} style={{ height: "20px" }}></Grid>
+          <Grid item xs={12}>
+            <Button className="preapproval-modal-btn">
+              View in Documents <ChevronRightIcon size={16} />
+            </Button>
+          </Grid>
+          <Grid item xs={12} style={{ height: "5px" }}></Grid>
+        </Grid>
+      </ModalSheet>
     </Scaffold>
   );
 }
