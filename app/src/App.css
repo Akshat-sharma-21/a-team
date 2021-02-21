@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;531;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 @font-face {
   font-family: "Gilroy";
@@ -7,15 +8,6 @@
   font-weight: bold;
   src: local("Gilroy Extrabold"),
     url("./fonts/Gilroy-Extrabold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Segoe UI";
-  font-style: normal;
-  font-weight: bold;
-  src: local("Segoe UI"),
-    url("https://cdn.jsdelivr.net/npm/segoe-fonts@1.0.1/segoe-fonts.min.css")
-      format("woff2");
 }
 
 :root {
