@@ -117,7 +117,7 @@ class DocumentCard extends React.Component {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        fontFamily: "Segoe UI",
+                        fontFamily: "Open Sans",
                       }}
                     >
                       <Avatar />

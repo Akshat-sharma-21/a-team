@@ -31,7 +31,7 @@
 
 .documents-text {
   text-align: center;
-  font-family: "Segoe UI";
+  font-family: "Open Sans";
   font-size: 18px;
   color: var(--color-dark);
   margin-top: 0;
@@ -39,7 +39,7 @@
 
 .doc-searchbar {
   background-color: #ececec !important;
-  font-family: "Segoe UI", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
   font-size: 20px !important;
   font-weight: bold !important;
   color: var(--color-dark) !important;
@@ -127,7 +127,7 @@
 .doc-card-context-menu-header > div {
   display: flex;
   align-items: center;
-  font-family: 'Segoe UI';
+  font-family: 'Open Sans';
 }
 
 .doc-card-context-menu-actions-list {
