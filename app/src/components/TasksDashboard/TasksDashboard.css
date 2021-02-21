@@ -1,18 +1,65 @@
+.tasks-dashboard-section-title {
+  margin-top: 20px !important;
+}
+
 .tasks-dashboard-list {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 
 .tasks-dashboard-list-item {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
 }
 
-.tasks-dashboard-tasks-completed {
-  margin-top: 8px;
+.tasks-text {
+  text-align: center;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  color: var(--color-dark);
+  margin-top: 0;
+}
+
+.tasks-dashboard-list-item-header > .MuiAccordionSummary-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+}
+
+.tasks-dashboard-list-item-header-text-group {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks-dashboard-list-item-subheading {
+  font-family: 'Open Sans' !important;
+}
+
+.tasks-dashboard-task-list-item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.tasks-dashboard-task-list-item-details-desc {
+  font-family: 'Open Sans' !important;
+  margin-bottom: 20px !important;
+}
+
+.tasks-dashboard-task-list-item-actions-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .tasks-dashboard-accordion-date {
-  border-style: solid;
   border-radius: 5px;
+  background: #bdbdbd;
+  color: #ffffff;
+  padding: 4px 8px;
+  margin-right: 10px;
+  text-align: center;
+  min-width: 5ch;
 }
