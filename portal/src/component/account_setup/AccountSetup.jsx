@@ -4,6 +4,7 @@ import CreateAccountForm2 from "./CreateAccountForm2";
 import EmailVerification from "./EmailVerification";
 import PhoneVerification from "./PhoneVerification";
 import AccessDeny from "./AccessDeny";
+import SignIn from "./SignIn";
 import {
   addEmail,
   setPassword,
@@ -120,7 +121,7 @@ class AccountSetup extends React.Component {
       this.props.register.phoneVerified === true
     ) {
       {
-        /* Return the signin screen here */
+        return <SignIn />;
       }
     } else
       return (

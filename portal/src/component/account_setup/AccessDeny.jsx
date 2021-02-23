@@ -5,8 +5,8 @@ import DeniedLogo from "../../assets/deny.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function AccessDeny(props) {
-  let { onPrev=()=>{}, state={} } = props;
-  
+  let { onPrev = () => {}, state = {} } = props;
+
   return (
     <Scaffold className="account-setup-root account-setup-verification-root">
       <ReallosModal
@@ -30,32 +30,21 @@ function AccessDeny(props) {
                 style={{ marginTop: 30, marginBottom: 10 }}
               ></img>
 
-              <h1 style={{ marginTop: 20 }}>
-                Access Denied
-              </h1>
+              <h1 style={{ marginTop: 20 }}>Access Denied</h1>
 
               <p>
                 We are a closed platform and your email
-                
-                <strong>
-                  &nbsp;"{state.email}"&nbsp;
-                </strong>
-                
-                doesn't seem to be in our list.
-                To be a part of our platform, fill out a form at
-
-                <a href="#" style={{ marginLeft: 5, fontWeight: 'bold' }}>
+                <strong>&nbsp;"{state.email}"&nbsp;</strong>
+                doesn't seem to be in our list. To be a part of our platform,
+                fill out a form at
+                <a href="#" style={{ marginLeft: 5, fontWeight: "bold" }}>
                   reallos.com
                 </a>
               </p>
             </div>
 
             <div className="account-setup-action-footer-group">
-              <ReallosButton
-                cta
-                fullWidth
-                onClick={onPrev}
-              >
+              <ReallosButton cta fullWidth onClick={onPrev}>
                 Go Back
               </ReallosButton>
             </div>
@@ -78,6 +67,6 @@ AccessDeny.propTypes = {
    * is requested.
    */
   onPrev: PropTypes.func,
-}
+};
 
 export default AccessDeny;
