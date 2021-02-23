@@ -1,14 +1,22 @@
-export const SET_ACCESS = "SET_ACCESS";
-export const DENY_ACCESS = "DENY_ACCESS";
+export const SET_LOADING_TRUE = "SET_LOADING_TRUE";
+export const SET_LOADING_FALSE = "SET_LOADING_FALSE";
+export const SET_ERRORS = "SET_ERRORS";
 
-export function setAccess() {
+export function setLoadingTrue() {
   return {
-    type: SET_ACCESS,
+    type: SET_LOADING_TRUE,
   };
 }
 
-export function denyAccess() {
+export function setLoadingFalse() {
   return {
-    type: DENY_ACCESS,
+    type: SET_LOADING_FALSE,
+  };
+}
+
+export function setErrors(payload) {
+  return {
+    type: SET_ERRORS,
+    error: payload,
   };
 }

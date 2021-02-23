@@ -41,10 +41,11 @@ function CreateAccountForm2(props) {
   const canUserProceed = () => {
     // @TODO: Can use a strict password validation regex
     return (
-      state.password.trim().length >= 8 && confirmPassword === state.password
+      state.password.trim().length >= 8 &&
+      confirmPassword === state.password &&
+      state.loading === false
     );
   };
-
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal

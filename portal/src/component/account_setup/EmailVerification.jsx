@@ -7,7 +7,7 @@ import VerifiedLogo from "../../assets/verified.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function EmailVerification(props) {
-  let { onNext, onPrev, onStateChange = () => {} } = props;
+  let { onNext, onPrev, state = {} } = props;
 
   /**
    * @type [
@@ -50,10 +50,6 @@ function EmailVerification(props) {
 
   function setCodeAndNext(emailCode) {
     onNext(emailCode);
-    onStateChange({
-      // incrementing the step
-      step: 3,
-    });
   }
 
   return (
@@ -115,6 +111,7 @@ function EmailVerification(props) {
                 cta
                 primary
                 fullWidth
+                disabled={state.loading}
                 onClick={() =>
                   setCodeAndNext(
                     verificationCodeList.toString().replace(/,/g, "")
