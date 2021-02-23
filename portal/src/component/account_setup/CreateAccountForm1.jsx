@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { CircularProgress, TextField } from "@material-ui/core";
-import { ArrowRightIcon } from '@primer/octicons-react';
+import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function CreateAccountForm1(props) {
-  let {
-    onStateChange=()=>{},
-    state={},
-    onNext=()=>{}
-  } = props;
+  let { onStateChange = () => {}, state = {}, onNext = () => {} } = props;
 
   /**
    * Handles input change. Sets state
@@ -20,9 +16,9 @@ function CreateAccountForm1(props) {
    */
   const handleChange = (event) => {
     onStateChange({
-      email: event.target.value
+      email: event.target.value,
     });
-  }
+  };
 
   return (
     <Scaffold className="account-setup-root">
@@ -39,13 +35,11 @@ function CreateAccountForm1(props) {
 
           <div className="account-setup-content-form">
             <div className="account-setup-content-form-main">
-              <h1>
-                Account Setup
-              </h1>
+              <h1>Account Setup</h1>
 
               <p style={{ marginBottom: 40 }}>
-                We will use your email to connect your account. You will be required
-                to pre-register with your email to access the service.
+                We will use your email to connect your account. You will be
+                required to pre-register with your email to access the service.
               </p>
 
               <TextField
@@ -61,7 +55,7 @@ function CreateAccountForm1(props) {
                     <div style={{ height: 20 }}>
                       <CircularProgress size={20} />
                     </div>
-                  )
+                  ),
                 }}
               />
             </div>
@@ -75,7 +69,6 @@ function CreateAccountForm1(props) {
                 onClick={onNext}
               >
                 Next
-
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />
                 </span>
@@ -108,7 +101,7 @@ CreateAccountForm1.propTypes = {
    * Callback function called when next screen
    * is requested.
    */
-  onNext: PropTypes.func
-}
+  onNext: PropTypes.func,
+};
 
 export default CreateAccountForm1;

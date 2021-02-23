@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
-import { ArrowRightIcon } from '@primer/octicons-react';
+import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import VerifiedLogo from "../../assets/verified.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function PhoneVerification(props) {
-  let { onNext, onPrev } = props;
+  let { onNext, onPrev, onStateChange = () => {} } = props;
 
   /**
    * @type [
@@ -15,7 +15,9 @@ function PhoneVerification(props) {
    *   React.Dispatch<React.SetStateAction<string[]>>
    * ]
    */
-  let [verificationCodeList, setVerificationCodeList] = useState(Array(4).fill(''));
+  let [verificationCodeList, setVerificationCodeList] = useState(
+    Array(4).fill("")
+  );
 
   /**
    * Handles input change when anything is typed in the
@@ -29,22 +31,29 @@ function PhoneVerification(props) {
     let key = event.key;
     let isNumeric = !!key.match(/^\d$/);
 
-    if (isNumeric || ['Backspace', 'Delete'].includes(key)) {
+    if (isNumeric || ["Backspace", "Delete"].includes(key)) {
       let currentVerificationCodeList = [...verificationCodeList];
-      currentVerificationCodeList[index] = (isNumeric ? key : '');
+      currentVerificationCodeList[index] = isNumeric ? key : "";
 
       setVerificationCodeList(currentVerificationCodeList);
 
-      if (key !== 'Backspace') {
+      if (key !== "Backspace") {
         let nextSibling = event.target.parentElement.parentElement.nextSibling;
-        if (nextSibling) nextSibling.querySelector('input').focus();
-      }
-
-      else {
-        let prevSibling = event.target.parentElement.parentElement.previousSibling;
-        if (prevSibling) prevSibling.querySelector('input').focus();
+        if (nextSibling) nextSibling.querySelector("input").focus();
+      } else {
+        let prevSibling =
+          event.target.parentElement.parentElement.previousSibling;
+        if (prevSibling) prevSibling.querySelector("input").focus();
       }
     }
+  };
+
+  function setCodeAndNext(phoneCode) {
+    onNext(phoneCode);
+    onStateChange({
+      // incrementing the step
+      step: 4,
+    });
   }
 
   return (
@@ -62,20 +71,15 @@ function PhoneVerification(props) {
 
           <div className="account-setup-content-form">
             <div className="account-setup-content-form-main">
-              <img
-                src={VerifiedLogo}
-                alt=""
-                width={70}
-                height={70}
-              />
+              <img src={VerifiedLogo} alt="" width={70} height={70} />
 
               <h1 style={{ marginTop: 20, marginBottom: 10 }}>
                 Phone Verification
               </h1>
 
               <p>
-                A confirmation code has sent to your phone number.
-                Please enter it to proceed.
+                A confirmation code has sent to your phone number. Please enter
+                it to proceed.
               </p>
 
               <div className="account-setup-verification-code-textfield-group">
@@ -89,7 +93,7 @@ function PhoneVerification(props) {
                     onFocus={(event) => event.target.select()}
                     inputProps={{
                       maxLength: 1,
-                      autocomplete: "new-password"
+                      autocomplete: "new-password",
                     }}
                     type="numeric"
                   />
@@ -98,18 +102,12 @@ function PhoneVerification(props) {
 
               <p>
                 Didn't get the code?
-                <a style={{ marginLeft: 8, cursor: 'pointer' }}>
-                  Resend it
-                </a>
+                <a style={{ marginLeft: 8, cursor: "pointer" }}>Resend it</a>
               </p>
             </div>
 
             <div className="account-setup-action-footer-group">
-            <ReallosButton
-                cta
-                fullWidth
-                onClick={onPrev}
-              >
+              <ReallosButton cta fullWidth onClick={onPrev}>
                 Back
               </ReallosButton>
 
@@ -117,10 +115,13 @@ function PhoneVerification(props) {
                 cta
                 primary
                 fullWidth
-                onClick={onNext}
+                onClick={() =>
+                  setCodeAndNext(
+                    verificationCodeList.toString().replace(/,/g, "")
+                  )
+                }
               >
                 Next
-
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />
                 </span>
@@ -145,6 +146,6 @@ PhoneVerification.propTypes = {
    * is requested.
    */
   onPrev: PropTypes.func,
-}
+};
 
 export default PhoneVerification;

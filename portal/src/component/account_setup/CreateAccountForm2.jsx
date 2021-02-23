@@ -1,33 +1,39 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { TextField, IconButton } from "@material-ui/core";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
-import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from '@primer/octicons-react';
-import ReallosLogo from '../../assets/reallos_white_logo.png';
+import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function CreateAccountForm2(props) {
-  let [isCreatePasswordFieldVisible, setCreatePasswordFieldVisibility] = useState(false);
-  let [isConfirmPasswordFieldVisible, setConfirmPasswordFieldVisibility] = useState(false);
-  let [confirmPassword, setConfirmPassword] = useState('');
+  let [
+    isCreatePasswordFieldVisible,
+    setCreatePasswordFieldVisibility,
+  ] = useState(false);
+  let [
+    isConfirmPasswordFieldVisible,
+    setConfirmPasswordFieldVisibility,
+  ] = useState(false);
+  let [confirmPassword, setConfirmPassword] = useState("");
 
   let {
-    onStateChange=()=>{},
-    state={},
-    onNext=()=>{},
-    onPrev=()=>{}
+    onStateChange = () => {},
+    state = {},
+    onNext = () => {},
+    onPrev = () => {},
   } = props;
 
   /**
    * Handles input change. Sets state
    * and calls `onStateChange`.
-   * 
+   *
    * @param {Event} event
    */
   const handleChange = (event) => {
     onStateChange({
-      password: event.target.value
+      password: event.target.value,
     });
-  }
+  };
 
   /**
    * Checks if user can proceed to next screen
@@ -35,10 +41,9 @@ function CreateAccountForm2(props) {
   const canUserProceed = () => {
     // @TODO: Can use a strict password validation regex
     return (
-      state.password.trim().length >= 8 &&
-      confirmPassword === state.password
+      state.password.trim().length >= 8 && confirmPassword === state.password
     );
-  }
+  };
 
   return (
     <Scaffold className="account-setup-root">
@@ -55,9 +60,7 @@ function CreateAccountForm2(props) {
 
           <div className="account-setup-content-form">
             <div className="account-setup-content-form-main">
-              <h1>
-                Account Setup
-              </h1>
+              <h1>Account Setup</h1>
 
               <TextField
                 fullWidth
@@ -71,21 +74,24 @@ function CreateAccountForm2(props) {
                 InputProps={{
                   endAdornment: (
                     <IconButton
-                      aria-label={isCreatePasswordFieldVisible
-                        ? "Hide Password"
-                        : "Show Password"
+                      aria-label={
+                        isCreatePasswordFieldVisible
+                          ? "Hide Password"
+                          : "Show Password"
                       }
-                      onClick={() => setCreatePasswordFieldVisibility(
-                        !isCreatePasswordFieldVisible
-                      )}
+                      onClick={() =>
+                        setCreatePasswordFieldVisibility(
+                          !isCreatePasswordFieldVisible
+                        )
+                      }
                     >
-                      {
-                        (isCreatePasswordFieldVisible)
-                          ? <EyeClosedIcon />
-                          : <EyeIcon />
-                      }
+                      {isCreatePasswordFieldVisible ? (
+                        <EyeClosedIcon />
+                      ) : (
+                        <EyeIcon />
+                      )}
                     </IconButton>
-                  )
+                  ),
                 }}
               />
 
@@ -96,38 +102,37 @@ function CreateAccountForm2(props) {
                 id="account-setup-confirm-account-textfield"
                 spellCheck={false}
                 value={confirmPassword}
-                onChange={(event) => setConfirmPassword(
-                  event.currentTarget.value
-                )}
+                onChange={(event) =>
+                  setConfirmPassword(event.currentTarget.value)
+                }
                 type={isConfirmPasswordFieldVisible ? "text" : "password"}
                 InputProps={{
                   endAdornment: (
                     <IconButton
-                      aria-label={isConfirmPasswordFieldVisible
-                        ? "Hide Password"
-                        : "Show Password"
+                      aria-label={
+                        isConfirmPasswordFieldVisible
+                          ? "Hide Password"
+                          : "Show Password"
                       }
-                      onClick={() => setConfirmPasswordFieldVisibility(
-                        !isConfirmPasswordFieldVisible
-                      )}
+                      onClick={() =>
+                        setConfirmPasswordFieldVisibility(
+                          !isConfirmPasswordFieldVisible
+                        )
+                      }
                     >
-                      {
-                        (isConfirmPasswordFieldVisible)
-                          ? <EyeClosedIcon />
-                          : <EyeIcon />
-                      }
+                      {isConfirmPasswordFieldVisible ? (
+                        <EyeClosedIcon />
+                      ) : (
+                        <EyeIcon />
+                      )}
                     </IconButton>
-                  )
+                  ),
                 }}
               />
             </div>
 
             <div className="account-setup-action-footer-group">
-              <ReallosButton
-                cta
-                fullWidth
-                onClick={onPrev}
-              >
+              <ReallosButton cta fullWidth onClick={onPrev}>
                 Back
               </ReallosButton>
 
@@ -139,7 +144,6 @@ function CreateAccountForm2(props) {
                 onClick={onNext}
               >
                 Next
-
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />
                 </span>
@@ -162,7 +166,7 @@ CreateAccountForm2.propTypes = {
   /**
    * Callback function called when a state change
    * occurs in current component.
-   * 
+   *
    * Typically the function should accept a `state` prop
    * which should be propagated to parent component.
    */
@@ -179,6 +183,6 @@ CreateAccountForm2.propTypes = {
    * is requested.
    */
   onPrev: PropTypes.func,
-}
+};
 
 export default CreateAccountForm2;

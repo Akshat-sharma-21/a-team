@@ -4,6 +4,7 @@ import PeopleInvolved from "./component/people/PeopleInvolved";
 import Documents from "./component/documents/Documents";
 import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
+import Signin from "./component/account_setup/SignIn";
 import { Switch, Route } from "react-router-dom";
 
 function Main() {
@@ -15,6 +16,7 @@ function Main() {
       <Route path="/documents" component={Documents} />
       <Route path="/profile" component={ProfileSummary} />
       <Route path="/account_setup" component={AccountSetup} />
+      <Route path="/signin" component={Signin} />
     </Switch>
   );
 }
