@@ -8,6 +8,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@primer/octicons-react": "11.2.0",
     "firebase": "^8.2.9",
+    "jwt-decode": "^3.1.2",
     "moment": "2.29.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",

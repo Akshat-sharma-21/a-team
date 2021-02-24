@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {
   AppBar,
@@ -14,19 +14,25 @@ import {
 } from "@material-ui/core";
 
 import { BellIcon, GraphIcon } from "@primer/octicons-react";
-import UserProfilePopup from './profile/UserProfilePopup';
-import UserProfileEditDrawer from './profile/UserProfileEditDrawer';
-import NotificationPopup from './notifications/NotificationPopup';
-import { getUnreadNotificationsCount } from './notifications/utils';
+import UserProfilePopup from "./profile/UserProfilePopup";
+import UserProfileEditDrawer from "./profile/UserProfileEditDrawer";
+import NotificationPopup from "./notifications/NotificationPopup";
+import { getUnreadNotificationsCount } from "./notifications/utils";
+import { signout } from "../../Authenticate";
 import "./Navbar.css";
 
 function Navbar(props) {
-  let [isUserProfileEditDrawerVisible, setUserProfileEditDrawerVisibility] = useState(false);
+  let [
+    isUserProfileEditDrawerVisible,
+    setUserProfileEditDrawerVisibility,
+  ] = useState(false);
   let [userProfilePopupAnchorEl, setUserProfilePopupAnchorEl] = useState(null);
-  let [notificationPopupAnchorEl, setNotificationPopupAnchorEl] = useState(null);
+  let [notificationPopupAnchorEl, setNotificationPopupAnchorEl] = useState(
+    null
+  );
   let [notifications, setNotifications] = useState(null);
 
-  const navbarStickyClassName = (props.sticky) ? 'navbar-sticky' : '';
+  const navbarStickyClassName = props.sticky ? "navbar-sticky" : "";
 
   /**
    * Shows the User Profile Popup
@@ -36,14 +42,14 @@ function Navbar(props) {
    */
   const showNotificationPopup = (event) => {
     setNotificationPopupAnchorEl(event.currentTarget);
-  }
+  };
 
   /**
    * Hides the User Profile Popup
    */
   const hideNotificationPopup = () => {
     setNotificationPopupAnchorEl(null);
-  }
+  };
 
   /**
    * Shows the User Profile Popup
@@ -53,50 +59,49 @@ function Navbar(props) {
    */
   const showUserProfilePopup = (event) => {
     setUserProfilePopupAnchorEl(event.currentTarget);
-  }
+  };
 
   /**
    * Hides the User Profile Popup
    */
   const hideUserProfilePopup = () => {
     setUserProfilePopupAnchorEl(null);
-  }
+  };
 
   /**
    * Shows the User Profile Edit Side Drawer
    */
   const showUserProfileEditDrawer = () => {
     setUserProfileEditDrawerVisibility(true);
-  }
+  };
 
   /**
    * Hides the User Profile Edit Side Drawer
    */
   const hideUserProfileEditDrawer = () => {
     setUserProfileEditDrawerVisibility(false);
-  }
+  };
 
   /**
    * Subscribes to notification changes
    */
   const notificationSubscriber = async () => {
-    console.log('Subscribe to Notification API...');
+    console.log("Subscribe to Notification API...");
 
-    _dummyNotificationsApi(5)
-      .then((notifications) => {
-        setNotifications(notifications);
-      });
-  }
+    _dummyNotificationsApi(5).then((notifications) => {
+      setNotifications(notifications);
+    });
+  };
 
   /**
    * Removes subscription to notification changes
    */
   const removeNotificationSubscription = () => {
-    console.log('Remove Notification Subscription...');
+    console.log("Remove Notification Subscription...");
     // @TODO: Add logic
-  }
+  };
 
-  const _dummyNotificationsApi = async (duplicationFactor=0) => {
+  const _dummyNotificationsApi = async (duplicationFactor = 0) => {
     return new Promise((resolve, _) => {
       /**
        * Dummy data
@@ -104,58 +109,59 @@ function Navbar(props) {
        */
       let _notifications = [
         {
-          id: 'qwerty',
-          type: 'TASK_CREATE',
+          id: "qwerty",
+          type: "TASK_CREATE",
           isRead: false,
           timestamp: 1611503929112,
-          tid: 'tq91ydfsd8',
-          taskId: '22001873',
-          taskName: 'Chandler Bing created a new task "Get some paperwork done"',
+          tid: "tq91ydfsd8",
+          taskId: "22001873",
+          taskName:
+            'Chandler Bing created a new task "Get some paperwork done"',
         },
         {
-          id: 'asdfgh',
-          type: 'TASK_CREATE',
+          id: "asdfgh",
+          type: "TASK_CREATE",
           isRead: true,
           timestamp: 1610933529112,
-          tid: 'sidhfwe9w8',
-          taskId: '22001873',
+          tid: "sidhfwe9w8",
+          taskId: "22001873",
           taskName: 'Ross Geller created a new task "Hello World"',
         },
         {
-          id: 'qqxonepw',
-          type: 'DOC_UPDATE',
+          id: "qqxonepw",
+          type: "DOC_UPDATE",
           isRead: true,
           timestamp: 1610533529112,
-          tid: 'kuAsdbh2198',
-          name: 'Tax Returns',
-          lastModifiedBy: 'Terry Jackson'
+          tid: "kuAsdbh2198",
+          name: "Tax Returns",
+          lastModifiedBy: "Terry Jackson",
         },
         {
-          id: 'iwjbfhdw',
-          type: 'INVITATION_ACCEPTED',
+          id: "iwjbfhdw",
+          type: "INVITATION_ACCEPTED",
           isRead: true,
           timestamp: 1610033529112,
-          tid: 'kuAsdbh2198',
-          name: 'Terry Jackson'
+          tid: "kuAsdbh2198",
+          name: "Terry Jackson",
         },
         {
-          id: 'hgsckqod',
-          type: 'INVITATION_ACCEPTED',
+          id: "hgsckqod",
+          type: "INVITATION_ACCEPTED",
           isRead: false,
           timestamp: 1610033529112,
-          tid: 'kuAsdbh2198',
-          name: 'Chandler Bing'
+          tid: "kuAsdbh2198",
+          name: "Chandler Bing",
         },
         {
-          id: 'jhgfsdkq',
-          type: 'DOC_UPDATE',
+          id: "jhgfsdkq",
+          type: "DOC_UPDATE",
           isRead: true,
           timestamp: 1609593529112,
-          tid: 'kuAsdbh2198',
-          name: 'Income & Employment',
-          lastModifiedBy: 'Joeseph Tribbiani'
+          tid: "kuAsdbh2198",
+          name: "Income & Employment",
+          lastModifiedBy: "Joeseph Tribbiani",
         },
-      ]
+      ];
 
       for (let i = 0; i < duplicationFactor; i++) {
         _notifications = _notifications.concat(_notifications);
@@ -165,24 +171,24 @@ function Navbar(props) {
         resolve(_notifications);
       }, 2000);
     });
-  }
+  };
 
   /**
    * Dummy data
    * @TODO: Replace with Redux/AWS logic
    */
   const user = {
-    id: 'qwerty',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@gmail.com',
-    role: 'seller',
+    id: "qwerty",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@gmail.com",
+    role: "seller",
 
     // Could include country code
-    phone: '9999999999',
+    phone: "9999999999",
 
     // Could use mutiple resolution images as array
-    profilePhoto: 'https://i.imgur.com/zOnwBpQ.png'
+    profilePhoto: "https://i.imgur.com/zOnwBpQ.png",
   };
 
   /**
@@ -213,9 +219,7 @@ function Navbar(props) {
             <div className="navbar-btn-group">
               <Tooltip
                 title={
-                  <Typography style={{ fontSize: "15px" }}>
-                    Insights
-                  </Typography>
+                  <Typography style={{ fontSize: "15px" }}>Insights</Typography>
                 }
                 TransitionComponent={Zoom}
               >
@@ -238,13 +242,13 @@ function Navbar(props) {
                     overlap="circle"
                     variant={
                       getUnreadNotificationsCount(notifications) > 0
-                        ? 'dot'
-                        : 'standard'
+                        ? "dot"
+                        : "standard"
                     }
                     color="primary"
                     anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
+                      vertical: "top",
+                      horizontal: "right",
                     }}
                   >
                     <BellIcon size={20} />
@@ -255,9 +259,7 @@ function Navbar(props) {
               {/* PROFILE BUTTON */}
               <Tooltip
                 title={
-                  <Typography style={{ fontSize: "15px" }}>
-                    Profile
-                  </Typography>
+                  <Typography style={{ fontSize: "15px" }}>Profile</Typography>
                 }
                 TransitionComponent={Zoom}
               >
@@ -279,7 +281,7 @@ function Navbar(props) {
 
       <UserProfilePopup
         user={user}
-        onSignOut={()=>{}}
+        onSignOut={() => signout()}
         onClose={hideUserProfilePopup}
         onShowProfileEditDrawer={() => {
           hideUserProfilePopup();
@@ -303,6 +305,6 @@ Navbar.propTypes = {
    * even when scrolled past the bounds.
    */
   sticky: PropTypes.bool,
-}
+};
 
 export default Navbar;

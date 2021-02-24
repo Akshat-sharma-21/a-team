@@ -6,11 +6,7 @@ import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
 import Signin from "./component/account_setup/SignIn";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-function getAuth() {
-  // function to check whether the user has the access to the procted routes
-  return true;
-}
+import { getAuth } from "./Authenticate";
 
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated

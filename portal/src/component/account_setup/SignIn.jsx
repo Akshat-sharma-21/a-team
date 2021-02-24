@@ -32,11 +32,9 @@ function SignIn(props) {
   const handleChange = (event) => {
     if (event.target.id === "account-sigin-email-textfield") {
       setEmail(event.target.value);
-    }
-    else if (event.target.id === "account-sigin-password-textfield") {
+    } else if (event.target.id === "account-sigin-password-textfield") {
       setPassword(event.target.value);
-    }
-    else {
+    } else {
       setRemeber(!remember);
     }
   };
@@ -102,12 +100,14 @@ function SignIn(props) {
                 }}
               />
 
-              <div style={{
-                marginTop: 15,
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
+              <div
+                style={{
+                  marginTop: 15,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -119,9 +119,7 @@ function SignIn(props) {
                   }
                   label="Remeber me"
                 />
-                <a href="#">
-                  Forgot Password?
-                </a>
+                <a href="#">Forgot Password?</a>
               </div>
             </form>
 
@@ -130,6 +128,7 @@ function SignIn(props) {
                 cta
                 primary
                 fullWidth
+                disabled={props.utils.loading}
                 onClick={() => props.login({ email, password })}
               >
                 Sign In
