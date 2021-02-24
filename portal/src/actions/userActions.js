@@ -1,24 +1,17 @@
-import { setAccess, denyAccess } from "./utilActions";
-
+import { myFirebase } from "../FirebaseConfig";
 export const ADD_USER = "ADD_USER"; // Action to add the user to the redux store
 
-export function checkUser(email) {
-  // To check if the user is authorized to create an account
+export function login(user) {
+  // Function to login the user
   return (dispatch) => {
-    if (email === "abc@gmail.com") {
-      // If the user has the email registered
-      dispatch(setAccess());
-    } else {
-      dispatch(denyAccess());
-    }
+    dispatch(addUserAction(user));
   };
 }
 
-export function addUser(payload) {
-  // Pure Reducer
+function addUserAction(payload) {
+  // Pure Action to add user to Redux
   return {
     type: ADD_USER,
-    id: payload.id,
-    Name: payload.Name,
+    email: payload.email,
   };
 }

@@ -10,6 +10,8 @@ import {
   setPassword,
   verifyEmail,
   verifyPhone,
+  incrementStepAction,
+  decrementStepAction,
 } from "../../actions/registartionActions";
 import { connect } from "react-redux";
 import "./AccountSetup.css";
@@ -30,6 +32,8 @@ const mapActionsToProps = (dispatch) => {
       setPassword,
       verifyEmail,
       verifyPhone,
+      incrementStepAction,
+      decrementStepAction,
     },
     dispatch
   );
@@ -54,70 +58,66 @@ class AccountSetup extends React.Component {
    * @param {string} email
    * Email ID of the user
    */
-  checkUserAccess(email) {
-    this.props.addEmail(email); // to check if the user has access to the email
-    this.setState({
-      // incrementing the step
-      step: 1,
-    });
-  }
-
-  setPassword(password) {
-    this.props.setPassword(password);
-    this.setState({
-      // incrementing the step
-      step: 2,
-    });
-  }
 
   render() {
-    if (this.state.step === 0)
+    if (this.props.register.step === 0)
       return (
         <CreateAccountForm1
           state={{
             email: this.state.email,
-            isCheckingUserAccess: this.state.isCheckingUserAccess,
+            loading: this.props.utils.loading,
           }}
           onStateChange={(state) => this.setState(state)}
-          onNext={() => this.checkUserAccess(this.state.email)}
+          onNext={() => this.props.addEmail(this.state.email)}
         />
       );
-    else if (this.state.step === 1 && this.props.register.email === true)
+    else if (
+      this.props.register.step === 1 &&
+      this.props.register.email === true
+    )
       return (
         <CreateAccountForm2
-          state={{ password: this.state.password }}
+          state={{
+            password: this.state.password,
+            loading: this.props.utils.loading,
+          }}
           onStateChange={(state) => this.setState(state)}
-          onPrev={() => this.setState({ step: 0 })}
-          onNext={() => this.setPassword(this.state.password)}
+          onPrev={() => this.props.decrementStepAction()}
+          onNext={() =>
+            this.props.setPassword(this.state.email, this.state.password)
+          }
         />
       );
-    else if (this.state.step === 2 && this.props.register.password === true)
+    else if (
+      this.props.register.step === 2 &&
+      this.props.register.password === true
+    )
       return (
         <EmailVerification
           state={{
-            email: this.state.emailCode,
+            loading: this.props.utils.loading,
           }}
           onStateChange={(state) => this.setState(state)}
-          onPrev={() => this.setState({ step: 1 })}
+          onPrev={() => this.props.decrementStepAction()}
           onNext={this.props.verifyEmail}
         />
       );
     else if (
-      this.state.step === 3 &&
+      this.props.register.step === 3 &&
       this.props.register.emailVerified === true
     )
       return (
         <PhoneVerification
           state={{
-            phone: this.state.phoneCode,
+            loading: this.props.utils.loading,
           }}
           onStateChange={(state) => this.setState(state)}
-          onPrev={() => this.setState({ step: 2 })}
+          onPrev={() => this.props.decrementStepAction()}
           onNext={this.props.verifyPhone}
         />
       );
     else if (
-      this.state.step === 4 &&
+      this.props.register.step === 4 &&
       this.props.register.phoneVerified === true
     ) {
       {
@@ -127,7 +127,7 @@ class AccountSetup extends React.Component {
       return (
         <AccessDeny
           state={{ email: this.state.email }}
-          onPrev={() => this.setState({ step: 0 })}
+          onPrev={() => this.props.decrementStepAction()}
         />
       );
   }

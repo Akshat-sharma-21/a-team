@@ -1,8 +1,7 @@
 import * as actions from "../actions/userActions";
 
 const initialState = {
-  id: null,
-  Name: null,
+  email: null,
 };
 
 function userReducer(state = initialState, action) {
@@ -10,8 +9,7 @@ function userReducer(state = initialState, action) {
     case actions.ADD_USER: {
       return {
         ...state,
-        id: action.id,
-        Name: action.Name,
+        email: action.email,
       };
     }
     default:

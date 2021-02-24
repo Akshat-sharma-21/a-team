@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import { EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { login } from "../../actions/userActions";
 
 import {
   CircularProgress,
@@ -11,6 +14,14 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 
+const mapStateToProps = (state) => ({
+  user: state.user,
+  utils: state.utils,
+});
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({ login }, dispatch);
+};
 
 function SignIn(props) {
   let [isPasswordFieldVisible, setPasswordFieldVisibility] = useState(false);
@@ -29,7 +40,6 @@ function SignIn(props) {
       setRemeber(!remember);
     }
   };
-
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal
@@ -116,7 +126,12 @@ function SignIn(props) {
             </form>
 
             <div style={{ marginTop: 20 }}>
-              <ReallosButton cta primary fullWidth>
+              <ReallosButton
+                cta
+                primary
+                fullWidth
+                onClick={() => props.login({ email, password })}
+              >
                 Sign In
               </ReallosButton>
             </div>
@@ -136,4 +151,4 @@ function SignIn(props) {
   );
 }
 
-export default SignIn;
+export default connect(mapStateToProps, mapActionsToProps)(SignIn);

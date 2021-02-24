@@ -51,7 +51,7 @@ function CreateAccountForm1(props) {
                 value={state.email}
                 onChange={handleChange}
                 InputProps={{
-                  endAdornment: state.isCheckingUserAccess && (
+                  endAdornment: state.loading && (
                     <div style={{ height: 20 }}>
                       <CircularProgress size={20} />
                     </div>
@@ -61,13 +61,7 @@ function CreateAccountForm1(props) {
             </div>
 
             <div className="account-setup-action-footer-group">
-              <ReallosButton
-                cta
-                primary
-                fullWidth
-                disabled={state.isCheckingUserAccess}
-                onClick={onNext}
-              >
+              <ReallosButton cta primary fullWidth onClick={onNext}>
                 Next
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />

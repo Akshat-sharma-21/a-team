@@ -1,24 +1,27 @@
 import * as actions from "../actions/utilActions";
 
 const intitialState = {
-  access: null,
-  loading: null,
+  loading: false,
   errors: null,
 };
 function utilReducer(state = intitialState, action) {
   switch (action.type) {
-    case actions.SET_ACCESS: {
+    case actions.SET_LOADING_TRUE: {
       return {
-        access: true,
-        loading: false,
+        loading: true,
         errors: null,
       };
     }
-    case actions.DENY_ACCESS: {
+    case actions.SET_LOADING_FALSE: {
       return {
-        access: false,
         loading: false,
-        errors: null,
+        errors: false,
+      };
+    }
+    case actions.SET_ERRORS: {
+      return {
+        loading: false,
+        errors: action.error,
       };
     }
     default:
