@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getRoleLabel } from '../../../utils';
-import './UserProfilePopup.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { getRoleLabel } from "../../../utils";
+import "./UserProfilePopup.css";
 
 import {
   Menu,
@@ -12,14 +12,10 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
-} from '@material-ui/core';
+  ListItemText,
+} from "@material-ui/core";
 
-import {
-  PencilIcon,
-  SignOutIcon,
-  TagIcon
-} from '@primer/octicons-react';
+import { PencilIcon, SignOutIcon, TagIcon } from "@primer/octicons-react";
 
 /**
  * Displays a User Profile Popup
@@ -63,9 +59,9 @@ class UserProfilePopup extends React.Component {
      * Callback function called when the user requests
      * to be signed out
      */
-    onSignOut: PropTypes.func
-  }
-  
+    onSignOut: PropTypes.func,
+  };
+
   render() {
     const {
       user,
@@ -77,16 +73,16 @@ class UserProfilePopup extends React.Component {
 
     const actionsList = [
       {
-        label: 'Edit Profile',
+        label: "Edit Profile",
         icon: <PencilIcon size={20} />,
-        onClick: onShowProfileEditDrawer
+        onClick: onShowProfileEditDrawer,
       },
       {
-        label: 'Sign Out',
+        label: "Sign Out",
         icon: <SignOutIcon size={20} />,
-        onClick: onSignOut
-      }
-    ]
+        onClick: onSignOut,
+      },
+    ];
 
     return (
       <Menu
@@ -107,7 +103,7 @@ class UserProfilePopup extends React.Component {
         PaperProps={{
           style: {
             borderRadius: 10,
-            border: '2px solid rgba(0, 0, 0, 0.25)'
+            border: "2px solid rgba(0, 0, 0, 0.25)",
           },
         }}
       >
@@ -142,7 +138,7 @@ class UserProfilePopup extends React.Component {
               </Grid>
               <Grid item justify="center">
                 <Box component="h2" className="user-profile-popup-info-heading">
-                  {`${user.firstName} ${user.lastName}`}
+                  {`${user.Name}`}
                 </Box>
                 <Box
                   component="p"
@@ -151,17 +147,12 @@ class UserProfilePopup extends React.Component {
                 >
                   {user.email}
                 </Box>
-                <Box
-                  component="p"
-                  className="user-profile-popup-role-tag"
-                >
+                <Box component="p" className="user-profile-popup-role-tag">
                   <span style={{ paddingRight: 10, marginTop: -1 }}>
                     <TagIcon size={17} />
                   </span>
 
-                  <span>
-                    {getRoleLabel(user.role)}
-                  </span>
+                  <span>{getRoleLabel(user.role)}</span>
                 </Box>
               </Grid>
             </Grid>
@@ -181,7 +172,7 @@ class UserProfilePopup extends React.Component {
           </List>
         </Grid>
       </Menu>
-    )
+    );
   }
 }
 

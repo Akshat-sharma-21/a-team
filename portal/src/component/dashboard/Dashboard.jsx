@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import TransactionCard from "./TransactionCard";
 import dashboardImg from "../../assets/dashboard-empty.png";
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@material-ui/lab/Skeleton";
 import "./Dashboard.css";
 
 import {
@@ -10,15 +10,10 @@ import {
   Scaffold,
   SearchBar,
   ReallosPageHeader,
-  ReallosFab
+  ReallosFab,
 } from "../utilities/core";
 
-import {
-  Box,
-  Grid,
-  Typography,
-  TextField,
-} from "@material-ui/core";
+import { Box, Grid, Typography, TextField } from "@material-ui/core";
 
 import {
   PlusIcon,
@@ -26,114 +21,47 @@ import {
   DeviceMobileIcon,
   InfoIcon,
   PaperAirplaneIcon,
-  SearchIcon
+  SearchIcon,
 } from "@primer/octicons-react";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  utils: state.utils,
+});
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser }, dispatch);
+};
 
 function Dashboard(props) {
   let [isInvitationModalVisible, setInvitationModalVisiblity] = useState(false);
-  let [transactionList, setTransactionList] = useState(null);
+  let [transactionList, setTransactionList] = useState([]);
   let [filteredList, setFilteredList] = useState(null);
-  let [invitationEmail, setInvitationEmail] = useState('');
-  let [invitationPhone, setInvitationPhone] = useState('');
+  let [invitationEmail, setInvitationEmail] = useState("");
+  let [invitationPhone, setInvitationPhone] = useState("");
 
-  useEffect(async () => {
-    // onMount
-    let transactions = await _dummyApi(false, 2000);
-
-    setTransactionList(transactions);
-    setFilteredList(transactions);
-
-    // onUnmount
-    return () => {}
+  useEffect(() => {
+    if (props.utils.reload === true) {
+      props.fetchUser(); // calling a function to fetch the user
+    }
   }, []);
-
-  const _dummyApi = async (returnEmpty=false, responseTimeout=2000) => {
-    let response = new Promise((resolve, _) => {
-      let dummyResponse = [
-        {
-          id: 'qwyetquwe',
-          transaction: 'Transaction 1',
-          progress: 0.6,
-          createdBy: 'John Doe',
-          latestTask: {
-            title: 'Home Insurance',
-            subtask: {
-              title: 'Select a Proposal',
-              dueTimestamp: 1612764397,
-            }
-          },
-          address: 'Mountain View, California, United States',
-          linkTo: '/assist'
-        },
-        {
-          id: 'jsdjaihwyd',
-          transaction: 'Transaction 2',
-          progress: 0.2,
-          createdBy: 'Joseph Tribbiani',
-          latestTask: {
-            title: 'Pre-approval',
-            subtask: {
-              title: 'Choose an agent',
-              dueTimestamp: 1612764397,
-            }
-          },
-          address: 'Mountain View, California, United States',
-          linkTo: '/assist'
-        },
-        {
-          id: 'pwiiqudquq',
-          transaction: 'Transaction 3',
-          progress: 0.5,
-          createdBy: 'Chandler Bing',
-          latestTask: {
-            title: 'Home Insurance',
-            subtask: {
-              title: 'Select a Proposal',
-              dueTimestamp: 1612764397,
-            }
-          },
-          address: 'Mountain View, California, United States',
-          linkTo: '/assist'
-        },
-        {
-          id: 'kkdlqoeuwi',
-          transaction: 'Transaction 4',
-          progress: 0.9,
-          createdBy: 'Ross Geller',
-          latestTask: {
-            title: 'Pre-approval',
-            subtask: {
-              title: 'Choose an agent',
-              dueTimestamp: 1612764397,
-            }
-          },
-          address: 'Mountain View, California, United States',
-          linkTo: '/assist'
-        },
-      ];
-
-      setTimeout(()=> {
-        resolve((returnEmpty) ? [] : dummyResponse);
-      }, responseTimeout);
-    });
-
-    return response;
-  };
-
   /**
    * Opens Invitation Modal
    */
   const showInvitationModal = () => {
     setInvitationModalVisiblity(true);
-  }
+  };
 
   /**
    * Hides Invitation Modal
    */
   const closeInvitation = () => {
     setInvitationModalVisiblity(false);
-  }
+  };
 
   /**
    * Renders Invitation Modal
@@ -182,10 +110,12 @@ function Dashboard(props) {
             </Grid>
           </Grid>
 
-          <Grid className="dashboard-invite-or-divider" item style={{ marginTop: 20 }}>
-            <div>
-              OR
-            </div>
+          <Grid
+            className="dashboard-invite-or-divider"
+            item
+            style={{ marginTop: 20 }}
+          >
+            <div>OR</div>
           </Grid>
 
           <Grid item style={{ marginLeft: 50, marginTop: 20 }}>
@@ -224,15 +154,13 @@ function Dashboard(props) {
               </Grid>
               <Grid item>
                 <Typography className="dashboard-invite-info-text">
-                  {
-                    (invitationEmail && invitationPhone)
-                      ? 'The user will be invited though e-mail and SMS.'
-                      : (invitationEmail)
-                        ? 'The user will be invited though e-mail.'
-                        : (invitationPhone)
-                          ? 'The user will be invited though SMS.'
-                          : 'Enter e-mail or phone number or both to invite.'
-                  }
+                  {invitationEmail && invitationPhone
+                    ? "The user will be invited though e-mail and SMS."
+                    : invitationEmail
+                    ? "The user will be invited though e-mail."
+                    : invitationPhone
+                    ? "The user will be invited though SMS."
+                    : "Enter e-mail or phone number or both to invite."}
                 </Typography>
               </Grid>
             </Grid>
@@ -256,35 +184,31 @@ function Dashboard(props) {
         </Grid>
       </ReallosModal>
     );
-  }
+  };
 
   /**
    * Renders primary content.
    */
   const PrimaryContent = () => {
-    if ([transactionList, filteredList].some(list => list === null)) {
+    if (props.utils.loading === true) {
       // Loading - Fetching transactions
-
       return (
-        <Grid
-          container
-          spacing={2}
-        >
-          {Array(6).fill(0).map(() => (
-            <Grid item xs={12} sm={6} md={6} lg={4}>
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                height={280}
-                style={{ borderRadius: 10 }}
-              />
-            </Grid>
-          ))}
+        <Grid container spacing={2}>
+          {Array(6)
+            .fill(0)
+            .map(() => (
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={280}
+                  style={{ borderRadius: 10 }}
+                />
+              </Grid>
+            ))}
         </Grid>
-      )
-    }
-
-    else if (transactionList.length === 0) {
+      );
+    } else if (transactionList.length === 0) {
       // No transactions created
 
       return (
@@ -309,7 +233,7 @@ function Dashboard(props) {
               fontSize={18}
               paddingTop={1.5}
               paddingBottom={1}
-              margin={'auto'}
+              margin={"auto"}
               width="50ch"
             >
               Sit tight and get your Game Face ready.
@@ -318,10 +242,8 @@ function Dashboard(props) {
             </Box>
           </Grid>
         </div>
-      )
-    }
-
-    else if (filteredList.length === 0) {
+      );
+    } else if (filteredList.length === 0) {
       // If no search results
 
       return (
@@ -333,11 +255,14 @@ function Dashboard(props) {
           spacing={2}
           className="zoom-in-animation"
         >
-          <Grid item style={{
-            paddingTop: 50,
-            paddingBottom: 60,
-            opacity: 0.5
-          }}>
+          <Grid
+            item
+            style={{
+              paddingTop: 50,
+              paddingBottom: 60,
+              opacity: 0.5,
+            }}
+          >
             <SearchIcon size={150} />
           </Grid>
           <Grid item>
@@ -355,82 +280,83 @@ function Dashboard(props) {
             </Box>
           </Grid>
         </Grid>
-      )
-    }
-
-    else {
+      );
+    } else {
       // Render transactions as cards
 
       return (
         <>
-          <Grid
-            container
-            spacing={2}
-            className="transaction-list"
-          >
+          <Grid container spacing={2} className="transaction-list">
             {filteredList.map((transaction) => (
-              <TransactionCard key={transaction.id} transactionDetails={transaction} />
+              <TransactionCard
+                key={transaction.id}
+                transactionDetails={transaction}
+              />
             ))}
           </Grid>
         </>
-      )
+      );
     }
-  }
-
+  };
   return (
     <Scaffold navBar>
       <Grid container direction="column">
-        <div style={{
-          background: '#eeeeee',
-          position: 'sticky',
-          top: 84,
-          zIndex: 120
-        }}>
+        <div
+          style={{
+            background: "#eeeeee",
+            position: "sticky",
+            top: 84,
+            zIndex: 120,
+          }}
+        >
           <ReallosPageHeader pageName="My Transactions" />
 
-          <div style={{
-            paddingBottom: (transactionList?.length !== 0) ? 20 : 0,
-            paddingTop: (transactionList?.length !== 0) ? 20 : 0,
-          }}>
-            {(transactionList === null) ? (
+          <div
+            style={{
+              paddingBottom: transactionList?.length !== 0 ? 20 : 0,
+              paddingTop: transactionList?.length !== 0 ? 20 : 0,
+            }}
+          >
+            {transactionList === null ? (
               <Skeleton
                 animation="wave"
                 variant="rect"
                 height={56}
                 style={{ borderRadius: 10 }}
               />
-              ) : (transactionList.length !== 0) && (
+            ) : (
+              transactionList.length !== 0 && (
                 <SearchBar
                   placeholder="Search by transaction name, creator, task or address"
                   list={transactionList}
                   filterByFields={[
-                    'transaction',
-                    'createdBy',
-                    'latestTask.title',
-                    'address'
+                    "transaction",
+                    "createdBy",
+                    "latestTask.title",
+                    "address",
                   ]}
                   onUpdate={(filteredTransactionList) => {
                     setFilteredList(filteredTransactionList);
                   }}
                 />
               )
-            }
+            )}
           </div>
         </div>
 
         {PrimaryContent()}
         {InvitationModal()}
 
-        {(transactionList !== null) &&
+        {transactionList !== null && (
           <ReallosFab
             title="New Transaction"
             LeadingIcon={<PlusIcon size={20} />}
             onClick={() => showInvitationModal()}
           />
-        }
+        )}
       </Grid>
     </Scaffold>
   );
 }
 
-export default Dashboard;
+export default connect(mapStateToProps, mapActionsToProps)(Dashboard);

@@ -19,8 +19,12 @@ import UserProfileEditDrawer from "./profile/UserProfileEditDrawer";
 import NotificationPopup from "./notifications/NotificationPopup";
 import { getUnreadNotificationsCount } from "./notifications/utils";
 import { signout } from "../../Authenticate";
+import { connect } from "react-redux";
 import "./Navbar.css";
 
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
 function Navbar(props) {
   let [
     isUserProfileEditDrawerVisible,
@@ -173,22 +177,17 @@ function Navbar(props) {
     });
   };
 
-  /**
-   * Dummy data
-   * @TODO: Replace with Redux/AWS logic
-   */
   const user = {
-    id: "qwerty",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@gmail.com",
-    role: "seller",
+    id: props.user.id,
+    Name: props.user.Name,
+    email: props.user.Email,
+    role: props.user.Role,
 
     // Could include country code
-    phone: "9999999999",
+    phone: props.user.Phone,
 
     // Could use mutiple resolution images as array
-    profilePhoto: "https://i.imgur.com/zOnwBpQ.png",
+    profilePhoto: "https://i.imgur.com/zOnwBpQ.png", // Still need to add the image url
   };
 
   /**
@@ -307,4 +306,4 @@ Navbar.propTypes = {
   sticky: PropTypes.bool,
 };
 
-export default Navbar;
+export default connect(mapStateToProps)(Navbar);
