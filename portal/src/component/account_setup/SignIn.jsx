@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
+import { EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import ReallosLogo from "../../assets/reallos_white_logo.png";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { login } from "../../actions/userActions";
+
 import {
   CircularProgress,
   TextField,
@@ -6,12 +13,6 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@material-ui/core";
-import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
-import { EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
-import ReallosLogo from "../../assets/reallos_white_logo.png";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { login } from "../../actions/userActions";
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -31,9 +32,11 @@ function SignIn(props) {
   const handleChange = (event) => {
     if (event.target.id === "account-sigin-email-textfield") {
       setEmail(event.target.value);
-    } else if (event.target.id === "account-sigin-password-textfield") {
+    }
+    else if (event.target.id === "account-sigin-password-textfield") {
       setPassword(event.target.value);
-    } else {
+    }
+    else {
       setRemeber(!remember);
     }
   };
@@ -51,9 +54,8 @@ function SignIn(props) {
           </div>
 
           <div className="account-setup-content-form">
-            <div className="account-setup-content-form-main">
+            <form className="account-setup-content-form-main">
               <h1>Sign In</h1>
-
               <TextField
                 fullWidth
                 variant="outlined"
@@ -63,7 +65,7 @@ function SignIn(props) {
                 name="email"
                 value={email}
                 onChange={handleChange}
-                style={{ marginTop: 50 }}
+                style={{ marginTop: 40 }}
                 InputProps={{
                   endAdornment: false && (
                     <div style={{ height: 20 }}>
@@ -100,23 +102,28 @@ function SignIn(props) {
                 }}
               />
 
-              <div style={{ marginTop: 15 }}>
+              <div style={{
+                marginTop: 15,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
                 <FormControlLabel
                   control={
                     <Checkbox
                       id="account-signin-checkbox"
                       value={remember}
                       onChange={handleChange}
-                      color="secondary"
+                      color="primary"
                     />
                   }
                   label="Remeber me"
                 />
-                <a style={{ marginLeft: "28%", cursor: "pointer" }}>
+                <a href="#">
                   Forgot Password?
                 </a>
               </div>
-            </div>
+            </form>
 
             <div style={{ marginTop: 20 }}>
               <ReallosButton
@@ -132,7 +139,7 @@ function SignIn(props) {
             <div style={{ marginTop: 10, marginBottom: -18 }}>
               <p>
                 Want to be a part of the platform?
-                <a style={{ marginLeft: 10, cursor: "pointer" }}>
+                <a href="/signup" style={{ marginLeft: 6 }}>
                   Register Now
                 </a>
               </p>
