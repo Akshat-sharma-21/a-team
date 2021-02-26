@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -24,17 +24,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function TransactionCard({ transactionDetails }) {
   const classes = useStyles();
   let [progress, setProgress] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
-      setProgress(transactionDetails.progress);
-    })
+      setProgress(transactionDetails.Completion / 100);
+    });
   }, []);
-
+  console.log(transactionDetails);
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card variant="outlined">
@@ -43,24 +42,19 @@ function TransactionCard({ transactionDetails }) {
             className="transaction-card-content-root"
             aria-label={[
               `${transactionDetails.transaction} by ${transactionDetails.createdBy}`,
-              `${Math.round(transactionDetails.progress * 100)}% completed`
-            ].join(' - ')}
+              `${Math.round(transactionDetails.progress * 100)}% completed`,
+            ].join(" - ")}
           >
-            <Grid
-              container
-              direction="row"
-              spacing={2}
-              alignItems="center"
-            >
+            <Grid container direction="row" spacing={2} alignItems="center">
               {/* GRAPH SIDE */}
               <Grid
                 item
                 direction="column"
                 justify="center"
                 style={{
-                  textAlign: 'center',
-                  textOverflow: 'ellipsis',
-                  width: '40%'
+                  textAlign: "center",
+                  textOverflow: "ellipsis",
+                  width: "40%",
                 }}
               >
                 <div className="transaction-card-graph">
@@ -72,8 +66,14 @@ function TransactionCard({ transactionDetails }) {
                   />
                   <svg width="100" height="4">
                     <linearGradient id="reallosGradient">
-                      <stop offset="20%" stopColor="var(--color-gradient-stop)" />
-                      <stop offset="80%" stopColor="var(--color-gradient-start)" />
+                      <stop
+                        offset="20%"
+                        stopColor="var(--color-gradient-stop)"
+                      />
+                      <stop
+                        offset="80%"
+                        stopColor="var(--color-gradient-start)"
+                      />
                     </linearGradient>
                   </svg>
                   <CircularProgress
@@ -90,7 +90,7 @@ function TransactionCard({ transactionDetails }) {
                 </div>
 
                 <div className="transaction-card-transaction-name">
-                  {transactionDetails.transaction}
+                  {transactionDetails.Name}
                 </div>
               </Grid>
 
@@ -100,33 +100,38 @@ function TransactionCard({ transactionDetails }) {
                 direction="column"
                 className="transaction-card-detail-wrapper"
                 style={{
-                  textOverflow: 'ellipsis',
-                  width: '60%',
+                  textOverflow: "ellipsis",
+                  width: "60%",
                 }}
               >
                 <div className="transaction-card-detail-main">
                   <PersonIcon size={20} />
-                  {transactionDetails.createdBy}
+                  {transactionDetails.Buyer}
                 </div>
 
                 <div className="transaction-card-detail-main">
                   <VersionsIcon size={20} />
-                  {transactionDetails.latestTask.title}
+                  {transactionDetails.Stage.Step}
 
                   <div
                     className="transaction-card-detail-sub"
-                    style={{ lineHeight: '27px' }}
+                    style={{ lineHeight: "27px" }}
                   >
                     <span className="transaction-card-detail-subtask-date">
-                      {
-                        moment
-                          .unix(transactionDetails.latestTask.subtask.dueTimestamp)
-                          .format('DD MMM')
-                      }
+                      {moment
+                        .unix(
+                          transactionDetails.Tasks[
+                            transactionDetails.Stage.Task
+                          ].Date
+                        )
+                        .format("DD MMM")}
                     </span>
 
-                    <span style={{ textOverflow: 'ellipsis' }}>
-                      {transactionDetails.latestTask.subtask.title}
+                    <span style={{ textOverflow: "ellipsis" }}>
+                      {
+                        transactionDetails.Tasks[transactionDetails.Stage.Task]
+                          .Task
+                      }
                     </span>
                   </div>
                 </div>
@@ -134,9 +139,8 @@ function TransactionCard({ transactionDetails }) {
                 <div className="transaction-card-detail-main">
                   <OrganizationIcon size={20} />
                   Address
-
                   <div className="transaction-card-detail-sub">
-                    {transactionDetails.address}
+                    {transactionDetails.Address}
                   </div>
                 </div>
               </Grid>
@@ -155,14 +159,14 @@ TransactionCard.propTypes = {
     completionStatus: PropTypes.number,
     createdBy: PropTypes.string,
     latestTask: {
-        title: PropTypes.string,
-        subtask: {
-            name: PropTypes.string,
-            dueTimestamp: PropTypes.number,
-        },
+      title: PropTypes.string,
+      subtask: {
+        name: PropTypes.string,
+        dueTimestamp: PropTypes.number,
+      },
     },
     address: PropTypes.string,
-  })
-}
+  }),
+};
 
 export default TransactionCard;

@@ -40,11 +40,11 @@ const mapActionsToProps = (dispatch) => {
 
 function Dashboard(props) {
   let [isInvitationModalVisible, setInvitationModalVisiblity] = useState(false);
-  let [transactionList, setTransactionList] = useState([]);
   let [filteredList, setFilteredList] = useState(null);
   let [invitationEmail, setInvitationEmail] = useState("");
   let [invitationPhone, setInvitationPhone] = useState("");
 
+  console.log(props.transaction);
   useEffect(() => {
     if (props.utils.reload === true) {
       // if the page was reloaded
@@ -210,7 +210,7 @@ function Dashboard(props) {
             ))}
         </Grid>
       );
-    } else if (transactionList.length === 0) {
+    } else if (props.transaction.length === 0) {
       // No transactions created
 
       return (
@@ -287,16 +287,14 @@ function Dashboard(props) {
       // Render transactions as cards
 
       return (
-        <>
-          <Grid container spacing={2} className="transaction-list">
-            {filteredList.map((transaction) => (
-              <TransactionCard
-                key={transaction.id}
-                transactionDetails={transaction}
-              />
-            ))}
-          </Grid>
-        </>
+        <Grid container spacing={2} className="transaction-list">
+          {filteredList.map((transaction) => (
+            <TransactionCard
+              key={transaction.id}
+              transactionDetails={transaction}
+            />
+          ))}
+        </Grid>
       );
     }
   };
@@ -315,11 +313,11 @@ function Dashboard(props) {
 
           <div
             style={{
-              paddingBottom: transactionList?.length !== 0 ? 20 : 0,
-              paddingTop: transactionList?.length !== 0 ? 20 : 0,
+              paddingBottom: props.transaction?.length !== 0 ? 20 : 0,
+              paddingTop: props.transaction?.length !== 0 ? 20 : 0,
             }}
           >
-            {transactionList === null ? (
+            {props.transaction === null ? (
               <Skeleton
                 animation="wave"
                 variant="rect"
@@ -327,16 +325,11 @@ function Dashboard(props) {
                 style={{ borderRadius: 10 }}
               />
             ) : (
-              transactionList.length !== 0 && (
+              props.transaction.length !== 0 && (
                 <SearchBar
-                  placeholder="Search by transaction name, creator, task or address"
-                  list={transactionList}
-                  filterByFields={[
-                    "transaction",
-                    "createdBy",
-                    "latestTask.title",
-                    "address",
-                  ]}
+                  placeholder="Search by transaction name, buyer, stage or address"
+                  list={props.transaction}
+                  filterByFields={["Name", "Buyer", "Stage.Step", "Address"]}
                   onUpdate={(filteredTransactionList) => {
                     setFilteredList(filteredTransactionList);
                   }}
@@ -349,7 +342,7 @@ function Dashboard(props) {
         {PrimaryContent()}
         {InvitationModal()}
 
-        {transactionList !== null && (
+        {props.transaction.length !== 0 && (
           <ReallosFab
             title="New Transaction"
             LeadingIcon={<PlusIcon size={20} />}
