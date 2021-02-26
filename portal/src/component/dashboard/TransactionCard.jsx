@@ -33,7 +33,6 @@ function TransactionCard({ transactionDetails }) {
       setProgress(transactionDetails.Completion / 100);
     });
   }, []);
-  console.log(transactionDetails);
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card variant="outlined">

@@ -44,7 +44,6 @@ function Dashboard(props) {
   let [invitationEmail, setInvitationEmail] = useState("");
   let [invitationPhone, setInvitationPhone] = useState("");
 
-  console.log(props.transaction);
   useEffect(() => {
     if (props.utils.reload === true) {
       // if the page was reloaded
