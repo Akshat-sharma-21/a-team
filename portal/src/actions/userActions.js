@@ -5,6 +5,7 @@ import {
   setErrors,
   setReload,
 } from "./utilActions";
+import { addTransactionFunction } from "./transactionActions";
 export const ADD_USER = "ADD_USER"; // Action to add the user to the redux store
 
 export function login(user) {
@@ -39,9 +40,44 @@ export function fetchUser() {
         snapshot.forEach((doc) => {
           if (doc.data().id === localStorage.Id) {
             // When the user is found
-            dispatch(addUserAction(doc.data()));
-            dispatch(setLoadingFalse());
-            dispatch(setReload());
+            dispatch(addUserAction(doc.data())); // dispatching an action to add the user
+            if (
+              doc.data().Transactions_List &&
+              doc.data().Transactions_List.length !== 0
+            ) {
+              // if transactions are present for the user
+              doc.data().Transactions_List.forEach((transaction) => {
+                // getting all transactions and storing it
+                myFirestore
+                  .collection("Transactions")
+                  .doc(transaction)
+                  .get()
+                  .then((doc) => {
+                    dispatch(
+                      // storing the transactions in the redux store
+                      addTransactionFunction({
+                        id: transaction,
+                        Buyer: doc.data().Buyer,
+                        Completion: doc.data().Completion,
+                        Paperwork: doc.data().Paperwork,
+                        Professionals: doc.data().Professionals,
+                        Stage: doc.data().Stage,
+                        Address: doc.data().Address,
+                        Tasks: doc.data().Tasks,
+                        Name: doc.data().Name,
+                      })
+                    );
+                  })
+                  .then(() => {
+                    dispatch(setLoadingFalse()); // only setting loading to false once the transactions have been fetched and added
+                    dispatch(setReload());
+                  });
+              });
+            } else {
+              // No transactions for the user
+              dispatch(setLoadingFalse());
+              dispatch(setReload());
+            }
           }
         });
       });

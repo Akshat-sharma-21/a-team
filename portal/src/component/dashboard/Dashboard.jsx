@@ -31,6 +31,7 @@ import { fetchUser } from "../../actions/userActions";
 const mapStateToProps = (state) => ({
   user: state.user,
   utils: state.utils,
+  transaction: state.transaction,
 });
 
 const mapActionsToProps = (dispatch) => {
@@ -46,6 +47,7 @@ function Dashboard(props) {
 
   useEffect(() => {
     if (props.utils.reload === true) {
+      // if the page was reloaded
       props.fetchUser(); // calling a function to fetch the user
     }
   }, []);
