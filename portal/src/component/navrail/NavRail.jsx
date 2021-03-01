@@ -132,7 +132,7 @@ function NavRail() {
               marginBottom: 40,
             }}
           >
-            <IconButton>
+            <IconButton onClick={() => History.push("/transactions")}>
               <ArrowLeftIcon size={24} />
             </IconButton>
           </div>

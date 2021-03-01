@@ -5,16 +5,21 @@ const initialState = [];
 function peopleReducer(state = initialState, action) {
   switch (action.type) {
     case actions.ADD_PEOPLE: {
-      console.log(action);
       return [
         ...state,
         {
+          id: action.payload.id,
           Name: action.payload.Name,
           Role: action.payload.Role,
           Phone: action.payload.Phone,
           Email: action.payload.Email,
+          photoUrl: action.payload.photoUrl,
+          Company: action.payload.Company,
         },
       ];
+    }
+    case actions.REMOVE_ALL: {
+      return [];
     }
     default: {
       return state;

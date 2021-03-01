@@ -47,7 +47,7 @@ class PeopleInvolvedCard extends React.Component {
    * @returns {string}
    */
   get getFormattedPhoneNumber() {
-    return this.props.personDetails.phone.replace(
+    return this.props.personDetails.Phone.replace(
       /(\d{3})(\d{3})(\d{4})/,
       "$1-$2-$3"
     );
@@ -74,19 +74,17 @@ class PeopleInvolvedCard extends React.Component {
         <div className="people-involved-card-outer">
           <Card className="people-involved-card">
             <div className="people-involved-card-avatar">
-              <Avatar src={personDetails.profilePicUrl} />
+              <Avatar src={personDetails.photoUrl} />
             </div>
 
             <div className="people-involved-card-details-wrapper">
               <h2 className="people-involved-card-name">
-                {personDetails.name}
+                {personDetails.Name}
               </h2>
 
               <div className="people-involved-card-role">
-                {getRoleLabel(personDetails.role)}
-                {personDetails.organization
-                  ? ` ● ${personDetails.organization}`
-                  : ""}
+                {getRoleLabel(personDetails.Role)}
+                {personDetails.Company ? ` ● ${personDetails.Company}` : ""}
               </div>
 
               <div className="people-involved-card-contact-details">
@@ -99,7 +97,7 @@ class PeopleInvolvedCard extends React.Component {
                   <MailIcon style={{ fontSize: 24 }} />
 
                   <div className="people-involved-card-email-content">
-                    {personDetails.email}
+                    {personDetails.Email}
                     <button className="link" onClick={onSendMail}>
                       Send Mail
                     </button>
