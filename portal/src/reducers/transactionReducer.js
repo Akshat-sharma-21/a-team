@@ -8,7 +8,15 @@ function transactionReducer(state = initialState, action) {
       return [
         ...state,
         {
-          ...action.payload, // Storing the transaction
+          id: action.payload.id,
+          Buyer: action.payload.Buyer,
+          Completion: action.payload.Completion,
+          Paperwork: action.payload.Paperwork,
+          People: action.payload.People,
+          Stage: action.payload.Stage,
+          Address: action.payload.Address,
+          Tasks: action.payload.Tasks,
+          Name: action.payload.Name,
         },
       ];
     }

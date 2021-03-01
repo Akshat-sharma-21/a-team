@@ -244,7 +244,7 @@ function Dashboard(props) {
           </Grid>
         </div>
       );
-    } else if (filteredList.length === 0) {
+    } else if (filteredList === null || filteredList.length === 0) {
       // If no search results
 
       return (

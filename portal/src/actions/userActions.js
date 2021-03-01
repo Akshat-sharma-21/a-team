@@ -32,6 +32,7 @@ export function login(user) {
 
 export function fetchUser() {
   // Action to fetch the user
+  let counter = 0; // counter to set the loading state
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     if (localStorage.Id) {
@@ -53,6 +54,7 @@ export function fetchUser() {
                   .doc(transaction)
                   .get()
                   .then((doc) => {
+                    counter++; // incrementing the counter once a document is fetched
                     dispatch(
                       // storing the transactions in the redux store
                       addTransactionFunction({
@@ -60,7 +62,7 @@ export function fetchUser() {
                         Buyer: doc.data().Buyer,
                         Completion: doc.data().Completion,
                         Paperwork: doc.data().Paperwork,
-                        Professionals: doc.data().Professionals,
+                        People: doc.data().People,
                         Stage: doc.data().Stage,
                         Address: doc.data().Address,
                         Tasks: doc.data().Tasks,
@@ -69,8 +71,11 @@ export function fetchUser() {
                     );
                   })
                   .then(() => {
-                    dispatch(setLoadingFalse()); // only setting loading to false once the transactions have been fetched and added
-                    dispatch(setReload());
+                    if (counter === doc.data().Transactions_List.length) {
+                      // if the counter is equal to number of transactions
+                      dispatch(setLoadingFalse()); // dispatching an action to set state to false once all the transactions are fetched
+                      dispatch(setReload());
+                    }
                   });
               });
             } else {

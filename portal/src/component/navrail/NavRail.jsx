@@ -1,7 +1,6 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./NavRail.css";
-import { useHistory } from "react-router-dom";
 
 import {
   Drawer,
@@ -40,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
 const NavRailTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: "rgba(0, 0, 0, 0.87)",
     boxShadow: theme.shadows[7],
     borderRadius: 10,
-    fontFamily: 'Gilroy',
+    fontFamily: "Gilroy",
     fontSize: 18,
-    padding: '10px 20px',
-    marginLeft: 30
+    padding: "10px 20px",
+    marginLeft: 30,
   },
 }))(Tooltip);
 
@@ -54,25 +53,25 @@ function NavRail() {
   const classes = useStyles();
   const History = useHistory();
   const routerLocation = useLocation();
-  const transId = routerLocation.pathname.split("/")[2]; // getting the id from the pathname
+  const { tid } = useParams();
   let listItems = [
     {
       icon: <PackageIcon size={30} />,
       label: "Transaction Assist",
       isActiveRoute: routerLocation.pathname.includes("assist"),
-      linkTo: "/transaction/" + transId + "/assist",
+      linkTo: "/transactions/" + tid + "/assist",
     },
     {
       icon: <FileIcon size={30} />,
       label: "Documents",
       isActiveRoute: routerLocation.pathname.includes("/document"),
-      linkTo: "/transaction/" + transId + "/document",
+      linkTo: "/transactions/" + tid + "/documents",
     },
     {
       icon: <PersonIcon size={30} />,
       label: "People",
       isActiveRoute: routerLocation.pathname.includes("/people"),
-      linkTo: "/transaction/" + transId + "/people",
+      linkTo: "/transactions/" + tid + "/people",
     },
   ];
 
@@ -101,23 +100,21 @@ function NavRail() {
   const renderNavRailListItem = (navRailItem) => {
     const { icon, label, isActiveRoute, linkTo } = navRailItem;
     return (
-      <NavRailTooltip
-        title={label}
-        placement="right"
-      >
+      <NavRailTooltip title={label} placement="right">
         <button
           role="button"
           aria-label={label}
           onClick={() => History.push(linkTo)}
           className="nav-rail-item"
         >
-          <div className={
-            'nav-rail-item-icon ' + (
-              isActiveRoute
+          <div
+            className={
+              "nav-rail-item-icon " +
+              (isActiveRoute
                 ? "nav-rail-item-active"
-                : "nav-rail-item-inactive"
-            )
-          }>
+                : "nav-rail-item-inactive")
+            }
+          >
             {icon}
           </div>
         </button>
@@ -129,23 +126,34 @@ function NavRail() {
     <div className={classes.root}>
       <Drawer variant="permanent">
         <div className={classes.toolbarToggleOption}>
-          <div style={{
-            marginTop: 40,
-            marginBottom: 40
-          }}>
+          <div
+            style={{
+              marginTop: 40,
+              marginBottom: 40,
+            }}
+          >
             <IconButton>
               <ArrowLeftIcon size={24} />
             </IconButton>
           </div>
         </div>
-        <Divider style={{
-          marginLeft: 7,
-          marginRight: 7,
-          backgroundColor: 'rgba(0, 0, 0, 0.2)'
-        }} />
-        <Grid container direction="column" alignItems="center" className="nav-rail-list-root">
+        <Divider
+          style={{
+            marginLeft: 7,
+            marginRight: 7,
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+          }}
+        />
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          className="nav-rail-list-root"
+        >
           <List className="nav-rail-list">
-            {listItems.map((listItemData) => renderNavRailListItem(listItemData))}
+            {listItems.map((listItemData) =>
+              renderNavRailListItem(listItemData)
+            )}
           </List>
         </Grid>
       </Drawer>

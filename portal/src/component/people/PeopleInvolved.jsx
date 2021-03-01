@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import PeopleInvolvedCard from "./PeopleInvolvedCard";
 import "./PeopleInvolved.css";
 
@@ -21,15 +22,44 @@ import {
 
 import { PaperAirplaneIcon, SearchIcon } from "@primer/octicons-react";
 
-function PeopleInvolved() {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
+import { fetchPeople } from "../../actions/peopleAction";
+
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  transaction: state.transaction,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      fetchUser,
+      fetchPeople,
+    },
+    dispatch
+  );
+};
+
+function PeopleInvolved(props) {
   let [isSendMailModalVisible, toggleSendMailModalVisibility] = useState(false);
   let [filteredPeopleList, setFilteredPeopleList] = useState([]);
   let [sendMailUserDetails, setSendMailUserDetails] = useState({});
-
+  let { tid } = useParams();
   /**
    * @todo `organization` is not dealt with
    * when setting up account
    */
+
+  useEffect(() => {
+    if (props.utils.reload === true) {
+      // if the page has been reloaded
+      props.fetchUser();
+      props.fetchPeople(tid);
+    }
+  }, []);
+
   const peopleList = [
     {
       id: "qwertyuiop",
@@ -296,4 +326,4 @@ function PeopleInvolved() {
   );
 }
 
-export default PeopleInvolved;
+export default connect(mapStateToProps, mapDispatchToProps)(PeopleInvolved);

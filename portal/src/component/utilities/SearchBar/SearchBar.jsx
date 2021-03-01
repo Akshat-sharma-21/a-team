@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes, { object } from 'prop-types';
-import { isEqual } from 'lodash';
-import { OutlinedInput, FormControl, InputAdornment} from '@material-ui/core';
-import { SearchIcon } from '@primer/octicons-react';
-import './SearchBar.css';
+import React from "react";
+import PropTypes, { object } from "prop-types";
+import { isEqual } from "lodash";
+import { OutlinedInput, FormControl, InputAdornment } from "@material-ui/core";
+import { SearchIcon } from "@primer/octicons-react";
+import "./SearchBar.css";
 
 /**
  * Renders a search bar.
@@ -12,7 +12,7 @@ import './SearchBar.css';
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.searchValue = '';
+    this.searchValue = "";
   }
 
   static propTypes = {
@@ -48,7 +48,7 @@ class SearchBar extends React.Component {
      * Placeholder value to display inside the search box.
      * If left out, default placeholder will be used.
      */
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
   };
 
   shouldComponentUpdate(newProps) {
@@ -56,7 +56,6 @@ class SearchBar extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.list);
     this.props.onUpdate(this.props.list);
   }
 
@@ -74,11 +73,11 @@ class SearchBar extends React.Component {
    * @param {string} key
    */
   _getObjectValue(item, key) {
-    const delimeter = '.';
+    const delimeter = ".";
     const keyTokens = key.split(delimeter);
     let value = null;
 
-    keyTokens.forEach(_key => {
+    keyTokens.forEach((_key) => {
       if (value == null) value = item[_key];
       else value = value[_key];
     });
@@ -96,9 +95,8 @@ class SearchBar extends React.Component {
     this.searchValue = value;
     let filtered = [];
 
-    this.props.list.forEach(item => {
-      if (this.matchesSearchCriteria(item))
-        filtered.push(item);
+    this.props.list.forEach((item) => {
+      if (this.matchesSearchCriteria(item)) filtered.push(item);
     });
 
     this.props.onUpdate(filtered);
@@ -121,7 +119,11 @@ class SearchBar extends React.Component {
     for (let i = 0; i < this.props.filterByFields.length; i++) {
       let filter = this.props.filterByFields[i];
 
-      if (this._getObjectValue(item, filter)?.toLowerCase().includes(this.searchValue))
+      if (
+        this._getObjectValue(item, filter)
+          ?.toLowerCase()
+          .includes(this.searchValue)
+      )
         return true;
     }
 
@@ -129,7 +131,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { placeholder='Search' } = this.props;
+    const { placeholder = "Search" } = this.props;
 
     return (
       <FormControl fullWidth variant="outlined">
@@ -138,16 +140,20 @@ class SearchBar extends React.Component {
           type="search"
           startAdornment={
             <InputAdornment position="start">
-              <div style={{
-                paddingRight: 10,
-                paddingLeft: 10
-              }}>
+              <div
+                style={{
+                  paddingRight: 10,
+                  paddingLeft: 10,
+                }}
+              >
                 <SearchIcon className="search-icon" size={18} />
               </div>
             </InputAdornment>
           }
           placeholder={placeholder}
-          onChange={(ev) => this.updateList(ev.currentTarget.value.toLowerCase())}
+          onChange={(ev) =>
+            this.updateList(ev.currentTarget.value.toLowerCase())
+          }
         />
       </FormControl>
     );

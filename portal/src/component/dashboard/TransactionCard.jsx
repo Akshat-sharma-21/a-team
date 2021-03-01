@@ -36,12 +36,15 @@ function TransactionCard({ transactionDetails }) {
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card variant="outlined">
-        <Link className="link-basic" to={transactionDetails.linkTo}>
+        <Link
+          className="link-basic"
+          to={`/transactions/${transactionDetails.id}/assist`}
+        >
           <CardActionArea
             className="transaction-card-content-root"
             aria-label={[
-              `${transactionDetails.transaction} by ${transactionDetails.createdBy}`,
-              `${Math.round(transactionDetails.progress * 100)}% completed`,
+              `${transactionDetails.Name} of ${transactionDetails.Buyer}`,
+              `${Math.round(transactionDetails.Completion)}% completed`,
             ].join(" - ")}
           >
             <Grid container direction="row" spacing={2} alignItems="center">
