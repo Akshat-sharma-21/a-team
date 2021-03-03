@@ -38,7 +38,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      fetchUser,
       fetchPeople,
     },
     dispatch
@@ -56,10 +55,6 @@ function PeopleInvolved(props) {
    */
 
   useEffect(() => {
-    if (props.utils.reload === true) {
-      // if the page has been reloaded
-      props.fetchUser();
-    }
     props.fetchPeople(tid);
   }, []);
 

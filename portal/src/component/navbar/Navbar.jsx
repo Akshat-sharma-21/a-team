@@ -18,13 +18,21 @@ import UserProfilePopup from "./profile/UserProfilePopup";
 import UserProfileEditDrawer from "./profile/UserProfileEditDrawer";
 import NotificationPopup from "./notifications/NotificationPopup";
 import { getUnreadNotificationsCount } from "./notifications/utils";
+import { fetchUser } from "../../actions/userActions";
 import { signout } from "../../Authenticate";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./Navbar.css";
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  utils: state.utils,
 });
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser }, dispatch);
+};
+
 function Navbar(props) {
   let [
     isUserProfileEditDrawerVisible,
@@ -194,6 +202,10 @@ function Navbar(props) {
    * Run on mount and cleanup during unmount lifecycle
    */
   useEffect(() => {
+    if (props.utils.reload === true) {
+      // if the page has been reloaded
+      props.fetchUser(); // fetching the user
+    }
     // Subscribe on mount
     notificationSubscriber();
 
@@ -306,4 +318,4 @@ Navbar.propTypes = {
   sticky: PropTypes.bool,
 };
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, mapActionsToProps)(Navbar);

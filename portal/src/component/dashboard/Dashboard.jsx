@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TransactionCard from "./TransactionCard";
 import dashboardImg from "../../assets/dashboard-empty.png";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -34,22 +34,12 @@ const mapStateToProps = (state) => ({
   transaction: state.transaction,
 });
 
-const mapActionsToProps = (dispatch) => {
-  return bindActionCreators({ fetchUser }, dispatch);
-};
-
 function Dashboard(props) {
   let [isInvitationModalVisible, setInvitationModalVisiblity] = useState(false);
   let [filteredList, setFilteredList] = useState(null);
   let [invitationEmail, setInvitationEmail] = useState("");
   let [invitationPhone, setInvitationPhone] = useState("");
 
-  useEffect(() => {
-    if (props.utils.reload === true) {
-      // if the page was reloaded
-      props.fetchUser(); // calling a function to fetch the user
-    }
-  }, []);
   /**
    * Opens Invitation Modal
    */
@@ -353,4 +343,4 @@ function Dashboard(props) {
   );
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
