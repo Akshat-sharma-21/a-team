@@ -138,7 +138,7 @@ class UserProfilePopup extends React.Component {
               </Grid>
               <Grid item justify="center">
                 <Box component="h2" className="user-profile-popup-info-heading">
-                  {`${user.Name}`}
+                  {`${user.firstName} ${user.lastName}`}
                 </Box>
                 <Box
                   component="p"

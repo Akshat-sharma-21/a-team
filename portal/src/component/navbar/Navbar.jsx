@@ -187,7 +187,8 @@ function Navbar(props) {
 
   const user = {
     id: props.user.id,
-    Name: props.user.Name,
+    firstName: props.user.FirstName,
+    lastName: props.user.LastName,
     email: props.user.Email,
     role: props.user.Role,
 
@@ -234,7 +235,7 @@ function Navbar(props) {
                 }
                 TransitionComponent={Zoom}
               >
-                <IconButton>
+                <IconButton disabled={props.utils.loading}>
                   <GraphIcon size={20} />
                 </IconButton>
               </Tooltip>
@@ -248,7 +249,10 @@ function Navbar(props) {
                 }
                 TransitionComponent={Zoom}
               >
-                <IconButton onClick={showNotificationPopup}>
+                <IconButton
+                  disabled={props.utils.loading}
+                  onClick={showNotificationPopup}
+                >
                   <Badge
                     overlap="circle"
                     variant={
@@ -274,7 +278,10 @@ function Navbar(props) {
                 }
                 TransitionComponent={Zoom}
               >
-                <IconButton onClick={showUserProfilePopup}>
+                <IconButton
+                  disabled={props.utils.loading}
+                  onClick={showUserProfilePopup}
+                >
                   <Avatar src={user.profilePhoto} />
                 </IconButton>
               </Tooltip>
@@ -283,29 +290,35 @@ function Navbar(props) {
         </AppBar>
       </Grid>
 
-      <NotificationPopup
-        dismissCallback={hideNotificationPopup}
-        notifications={notifications}
-        notificationAnchor={notificationPopupAnchorEl}
-        maxNotificationsPerPage={15}
-      />
+      {props.utils.loading === false && (
+        <NotificationPopup
+          dismissCallback={hideNotificationPopup}
+          notifications={notifications}
+          notificationAnchor={notificationPopupAnchorEl}
+          maxNotificationsPerPage={15}
+        />
+      )}
 
-      <UserProfilePopup
-        user={user}
-        onSignOut={() => signout()}
-        onClose={hideUserProfilePopup}
-        onShowProfileEditDrawer={() => {
-          hideUserProfilePopup();
-          showUserProfileEditDrawer();
-        }}
-        anchorElement={userProfilePopupAnchorEl}
-      />
+      {props.utils.loading === false && (
+        <UserProfilePopup
+          user={user}
+          onSignOut={() => signout()}
+          onClose={hideUserProfilePopup}
+          onShowProfileEditDrawer={() => {
+            hideUserProfilePopup();
+            showUserProfileEditDrawer();
+          }}
+          anchorElement={userProfilePopupAnchorEl}
+        />
+      )}
 
-      <UserProfileEditDrawer
-        user={user}
-        dismissCallback={hideUserProfileEditDrawer}
-        visible={isUserProfileEditDrawerVisible}
-      />
+      {props.utils.loading === false && (
+        <UserProfileEditDrawer
+          user={user}
+          dismissCallback={hideUserProfileEditDrawer}
+          visible={isUserProfileEditDrawerVisible}
+        />
+      )}
     </div>
   );
 }

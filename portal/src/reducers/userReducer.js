@@ -2,7 +2,8 @@ import * as actions from "../actions/userActions";
 
 const initialState = {
   id: null,
-  Name: null,
+  FirstName: null,
+  LastName: null,
   Email: null,
   Phone: null,
   Role: null,
@@ -17,15 +18,25 @@ function userReducer(state = initialState, action) {
     case actions.ADD_USER: {
       return {
         ...state,
-        id: action.id,
-        Name: action.Name,
+        id: action.payload.id,
+        FirstName: action.payload.FirstName,
+        LastName: action.payload.LastName,
+        Email: action.payload.Email,
+        Phone: action.payload.Phone,
+        Role: action.payload.Role,
+        Company: action.payload.Company,
+        Transactions: action.payload.Transactions,
+        leadsTo: action.payload.leadsTo,
+        leadsFrom: action.payload.leadsFrom,
+      };
+    }
+    case actions.EDIT_USER: {
+      return {
+        ...state,
+        FirstName: action.FirstName,
+        LastName: action.LastName,
         Email: action.Email,
         Phone: action.Phone,
-        Role: action.Role,
-        Company: action.Company,
-        Transactions: action.Transactions,
-        leadsTo: action.leadsTo,
-        leadsFrom: action.leadsFrom,
       };
     }
     default:

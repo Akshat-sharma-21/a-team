@@ -5,8 +5,12 @@ import {
   setErrors,
   setReload,
 } from "./utilActions";
-import { addTransactionFunction } from "./transactionActions";
+import {
+  addTransactionFunction,
+  removeAllTransactionsFunction,
+} from "./transactionActions";
 export const ADD_USER = "ADD_USER"; // Action to add the user to the redux store
+export const EDIT_USER = "EDIT_USER"; // Action to edit the user
 
 export function login(user) {
   // Function to login the user
@@ -47,6 +51,7 @@ export function fetchUser() {
               doc.data().Transactions_List.length !== 0
             ) {
               // if transactions are present for the user
+              dispatch(removeAllTransactionsFunction()); // dispatching an action to remove all the intially stored transactions
               doc.data().Transactions_List.forEach((transaction) => {
                 // getting all transactions and storing it
                 myFirestore
@@ -92,18 +97,50 @@ export function fetchUser() {
   };
 }
 
+export function editUser(user) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    myFirestore.collection("Portal_Users").onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
+        if (doc.data().id === localStorage.getItem("Id")) {
+          // When the user is found
+          myFirestore
+            .collection("Portal_Users")
+            .doc(doc.id)
+            .update({
+              FirstName: user.firstName,
+              LastName: user.lastName,
+              Phone: user.phone,
+              Email: user.email,
+            })
+            .then(() => {
+              dispatch(setLoadingFalse());
+              dispatch(editUserFunction(user));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
+      });
+    });
+  };
+}
+
 function addUserAction(payload) {
   // Pure Action to add user to Redux
   return {
     type: ADD_USER,
-    id: payload.id,
-    Name: payload.Name,
-    Email: payload.Email,
-    Phone: payload.Phone,
-    Role: payload.Role,
-    Company: payload.Company,
-    Transactions: payload.Transactions_List,
-    leadsTo: payload.Leads_To,
-    leadsFrom: payload.Leads_From,
+    payload,
+  };
+}
+
+function editUserFunction(payload) {
+  // pure reducer function
+  return {
+    type: EDIT_USER,
+    FirstName: payload.firstName,
+    LastName: payload.lastName,
+    Email: payload.email,
+    Phone: payload.phone,
   };
 }

@@ -20,6 +20,9 @@ function transactionReducer(state = initialState, action) {
         },
       ];
     }
+    case actions.REMOVE_ALL_TRANSACTIONS: {
+      return initialState;
+    }
     default: {
       return state;
     }

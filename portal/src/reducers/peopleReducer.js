@@ -9,7 +9,8 @@ function peopleReducer(state = initialState, action) {
         ...state,
         {
           id: action.payload.id,
-          Name: action.payload.Name,
+          FirstName: action.payload.FirstName,
+          LastName: action.payload.LastName,
           Role: action.payload.Role,
           Phone: action.payload.Phone,
           Email: action.payload.Email,

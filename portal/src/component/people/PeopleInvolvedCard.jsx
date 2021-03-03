@@ -55,7 +55,6 @@ class PeopleInvolvedCard extends React.Component {
 
   render() {
     let { personDetails, onSendMail = () => {}, itemIndex = 0 } = this.props;
-
     return (
       <Grid
         className="people-involved-card-root"
@@ -79,7 +78,7 @@ class PeopleInvolvedCard extends React.Component {
 
             <div className="people-involved-card-details-wrapper">
               <h2 className="people-involved-card-name">
-                {personDetails.Name}
+                {personDetails.FirstName + " " + personDetails.LastName}
               </h2>
 
               <div className="people-involved-card-role">

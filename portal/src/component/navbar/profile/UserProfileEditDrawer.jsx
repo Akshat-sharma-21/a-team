@@ -8,14 +8,10 @@ import {
   ReallosModal,
   ModalActionFooter,
   ReallosButton,
-  SideDrawer
+  SideDrawer,
 } from "../../utilities/core";
 
-import {
-  USER_ROLES,
-  getRoleLabel,
-  validateFormField,
-} from "../../../utils";
+import { USER_ROLES, getRoleLabel, validateFormField } from "../../../utils";
 
 import {
   List,
@@ -36,6 +32,15 @@ import {
   FormHelperText,
   Snackbar,
 } from "@material-ui/core";
+
+import { editUser } from "../../../actions/userActions";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ editUser }, dispatch);
+};
 
 /**
  * Display a "User Profile Edit" Side Drawer
@@ -65,7 +70,7 @@ class UserProfileEditDrawer extends React.Component {
       email: PropTypes.string,
       role: PropTypes.string,
       phone: PropTypes.string,
-      profilePhoto: PropTypes.string
+      profilePhoto: PropTypes.string,
     }),
   };
 
@@ -117,20 +122,6 @@ class UserProfileEditDrawer extends React.Component {
     this.dismissSnackbar = this.dismissSnackbar.bind(this);
   }
 
-  componentDidUpdate() {
-    /**
-     * Update the user data state when component updates
-     * (or when the user data is fetched)
-     */
-
-    this.state.firstName = this.props.user.firstName;
-    this.state.lastName = this.props.user.lastName;
-    this.state.role = this.props.user.role;
-    this.state.email = this.props.user.email;
-    this.state.phone = this.props.user.phone;
-    this.state.profilePhoto = this.props.user.profilePhoto;
-  }
-
   /**
    * Saves the changes to the database
    */
@@ -138,11 +129,11 @@ class UserProfileEditDrawer extends React.Component {
     let newUser = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      role: this.state.role,
       email: this.state.email,
       phone: this.state.phone,
-      profilePhoto: this.state.profilePhoto
     };
+
+    this.props.editUser(newUser);
 
     // @TODO: Apply save logic
 
@@ -158,7 +149,7 @@ class UserProfileEditDrawer extends React.Component {
       lastName: this.props.user.lastName,
       email: this.props.user.email,
       phone: this.props.user.phone,
-      role: this.props.user.role
+      role: this.props.user.role,
     });
 
     this.props.dismissCallback();
@@ -322,9 +313,7 @@ class UserProfileEditDrawer extends React.Component {
           <div>
             <p style={{ marginBottom: 30 }}>
               Your current name is "
-              <strong>
-                {`${user.firstName} ${user.lastName}`}
-              </strong>
+              <strong>{`${user.firstName} ${user.lastName}`}</strong>
               ". Enter a new name to change your current name.
             </p>
 
@@ -359,15 +348,10 @@ class UserProfileEditDrawer extends React.Component {
             </FormGroup>
 
             <ModalActionFooter>
-              <ReallosButton
-                onClick={() => this.dismissUpdateModal()}
-              >
+              <ReallosButton onClick={() => this.dismissUpdateModal()}>
                 Cancel
               </ReallosButton>
-              <ReallosButton
-                primary
-                onClick={() => _saveChanges()}
-              >
+              <ReallosButton primary onClick={() => _saveChanges()}>
                 Done
               </ReallosButton>
             </ModalActionFooter>
@@ -440,15 +424,10 @@ class UserProfileEditDrawer extends React.Component {
             </FormControl>
 
             <ModalActionFooter>
-              <ReallosButton
-                onClick={() => this.dismissUpdateModal()}
-              >
+              <ReallosButton onClick={() => this.dismissUpdateModal()}>
                 Cancel
               </ReallosButton>
-              <ReallosButton
-                primary
-                onClick={() => _saveChanges()}
-              >
+              <ReallosButton primary onClick={() => _saveChanges()}>
                 Done
               </ReallosButton>
             </ModalActionFooter>
@@ -512,15 +491,10 @@ class UserProfileEditDrawer extends React.Component {
             />
 
             <ModalActionFooter>
-              <ReallosButton
-                onClick={() => this.dismissUpdateModal()}
-              >
+              <ReallosButton onClick={() => this.dismissUpdateModal()}>
                 Cancel
               </ReallosButton>
-              <ReallosButton
-                primary
-                onClick={() => _saveChanges()}
-              >
+              <ReallosButton primary onClick={() => _saveChanges()}>
                 Done
               </ReallosButton>
             </ModalActionFooter>
@@ -584,15 +558,10 @@ class UserProfileEditDrawer extends React.Component {
             />
 
             <ModalActionFooter>
-              <ReallosButton
-                onClick={() => this.dismissUpdateModal()}
-              >
+              <ReallosButton onClick={() => this.dismissUpdateModal()}>
                 Cancel
               </ReallosButton>
-              <ReallosButton
-                primary
-                onClick={() => _saveChanges()}
-              >
+              <ReallosButton primary onClick={() => _saveChanges()}>
                 Done
               </ReallosButton>
             </ModalActionFooter>
@@ -625,30 +594,30 @@ class UserProfileEditDrawer extends React.Component {
 
     const userDataList = [
       {
-        id: 'USER_NAME',
-        label: 'Name',
+        id: "USER_NAME",
+        label: "Name",
         value: `${this.state.firstName} ${this.state.lastName}`,
-        isEditable: true
+        isEditable: true,
       },
       {
-        id: 'USER_ROLE',
-        label: 'Role',
+        id: "USER_ROLE",
+        label: "Role",
         value: getRoleLabel(this.state.role),
-        isEditable: false
+        isEditable: false,
       },
       {
-        id: 'USER_EMAIL',
-        label: 'Email',
+        id: "USER_EMAIL",
+        label: "Email",
         value: this.state.email,
-        isEditable: true
+        isEditable: true,
       },
       {
-        id: 'USER_PHONE',
-        label: 'Phone Number',
+        id: "USER_PHONE",
+        label: "Phone Number",
         value: `+1 ${this.state.phone}`,
-        isEditable: true
+        isEditable: true,
       },
-    ]
+    ];
 
     return (
       <div className="user-profile-edit-drawer">
@@ -685,7 +654,7 @@ class UserProfileEditDrawer extends React.Component {
           </Grid>
 
           <List>
-            {userDataList.map(userDataItem => (
+            {userDataList.map((userDataItem) => (
               <ListItem key={userDataItem.id}>
                 <ListItemText
                   primary={userDataItem.label}
@@ -693,7 +662,7 @@ class UserProfileEditDrawer extends React.Component {
                 />
 
                 <ListItemSecondaryAction>
-                  {(!userDataItem.isEditable) ? null : (
+                  {!userDataItem.isEditable ? null : (
                     <IconButton
                       aria-label={`Edit ${userDataItem.label}`}
                       onClick={() => this.updateUserData(userDataItem.id)}
@@ -708,15 +677,10 @@ class UserProfileEditDrawer extends React.Component {
 
           {/* Action Group */}
           <div className="user-profile-edit-footer-action-group">
-            <ReallosButton
-              onClick={() => this.cancelEdits()}
-            >
+            <ReallosButton onClick={() => this.cancelEdits()}>
               Cancel
             </ReallosButton>
-            <ReallosButton
-              primary
-              onClick={() => this.submitEdits()}
-            >
+            <ReallosButton primary onClick={() => this.submitEdits()}>
               Save
             </ReallosButton>
           </div>
@@ -741,4 +705,4 @@ class UserProfileEditDrawer extends React.Component {
   }
 }
 
-export default UserProfileEditDrawer;
+export default connect(null, mapDispatchToProps)(UserProfileEditDrawer);
