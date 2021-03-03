@@ -208,7 +208,11 @@ function PeopleInvolved(props) {
                 style: { marginTop: -5 },
               }}
             >
-              <b>{sendMailUserDetails.Name}</b>
+              <b>
+                {sendMailUserDetails.FirstName +
+                  " " +
+                  sendMailUserDetails.LastName}
+              </b>
             </Tooltip>
           </div>
         </Grid>
