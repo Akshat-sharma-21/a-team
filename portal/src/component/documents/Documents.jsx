@@ -344,7 +344,7 @@ class Documents extends React.Component {
                 <div className="doc-card-main">
                   <NavLink
                     to={{
-                      pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
+                      pathname: `/transactions/${this.transactionID}/documents/${docData.name}`,
                       state: docData,
                     }}
                   >

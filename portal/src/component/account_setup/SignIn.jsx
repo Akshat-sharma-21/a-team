@@ -117,7 +117,7 @@ function SignIn(props) {
                       color="primary"
                     />
                   }
-                  label="Remeber me"
+                  label="Remember me"
                 />
                 <a href="#">Forgot Password?</a>
               </div>

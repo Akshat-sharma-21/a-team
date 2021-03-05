@@ -2,6 +2,7 @@ import Dashboard from "./component/dashboard/Dashboard";
 import TransactionAssist from "./component/transaction_assist/TransactionAssist";
 import PeopleInvolved from "./component/people/PeopleInvolved";
 import Documents from "./component/documents/Documents";
+import DocumentViewer from "./component/documents/viewer/DocumentViewer";
 import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
 import Signin from "./component/account_setup/SignIn";
@@ -31,6 +32,7 @@ function Main() {
         path="/transactions/:tid/people"
         component={PeopleInvolved}
       />
+      <PrivateRoute path="/transactions/:tid/documents/:doc" component={DocumentViewer} />
       <PrivateRoute path="/transactions/:tid/documents" component={Documents} />
       <PrivateRoute path="/profile" component={ProfileSummary} />
       <Route path="/account_setup" component={AccountSetup} />
