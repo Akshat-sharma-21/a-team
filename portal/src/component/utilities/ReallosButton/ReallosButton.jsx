@@ -92,6 +92,12 @@ class ReallosButton extends React.Component {
     buttonWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
+     * Background color of the secondary variant of
+     * `ReallosButton`.
+     */
+    secondaryButtonBgColor: PropTypes.string,
+
+    /**
      * Function to execute when pressed.
      */
     onClick: PropTypes.func,
@@ -106,6 +112,7 @@ class ReallosButton extends React.Component {
       disabled,
       cta,
       buttonWidth = "auto",
+      secondaryButtonBgColor="#ffffff",
       onClick = () => {},
     } = this.props;
 
@@ -119,7 +126,10 @@ class ReallosButton extends React.Component {
         onClick={onClick}
         disabled={disabled}
         className={`reallos-button ${buttonClassName} ${buttonCTAClassName} ${className}`}
-        style={{ width: fullWidth ? "100%" : buttonWidth }}
+        style={{
+          width: fullWidth ? "100%" : buttonWidth,
+          '--color-reallos-button-secondary-variant-bg': secondaryButtonBgColor
+        }}
       >
         {children}
       </button>
