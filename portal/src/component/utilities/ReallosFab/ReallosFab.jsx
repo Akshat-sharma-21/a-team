@@ -21,6 +21,12 @@ class ReallosFab extends React.Component {
     LeadingIcon: PropTypes.element,
 
     /**
+     * Specify styles for leading icon wrapper
+     * element.
+     */
+    leadingIconStyle: PropTypes.object,
+
+    /**
      * Callback function called when the FAB
      * is clicked
      */
@@ -28,7 +34,12 @@ class ReallosFab extends React.Component {
   };
 
   render() {
-    const { title, LeadingIcon, onClick } = this.props;
+    const {
+      title,
+      LeadingIcon,
+      leadingIconStyle={},
+      onClick
+    } = this.props;
 
     return (
       <Fab
@@ -38,7 +49,10 @@ class ReallosFab extends React.Component {
         onClick={onClick}
       >
         {LeadingIcon && (
-          <span className="reallos-fab-icon">
+          <span
+            className="reallos-fab-icon"
+            style={leadingIconStyle}
+          >
             {LeadingIcon}
           </span>
         )}
