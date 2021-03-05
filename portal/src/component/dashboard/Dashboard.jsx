@@ -25,8 +25,6 @@ import {
 } from "@primer/octicons-react";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { fetchUser } from "../../actions/userActions";
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -331,7 +329,7 @@ function Dashboard(props) {
         {PrimaryContent()}
         {InvitationModal()}
 
-        {props.transaction.length !== 0 && (
+        {props.utils.loading === false && (
           <ReallosFab
             title="New Transaction"
             LeadingIcon={<PlusIcon size={20} />}
