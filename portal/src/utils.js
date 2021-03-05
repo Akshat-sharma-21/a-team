@@ -254,7 +254,7 @@ export const getDecodedHash = (locationObject) => {
  */
 export const getTransactionID = (locationObject) => {
   let transactionID =
-    locationObject.pathname.indexOf("transaction") !== -1
+    locationObject.pathname.includes("transactions")
       ? locationObject.pathname.split("/")[2]
       : null;
 
