@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useLocation } from 'react-router';
+import { useLocation } from "react-router";
 import { ReallosModal } from "../../utilities/core";
 import DocUploadDropzone from "./DocUploadDropzone";
 import DocUploadStatus from "./DocUploadStatus";
-import { getTransactionID } from '../../../utils';
+import { getTransactionID } from "../../../utils";
+import { myStorage } from "../../../FirebaseConfig";
 import "./DocUploadModal.css";
 
 /**
@@ -50,10 +51,10 @@ function DocUploadModal({
   /**
    * Returns a boolean value stating if a file exists
    * in firebase storage.
-   * 
+   *
    * @param {firebase.storage.Reference} fileRef
    * Reference to the file to be checked.
-   * 
+   *
    * @returns {Promise<boolean>}
    * Boolean value based on file existence.
    */
@@ -83,35 +84,33 @@ function DocUploadModal({
         Uses Firebase
         @TODO: Logic to be replaced
       */
-      
-      // let filename = acceptedFiles[0].name;
-      // let fileRef =
-      //   myStorage
-      //     .ref()
-      //     .child(`${transactionID}/documents/${filename}`);
-      
-      // if (await checkFileExists(fileRef)) {
-      //   onFileExistsCallback(filename);
-      //   dismissCallback();
-      //   return;
-      // }
-      
-      // setUploadState(true);
-      // let uploadTask = fileRef.put(acceptedFiles[0]);
 
-      // uploadTask.on("state_changed", (snapshot) => {
-      //   let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //   let isPaused = snapshot.state === "paused";
+      let filename = acceptedFiles[0].name;
+      let fileRef = myStorage.ref()
+        .child(`${transactionID}/documents/${filename}`);
 
-      //   let newUploadTaskDetails = {
-      //     filename,
-      //     progress,
-      //     isPaused,
-      //     uploadTask,
-      //   };
+      if (await checkFileExists(fileRef)) {
+        onFileExistsCallback(filename);
+        dismissCallback();
+        return;
+      }
 
-      //   setUploadTaskStatus(newUploadTaskDetails);
-      // });
+      setUploadState(true);
+      let uploadTask = fileRef.put(acceptedFiles[0]);
+
+      uploadTask.on("state_changed", (snapshot) => {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        let isPaused = snapshot.state === "paused";
+
+        let newUploadTaskDetails = {
+          filename,
+          progress,
+          isPaused,
+          uploadTask,
+        };
+
+        setUploadTaskStatus(newUploadTaskDetails);
+      });
     }
   };
 
