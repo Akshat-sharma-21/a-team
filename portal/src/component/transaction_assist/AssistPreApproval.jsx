@@ -89,6 +89,7 @@ class AssistPreApproval extends React.Component {
           isStepComplete={false}
           AccordionStepIcon={<CheckCircleIcon size={23} />}
           title="Pre-approval"
+          itemIndex={0}
         >
           {/* TASK LIST */}
           <div className="assist-accordion-section-root">

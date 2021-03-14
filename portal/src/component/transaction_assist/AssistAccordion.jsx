@@ -33,13 +33,34 @@ class AssistAccordion extends React.Component {
      * Title to be displayed on the accordion.
      */
     title: PropTypes.string,
+
+    /**
+     * Index of the accordion on the list.
+     * Used for applying staggered animation.
+     * 
+     * _(Default: 0)_
+     */
+    itemIndex: PropTypes.number,
   }
   
   render() {
-    let { children, isStepComplete, AccordionStepIcon, title } = this.props;
+    let {
+      children,
+      isStepComplete,
+      AccordionStepIcon,
+      title,
+      itemIndex=0
+    } = this.props;
 
     return (
-      <Grid item>
+      <Grid
+        item
+        style={{
+          opacity: 0,
+          animation: "slide-up-anim 200ms ease-out forwards",
+          animationDelay: `${itemIndex * 75}ms`,
+        }}
+      >
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Grid container direction="row" alignItems="center" spacing={4}>

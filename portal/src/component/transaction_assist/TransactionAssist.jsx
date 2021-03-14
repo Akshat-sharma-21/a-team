@@ -48,6 +48,7 @@ function selectTransaction(transactions, id) {
 function TransactionAssist(props) {
   const [isInitModalVisibile, setInitModalVisibility] = useState(false);
   let { tid } = useParams(); // getting the id of the transaction
+
   useEffect(() => {
     if (props.utils.reload === true) {
       // if the page was reloaded
@@ -128,49 +129,33 @@ function TransactionAssist(props) {
     if (props.utils.loading === false)
       // only return when the component is loaded
       return (
-        <div className="zoom-in-animation">
-          <Grid
-            container
-            direction="column"
-            spacing={2}
-            style={{ marginBottom: 20 }}
-          >
-            <AssistPreApproval />
-            <AssistFindAgent />
-          </Grid>
-        </div>
+        <Grid
+          container
+          direction="column"
+          spacing={2}
+          style={{ marginBottom: 20 }}
+        >
+          <AssistPreApproval />
+          <AssistFindAgent />
+        </Grid>
       );
   };
 
   const displayLoadingComponent = () => {
     if (props.utils.loading === true)
       return (
-        <>
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            height={80}
-            style={{ borderRadius: 10, marginBottom: 20 }}
-          />
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            height={80}
-            style={{ borderRadius: 10, marginBottom: 20 }}
-          />
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            height={80}
-            style={{ borderRadius: 10, marginBottom: 20 }}
-          />
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            height={80}
-            style={{ borderRadius: 10, marginBottom: 20 }}
-          />
-        </>
+        <Grid container spacing={2}>
+          {Array(4).fill(0).map(() => (
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                height={68.4}
+                style={{ borderRadius: 10 }}
+              />
+            </Grid>
+          ))}
+        </Grid>
       );
   };
 
