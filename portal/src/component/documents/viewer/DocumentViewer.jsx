@@ -351,12 +351,6 @@ class DocumentViewer extends React.Component {
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             message={this.state.snackbarMessage}
           />
-          {/* PRELOADER - Use Skeleton */}
-
-          {/* <ReallosLoaderWithOverlay
-            visible={this.state.isLoadingDocument}
-            strokeWidth={4}
-          /> */}
 
           <div style={{display: 'block'}}>
             <ReallosFab

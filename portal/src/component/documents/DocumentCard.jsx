@@ -55,7 +55,7 @@ class DocumentCard extends React.Component {
      * Object containing location data. You must pass either
      * `this.props.location` or a `useLocation` object.
      * 
-     * This will be used to extract TransactionID from URL
+     * This will be used to extract `TransactionID` from URL
      * and for getting hash from current location (or route)
      * for highlighting purpose.
      */
@@ -65,7 +65,9 @@ class DocumentCard extends React.Component {
   /**
    * Returns URL of thumbnail for a PDF.
    */
-  async getThumbnail(docName) {
+  async getThumbnail() {
+    const docName = this.props.docData.name;
+    
     try {
       /**
        * @todo Uses Firebase
@@ -133,9 +135,7 @@ class DocumentCard extends React.Component {
                 title={docData.name}
               >
                 <CardThumbnail
-                  getThumbnailFunction={() =>
-                    this.getThumbnail(docData.name)
-                  }
+                  getThumbnailFunction={() => this.getThumbnail()}
                 />
 
                 <CardContent
