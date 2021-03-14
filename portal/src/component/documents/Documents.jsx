@@ -1,12 +1,11 @@
 import React from "react";
 import DocUploadModal from "./uploader/DocUploadModal";
-import UserAvatar from "../../assets/user.png";
 import PdfLogo from "../../assets/pdf_icon_duotone.svg";
-import { ReactComponent as StampIcon } from "../../assets/stamp_icon.svg";
 import NoDocument from "../../assets/no-document-image.png";
-import CardThumbnail from "./CardThumbnail";
-import { NavLink } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
+import { myFirestore, myStorage } from "../../FirebaseConfig";
+import DocumentCard from "./DocumentCard";
+import "./Documents.css";
 
 import {
   ReallosModal,
@@ -23,17 +22,13 @@ import {
   getEffectiveDocumentName,
   getCurrentUser,
   getPeopleInvolved,
-  getDecodedHash,
+  getUserName,
 } from "../../utils";
 
 import {
   Grid,
   Box,
   Typography,
-  Avatar,
-  Card,
-  CardContent,
-  IconButton,
   Snackbar,
   Menu,
   MenuItem,
@@ -41,21 +36,11 @@ import {
 
 import {
   ArrowUpIcon,
-  KebabHorizontalIcon,
-  PackageIcon,
   PaperAirplaneIcon,
   DownloadIcon,
   SearchIcon,
 } from "@primer/octicons-react";
 
-import "./Documents.css";
-
-const styles = (theme) => ({
-  docCardUserAvatar: {
-    width: 30,
-    height: 30,
-  },
-});
 
 class Documents extends React.Component {
   constructor(props) {
@@ -77,7 +62,7 @@ class Documents extends React.Component {
       },
     };
 
-    this.RenderDocumentCards = this.RenderDocumentCards.bind(this);
+    this.PrimaryContent = this.PrimaryContent.bind(this);
     this.showUploadModalVisibility = this.showUploadModalVisibility.bind(this);
     this.dismissUploadModal = this.dismissUploadModal.bind(this);
     this.showSnackbar = this.showSnackbar.bind(this);
@@ -158,28 +143,27 @@ class Documents extends React.Component {
   }
 
   /**
-   * Returns URL of thumbnail for a PDF.
+   * Downloads the document to the client's device.
+   * 
+   * @param {object} documentData
+   * Data of the associated document to be downloaded.
+   * 
+   * @todo Check if this function works when the origin
+   * for CORS is changed in the backend.
    */
-  async getThumbnail(docName) {
-    try {
-      /*
-        Uses Firebase
-        @TODO: Logic to be replaced
-      */
+  async downloadDocument(documentData) {
+    const downloadLink = await myStorage.ref(documentData.path).getDownloadURL();
+    const documentName = getEffectiveDocumentName(documentData.name);
+    const response = await fetch(downloadLink);
 
-      // const thumbnailRef = myStorage
-      //   .ref()
-      //   .child(
-      //     `${
-      //       this.transactionID
-      //     }/documents/thumbnails/${getEffectiveDocumentName(docName)}.png`
-      //   );
+    if (response.ok) {
+      const responseBlob = await response.blob();
+      const objectUrl = window.URL.createObjectURL(responseBlob);
 
-      // const thumbnailUrl = await thumbnailRef.getDownloadURL();
-      // return thumbnailUrl;
-    } catch (e) {
-      // Fallback: return null
-      return;
+      const anchor = document.createElement('a');
+      anchor.href = objectUrl;
+      anchor.download = `Reallos - ${documentName}.pdf`;
+      anchor.dispatchEvent(new MouseEvent('click'));
     }
   }
 
@@ -192,58 +176,73 @@ class Documents extends React.Component {
       @TODO: Logic to be replaced
     */
 
-    let documents = [
-      {
-        name: 'Document 1',
-        creator: 'John Doe',
-        path: ''
-      },
-      {
-        name: 'Document 2',
-        creator: 'You',
-        path: ''
-      },
-      {
-        name: 'Document 3',
-        creator: 'Mr. Bean',
-        path: ''
-      },
-      {
-        name: 'Document 4',
-        creator: 'Mr. Bean',
-        path: ''
-      },
-    ]
+    let documentsDataSnapshot = await myFirestore
+      .collection("Transactions")
+      .doc(this.transactionID)
+      .collection("documents")
+      .get();
+
+    let documents = [];
+    let peopleList = await getPeopleInvolved(this.transactionID);
+
+    documentsDataSnapshot.docs.map((doc) => {
+      let documentMetadata = doc.data();
+
+      let documentRef = myStorage.ref().child(documentMetadata.path);
+      let creator = "Unknown";
+      let filteredPeopleList = peopleList.filter(
+        (person) => person.Email === documentMetadata.creator,
+      );
+
+      if (documentMetadata.creator === getCurrentUser().email) {
+        creator = 'You';
+      }
+      else if (filteredPeopleList[0]?.Email === documentMetadata.creator) {
+        creator = getUserName(
+          filteredPeopleList[0].Email,
+          peopleList,
+        );
+      }
+
+      documents.push({
+        name: documentRef.name,
+        creator: creator,
+        creatorEmail: documentMetadata.creator,
+        path: documentMetadata.path,
+      });
+
+      return null;
+    });
 
     this.setState({
       documents,
+      filteredDocumentsList: documents,
     });
   }
 
   /**
-   * Renders document cards on the document dashboard
+   * Renders primary content on the document dashboard
+   * based on current state.
    */
-  RenderDocumentCards() {
-    const { classes } = this.props;
-
+  PrimaryContent() {
     if (this.state.filteredDocumentsList === null) {
       // If documents are not fetched
 
       return (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            textAlign: "center",
-            marginTop: 30,
-          }}
-        >
-          <h1>Just a moment...</h1>
-          <p style={{ fontSize: 20, marginTop: 0 }}>
-            We are fetching your documents.
-          </p>
-        </div>
+        <Grid container spacing={2}>
+          {Array(8)
+            .fill(0)
+            .map(() => (
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={350}
+                  style={{ borderRadius: 10 }}
+                />
+              </Grid>
+            ))}
+        </Grid>
       );
     } else if (this.state.documents.length === 0) {
       // If no document documents are present.
@@ -321,87 +320,13 @@ class Documents extends React.Component {
       return (
         <Grid container className="doc-card-group">
           {this.state.filteredDocumentsList.map((docData, itemIndex) => (
-            <Grid
-              item xs={12} sm={6} md={4} lg={3}
-              style={{
-                opacity: 0,
-                animation: `slide-up-anim 150ms ease-out ${
-                  itemIndex * 25
-                }ms forwards`,
-              }}
+            <DocumentCard
               key={docData.name}
-            >
-              <div className="doc-card-root">
-                <IconButton
-                  className="doc-card-top-action-btn"
-                  onClick={(event) =>
-                    this.openMenu(event.currentTarget, docData)
-                  }
-                >
-                  <KebabHorizontalIcon />
-                </IconButton>
-
-                <div className="doc-card-main">
-                  <NavLink
-                    to={{
-                      pathname: `/transactions/${this.transactionID}/documents/${docData.name}`,
-                      state: docData,
-                    }}
-                  >
-                    <Card
-                      className={
-                        "doc-card " +
-                        (getDecodedHash(this.props.location) ===
-                        `#${docData.name}`
-                          ? "paper-highlight"
-                          : "")
-                      }
-                      title={docData.name}
-                    >
-                      <CardThumbnail
-                        getThumbnailFunction={() =>
-                          this.getThumbnail(docData.name)
-                        }
-                      />
-
-                      <CardContent
-                        style={{
-                          maxWidth: 300,
-                          minWidth: 250,
-                        }}
-                      >
-                        <h2
-                          style={{
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {getEffectiveDocumentName(docData.name)}
-                        </h2>
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar
-                            className={classes.docCardUserAvatar}
-                            src={UserAvatar}
-                          />
-
-                          <span style={{ marginLeft: 10 }}>
-                            Uploaded by <strong>{docData.creator}</strong>
-                          </span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </NavLink>
-                </div>
-              </div>
-            </Grid>
+              docData={docData}
+              onOpenMenu={(event) => this.openMenu(event.currentTarget, docData)}
+              itemIndex={itemIndex}
+              locationObject={this.props.location}
+            />
           ))}
 
           <Menu
@@ -424,6 +349,9 @@ class Documents extends React.Component {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                this.showSnackbar('Preparing document for download...');
+
+                this.downloadDocument(this.state.menuTagetDocumentData);
                 this.dismissMenu();
               }}
             >
@@ -431,16 +359,6 @@ class Documents extends React.Component {
                 <DownloadIcon size={20} />
               </div>
               Download
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                this.dismissMenu();
-              }}
-            >
-              <div style={{ margin: "auto 20px auto 0" }}>
-                <StampIcon />
-              </div>
-              Sign the document
             </MenuItem>
           </Menu>
 
@@ -496,7 +414,6 @@ class Documents extends React.Component {
     return (
       <Scaffold navBar navRail>
         <div style={{
-          display: (this.state.documents?.length === 0) ? 'none' : 'block',
           background: '#eeeeee',
           position: 'sticky',
           top: 84,
@@ -511,22 +428,41 @@ class Documents extends React.Component {
             paddingBottom: 20,
             paddingTop: 20,
           }}>
-            <SearchBar
-              placeholder="Search by document name and creator"
-              list={this.state.documents}
-              filterByFields={[
-                'name',
-                'creator'
-              ]}
-              onUpdate={(filteredDocumentsList) => {
-                this.setState({
-                  filteredDocumentsList
-                });
-              }}
-            />
+            {(() => {
+              if (this.state.documents === null) {
+                return (
+                  <Skeleton
+                    animation="wave"
+                    variant="rect"
+                    height={56}
+                    style={{ borderRadius: 10 }}
+                  />
+                )
+              } else if (this.state.documents.length !== 0) {
+                return (
+                  <SearchBar
+                    placeholder="Search by document name and creator"
+                    list={this.state.documents}
+                    filterByFields={[
+                      'name',
+                      'creator',
+                      'creatorEmail',
+                    ]}
+                    onUpdate={(filteredDocumentsList) => {
+                      this.setState({
+                        filteredDocumentsList
+                      });
+                    }}
+                  />
+                )
+              } else {
+                return <React.Fragment />
+              }
+            })()}
           </div>
         </div>
-        <this.RenderDocumentCards />
+
+        <this.PrimaryContent />
 
         <ReallosFab
           title="Upload Document"
@@ -557,4 +493,4 @@ class Documents extends React.Component {
   }
 }
 
-export default withStyles(styles)(Documents);
+export default Documents;
