@@ -50,6 +50,19 @@ class Scaffold extends React.Component {
          * a navigation rail.
          */
         navRail: PropTypes.bool,
+
+        /**
+         * Props to be sent to `NavRail` component.
+         */
+        navRailProps: PropTypes.shape({
+            /**
+             * Specifies the link to follow when the
+             * Back Button is pressed.
+             * 
+             * _(Default: /transactions)_
+             */
+            backButtonRoute: PropTypes.string,
+        }),
     }
 
     _noop() {
@@ -60,11 +73,19 @@ class Scaffold extends React.Component {
         let { children, className='', navBar=false, navRail=false } = this.props;
         let navRailClassName = navRail ? 'scaffold-navrail' : '';
 
+        let navRailProps = Object.assign({
+            backButtonRoute: '/transactions',
+        }, this.props.navRailProps);
+
+        let { backButtonRoute } = navRailProps;
+
         return (
             <div className={`scaffold-root ${navRailClassName} ${className}`}>
                 <Container>
                     {(navBar) ? <NavBar sticky /> : this._noop()}
-                    {(navRail) ? <NavRail /> : this._noop()}
+                    {(navRail) ? (
+                        <NavRail backButtonRoute={backButtonRoute} />
+                    ) : this._noop()}
 
                     {children}
                 </Container>
