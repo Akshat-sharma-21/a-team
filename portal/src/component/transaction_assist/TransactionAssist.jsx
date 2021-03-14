@@ -13,6 +13,7 @@ import {
 
 import { Grid, Typography } from "@material-ui/core";
 import { useParams } from "react-router";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -45,7 +46,7 @@ function selectTransaction(transactions, id) {
 }
 
 function TransactionAssist(props) {
-  const [isInitModalVisibile, setInitModalVisibility] = useState(true);
+  const [isInitModalVisibile, setInitModalVisibility] = useState(false);
   let { tid } = useParams(); // getting the id of the transaction
   useEffect(() => {
     if (props.utils.reload === true) {
@@ -124,17 +125,53 @@ function TransactionAssist(props) {
    * Renders acordions within the screen.
    */
   const displayAccordions = () => {
-    return (
-      <Grid
-        container
-        direction="column"
-        spacing={2}
-        style={{ marginBottom: 20 }}
-      >
-        <AssistPreApproval />
-        <AssistFindAgent />
-      </Grid>
-    );
+    if (props.utils.loading === false)
+      // only return when the component is loaded
+      return (
+        <div className="zoom-in-animation">
+          <Grid
+            container
+            direction="column"
+            spacing={2}
+            style={{ marginBottom: 20 }}
+          >
+            <AssistPreApproval />
+            <AssistFindAgent />
+          </Grid>
+        </div>
+      );
+  };
+
+  const displayLoadingComponent = () => {
+    if (props.utils.loading === true)
+      return (
+        <>
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            height={80}
+            style={{ borderRadius: 10, marginBottom: 20 }}
+          />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            height={80}
+            style={{ borderRadius: 10, marginBottom: 20 }}
+          />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            height={80}
+            style={{ borderRadius: 10, marginBottom: 20 }}
+          />
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            height={80}
+            style={{ borderRadius: 10, marginBottom: 20 }}
+          />
+        </>
+      );
   };
 
   return (
@@ -145,7 +182,7 @@ function TransactionAssist(props) {
           pageName="Transaction Assist"
         />
       </div>
-
+      {displayLoadingComponent()}
       {displayAccordions()}
       {initModal()}
     </Scaffold>
