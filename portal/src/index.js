@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import mainReducer from "./reducers";
 
-const store = createStore(mainReducer, applyMiddleware(thunk)); // The main store where alll the data will be managed
+const store = createStore(mainReducer, applyMiddleware(thunk)); // The main store where all the data will be managed
 
 ReactDOM.render(
   <React.StrictMode>

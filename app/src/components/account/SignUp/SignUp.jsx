@@ -1,9 +1,16 @@
-import React from 'react';
-import { Scaffold, ReallosButton } from '../../utilities/core';
-import { IconButton, TextField } from '@material-ui/core';
-import ReallosLogo from '../../../assets/reallos_white_logo.png';
-import './SignUp.css';
-import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from '@primer/octicons-react';
+import React from "react";
+import { Scaffold, ReallosButton } from "../../utilities/core";
+import { IconButton, TextField } from "@material-ui/core";
+import ReallosLogo from "../../../assets/reallos_white_logo.png";
+import "./SignUp.css";
+import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { signup } from "../../../actions/userActions";
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ signup }, dispatch);
+};
 
 class SignUp extends React.Component {
   constructor() {
@@ -11,20 +18,20 @@ class SignUp extends React.Component {
 
     this.state = {
       step: 0,
-      name: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
       inputTextVisibility: {
         createPassword: false,
-        confirmPassword: false
-      }
+        confirmPassword: false,
+      },
     };
   }
 
   renderForm(step) {
-    switch(step) {
+    switch (step) {
       case 0:
         return (
           <div className="signup-form">
@@ -35,9 +42,11 @@ class SignUp extends React.Component {
                 variant="outlined"
                 label="Name"
                 type="text"
-                onChange={(event) => this.setState({
-                  name: event.target.value
-                })}
+                onChange={(event) =>
+                  this.setState({
+                    name: event.target.value,
+                  })
+                }
               />
               <TextField
                 value={this.state.email}
@@ -45,9 +54,11 @@ class SignUp extends React.Component {
                 variant="outlined"
                 label="Email"
                 type="email"
-                onChange={(event) => this.setState({
-                  email: event.target.value
-                })}
+                onChange={(event) =>
+                  this.setState({
+                    email: event.target.value,
+                  })
+                }
               />
               <TextField
                 value={this.state.phone}
@@ -55,9 +66,11 @@ class SignUp extends React.Component {
                 variant="outlined"
                 label="Phone no."
                 type="tel"
-                onChange={(event) => this.setState({
-                  phone: event.target.value
-                })}
+                onChange={(event) =>
+                  this.setState({
+                    phone: event.target.value,
+                  })
+                }
               />
             </div>
             <div className="signup-form-action-group">
@@ -66,16 +79,13 @@ class SignUp extends React.Component {
                 fullWidth
                 onClick={() => {
                   this.setState({
-                    step: 1
+                    step: 1,
                   });
                 }}
               >
                 Next
-
                 <span style={{ marginLeft: 10 }}>
-                  <ArrowRightIcon
-                    size={21}
-                  />
+                  <ArrowRightIcon size={21} />
                 </span>
               </ReallosButton>
             </div>
@@ -92,31 +102,41 @@ class SignUp extends React.Component {
                 label="Create password"
                 name="password"
                 value={this.state.password}
-                onChange={(event) => this.setState({
-                  password: event.currentTarget.value
-                })}
-                type={this.state.inputTextVisibility.createPassword ? "text" : "password"}
+                onChange={(event) =>
+                  this.setState({
+                    password: event.currentTarget.value,
+                  })
+                }
+                type={
+                  this.state.inputTextVisibility.createPassword
+                    ? "text"
+                    : "password"
+                }
                 InputProps={{
                   endAdornment: (
                     <IconButton
-                      aria-label={this.state.inputTextVisibility.createPassword
-                        ? "Hide Password"
-                        : "Show Password"
+                      aria-label={
+                        this.state.inputTextVisibility.createPassword
+                          ? "Hide Password"
+                          : "Show Password"
                       }
-                      onClick={() => this.setState({
-                        inputTextVisibility: {
-                          ...this.state.inputTextVisibility,
-                          createPassword: !this.state.inputTextVisibility.createPassword
-                        }
-                      })}
+                      onClick={() =>
+                        this.setState({
+                          inputTextVisibility: {
+                            ...this.state.inputTextVisibility,
+                            createPassword: !this.state.inputTextVisibility
+                              .createPassword,
+                          },
+                        })
+                      }
                     >
-                      {
-                        (this.state.inputTextVisibility.createPassword)
-                          ? <EyeClosedIcon />
-                          : <EyeIcon />
-                      }
+                      {this.state.inputTextVisibility.createPassword ? (
+                        <EyeClosedIcon />
+                      ) : (
+                        <EyeIcon />
+                      )}
                     </IconButton>
-                  )
+                  ),
                 }}
               />
               <TextField
@@ -124,31 +144,41 @@ class SignUp extends React.Component {
                 variant="outlined"
                 label="Confirm password"
                 value={this.state.confirmPassword}
-                onChange={(event) => this.setState({
-                  confirmPassword: event.currentTarget.value
-                })}
-                type={this.state.inputTextVisibility.confirmPassword ? "text" : "password"}
+                onChange={(event) =>
+                  this.setState({
+                    confirmPassword: event.currentTarget.value,
+                  })
+                }
+                type={
+                  this.state.inputTextVisibility.confirmPassword
+                    ? "text"
+                    : "password"
+                }
                 InputProps={{
                   endAdornment: (
                     <IconButton
-                      aria-label={this.state.inputTextVisibility.confirmPassword
-                        ? "Hide Password"
-                        : "Show Password"
+                      aria-label={
+                        this.state.inputTextVisibility.confirmPassword
+                          ? "Hide Password"
+                          : "Show Password"
                       }
-                      onClick={() => this.setState({
-                        inputTextVisibility: {
-                          ...this.state.inputTextVisibility,
-                          confirmPassword: !this.state.inputTextVisibility.confirmPassword
-                        }
-                      })}
+                      onClick={() =>
+                        this.setState({
+                          inputTextVisibility: {
+                            ...this.state.inputTextVisibility,
+                            confirmPassword: !this.state.inputTextVisibility
+                              .confirmPassword,
+                          },
+                        })
+                      }
                     >
-                      {
-                        (this.state.inputTextVisibility.confirmPassword)
-                          ? <EyeClosedIcon />
-                          : <EyeIcon />
-                      }
+                      {this.state.inputTextVisibility.confirmPassword ? (
+                        <EyeClosedIcon />
+                      ) : (
+                        <EyeIcon />
+                      )}
                     </IconButton>
-                  )
+                  ),
                 }}
               />
             </div>
@@ -156,7 +186,7 @@ class SignUp extends React.Component {
               <ReallosButton
                 onClick={() => {
                   this.setState({
-                    step: 0
+                    step: 0,
                   });
                 }}
               >
@@ -164,7 +194,14 @@ class SignUp extends React.Component {
               </ReallosButton>
               <ReallosButton
                 primary
-                onClick={() => {}}
+                onClick={() =>
+                  this.props.signup({
+                    email: this.state.email,
+                    name: this.state.name,
+                    password: this.state.password,
+                    phone: this.state.phone,
+                  })
+                }
               >
                 Create Account
               </ReallosButton>
@@ -173,7 +210,7 @@ class SignUp extends React.Component {
         );
 
       default:
-        return <React.Fragment />
+        return <React.Fragment />;
     }
   }
 
@@ -181,24 +218,20 @@ class SignUp extends React.Component {
     return (
       <Scaffold className="signup-page-root">
         <div className="signup-reallos-decoration">
-          <img src={ReallosLogo} alt=""/>
+          <img src={ReallosLogo} alt="" />
         </div>
 
         <div className="signup-body-root">
           <div className="signup-page-title">
-            <h1>
-              Create Account
-            </h1>
-            <h2>
-              Tell us about yourself
-            </h2>
+            <h1>Create Account</h1>
+            <h2>Tell us about yourself</h2>
           </div>
 
           {this.renderForm(this.state.step)}
         </div>
       </Scaffold>
-    )
+    );
   }
 }
 
-export default SignUp;
+export default connect(null, mapDispatchToProps)(SignUp);
