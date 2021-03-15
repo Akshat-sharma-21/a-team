@@ -6,6 +6,8 @@ const initialState = {
   password: false,
   emailVerified: false,
   phoneVerified: false,
+  emailHash: null,
+  phoneHash: null,
 };
 
 function registrationReducer(state = initialState, action) {
@@ -44,6 +46,7 @@ function registrationReducer(state = initialState, action) {
       if (state.step - 1 === 0) {
         // if conditions added to deal with a potential bug of not valid emails advancing to next steps
         return {
+          ...state,
           step: 0,
           email: false,
           password: false,
@@ -52,6 +55,7 @@ function registrationReducer(state = initialState, action) {
         };
       } else if (state.step - 1 === 1) {
         return {
+          ...state,
           step: 1,
           email: true,
           password: false,
@@ -60,6 +64,7 @@ function registrationReducer(state = initialState, action) {
         };
       } else if (state.step - 1 === 2) {
         return {
+          ...state,
           step: 2,
           email: true,
           password: true,
@@ -67,6 +72,12 @@ function registrationReducer(state = initialState, action) {
           phoneVerified: false,
         };
       }
+    }
+    case actions.SET_EMAIL_HASH: {
+      return {
+        ...state,
+        emailHash: action.Hash,
+      };
     }
     default: {
       return state;

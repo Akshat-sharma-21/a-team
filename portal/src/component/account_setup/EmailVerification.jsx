@@ -49,7 +49,7 @@ function EmailVerification(props) {
   };
 
   function setCodeAndNext(emailCode) {
-    onNext(emailCode);
+    onNext(emailCode, state.hash); // send the hash and the email code
   }
 
   return (

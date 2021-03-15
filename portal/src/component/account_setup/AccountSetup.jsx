@@ -96,8 +96,8 @@ class AccountSetup extends React.Component {
         <EmailVerification
           state={{
             loading: this.props.utils.loading,
+            hash: this.props.register.emailHash,
           }}
-          onStateChange={(state) => this.setState(state)}
           onPrev={() => this.props.decrementStepAction()}
           onNext={this.props.verifyEmail}
         />
