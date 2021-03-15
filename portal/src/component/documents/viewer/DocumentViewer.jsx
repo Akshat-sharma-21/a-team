@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as StampIcon } from "../../../assets/stamp_icon.svg";
 import DocUploadStatus from "../uploader/DocUploadStatus";
-// import { myStorage } from "../../Config/MyFirebase.js";
+import { myStorage } from "../../../FirebaseConfig";
 import { getCurrentUser, getTransactionID } from "../../../utils";
 import WebViewer from '@pdftron/webviewer';
 
@@ -71,6 +71,14 @@ class DocumentViewer extends React.Component {
           });
 
           annotManager.on('annotationChanged', () => {
+            /**
+             * The document is not flattened when saving.
+             *
+             * Non-flattened document would contain raw annotations
+             * which when rendered initially (when loading document)
+             * would fire the `annotationChanged`.
+             */
+
             this.setDocumentChanged();
           });
         });
@@ -103,8 +111,7 @@ class DocumentViewer extends React.Component {
     // @TODO
     // DUMMY value
 
-    // let downloadLink = await myStorage.ref(docPath).getDownloadURL();
-    let downloadLink = '/SamplePDF.pdf';
+    let downloadLink = await myStorage.ref(docPath).getDownloadURL();
     this.viewer.loadDocument(downloadLink);
     this.documentLink = downloadLink;
   }
@@ -136,35 +143,34 @@ class DocumentViewer extends React.Component {
    * Void
    */
   async saveChangesToCloud(docPath) {
-    // @TODO
-    // DUMMY: Do nothing
-    
-    // const doc = this.viewer.docViewer.getDocument();
-    // const xfdfString = await this.viewer.annotManager.exportAnnotations();
-    // const options = { xfdfString, flatten: true };
-    // const data = await doc.getFileData(options);
-    // const arr = new Uint8Array(data);
-    // const docBlob = new Blob([arr], { type: 'application/pdf' });
+    // @TODO Uses Firebase
 
-    // let fileRef = myStorage.ref().child(docPath);
-    // let uploadTask = fileRef.put(docBlob);
+    const doc = this.viewer.docViewer.getDocument();
+    const xfdfString = await this.viewer.annotManager.exportAnnotations();
+    const options = { xfdfString, flatten: false };
+    const data = await doc.getFileData(options);
+    const arr = new Uint8Array(data);
+    const docBlob = new Blob([arr], { type: 'application/pdf' });
 
-    // uploadTask.on("state_changed", (snapshot) => {
-    //   let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //   let isPaused = snapshot.state === "paused";
+    let fileRef = myStorage.ref().child(docPath);
+    let uploadTask = fileRef.put(docBlob);
 
-    //   let newUploadTaskDetails = {
-    //     filename: this.getState.name,
-    //     progress,
-    //     isPaused,
-    //     uploadTask,
-    //   };
+    uploadTask.on("state_changed", (snapshot) => {
+      let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      let isPaused = snapshot.state === "paused";
 
-    //   this.setState({
-    //     isUploadModalVisible: true,
-    //     uploadTaskStatus: newUploadTaskDetails,
-    //   });
-    // });
+      let newUploadTaskDetails = {
+        filename: this.getState.name,
+        progress,
+        isPaused,
+        uploadTask,
+      };
+
+      this.setState({
+        isUploadModalVisible: true,
+        uploadTaskStatus: newUploadTaskDetails,
+      });
+    });
   }
 
   /**
@@ -213,13 +219,18 @@ class DocumentViewer extends React.Component {
 
   render() {
     const transactionId = getTransactionID(this.props.location);
-    
+
     if (this.getState) {
       // Proceed if document metadata is available in props
       const docData = this.getState;
 
       return (
-        <Scaffold navBar navRail>
+        <Scaffold
+          navBar navRail
+          navRailProps={{
+            backButtonRoute: `/transactions/${transactionId}/documents`
+          }}
+        >
           <Box component="div" paddingBottom={5}>
             <ReallosPageHeader
               transactionName="Transaction 1"
@@ -287,6 +298,18 @@ class DocumentViewer extends React.Component {
               dismissCallback={() => this.dismissUploadModalCallback()}
               uploadStatus={this.state.uploadTaskStatus}
               isSavingDocument={true}
+              onSuccessCallback={async () => {
+                /**
+                 * Update Document URL after the latest
+                 * changes are saved to cloud.
+                 *
+                 * This would prevent 403 (Forbidden) HTTP error
+                 * when "Revert Changes" button is clicked.
+                 */
+
+                const docPath = this.getState.path;
+                this.documentLink = await myStorage.ref(docPath).getDownloadURL();
+              }}
             />
           </ReallosModal>
           <ReallosModal
@@ -297,7 +320,7 @@ class DocumentViewer extends React.Component {
             }
             modalWidth={700}
           >
-            This will reset all the changes you have made to this document after
+            This will reset all the changes you have made to this document until
             the last save.
             <br />
             This action cannot be undone. Are you sure to continue?
@@ -328,12 +351,6 @@ class DocumentViewer extends React.Component {
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             message={this.state.snackbarMessage}
           />
-          {/* PRELOADER - Use Skeleton */}
-
-          {/* <ReallosLoaderWithOverlay
-            visible={this.state.isLoadingDocument}
-            strokeWidth={4}
-          /> */}
 
           <div style={{display: 'block'}}>
             <ReallosFab

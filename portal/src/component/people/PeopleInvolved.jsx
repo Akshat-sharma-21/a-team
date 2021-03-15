@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PeopleInvolvedCard from "./PeopleInvolvedCard";
 import "./PeopleInvolved.css";
@@ -26,7 +26,6 @@ import { PaperAirplaneIcon, SearchIcon } from "@primer/octicons-react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchUser } from "../../actions/userActions";
 import { fetchPeople } from "../../actions/peopleAction";
 
 const mapStateToProps = (state) => ({
@@ -155,23 +154,29 @@ function PeopleInvolved(props) {
             paddingTop: props.people?.length !== 0 ? 20 : 0,
           }}
         >
-          {props.people === null ? (
-            <Skeleton
-              animation="wave"
-              variant="rect"
-              height={56}
-              style={{ borderRadius: 10 }}
-            />
-          ) : (
-            props.people.length !== 0 && (
-              <SearchBar
-                list={props.people}
-                filterByFields={["Name", "Role", "Company", "Phone", "Email"]}
-                onUpdate={(filtered) => setFilteredPeopleList(filtered)}
-                placeholder="Search by name, role, organization, phone or email"
-              />
-            )
-          )}
+          {(() => {
+            if (props.people === null) {
+              return (
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={56}
+                  style={{ borderRadius: 10 }}
+                />
+              )
+            } else if (props.people.length !== 0) {
+              return (
+                <SearchBar
+                  list={props.people}
+                  filterByFields={["Name", "Role", "Company", "Phone", "Email"]}
+                  onUpdate={(filtered) => setFilteredPeopleList(filtered)}
+                  placeholder="Search by name, role, organization, phone or email"
+                />
+              )
+            } else {
+              return <React.Fragment />
+            }
+          })()}
         </div>
       </div>
 

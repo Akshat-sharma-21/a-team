@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./NavRail.css";
@@ -49,29 +50,30 @@ const NavRailTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function NavRail() {
+function NavRail({ backButtonRoute = '/transactions' }) {
   const classes = useStyles();
-  const History = useHistory();
+  const history = useHistory();
   const routerLocation = useLocation();
   const { tid } = useParams();
+
   let listItems = [
     {
       icon: <PackageIcon size={30} />,
       label: "Transaction Assist",
       isActiveRoute: routerLocation.pathname.includes("assist"),
-      linkTo: "/transactions/" + tid + "/assist",
+      linkTo: `/transactions/${tid}/assist`,
     },
     {
       icon: <FileIcon size={30} />,
       label: "Documents",
       isActiveRoute: routerLocation.pathname.includes("/document"),
-      linkTo: "/transactions/" + tid + "/documents",
+      linkTo: `/transactions/${tid}/documents`,
     },
     {
       icon: <PersonIcon size={30} />,
       label: "People",
       isActiveRoute: routerLocation.pathname.includes("/people"),
-      linkTo: "/transactions/" + tid + "/people",
+      linkTo: `/transactions/${tid}/people`,
     },
   ];
 
@@ -102,17 +104,17 @@ function NavRail() {
     return (
       <NavRailTooltip title={label} placement="right">
         <button
-          role="button"
           aria-label={label}
-          onClick={() => History.push(linkTo)}
+          onClick={() => history.push(linkTo)}
           className="nav-rail-item"
         >
           <div
             className={
-              "nav-rail-item-icon " +
-              (isActiveRoute
-                ? "nav-rail-item-active"
-                : "nav-rail-item-inactive")
+              "nav-rail-item-icon " + (
+                isActiveRoute
+                  ? "nav-rail-item-active"
+                  : "nav-rail-item-inactive"
+              )
             }
           >
             {icon}
@@ -132,7 +134,9 @@ function NavRail() {
               marginBottom: 40,
             }}
           >
-            <IconButton onClick={() => History.push("/transactions")}>
+            <IconButton onClick={() => {
+              history.push(backButtonRoute);
+            }}>
               <ArrowLeftIcon size={24} />
             </IconButton>
           </div>
@@ -159,6 +163,16 @@ function NavRail() {
       </Drawer>
     </div>
   );
+}
+
+NavRail.propTypes = {
+  /**
+   * Specifies the link to follow when the
+   * Back Button is pressed.
+   * 
+   * _(Default: /transactions)_
+   */
+  backButtonRoute: PropTypes.string,
 }
 
 export default NavRail;

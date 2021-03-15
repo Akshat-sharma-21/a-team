@@ -6,6 +6,7 @@ import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import PauseIcon from "../../../assets/pause-icon.svg";
 import { CheckIcon, UploadIcon } from "@primer/octicons-react";
 import { getTransactionID, getCurrentUser } from "../../../utils";
+import { myFirebase, myFirestore } from "../../../FirebaseConfig";
 import "./DocUploadStatus.css";
 
 // Locks further upload trigger when one is already running
@@ -120,20 +121,19 @@ function DocUploadStatus({
             @TODO: Logic to be replaced
           */
 
-          // await myFirestore
-          //   .collection('transactions')
-          //   .doc(transactionID)
-          //   .collection('document')
-          //   .doc(uploadStatus.filename)
-          //   .set({
-          //     creator: currentEmail,
-          //     accessData: {},
-          //     path: `${transactionID}/documents/${uploadStatus.filename}`,
-          //     lastModified: {
-          //       email: currentEmail,
-          //       timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
-          //     }
-          //   });
+          await myFirestore
+            .collection('Transactions')
+            .doc(transactionID)
+            .collection('documents')
+            .doc(uploadStatus.filename)
+            .set({
+              creator: currentEmail,
+              path: `${transactionID}/documents/${uploadStatus.filename}`,
+              lastModified: {
+                email: currentEmail,
+                timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
+              }
+            });
         }
 
         else {
@@ -143,18 +143,18 @@ function DocUploadStatus({
             Uses Firebase
             @TODO: Logic to be replaced
           */
-          
-          // await myFirestore
-          // .collection('transactions')
-          // .doc(transactionID)
-          // .collection('document')
-          // .doc(uploadStatus.filename)
-          // .update({
-          //   lastModified: {
-          //     email: currentEmail,
-          //     timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
-          //   }
-          // });
+
+          await myFirestore
+            .collection('transactions')
+            .doc(transactionID)
+            .collection('document')
+            .doc(uploadStatus.filename)
+            .update({
+              lastModified: {
+                email: currentEmail,
+                timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
+              }
+            });
         }
       }
 

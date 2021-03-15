@@ -10,6 +10,7 @@ class AssistFindAgent extends React.Component {
         isStepComplete={false}
         AccordionStepIcon={<SearchIcon size={23} />}
         title="Find an agent"
+        itemIndex={1}
       >
         {/*  */}
       </AssistAccordion>
