@@ -17,6 +17,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from "../../../actions/userActions";
 
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ login }, dispatch);
 };
@@ -104,6 +108,7 @@ class SignIn extends React.Component {
             primary
             fullWidth
             variant="light"
+            disabled={this.props.utils.loading}
             onClick={() =>
               this.props.login({
                 email: this.state.email,
@@ -161,4 +166,7 @@ class SignIn extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SignIn));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(SignIn));

@@ -1,8 +1,9 @@
 import { myFirebase, myFirestore } from "../FirebaseConfig";
+import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
 
 export function signup(user) {
   return (dispatch) => {
-    // dispatch an action to set loading to true
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     myFirebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
@@ -17,22 +18,22 @@ export function signup(user) {
             FirstTime: true, // This is used to showcase the onboarding screens
           })
           .then(() => {
-            // dispatch an action to set loading to false
+            dispatch(setLoadingFalse());
             window.location.href = "/signin";
           })
           .catch((err) => {
-            //dispatch an action to set the error
+            dispatch(setErrors(err));
           });
       })
       .catch((err) => {
-        // dispatch an action to catch the error
+        dispatch(setErrors(err));
       });
   };
 }
 
 export function login(user) {
   return (dispatch) => {
-    // dispatch an action here to set loading to true
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     myFirebase
       .auth()
       .signInWithEmailAndPassword(user.email, user.password)
@@ -42,7 +43,6 @@ export function login(user) {
       })
       .then((token) => {
         localStorage.setItem("Token", token);
-        // dispatch an action to set loading to false
         myFirestore
           .collection("Users")
           .doc(localStorage.getItem("Id"))
@@ -56,23 +56,23 @@ export function login(user) {
                   FirstTime: false,
                 })
                 .then(() => {
-                  // dispatch an action to set loading to false
+                  dispatch(setLoadingFalse());
                   window.location.href = "/onboard"; // moving to the desired location after signin
                 })
                 .catch((err) => {
-                  //dispatch an action to set errors
+                  dispatch(setErrors(err));
                 });
             } else {
-              // dispatch an action to set loading to false
+              dispatch(setLoadingFalse());
               window.location.href = "/roadmap";
             }
           })
           .catch((err) => {
-            // dispatch an action to catch the errors
+            dispatch(setErrors(err));
           });
       })
       .catch((err) => {
-        //dispatch an action to catch the error here
+        dispatch(setErrors(err));
       });
   };
 }

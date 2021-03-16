@@ -8,6 +8,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signup } from "../../../actions/userActions";
 
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ signup }, dispatch);
 };
@@ -194,6 +198,7 @@ class SignUp extends React.Component {
               </ReallosButton>
               <ReallosButton
                 primary
+                disabled={this.props.utils.loading}
                 onClick={() =>
                   this.props.signup({
                     email: this.state.email,
@@ -234,4 +239,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
