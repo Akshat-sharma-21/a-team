@@ -1,5 +1,6 @@
 import { myFirebase, myFirestore } from "../FirebaseConfig";
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
+import axios from "axios";
 
 export function signup(user) {
   return (dispatch) => {
@@ -18,8 +19,21 @@ export function signup(user) {
             FirstTime: true, // This is used to showcase the onboarding screens
           })
           .then(() => {
-            dispatch(setLoadingFalse());
-            window.location.href = "/signin";
+            axios
+              .post(
+                "/create-transaction", // make sure to add proxy support
+                {
+                  buyer: user.name,
+                  buyerId: res.user.uid,
+                }
+              )
+              .then(() => {
+                dispatch(setLoadingFalse());
+                window.location.href = "/signin";
+              })
+              .catch((err) => {
+                dispatch(setErrors(err));
+              });
           })
           .catch((err) => {
             dispatch(setErrors(err));
