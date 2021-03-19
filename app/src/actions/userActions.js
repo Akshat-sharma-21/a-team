@@ -2,6 +2,8 @@ import { myFirebase, myFirestore } from "../FirebaseConfig";
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
 import axios from "axios";
 
+export const SET_USER = "SET_USER"; // To set the user in the redux store
+
 export function signup(user) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
@@ -71,14 +73,14 @@ export function login(user) {
                 })
                 .then(() => {
                   dispatch(setLoadingFalse());
-                  window.location.href = "/onboard"; // moving to the desired location after signin
+                  window.location.href = "/onboarding"; // moving to the desired location after signin
                 })
                 .catch((err) => {
                   dispatch(setErrors(err));
                 });
             } else {
               dispatch(setLoadingFalse());
-              window.location.href = "/roadmap";
+              window.location.href = "/dashboard";
             }
           })
           .catch((err) => {
@@ -88,5 +90,31 @@ export function login(user) {
       .catch((err) => {
         dispatch(setErrors(err));
       });
+  };
+}
+
+export function fetchUser() {
+  return (dispatch) => {
+    let Id = localStorage.getItem("Id");
+    dispatch(setLoadingTrue());
+    myFirestore
+      .collection("Users")
+      .doc(Id)
+      .get()
+      .then((doc) => {
+        dispatch(setUserAction(doc.data()));
+        dispatch(setLoadingFalse());
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+function setUserAction(payload) {
+  // pure user action
+  return {
+    type: SET_USER,
+    payload,
   };
 }

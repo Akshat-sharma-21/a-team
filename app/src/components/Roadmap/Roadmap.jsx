@@ -1,22 +1,21 @@
 import React from "react";
 import "./Roadmap.css";
+import { useHistory } from "react-router-dom";
 import {
   Button,
-  Container,
-  Fab,
   Grid,
   IconButton,
   Step,
-  StepConnector,
   StepContent,
   StepLabel,
   Stepper,
 } from "@material-ui/core";
 import ProfilePic from "../../assets/Roadmap_img.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
-import { ArrowRightIcon, LockIcon, PencilIcon } from "@primer/octicons-react";
+import { ArrowRightIcon, LockIcon } from "@primer/octicons-react";
 
 function Roadmap() {
+  const history = useHistory();
   function stepIcon(props) {
     const { active, completed } = props;
     return (
@@ -73,7 +72,7 @@ function Roadmap() {
                   <IconButton
                     className="roadmap-next-btn"
                     size="small"
-                    onClick={handleNext}
+                    onClick={() => history.push("/questions/pre-approval")}
                   >
                     <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                   </IconButton>
@@ -97,7 +96,7 @@ function Roadmap() {
                   <IconButton
                     className="roadmap-next-btn"
                     size="small"
-                    onClick={handleNext}
+                    onClick={() => history.push("/questions/find-agent")}
                   >
                     <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                   </IconButton>

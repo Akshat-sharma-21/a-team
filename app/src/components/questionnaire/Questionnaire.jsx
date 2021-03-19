@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Questionnaire.css";
 import QuestionnaireImg from "../../assets/QuestionsImg.png";
 import QuestionnaireImgEnd from "../../assets/QuestionsImgEnd.png";
 import { Scaffold, ReallosButton } from "../utilities/core";
+import { useParams, useHistory } from "react-router-dom";
+import { fetchQuestions } from "../../actions/questionActions";
+import { fetchUser } from "../../actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   Grid,
   IconButton,
@@ -14,8 +19,6 @@ import {
 } from "@material-ui/core";
 import {
   ArrowLeftIcon,
-  RocketIcon,
-  ThumbsdownIcon,
   ArrowRightIcon,
   SyncIcon,
 } from "@primer/octicons-react";
@@ -44,7 +47,18 @@ const ProgressBarGradient = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
-function QuestionStarting({ changeQuestion }) {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  questions: state.questions,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchQuestions, fetchUser }, dispatch);
+};
+
+function QuestionStarting({ fetchQuestion, loading, step, Transaction }) {
+  // if the step is pre-approval
   return (
     <Scaffold bgVariant="gradient" className="questionnaire">
       <Grid container direction="row" justify="center" alignItems="center">
@@ -63,7 +77,7 @@ function QuestionStarting({ changeQuestion }) {
         </Grid>
         <Grid item xs={10}>
           <Typography className="questionnaire-text">
-            Answer a few questions to get started on your Pre-Approval
+            Answer a few questions to get started on your {step}
           </Typography>
         </Grid>
         <Grid item xs={10} className="questionnaire-start-button">
@@ -71,7 +85,10 @@ function QuestionStarting({ changeQuestion }) {
             primary
             variant="light"
             fullWidth
-            onClick={() => changeQuestion()}
+            disabled={loading}
+            onClick={() => {
+              fetchQuestion(Transaction, step);
+            }}
           >
             Let's Start
           </ReallosButton>
@@ -81,120 +98,229 @@ function QuestionStarting({ changeQuestion }) {
   );
 }
 
-function QuestionBasic({ changeQuestion }) {
-  return (
-    <Scaffold>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12} className="questionnaire-progressbar">
-          <ProgressBarSimple variant="determinate" value={50} />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography className="questionnaire-questions">
-            Are you Pre-Approved ?
-            {/*Question will be dynamically fetched from the database*/}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography className="questionnaire-helped-text">
-            Pre-approval means lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Nullam cursus magna lectus, ut euismod neque
-            feugiat sed. Phasellus ultrices est lacus, porttitor venenatis erat
-            condimentum posuere
-            {/*Helper text will be dynamically fetched from the database*/}
-          </Typography>
-        </Grid>
-        {/* Options will be dynamically fetched from the databse*/}
-        <Grid item xs={12} className="questionnaire-answers">
-          <Button
-            variant="outlined"
-            fullWidth
-            className="questionnaire-answers-options"
-            onClick={() => changeQuestion()}
-            startIcon={
-              <RocketIcon size={25} className="questionnaire-answer-icons" />
-            }
-          >
-            Yes
-          </Button>
-        </Grid>
-        <Grid item xs={12} className="questionnaire-answers-sub">
-          <Button
-            variant="outlined"
-            fullWidth
-            className="questionnaire-answers-options"
-            onClick={() => changeQuestion()}
-            startIcon={
-              <ThumbsdownIcon
+function QuestionBasic({
+  Question,
+  Type,
+  Options,
+  fetchQuestion,
+  step,
+  loading,
+  Transaction,
+}) {
+  let [textval, textvalChange] = useState("");
+  if (Type === "Options") {
+    // If the question is of type options
+    return (
+      <Scaffold>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} className="questionnaire-progressbar">
+            <ProgressBarSimple variant="determinate" value={50} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-questions">
+              {Question}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-helped-text">
+              {/*Helper text will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          {/* Options will be dynamically fetched from the databse*/}
+          {Options.map((option) => {
+            return (
+              <Grid item xs={12} className="questionnaire-answers">
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  className="questionnaire-answers-options"
+                  disabled={loading}
+                  onClick={() =>
+                    fetchQuestion(Transaction, step, Question, option)
+                  }
+                >
+                  {option}
+                </Button>
+              </Grid>
+            );
+          })}
+          <Grid item xs={12}>
+            <IconButton className="questionnaire-arrow-button">
+              <ArrowLeftIcon
                 size={25}
-                className="questionnaire-answer-icons"
+                className="questionnaire-arrow-button-arrow"
               />
-            }
-          >
-            No
-          </Button>
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <IconButton className="questionnaire-arrow-button">
-            <ArrowLeftIcon
-              size={25}
-              className="questionnaire-arrow-button-arrow"
+      </Scaffold>
+    );
+  } else {
+    return (
+      <Scaffold>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} className="questionnaire-progressbar">
+            <ProgressBarGradient variant="determinate" value={50} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-questions">
+              {Question}
+              {/*Question will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-helped-text-gradient">
+              {/*Helper text will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          {/* The type of input to be collected will be fetched from the database*/}
+          <Grid item xs={12} className="questionnaire-answers">
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={textval}
+              onChange={(event) => {
+                textvalChange(event.target.value);
+              }}
             />
-          </IconButton>
+          </Grid>
+          <Grid item xs={12}>
+            <IconButton className="questionnaire-arrow-button">
+              <ArrowLeftIcon
+                size={25}
+                className="questionnaire-arrow-button-arrow"
+              />
+            </IconButton>
+
+            <IconButton
+              className="questionnaire-arrow-button-right"
+              onClick={() =>
+                fetchQuestion(Transaction, step, Question, textval)
+              }
+            >
+              <ArrowRightIcon
+                size={25}
+                className="questionnaire-arrow-button-arrow"
+              />
+            </IconButton>
+          </Grid>
         </Grid>
-      </Grid>
-    </Scaffold>
-  );
+      </Scaffold>
+    );
+  }
 }
 
-function QuestionGradient({ changeQuestion }) {
-  return (
-    <Scaffold bgVariant="gradient">
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12} className="questionnaire-progressbar">
-          <ProgressBarGradient variant="determinate" value={50} />
+function QuestionGradient({
+  Question,
+  Options,
+  Type,
+  fetchQuestion,
+  step,
+  loading,
+  Transaction,
+}) {
+  let [textval, textvalChange] = useState("");
+  if (Type === "Options") {
+    // if the question is of type options
+    return (
+      <Scaffold bgVariant="gradient">
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} className="questionnaire-progressbar">
+            <ProgressBarSimple variant="determinate" value={50} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-questions">
+              {Question}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-helped-text">
+              {/*Helper text will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          {/* Options will be dynamically fetched from the databse*/}
+          {Options.map((option) => {
+            return (
+              <Grid item xs={12} className="questionnaire-answers">
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  className="questionnaire-answers-options"
+                  disabled={loading}
+                  onClick={() =>
+                    fetchQuestion(Transaction, step, Question, option)
+                  }
+                >
+                  {option}
+                </Button>
+              </Grid>
+            );
+          })}
+          <Grid item xs={12}>
+            <IconButton className="questionnaire-arrow-button-light">
+              <ArrowLeftIcon
+                size={25}
+                className="questionnaire-arrow-button-arrow"
+              />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography className="questionnaire-questions">
-            Enter Your Name
-            {/*Question will be dynamically fetched from the database*/}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography className="questionnaire-helped-text-gradient">
-            Your name is required to lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Nullam cursus magna lectus, ut euismod neque
-            feugiat sed.
-            {/*Helper text will be dynamically fetched from the database*/}
-          </Typography>
-        </Grid>
-        {/* The type of input to be collected will be fetched from the database*/}
-        <Grid item xs={12} className="questionnaire-answers">
-          <TextField variant="outlined" label="Name" fullWidth />
-        </Grid>
-        <Grid item xs={12}>
-          <IconButton className="questionnaire-arrow-button-light">
-            <ArrowLeftIcon
-              size={25}
-              className="questionnaire-arrow-button-arrow"
+      </Scaffold>
+    );
+  } else {
+    return (
+      <Scaffold bgVariant="gradient">
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} className="questionnaire-progressbar">
+            <ProgressBarGradient variant="determinate" value={50} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-questions">
+              {Question}
+              {/*Question will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography className="questionnaire-helped-text-gradient">
+              {/*Helper text will be dynamically fetched from the database*/}
+            </Typography>
+          </Grid>
+          {/* The type of input to be collected will be fetched from the database*/}
+          <Grid item xs={12} className="questionnaire-answers">
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={textval}
+              onChange={(event) => {
+                textvalChange(event.target.value);
+              }}
             />
-          </IconButton>
+            <IconButton className="questionnaire-arrow-button-light">
+              <ArrowLeftIcon
+                size={25}
+                className="questionnaire-arrow-button-arrow"
+              />
+            </IconButton>
 
-          <IconButton
-            className="questionnaire-arrow-button-light-right"
-            onClick={() => changeQuestion()}
-          >
-            <ArrowRightIcon
-              size={25}
-              className="questionnaire-arrow-button-arrow"
-            />
-          </IconButton>
+            <IconButton
+              className="questionnaire-arrow-button-light-right"
+              onClick={() =>
+                fetchQuestion(Transaction, step, Question, textval)
+              }
+            >
+              <ArrowRightIcon
+                size={25}
+                className="questionnaire-arrow-button-arrow"
+              />
+            </IconButton>
+          </Grid>
         </Grid>
-      </Grid>
-    </Scaffold>
-  );
+      </Scaffold>
+    );
+  }
 }
 
-function EndQuestion({ changeQuestion }) {
+function EndQuestion({ history }) {
   return (
     <Scaffold bgVariant="gradient" className="questionnaire">
       <Grid container direction="row" justify="center" alignItems="center">
@@ -221,7 +347,7 @@ function EndQuestion({ changeQuestion }) {
             primary
             variant="light"
             className="questionnaire-confirm-answer-button"
-            onClick={() => changeQuestion()}
+            onClick={() => history.push("/tasks_summary")}
           >
             Yeah Sure!
           </ReallosButton>
@@ -230,7 +356,6 @@ function EndQuestion({ changeQuestion }) {
           <ReallosButton
             variant="light"
             className="questionnaire-confirm-answer-button"
-            onClick={() => changeQuestion()}
           >
             <SyncIcon size={18} className="questionnaire-refresh-icon" />
             Startover
@@ -241,29 +366,55 @@ function EndQuestion({ changeQuestion }) {
   );
 }
 
-function Questionnaire() {
-  const [questions, updateQuestion] = useState(0); // The initial state of the questions is 0 which represents the starting page
-  function changeQuestion() {
-    if (questions === 0) {
-      updateQuestion(1); // To set the questions to 1 intially when the first question is asked
-    } else if (questions === 1) {
-      updateQuestion(2); // To set the question to 2 when it's 1
-    } else if (questions === 2) {
-      updateQuestion(3); // To set the question to 1 when it's 2
-    } else {
-      updateQuestion(0);
+function Questionnaire(props) {
+  useEffect(() => {
+    if (props.utils.reload === true) {
+      props.fetchUser();
     }
-  }
+  }, []);
 
-  if (questions === 0) {
-    return <QuestionStarting changeQuestion={changeQuestion} />;
-  } else if (questions === 1) {
-    return <QuestionBasic changeQuestion={changeQuestion} />;
-  } else if (questions === 2) {
-    return <QuestionGradient changeQuestion={changeQuestion} />;
-  } else {
-    return <EndQuestion changeQuestion={changeQuestion} />;
+  const history = useHistory();
+
+  let { step } = useParams(); // getting the step for which the questions must be fetched
+  if (props.questions.bg === 0) {
+    // if we are fetching the questions for the first time
+    return (
+      <QuestionStarting
+        fetchQuestion={props.fetchQuestions}
+        Loading={props.utils.loading}
+        step={step}
+        Transaction={props.user.Transaction}
+      />
+    );
+  } else if (props.questions.bg === 1) {
+    // if bg is set to 1
+    return (
+      <QuestionBasic
+        Question={props.questions.Question}
+        Options={props.questions.Options}
+        Type={props.questions.Type}
+        fetchQuestion={props.fetchQuestions}
+        step={step}
+        loading={props.utils.loading}
+        Transaction={props.user.Transaction}
+      />
+    );
+  } else if (props.questions.bg === 2) {
+    return (
+      <QuestionGradient
+        Question={props.questions.Question}
+        Options={props.questions.Options}
+        Type={props.questions.Type}
+        fetchQuestion={props.fetchQuestions}
+        step={step}
+        loading={props.utils.loading}
+        Transaction={props.user.Transaction}
+      />
+    );
+  } else if (props.questions.bg === 3) {
+    // if the questiong have been completed
+    return <EndQuestion history={history} />;
   }
 }
 
-export default Questionnaire;
+export default connect(mapStateToProps, mapDispatchToProps)(Questionnaire);

@@ -23,17 +23,14 @@ const PrivateRoute = (
 function Main() {
   return (
     <Switch>
-      <PrivateRoute path="/onboard" component={Onboarding} />
-      <PrivateRoute path="/roadmap" component={Roadmap} />
+      <PrivateRoute path="/onboarding" component={Onboarding} />
+      <PrivateRoute path="/dashboard" component={Roadmap} />
       <PrivateRoute path="/documents" component={Document} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
-      <PrivateRoute
-        path="/preapproval-dashboard"
-        component={PreApprovalDashboard}
-      />
+      <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
       <PrivateRoute path="/tasks_dashboard" component={TasksDashboard} />
-      <PrivateRoute path="/questions" component={Questionnaire} />
+      <PrivateRoute path="/questions/:step" component={Questionnaire} />
       <Redirect exact from="/" to="/signin" />
       <Route path="*" component={Signin} />
       {/* Later change the last route to a error page */}

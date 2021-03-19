@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Grid, IconButton, Button } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import RedHeart from "../../assets/Red_heart.png";
 import Logo1 from "../../assets/Onboarding_1.png";
@@ -136,7 +137,7 @@ function Screen3({ page, increment }) {
   );
 }
 
-function Screen4({ page }) {
+function Screen4({ page, history }) {
   // Code fpor screen 4
   return (
     <Scaffold>
@@ -172,6 +173,7 @@ function Screen4({ page }) {
         primary
         variant="primary"
         className="onboarding-lets-go-btn"
+        onClick={() => history.push("/dashboard")}
       >
         Let's Go!
       </ReallosButton>
@@ -181,6 +183,7 @@ function Screen4({ page }) {
 
 function Onboarding() {
   const [page, incrementPage] = useState(0);
+  const history = useHistory();
   switch (page) {
     case 0:
       return <Screen1 page={page} increment={incrementPage} />;
@@ -189,7 +192,9 @@ function Onboarding() {
     case 2:
       return <Screen3 page={page} increment={incrementPage} />;
     case 3:
-      return <Screen4 page={page} increment={incrementPage} />;
+      return (
+        <Screen4 page={page} increment={incrementPage} history={history} />
+      );
   }
 }
 
