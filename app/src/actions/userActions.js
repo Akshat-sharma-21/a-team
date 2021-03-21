@@ -93,6 +93,88 @@ export function login(user) {
   };
 }
 
+export function loginWithGoggle() {
+  return (dispatch) => {
+    myFirebase
+      .auth()
+      .signInWithRedirect(new myFirebase.auth.GoogleAuthProvider())
+      .catch((err) => {
+        dispatch(setErrors(err)); // dispatching an action to set the errors
+      });
+  };
+}
+
+export function loginWithGoggleHelper() {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    myFirebase
+      .auth()
+      .getRedirectResult()
+      .then((res) => {
+        // only if there was a sign in with Redirect
+        if (res.user !== null) {
+          localStorage.setItem("Id", res.user.uid); // storing the uid in localStorage
+          localStorage.setItem("Email", res.user.email); // storing the email of the user
+          return res.user.getIdToken();
+        } else {
+          dispatch(setLoadingFalse()); // dispatching an action to set loading to false
+        }
+      })
+      .then((token) => {
+        if (token) {
+          // if a token was passed
+          localStorage.setItem("Token", token);
+          myFirestore
+            .collection("Users")
+            .doc(localStorage.getItem("Id"))
+            .get()
+            .then((doc) => {
+              if (!doc.exists) {
+                // if the doc does not exist
+                dispatch(setLoadingFalse());
+                window.location.href = "/SignupWithProvider";
+              } else {
+                // if the basic information about the user exists
+                window.location.href = "/dashboard"; // sending th
+              }
+            });
+        }
+      });
+  };
+}
+
+export function signupWithProvider(user) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    myFirestore
+      .collection("Users")
+      .doc(localStorage.getItem("Id"))
+      .set({
+        Name: user.name,
+        Email: user.email,
+        Phone: user.phone,
+        FirstTime: false, // This is set to false as we will automatically send the user to onboarding
+      })
+      .then(() => {
+        axios
+          .post("/create-transaction", {
+            buyer: user.name,
+            buyerId: localStorage.getItem("Id"),
+          })
+          .then(() => {
+            dispatch(setLoadingFalse());
+            window.location.href = "/onboarding";
+          })
+          .catch((err) => {
+            dispatch(setErrors(err));
+          });
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
 export function fetchUser() {
   return (dispatch) => {
     let Id = localStorage.getItem("Id");

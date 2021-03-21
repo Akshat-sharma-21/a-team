@@ -15,14 +15,21 @@ import LinkedInLogo from "../../../assets/linkedin_logo.png";
 import "./SignIn.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { login } from "../../../actions/userActions";
+import {
+  login,
+  loginWithGoggle,
+  loginWithGoggleHelper,
+} from "../../../actions/userActions";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators(
+    { login, loginWithGoggle, loginWithGoggleHelper },
+    dispatch
+  );
 };
 
 const styles = (theme) => ({
@@ -40,6 +47,10 @@ class SignIn extends React.Component {
       password: "",
       isPasswordVisible: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.loginWithGoggleHelper();
   }
 
   render() {
@@ -121,11 +132,22 @@ class SignIn extends React.Component {
         </div>
 
         <div className="social-signin-group">
-          <Fab color="primary" size="large" aria-label="Login with Google">
+          <Fab
+            color="primary"
+            size="large"
+            aria-label="Login with Google"
+            disabled={this.props.utils.loading}
+            onClick={() => this.props.loginWithGoggle()}
+          >
             <img src={GoogleLogo} />
           </Fab>
 
-          <Fab color="primary" size="large" aria-label="Login with LinkedIn">
+          <Fab
+            color="primary"
+            size="large"
+            aria-label="Login with LinkedIn"
+            disabled={this.props.utils.loading}
+          >
             <img
               src={LinkedInLogo}
               style={{
@@ -153,6 +175,7 @@ class SignIn extends React.Component {
             dense
             variant="light"
             innerContentColor="#1dadee"
+            disabled={this.props.utils.loading}
             onClick={() => navigateTo("/signup", this.props.history)}
           >
             Signup
