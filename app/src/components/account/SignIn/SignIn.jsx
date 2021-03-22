@@ -11,14 +11,15 @@ import {
 import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
 import HomeImage from "../../../assets/signin_home.png";
 import GoogleLogo from "../../../assets/google_logo.png";
-import LinkedInLogo from "../../../assets/linkedin_logo.png";
+import FacebookLogo from "../../../assets/facebook_logo.png";
 import "./SignIn.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   login,
   loginWithGoggle,
-  loginWithGoggleHelper,
+  loginWithProviderHelper,
+  loginWithFacebook,
 } from "../../../actions/userActions";
 
 const mapStateToProps = (state) => ({
@@ -27,7 +28,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { login, loginWithGoggle, loginWithGoggleHelper },
+    { login, loginWithGoggle, loginWithProviderHelper, loginWithFacebook },
     dispatch
   );
 };
@@ -50,7 +51,7 @@ class SignIn extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loginWithGoggleHelper();
+    this.props.loginWithProviderHelper();
   }
 
   render() {
@@ -147,14 +148,9 @@ class SignIn extends React.Component {
             size="large"
             aria-label="Login with LinkedIn"
             disabled={this.props.utils.loading}
+            onClick={() => this.props.loginWithFacebook()}
           >
-            <img
-              src={LinkedInLogo}
-              style={{
-                height: 35,
-                width: 35,
-              }}
-            />
+            <img src={FacebookLogo} />
           </Fab>
         </div>
 

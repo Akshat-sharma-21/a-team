@@ -104,7 +104,18 @@ export function loginWithGoggle() {
   };
 }
 
-export function loginWithGoggleHelper() {
+export function loginWithFacebook() {
+  return (dispatch) => {
+    myFirebase
+      .auth()
+      .signInWithRedirect(new myFirebase.auth.FacebookAuthProvider())
+      .catch((err) => {
+        dispatch(setErrors(err)); // dispatching an action to set the errors
+      });
+  };
+}
+
+export function loginWithProviderHelper() {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     myFirebase
