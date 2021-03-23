@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { muiThemeOptions } from '../../../utils';
-import { Container, createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { BottomNav } from '../core';
-import './Scaffold.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { muiThemeOptions } from "../../../utils";
+import { Container, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { BottomNav } from "../core";
+import "./Scaffold.css";
 
 /**
  * `Scaffold` encloses all the children components of
@@ -41,32 +41,37 @@ class Scaffold extends React.Component {
      *
      * _(Default: "plain")_
      */
-    bgVariant: PropTypes.oneOf(['plain', 'gradient']),
+    bgVariant: PropTypes.oneOf(["plain", "gradient"]),
 
     /**
      * If set to `true`, the page would include a
      * bottom navigation bar.
-     * 
+     *
      * _(Default: `false`)_
      */
     bottomNav: PropTypes.bool,
 
     /**
+     * To set which bottomNav tab is active
+     * (Default: 'Dashboard')
+     */
+    bottomNavActive: PropTypes.string,
+
+    /**
      * CSS class name to be applied to this component
      */
-    className: PropTypes.string
-  }
+    className: PropTypes.string,
+  };
 
   cleanupBodyClassNames() {
     // Remove `body` classes associated with this component
-    document.body.classList.remove('reallos-gradient-bg');
+    document.body.classList.remove("reallos-gradient-bg");
   }
 
   componentDidMount() {
-    if (this.props.bgVariant === 'gradient') {
-      document.body.classList.add('reallos-gradient-bg');
-    }
-    else {
+    if (this.props.bgVariant === "gradient") {
+      document.body.classList.add("reallos-gradient-bg");
+    } else {
       this.cleanupBodyClassNames();
     }
   }
@@ -76,21 +81,28 @@ class Scaffold extends React.Component {
   }
 
   render() {
-    const { children, className='', bottomNav=false, bgVariant='plain' } = this.props;
+    const {
+      children,
+      className = "",
+      bottomNav = false,
+      bgVariant = "plain",
+    } = this.props;
 
     let InnerContent = (
-      <div style={{
-        marginBottom: bottomNav ? 90 : 'unset'
-      }}>
-        {bottomNav && <BottomNav />}
-      
+      <div
+        style={{
+          marginBottom: bottomNav ? 90 : "unset",
+        }}
+      >
+        {bottomNav && <BottomNav Active={this.props.bottomNavActive} />}
+
         <Container
           className={className}
           style={{
             paddingLeft: 30,
             paddingRight: 30,
             paddingTop: 20,
-            paddingBottom: 20
+            paddingBottom: 20,
           }}
         >
           {children}
@@ -98,24 +110,21 @@ class Scaffold extends React.Component {
       </div>
     );
 
-    if (bgVariant === 'gradient') {
+    if (bgVariant === "gradient") {
       let customMuiTheme;
       let customMuiThemeOptions = muiThemeOptions;
 
-      customMuiThemeOptions.palette.type = 'dark';
+      customMuiThemeOptions.palette.type = "dark";
       customMuiThemeOptions.palette.primary = {
-        main: '#ffffff'
+        main: "#ffffff",
       };
 
       customMuiTheme = createMuiTheme(customMuiThemeOptions);
 
       return (
-        <ThemeProvider theme={customMuiTheme}>
-          {InnerContent}
-        </ThemeProvider>
-      )
-    }
-    else {
+        <ThemeProvider theme={customMuiTheme}>{InnerContent}</ThemeProvider>
+      );
+    } else {
       return InnerContent;
     }
   }

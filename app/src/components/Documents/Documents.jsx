@@ -3,16 +3,10 @@ import { useLocation } from "react-router";
 import { Scaffold, SearchBar } from "../utilities/core";
 import NoDoc from "../../assets/Documents-Img.png";
 import DocumentCard from "./DocumentCard";
-import { SearchIcon } from '@primer/octicons-react';
+import { SearchIcon } from "@primer/octicons-react";
 import "./Documents.css";
 
-import {
-  Grid,
-  Divider,
-  Box,
-  CircularProgress,
-} from "@material-ui/core";
-
+import { Grid, Divider, Box, CircularProgress } from "@material-ui/core";
 
 function Documents() {
   let [documents, setDocuments] = useState(null);
@@ -27,43 +21,43 @@ function Documents() {
 
     return () => {
       // Cleanup
-    }
+    };
   }, []);
 
-  const _dummyApi = (emptyResponse=false, timeout=2000) => {
+  const _dummyApi = (emptyResponse = false, timeout = 2000) => {
     return new Promise((resolve, _) => {
       const _documents = [
         {
-          id: 'reqsqwexyg',
-          name: 'Document 1',
-          creator: 'John Doe',
-          path: ''
+          id: "reqsqwexyg",
+          name: "Document 1",
+          creator: "John Doe",
+          path: "",
         },
         {
-          id: 'fhuwierwieo',
-          name: 'Document 2',
-          creator: 'You',
-          path: ''
+          id: "fhuwierwieo",
+          name: "Document 2",
+          creator: "You",
+          path: "",
         },
         {
-          id: 'sjqiwuewdad',
-          name: 'Document 3',
-          creator: 'Mr. Bean',
-          path: ''
+          id: "sjqiwuewdad",
+          name: "Document 3",
+          creator: "Mr. Bean",
+          path: "",
         },
         {
-          id: 'ascnoqwewqe',
-          name: 'Document 4',
-          creator: 'Mr. Bean',
-          path: ''
-        }
+          id: "ascnoqwewqe",
+          name: "Document 4",
+          creator: "Mr. Bean",
+          path: "",
+        },
       ];
-      
+
       setTimeout(() => {
         resolve(emptyResponse ? [] : _documents);
       }, timeout);
-    })
-  }
+    });
+  };
 
   const PrimaryContent = () => {
     if (documents === null || filteredDocuments === null) {
@@ -71,14 +65,16 @@ function Documents() {
         <div className="documents-single-view-container">
           <CircularProgress />
 
-          <div style={{
-            marginTop: 50,
-            fontSize: 20,
-          }}>
+          <div
+            style={{
+              marginTop: 50,
+              fontSize: 20,
+            }}
+          >
             Fetching Documents...
           </div>
         </div>
-      )
+      );
     } else if (documents.length === 0) {
       // If there are no documents that are uploaded for the user
       return (
@@ -94,13 +90,13 @@ function Documents() {
             place...
           </p>
         </div>
-      )
+      );
     } else if (filteredDocuments.length === 0) {
       // If no documents matched the search term
       return (
         <div
           className="documents-single-view-container"
-          style={{ textAlign: 'center' }}
+          style={{ textAlign: "center" }}
         >
           <Grid
             item
@@ -117,7 +113,10 @@ function Documents() {
             </Box>
           </Grid>
           <Grid item>
-            <Box marginTop={-2} style={{ fontSize: 18, fontFamily: 'Open Sans' }}>
+            <Box
+              marginTop={-2}
+              style={{ fontSize: 18, fontFamily: "Open Sans" }}
+            >
               The entered search term did not match any documents
             </Box>
           </Grid>
@@ -128,37 +127,30 @@ function Documents() {
       return (
         <div>
           <div style={{ marginTop: 20, marginBottom: 20 }}>
-            <div className="documents-heading-2">
-              Pre-approval
-            </div>
+            <div className="documents-heading-2">Pre-approval</div>
 
             <Divider variant="fullWidth" className="doc-divider" />
           </div>
 
           <Grid container spacing={2}>
             {filteredDocuments.map((docData) => (
-              <DocumentCard
-                key={docData.id}
-                docData={docData}
-              />
+              <DocumentCard key={docData.id} docData={docData} />
             ))}
           </Grid>
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
-    <Scaffold bottomNav>
+    <Scaffold bottomNav bottomNavActive="Documents">
       <Grid container direction="column">
         <div className="page-header">
-          <h1 className="documents-heading">
-            Documents
-          </h1>
+          <h1 className="documents-heading">Documents</h1>
 
           {documents && (
             <SearchBar
-              filterByFields={['name', 'creator']}
+              filterByFields={["name", "creator"]}
               list={documents}
               onUpdate={(filtered) => {
                 setFilteredDocuments(filtered);
@@ -170,7 +162,7 @@ function Documents() {
         {PrimaryContent()}
       </Grid>
     </Scaffold>
-  )
+  );
 }
 
 export default Documents;

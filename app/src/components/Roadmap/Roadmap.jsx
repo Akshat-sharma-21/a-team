@@ -40,7 +40,7 @@ function Roadmap() {
   };
 
   return (
-    <Scaffold bottomNav>
+    <Scaffold bottomNav bottomNavActive="Dashboard">
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={7}>
           <div className="roadmap-heading">Roadmap</div>

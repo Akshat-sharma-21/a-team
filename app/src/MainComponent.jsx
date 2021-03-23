@@ -31,7 +31,7 @@ function Main() {
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
       <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
-      <PrivateRoute path="/tasks_dashboard" component={TasksDashboard} />
+      <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
       <Redirect exact from="/" to="/signin" />
       <Route path="*" component={Signin} />
