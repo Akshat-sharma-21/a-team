@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import TransactionAssistIllustration from "../../assets/transaction-assist-first-time.png";
 import AssistPreApproval from "./AssistPreApproval";
 import AssistFindAgent from "./AssistFindAgent";
+import AssistHomeInspection from "./AssistHomeInspection";
+import AssistEscrowTitle from "./AssistEscrowTitle";
+import AssistClosing from "./AssistClosing";
+import AssistHomeInsurance from "./AssistHomeInsurance";
+import AssistLoanApproval from "./AssistLoanApproval";
 import "./TransactionAssist.css";
 
 import {
@@ -20,6 +25,7 @@ import { bindActionCreators } from "redux";
 import { fetchUser } from "../../actions/userActions";
 
 const mapStateToProps = (state) => ({
+  task: state.task,
   utils: state.utils,
   transaction: state.transaction,
 });
@@ -135,8 +141,27 @@ function TransactionAssist(props) {
           spacing={2}
           style={{ marginBottom: 20 }}
         >
-          <AssistPreApproval />
-          <AssistFindAgent />
+          {props.task.HomeInspection.Tasks.length !== 0 ? (
+            <AssistHomeInspection list={props.task.HomeInspection} />
+          ) : null}
+          {props.task.HomeInsurance.Tasks.length !== 0 ? (
+            <AssistHomeInsurance list={props.task.HomeInsurance} />
+          ) : null}
+          {props.task.PreApproval.Tasks.length !== 0 ? (
+            <AssistPreApproval list={props.task.PreApproval} />
+          ) : null}
+          {props.task.EscrowTitle.Tasks.length !== 0 ? (
+            <AssistEscrowTitle list={props.task.EscrowTitle} />
+          ) : null}
+          {props.task.FindAgent.Tasks.length !== 0 ? (
+            <AssistFindAgent list={props.task.FindAgent} />
+          ) : null}
+          {props.task.LoanApproval.Tasks.length !== 0 ? (
+            <AssistLoanApproval list={props.task.LoanApproval} />
+          ) : null}
+          {props.task.Closing.Tasks.length !== 0 ? (
+            <AssistClosing list={props.task.Closing} />
+          ) : null}
         </Grid>
       );
   };
@@ -145,16 +170,18 @@ function TransactionAssist(props) {
     if (props.utils.loading === true)
       return (
         <Grid container spacing={2}>
-          {Array(4).fill(0).map(() => (
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Skeleton
-                animation="wave"
-                variant="rect"
-                height={68.4}
-                style={{ borderRadius: 10 }}
-              />
-            </Grid>
-          ))}
+          {Array(4)
+            .fill(0)
+            .map(() => (
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Skeleton
+                  animation="wave"
+                  variant="rect"
+                  height={68.4}
+                  style={{ borderRadius: 10 }}
+                />
+              </Grid>
+            ))}
         </Grid>
       );
   };

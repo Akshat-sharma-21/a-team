@@ -27,7 +27,7 @@ import {
  * Implements Pre-approval tasks, documents, etc.
  * to be displayed in transaction assist
  */
-class AssistFindAgent extends React.Component {
+class AssistClosing extends React.Component {
   constructor(props) {
     super(props);
 
@@ -74,7 +74,7 @@ class AssistFindAgent extends React.Component {
         <AssistAccordion
           isStepComplete={false}
           AccordionStepIcon={<CheckCircleIcon size={23} />}
-          title="Find an Agent"
+          title="Closing"
           itemIndex={0}
         >
           {/* TASK LIST */}
@@ -276,4 +276,4 @@ class AssistFindAgent extends React.Component {
   }
 }
 
-export default AssistFindAgent;
+export default AssistClosing;
