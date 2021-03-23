@@ -11,18 +11,26 @@ import {
 import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
 import HomeImage from "../../../assets/signin_home.png";
 import GoogleLogo from "../../../assets/google_logo.png";
-import LinkedInLogo from "../../../assets/linkedin_logo.png";
+import FacebookLogo from "../../../assets/facebook_logo.png";
 import "./SignIn.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { login } from "../../../actions/userActions";
+import {
+  login,
+  loginWithGoggle,
+  loginWithProviderHelper,
+  loginWithFacebook,
+} from "../../../actions/userActions";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators(
+    { login, loginWithGoggle, loginWithProviderHelper, loginWithFacebook },
+    dispatch
+  );
 };
 
 const styles = (theme) => ({
@@ -40,6 +48,10 @@ class SignIn extends React.Component {
       password: "",
       isPasswordVisible: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.loginWithProviderHelper();
   }
 
   render() {
@@ -121,18 +133,24 @@ class SignIn extends React.Component {
         </div>
 
         <div className="social-signin-group">
-          <Fab color="primary" size="large" aria-label="Login with Google">
+          <Fab
+            color="primary"
+            size="large"
+            aria-label="Login with Google"
+            disabled={this.props.utils.loading}
+            onClick={() => this.props.loginWithGoggle()}
+          >
             <img src={GoogleLogo} />
           </Fab>
 
-          <Fab color="primary" size="large" aria-label="Login with LinkedIn">
-            <img
-              src={LinkedInLogo}
-              style={{
-                height: 35,
-                width: 35,
-              }}
-            />
+          <Fab
+            color="primary"
+            size="large"
+            aria-label="Login with LinkedIn"
+            disabled={this.props.utils.loading}
+            onClick={() => this.props.loginWithFacebook()}
+          >
+            <img src={FacebookLogo} />
           </Fab>
         </div>
 
@@ -153,6 +171,7 @@ class SignIn extends React.Component {
             dense
             variant="light"
             innerContentColor="#1dadee"
+            disabled={this.props.utils.loading}
             onClick={() => navigateTo("/signup", this.props.history)}
           >
             Signup

@@ -7,6 +7,7 @@ import Signin from "./components/account/SignIn/SignIn";
 import Signup from "./components/account/SignUp/SignUp";
 import PreApprovalDashboard from "./components/PreApprovalDashboard/PreApprovalDashboard";
 import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
+import SignUpWithProvider from "./components/account/SignUpWithProviders/SignUpWithProviders";
 import { getAuth } from "./Authenticate";
 
 const PrivateRoute = (
@@ -26,6 +27,7 @@ function Main() {
       <PrivateRoute path="/onboarding" component={Onboarding} />
       <PrivateRoute path="/dashboard" component={Roadmap} />
       <PrivateRoute path="/documents" component={Document} />
+      <PrivateRoute path="/SignupWithProvider" component={SignUpWithProvider} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
       <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
