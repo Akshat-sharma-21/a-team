@@ -39,7 +39,7 @@ function registrationReducer(state = initialState, action) {
     case actions.INCREMENT_STEP: {
       return {
         ...state,
-        step: state.step + 1,
+        step: action.payload,
       };
     }
     case actions.DECREMENT_STEP: {
@@ -77,6 +77,12 @@ function registrationReducer(state = initialState, action) {
       return {
         ...state,
         emailHash: action.Hash,
+      };
+    }
+    case actions.SET_PHONE_HASH: {
+      return {
+        ...state,
+        phoneHash: action.Hash,
       };
     }
     default: {
