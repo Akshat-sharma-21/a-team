@@ -9,6 +9,7 @@ import {
   addTransactionFunction,
   removeAllTransactionsFunction,
 } from "./transactionActions";
+import { fetchTasksAction } from "./taskActions";
 export const ADD_USER = "ADD_USER"; // Action to add the user to the redux store
 export const EDIT_USER = "EDIT_USER"; // Action to edit the user
 
@@ -74,6 +75,7 @@ export function fetchUser() {
                         Name: doc.data().Name,
                       })
                     );
+                    dispatch(fetchTasksAction(doc.data()));
                   })
                   .then(() => {
                     if (counter === doc.data().Transactions_List.length) {
