@@ -28,29 +28,15 @@ import {
  * to be displayed in transaction assist
  */
 class AssistPreApproval extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isAddTaskDrawerVisible: false,
       isEntireTaskListVisible: false,
-      taskList: [
-        { name: "Task 1", date: "10 July", completed: true },
-        { name: "Task 2", date: "11 July", completed: true },
-        { name: "Task 3", date: "12 July", completed: false },
-        { name: "Task 4", date: "13 July", completed: false },
-        { name: "Task 5", date: "14 July", completed: false },
-        { name: "Task 6", date: "15 July", completed: false },
-        { name: "Task 7", date: "16 July", completed: false },
-      ],
-      documentsList: [
-        { name: "Document 1", isFilled: true, link: "#" },
-        { name: "Document 2", isFilled: true, link: "#" },
-        { name: "Document 3", isFilled: false, link: "#" },
-        { name: "Document 4", isFilled: false, link: "#" },
-        { name: "Document 5", isFilled: false, link: "#" },
-        { name: "Document 6", isFilled: true, link: "#" },
-      ],
+
+      taskList: this.props.list.Tasks,
+      docList: this.props.list.Documents,
     };
   }
 
@@ -88,7 +74,7 @@ class AssistPreApproval extends React.Component {
         <AssistAccordion
           isStepComplete={false}
           AccordionStepIcon={<CheckCircleIcon size={23} />}
-          title="Pre-approval"
+          title="Pre-Approval"
           itemIndex={0}
         >
           {/* TASK LIST */}
@@ -97,7 +83,7 @@ class AssistPreApproval extends React.Component {
               <h1>Tasks</h1>
               <span className="assist-accordion-section-status">
                 {
-                  this.state.taskList.filter((taskItem) => taskItem.completed)
+                  this.state.taskList.filter((taskItem) => taskItem.Completed)
                     .length
                 }{" "}
                 of {this.state.taskList.length} completed
@@ -119,19 +105,20 @@ class AssistPreApproval extends React.Component {
                 .slice(
                   0,
                   this.state.isEntireTaskListVisible
-                    ? this.state.taskList.length
+                    ? this.state.taskList1.length
                     : taskListSplitPoint
                 )
                 .map((task) => {
+                  let date = task.Date.toDate().toDateString();
                   return (
                     <ListItem
                       className={[
                         "assist-task-list-item",
-                        task.completed ? "assist-task-completed" : "",
+                        task.Completed ? "assist-task-completed" : "",
                       ].join(" ")}
                     >
                       <ListItemIcon className="assist-task-list-item-icon">
-                        {task.completed ? (
+                        {task.Completed ? (
                           <div style={{ color: "#0dd663" }}>
                             <CheckIcon size={20} />
                           </div>
@@ -144,10 +131,10 @@ class AssistPreApproval extends React.Component {
 
                       <ListItemText>
                         <span className="assist-task-list-item-date">
-                          {task.date}
+                          {date}
                         </span>
                         <span className="assist-task-list-item-label">
-                          {task.name}
+                          {task.Title}
                         </span>
                       </ListItemText>
                     </ListItem>
@@ -175,15 +162,15 @@ class AssistPreApproval extends React.Component {
               <h1>Documents</h1>
               <span className="assist-accordion-section-status">
                 {
-                  this.state.documentsList.filter((docItem) => docItem.isFilled)
+                  this.state.docList.filter((docItem) => docItem.isFilled)
                     .length
                 }{" "}
-                of {this.state.documentsList.length} completed
+                of {this.state.docList.length} completed
               </span>
             </div>
 
             <Grid container spacing={1} className="assist-doc-grid-root">
-              {this.state.documentsList.map((doc) => {
+              {this.state.docList.map((doc) => {
                 return (
                   <Grid
                     item
@@ -195,7 +182,7 @@ class AssistPreApproval extends React.Component {
                   >
                     <a
                       className="assist-doc-grid-item link-basic"
-                      href={doc.link}
+                      href={doc.Link}
                     >
                       <div className="assist-doc-grid-item-icon">
                         <img
@@ -206,7 +193,7 @@ class AssistPreApproval extends React.Component {
 
                       <div className="assist-doc-grid-item-text-wrapper">
                         <div className="assist-doc-grid-item-heading">
-                          {doc.name}
+                          {doc.Name}
                         </div>
                         <div className="assist-doc-grid-item-subheading">
                           {doc.isFilled
