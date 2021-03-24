@@ -90,13 +90,10 @@ export function verifyEmail(emailCode, hash) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post(
-        "https://us-central1-reallos-app-78a3a.cloudfunctions.net/api/verify-email",
-        {
-          code: emailCode,
-          hash: hash,
-        }
-      )
+      .post("/verify-email", {
+        code: emailCode,
+        hash: hash,
+      })
       .then((res) => {
         if (res.data.verified === true) {
           // if the hash matches
