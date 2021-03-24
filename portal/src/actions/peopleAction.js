@@ -1,5 +1,6 @@
 import { myFirestore } from "../FirebaseConfig";
 import { setErrors, setLoadingTrue, setLoadingFalse } from "./utilActions";
+import axios from "axios";
 
 export const ADD_PEOPLE = "ADD_PEOPLE";
 export const REMOVE_ALL = "REMOVE_ALL";
@@ -37,6 +38,28 @@ export function fetchPeople(tid) {
       })
       .catch((err) => {
         dispatch(setErrors());
+      });
+  };
+}
+
+export function sendMail(email, from, transaction, emailContent) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    axios
+      .post("/send-email", {
+        email: email,
+        from: from,
+        transaction: transaction,
+        subject: emailContent.subject,
+        message: emailContent.message,
+      })
+      .then((res) => {
+        if (res.data.sent === true) {
+          // if the email has been sent
+          dispatch(setLoadingFalse());
+        } else {
+          dispatch(setErrors("Problem in sending the email"));
+        }
       });
   };
 }
