@@ -88,11 +88,11 @@ class ReallosButton extends React.Component {
          *
          * _(Default: "auto")_
          */
-        innerContentColor: PropTypes.oneOf(
+        innerContentColor: PropTypes.oneOf([
             "auto",
             "primary",
             PropTypes.string
-        ),
+        ]),
 
         /**
          * If set to `true`, the button will be disabled,
