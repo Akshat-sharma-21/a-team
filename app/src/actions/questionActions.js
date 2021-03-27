@@ -15,7 +15,7 @@ export function fetchQuestions(tid, step, question, answer) {
         answer: answer,
       })
       .then((res) => {
-        if (res.data.Completed === true) {
+        if (res.data.completed === true) {
           // if the questioning have been completed
           dispatch(setLoadingFalse()); // disaptching an action to set loading to false
           dispatch(setCompletedQuestionsAction());
