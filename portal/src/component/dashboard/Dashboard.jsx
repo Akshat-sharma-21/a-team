@@ -25,12 +25,18 @@ import {
 } from "@primer/octicons-react";
 
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { sendInvitation } from "../../actions/transactionActions";
 
 const mapStateToProps = (state) => ({
   user: state.user,
   utils: state.utils,
   transaction: state.transaction,
 });
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ sendInvitation }, dispatch);
+};
 
 function Dashboard(props) {
   let [isInvitationModalVisible, setInvitationModalVisiblity] = useState(false);
@@ -157,12 +163,22 @@ function Dashboard(props) {
           <Grid item style={{ marginTop: 30 }}>
             <Grid container direction="row" justify="flex-end" spacing={1}>
               <Grid item>
-                <ReallosButton onClick={closeInvitation}>Cancel</ReallosButton>
+                <ReallosButton onClick={() => closeInvitation()}>
+                  Cancel
+                </ReallosButton>
               </Grid>
               <Grid item>
                 <ReallosButton
                   primary
                   disabled={!invitationEmail && !invitationPhone}
+                  onClick={() => {
+                    props.sendInvitation(
+                      invitationEmail,
+                      invitationPhone,
+                      props.user
+                    );
+                    closeInvitation();
+                  }}
                 >
                   Send Invite
                   <PaperAirplaneIcon className="dashboard-invite-send-icon" />
@@ -331,7 +347,7 @@ function Dashboard(props) {
 
         {props.utils.loading === false && (
           <ReallosFab
-            title="New Transaction"
+            title="Send Invitation"
             LeadingIcon={<PlusIcon size={20} />}
             onClick={() => showInvitationModal()}
           />
@@ -341,4 +357,4 @@ function Dashboard(props) {
   );
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

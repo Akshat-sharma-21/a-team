@@ -142,25 +142,25 @@ function TransactionAssist(props) {
           style={{ marginBottom: 20 }}
         >
           {props.task.HomeInspection.Tasks.length !== 0 ? (
-            <AssistHomeInspection list={props.task.HomeInspection} />
+            <AssistHomeInspection list={props.task.HomeInspection} tid={tid} />
           ) : null}
           {props.task.HomeInsurance.Tasks.length !== 0 ? (
-            <AssistHomeInsurance list={props.task.HomeInsurance} />
+            <AssistHomeInsurance list={props.task.HomeInsurance} tid={tid} />
           ) : null}
           {props.task.PreApproval.Tasks.length !== 0 ? (
-            <AssistPreApproval list={props.task.PreApproval} />
+            <AssistPreApproval list={props.task.PreApproval} tid={tid} />
           ) : null}
           {props.task.EscrowTitle.Tasks.length !== 0 ? (
-            <AssistEscrowTitle list={props.task.EscrowTitle} />
+            <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
           ) : null}
           {props.task.FindAgent.Tasks.length !== 0 ? (
-            <AssistFindAgent list={props.task.FindAgent} />
+            <AssistFindAgent list={props.task.FindAgent} tid={tid} />
           ) : null}
           {props.task.LoanApproval.Tasks.length !== 0 ? (
-            <AssistLoanApproval list={props.task.LoanApproval} />
+            <AssistLoanApproval list={props.task.LoanApproval} tid={tid} />
           ) : null}
           {props.task.Closing.Tasks.length !== 0 ? (
-            <AssistClosing list={props.task.Closing} />
+            <AssistClosing list={props.task.Closing} tid={tid} />
           ) : null}
         </Grid>
       );

@@ -93,6 +93,7 @@ export function verifyEmail(emailCode, hash) {
       .post("/verify-email", {
         code: emailCode,
         hash: hash,
+        id: localStorage.getItem("Id"),
       })
       .then((res) => {
         if (res.data.verified === true) {
@@ -134,6 +135,7 @@ export function verifyPhone(phoneCode, hash) {
       .post("/verify-phone", {
         code: phoneCode,
         hash: hash,
+        id: localStorage.getItem("Id"),
       })
       .then((res) => {
         if (res.data.verified === true) {
