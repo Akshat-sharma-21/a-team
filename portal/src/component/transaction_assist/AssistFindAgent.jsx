@@ -23,8 +23,21 @@ import {
   TextField,
 } from "@material-ui/core";
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { addFindAgentTask } from "../../actions/taskActions";
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      addFindAgentTask,
+    },
+    dispatch
+  );
+};
+
 /**
- * Implements Pre-approval tasks, documents, etc.
+ * Implements Find-Agent tasks, documents, etc.
  * to be displayed in transaction assist
  */
 class AssistFindAgent extends React.Component {
@@ -37,9 +50,15 @@ class AssistFindAgent extends React.Component {
 
       taskList: this.props.list.Tasks,
       docList: this.props.list.Documents,
-    };
-  }
 
+      taskTitle: "",
+      taskDescription: "",
+      taskDate: "",
+      taskPriority: "",
+    };
+    this.addTask = this.addTask.bind(this);
+    this.newList = {};
+  }
   /**
    * Shows "Add Task" drawer.
    */
@@ -55,7 +74,67 @@ class AssistFindAgent extends React.Component {
   hideAddTaskDrawer() {
     this.setState({
       isAddTaskDrawerVisible: false,
+      taskTitle: "",
+      taskDescription: "",
+      taskDate: "",
+      taskPriority: "",
     });
+  }
+
+  handleChange = (event) => {
+    event.preventDefault();
+    switch (event.target.name) {
+      case "taskTitle":
+        this.setState({ taskTitle: event.target.value });
+        break;
+
+      case "taskDescription":
+        this.setState({ taskDescription: event.target.value });
+        break;
+
+      case "taskDate":
+        this.setState({ taskDate: event.target.value });
+        break;
+
+      case "taskPriority":
+        this.setState({ taskPriority: event.target.value });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  dateToString(date) {
+    let dateObj = new Date(date);
+    const months = [
+      "Jan",
+      "Feb",
+      "March",
+      "Aril",
+      "May",
+      "June",
+      "July",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return dateObj.getDate() + " " + months[dateObj.getMonth()];
+  }
+
+  addTask() {
+    let dateString = this.dateToString(this.state.taskDate);
+    let newTask = {
+      Title: this.state.taskTitle,
+      Decreption: this.state.taskDescription,
+      Date: dateString,
+      Priority: this.state.taskPriority,
+      Completed: false,
+    };
+    this.props.addFindAgentTask(this.props.list, newTask, this.props.tid);
+    this.hideAddTaskDrawer();
   }
 
   render() {
@@ -74,7 +153,7 @@ class AssistFindAgent extends React.Component {
         <AssistAccordion
           isStepComplete={false}
           AccordionStepIcon={<CheckCircleIcon size={23} />}
-          title="Find an Agent"
+          title="Find-Agent"
           itemIndex={0}
         >
           {/* TASK LIST */}
@@ -109,7 +188,6 @@ class AssistFindAgent extends React.Component {
                     : taskListSplitPoint
                 )
                 .map((task) => {
-                  let date = task.Date.toDate().toDateString();
                   return (
                     <ListItem
                       className={[
@@ -131,7 +209,7 @@ class AssistFindAgent extends React.Component {
 
                       <ListItemText>
                         <span className="assist-task-list-item-date">
-                          {date}
+                          {task.Date}
                         </span>
                         <span className="assist-task-list-item-label">
                           {task.Title}
@@ -225,7 +303,15 @@ class AssistFindAgent extends React.Component {
               <TagIcon size={25} />
 
               <div>
-                <TextField fullWidth variant="outlined" label="Title" />
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  label="Title"
+                  type="text"
+                  name="taskTitle"
+                  value={this.state.taskTitle}
+                  onChange={this.handleChange}
+                />
               </div>
             </FormGroup>
 
@@ -238,6 +324,10 @@ class AssistFindAgent extends React.Component {
                   multiline
                   rows={8}
                   label="Description"
+                  type="text"
+                  name="taskDescription"
+                  value={this.state.taskDescription}
+                  onChange={this.handleChange}
                 />
               </div>
             </FormGroup>
@@ -245,14 +335,30 @@ class AssistFindAgent extends React.Component {
             <FormGroup row className="assist-add-task-drawer-form-field-group">
               <CalendarIcon size={25} className="tag-icon" />
               <div>
-                <TextField fullWidth variant="outlined" label="Date" />
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  label="Date"
+                  type="date"
+                  name="taskDate"
+                  value={this.state.taskDate}
+                  onChange={this.handleChange}
+                />
               </div>
             </FormGroup>
 
             <FormGroup row className="assist-add-task-drawer-form-field-group">
               <IssueOpenedIcon size={25} className="tag-icon" />
               <div>
-                <TextField fullWidth variant="outlined" label="Priority" />
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  label="Priority"
+                  type="text"
+                  name="taskPriority"
+                  value={this.state.taskPriority}
+                  onChange={this.handleChange}
+                />
               </div>
             </FormGroup>
           </div>
@@ -266,7 +372,7 @@ class AssistFindAgent extends React.Component {
               Back
             </ReallosButton>
 
-            <ReallosButton cta fullWidth primary>
+            <ReallosButton cta fullWidth primary onClick={this.addTask}>
               Add Task
             </ReallosButton>
           </div>
@@ -276,4 +382,4 @@ class AssistFindAgent extends React.Component {
   }
 }
 
-export default AssistFindAgent;
+export default connect(null, mapActionToProps)(AssistFindAgent);
