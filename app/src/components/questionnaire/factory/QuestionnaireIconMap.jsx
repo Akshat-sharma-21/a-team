@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import {
   FlameIcon,
   IssueOpenedIcon,
+  KeyIcon,
   RocketIcon,
   SmileyIcon,
   ThumbsdownIcon,
@@ -18,6 +19,7 @@ export const IconMap = {
   'SmileyIcon': <SmileyIcon size={iconSize} />,
   'RocketIcon': <RocketIcon size={iconSize} />,
   'FlameIcon': <FlameIcon size={iconSize} />,
+  'KeyIcon': <KeyIcon size={iconSize} />,
 };
 
 /**
