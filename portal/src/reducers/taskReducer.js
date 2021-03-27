@@ -27,43 +27,43 @@ function taskReducer(state = initialState, action) {
     case actions.ADD_CLOSING_TASKS: {
       return {
         ...state,
-        PreApproval: action.payload.PreApproval,
+        PreApproval: action.payload,
       };
     }
     case actions.ADD_ESCROWTITLE_TASKS: {
       return {
         ...state,
-        EscrowTitle: action.payload.EscrowTitle,
+        EscrowTitle: action.payload,
       };
     }
     case actions.ADD_FINDAGENT_TASKS: {
       return {
         ...state,
-        FindAgent: action.payload.FindAgent,
+        FindAgent: action.payload,
       };
     }
     case actions.ADD_HOMEINSPECTION_TASKS: {
       return {
         ...state,
-        HomeInspection: action.payload.HomeInspection,
+        HomeInspection: action.payload,
       };
     }
     case actions.ADD_HOMEINSURANCE_TASKS: {
       return {
         ...state,
-        HomeInsurance: action.payload.HomeInsurance,
+        HomeInsurance: action.payload,
       };
     }
     case actions.ADD_LOANAPPROVAL_TASKS: {
       return {
         ...state,
-        LoanApproval: action.payload.LoanApproval,
+        LoanApproval: action.payload,
       };
     }
     case actions.ADD_PREAPPROVAL_TASKS: {
       return {
         ...state,
-        PreApproval: action.payload.PreApproval,
+        PreApproval: action.payload,
       };
     }
     default: {
