@@ -63,13 +63,14 @@ class QuestionRendererFactory extends React.Component {
     } = this.props;
 
     if (questionData.type === "options") {
-      const { question, helper, options, bg } = this.props.questionData;
+      const { id, question, helper, options, bg } = this.props.questionData;
 
       return (
         <>
           {this.renderProgressBar()}
 
           <OptionTypeQuestion
+            key={id}
             questionTitle={question}
             helperText={helper}
             options={options}
@@ -83,13 +84,14 @@ class QuestionRendererFactory extends React.Component {
       );
     }
     else {
-      const { question, helper, inputLabel, bg } = this.props.questionData;
+      const { id, question, helper, inputLabel, bg } = this.props.questionData;
 
       return (
         <>
           {this.renderProgressBar()}
 
           <InputTypeQuestion
+            key={id}
             questionTitle={question}
             helperText={helper}
             inputLabel={inputLabel}
