@@ -26,18 +26,20 @@ import { PaperAirplaneIcon, SearchIcon } from "@primer/octicons-react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchPeople } from "../../actions/peopleAction";
+import { fetchPeople, sendMail } from "../../actions/peopleAction";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
   transaction: state.transaction,
   people: state.people,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchPeople,
+      sendMail,
     },
     dispatch
   );
@@ -47,6 +49,8 @@ function PeopleInvolved(props) {
   let [isSendMailModalVisible, toggleSendMailModalVisibility] = useState(false);
   let [filteredPeopleList, setFilteredPeopleList] = useState(null);
   let [sendMailUserDetails, setSendMailUserDetails] = useState({});
+  let [mailSubject, changeMailSubject] = useState("");
+  let [mailMessage, changeMailMessage] = useState("");
   let { tid } = useParams();
   /**
    * @todo `organization` is not dealt with
@@ -55,13 +59,14 @@ function PeopleInvolved(props) {
 
   useEffect(() => {
     props.fetchPeople(tid);
-  }, []);
+  }, [tid]);
 
   /**
    * Returns JSX component to be rendered
    * as primary content, like Cards and
    * error screen.
    */
+
   const primaryContent = () => {
     if (props.utils.loading === true || filteredPeopleList === null) {
       // if the people aren't fetched
@@ -131,7 +136,6 @@ function PeopleInvolved(props) {
       );
     }
   };
-
   return (
     <Scaffold navBar navRail>
       <div
@@ -163,7 +167,7 @@ function PeopleInvolved(props) {
                   height={56}
                   style={{ borderRadius: 10 }}
                 />
-              )
+              );
             } else if (props.people.length !== 0) {
               return (
                 <SearchBar
@@ -172,9 +176,9 @@ function PeopleInvolved(props) {
                   onUpdate={(filtered) => setFilteredPeopleList(filtered)}
                   placeholder="Search by name, role, organization, phone or email"
                 />
-              )
+              );
             } else {
-              return <React.Fragment />
+              return <React.Fragment />;
             }
           })()}
         </div>
@@ -226,6 +230,10 @@ function PeopleInvolved(props) {
           <OutlinedInput
             className="people-involved-mail-textfield"
             placeholder="Subject"
+            value={mailSubject}
+            onChange={(event) => {
+              changeMailSubject(event.target.value);
+            }}
           />
         </FormControl>
 
@@ -235,17 +243,49 @@ function PeopleInvolved(props) {
               className="people-involved-mail-textfield"
               multiline
               rows={10}
+              value={mailMessage}
               placeholder="Message"
+              onChange={(event) => {
+                changeMailMessage(event.target.value);
+              }}
             />
           </FormControl>
         </div>
 
         <Grid container justify="flex-end" style={{ marginTop: 20, gap: 8 }}>
-          <ReallosButton onClick={() => toggleSendMailModalVisibility(false)}>
+          <ReallosButton
+            onClick={() => {
+              toggleSendMailModalVisibility(false);
+              changeMailMessage("");
+              changeMailSubject("");
+            }}
+          >
             Cancel
           </ReallosButton>
 
-          <ReallosButton primary>
+          <ReallosButton
+            primary
+            onClick={() => {
+              props.sendMail(
+                sendMailUserDetails.Email,
+                {
+                  name: props.user.FirstName + " " + props.user.LastName,
+                  email: props.user.Email,
+                },
+                {
+                  address: props.transaction.find((obj) => obj.id === tid) // getting the active transaction
+                    .Address,
+                },
+                {
+                  subject: mailSubject,
+                  message: mailMessage,
+                }
+              );
+              toggleSendMailModalVisibility(false);
+              changeMailMessage("");
+              changeMailSubject("");
+            }}
+          >
             <PaperAirplaneIcon size={20} />
             <span style={{ marginLeft: 15 }}>Send Mail</span>
           </ReallosButton>

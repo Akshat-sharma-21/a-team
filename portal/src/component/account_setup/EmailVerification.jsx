@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
@@ -7,8 +7,11 @@ import VerifiedLogo from "../../assets/verified.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function EmailVerification(props) {
-  let { onNext, onPrev, state = {} } = props;
+  let { onNext, onPrev, state = {}, sendEmailOTP } = props;
 
+  useEffect(() => {
+    sendEmailOTP(state.email);
+  }, []);
   /**
    * @type [
    *   string[],

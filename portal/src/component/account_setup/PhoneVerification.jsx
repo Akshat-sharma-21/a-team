@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
@@ -7,7 +7,11 @@ import VerifiedLogo from "../../assets/verified.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
 
 function PhoneVerification(props) {
-  let { onNext, onPrev, state = {} } = props;
+  let { onNext, onPrev, state = {}, sendPhoneOTP } = props;
+
+  useEffect(() => {
+    sendPhoneOTP();
+  }, []);
 
   /**
    * @type [
@@ -49,7 +53,7 @@ function PhoneVerification(props) {
   };
 
   function setCodeAndNext(phoneCode) {
-    onNext(phoneCode);
+    onNext(phoneCode, state.hash);
   }
 
   return (

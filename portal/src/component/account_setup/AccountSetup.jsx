@@ -8,9 +8,10 @@ import SignIn from "./SignIn";
 import {
   addEmail,
   setPassword,
+  sendEmailOTP,
   verifyEmail,
+  sendPhoneOTP,
   verifyPhone,
-  incrementStepAction,
   decrementStepAction,
 } from "../../actions/registartionActions";
 import { connect } from "react-redux";
@@ -30,9 +31,10 @@ const mapActionsToProps = (dispatch) => {
     {
       addEmail,
       setPassword,
+      sendEmailOTP,
       verifyEmail,
+      sendPhoneOTP,
       verifyPhone,
-      incrementStepAction,
       decrementStepAction,
     },
     dispatch
@@ -95,11 +97,13 @@ class AccountSetup extends React.Component {
       return (
         <EmailVerification
           state={{
+            email: this.state.email,
             loading: this.props.utils.loading,
             hash: this.props.register.emailHash,
           }}
           onPrev={() => this.props.decrementStepAction()}
           onNext={this.props.verifyEmail}
+          sendEmailOTP={this.props.sendEmailOTP}
         />
       );
     else if (
@@ -110,10 +114,12 @@ class AccountSetup extends React.Component {
         <PhoneVerification
           state={{
             loading: this.props.utils.loading,
+            hash: this.props.register.phoneHash,
           }}
           onStateChange={(state) => this.setState(state)}
           onPrev={() => this.props.decrementStepAction()}
           onNext={this.props.verifyPhone}
+          sendPhoneOTP={this.props.sendPhoneOTP}
         />
       );
     else if (
