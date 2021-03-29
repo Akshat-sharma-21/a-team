@@ -15,12 +15,29 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 
-function TasksDashboard() {
+import { fetchUser } from "../../actions/userActions";
+import { fetchTasks } from "../../actions/tasksActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  tasks: state.tasks,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchTasks, fetchUser }, dispatch);
+};
+
+function TasksDashboard(props) {
   let [tasksList, setTasksList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
 
   useEffect(async () => {
-    // Dummy values
+    if (props.utils.reload === true) {
+      props.fetchUser();
+    }
     const _tasks = await _dummyApi();
 
     setTasksList(_tasks);
@@ -33,41 +50,43 @@ function TasksDashboard() {
 
   const _dummyApi = (emptyResponse = false, timeout = 2000) => {
     return new Promise((resolve, _) => {
-      const _tasks = [
-        {
-          id: "qwertyuio",
-          dueDate: "10 Jul",
-          title: "Upload Photo ID",
-          description:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit fuga dolorum explicabo quo suscipit nihil minus aspernatur laboriosam. Dolorem cupiditate adipisci voluptates perferendis, facere mollitia at atque magnam maxime cum!",
-          actions: [
-            {
-              label: "Upload",
-              onClick: () => {},
-            },
-            {
-              label: "Something else",
-              onClick: () => {},
-            },
-          ],
-        },
-        {
-          id: "asdfghjkl",
-          dueDate: "5 Aug",
-          title: "This is yet another task",
-          description:
-            "Morbi vitae tortor metus. Donec vel dignissim ex. Duis nec enim et libero bibendum cursus eu ac lorem. Praesent bibendum lorem non odio auctor aliquet.",
-          actions: [],
-        },
-        {
-          id: "zxcvbnm",
-          dueDate: "12 Aug",
-          title: "Upload Photo ID",
-          description:
-            "Duis auctor ultrices ex, eu tincidunt libero imperdiet ut. Donec sollicitudin luctus luctus. Pellentesque ut consectetur nunc. Vivamus mauris eros, interdum eu massa id, iaculis malesuada justo.",
-          actions: [],
-        },
-      ];
+      const _tasks = props.tasks.PreApproval.Tasks;
+
+      // const _tasks = [
+      //   {
+      //     id: "qwertyuio",
+      //     dueDate: "10 Jul",
+      //     title: "Upload Photo ID",
+      //     description:
+      //       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit fuga dolorum explicabo quo suscipit nihil minus aspernatur laboriosam. Dolorem cupiditate adipisci voluptates perferendis, facere mollitia at atque magnam maxime cum!",
+      //     actions: [
+      //       {
+      //         label: "Upload",
+      //         onClick: () => {},
+      //       },
+      //       {
+      //         label: "Something else",
+      //         onClick: () => {},
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: "asdfghjkl",
+      //     dueDate: "5 Aug",
+      //     title: "This is yet another task",
+      //     description:
+      //       "Morbi vitae tortor metus. Donec vel dignissim ex. Duis nec enim et libero bibendum cursus eu ac lorem. Praesent bibendum lorem non odio auctor aliquet.",
+      //     actions: [],
+      //   },
+      //   {
+      //     id: "zxcvbnm",
+      //     dueDate: "12 Aug",
+      //     title: "Upload Photo ID",
+      //     description:
+      //       "Duis auctor ultrices ex, eu tincidunt libero imperdiet ut. Donec sollicitudin luctus luctus. Pellentesque ut consectetur nunc. Vivamus mauris eros, interdum eu massa id, iaculis malesuada justo.",
+      //     actions: [],
+      //   },
+      // ];
 
       setTimeout(() => {
         resolve(emptyResponse ? [] : _tasks);
@@ -123,7 +142,7 @@ function TasksDashboard() {
           <Grid item>
             <Box
               marginTop={-2}
-              style={{ fontSize: 18, fontFamily: "Open Sans" }}
+              style={{ fontSize: 18, fontFamily: "Segoe UI" }}
             >
               The entered search term did not match any tasks
             </Box>
@@ -134,17 +153,17 @@ function TasksDashboard() {
       // If documents are present to be rendered
       return (
         <div style={{ width: "100%" }}>
-          <h2 className="tasks-dashboard-section-title">Preapproval</h2>
+          <div className="tasks-dashboard-section-title">Preapproval</div>
 
           <List className="tasks-dashboard-list">
-            {filteredList.map((task) => (
-              <Accordion key={task.id} className="tasks-dashboard-list-item">
+            {filteredList.map((task, index) => (
+              <Accordion key={index} className="tasks-dashboard-list-item">
                 <AccordionSummary
                   className="tasks-dashboard-list-item-header"
                   expandIcon={<ExpandMoreIcon />}
                 >
                   <div className="tasks-dashboard-accordion-date">
-                    {task.dueDate}
+                    {task.Date}
                   </div>
 
                   <div className="tasks-dashboard-list-item-header-text-group">
@@ -152,24 +171,24 @@ function TasksDashboard() {
                       noWrap
                       className="tasks-dashboard-list-item-heading"
                     >
-                      {task.title}
+                      {task.Title}
                     </Typography>
                     <Typography
                       noWrap
                       className="tasks-dashboard-list-item-subheading"
                     >
-                      {task.description}
+                      {task.Description}
                     </Typography>
                   </div>
                 </AccordionSummary>
 
                 <AccordionDetails className="tasks-dashboard-task-list-item-details">
                   <Typography className="tasks-dashboard-task-list-item-details-desc">
-                    {task.description}
+                    {task.Description}
                   </Typography>
 
                   <div className="tasks-dashboard-task-list-item-actions-group">
-                    {task.actions.map((taskAction, index) => (
+                    {/* {task.Actions.map((taskAction, index) => (
                       <ReallosButton
                         key={taskAction.label}
                         dense
@@ -180,7 +199,7 @@ function TasksDashboard() {
                       >
                         {taskAction.label}
                       </ReallosButton>
-                    ))}
+                    ))} */}
                   </div>
                 </AccordionDetails>
               </Accordion>
@@ -194,24 +213,37 @@ function TasksDashboard() {
   return (
     <Scaffold bottomNav bottomNavActive="Tasks">
       <Grid container direction="column">
-        <div className="page-header">
-          <h1 className="page-header-heading">Tasks</h1>
+        <h1 className="page-header-heading">Tasks</h1>
 
-          {tasksList && (
-            <SearchBar
-              filterByFields={["title", "description", "dueDate"]}
-              list={tasksList}
-              onUpdate={(filtered) => {
-                setFilteredList(filtered);
+        {tasksList && (
+          <SearchBar
+            filterByFields={["title", "description", "dueDate"]}
+            list={tasksList}
+            onUpdate={(filtered) => {
+              setFilteredList(filtered);
+            }}
+          />
+        )}
+
+        {props.utils.loading ? (
+          <div className="single-view-container">
+            <CircularProgress />
+
+            <div
+              style={{
+                marginTop: 50,
+                fontSize: 20,
               }}
-            />
-          )}
-        </div>
-
-        {PrimaryContent()}
+            >
+              Fetching Tasks...
+            </div>
+          </div>
+        ) : (
+          PrimaryContent()
+        )}
       </Grid>
     </Scaffold>
   );
 }
 
-export default TasksDashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(TasksDashboard);

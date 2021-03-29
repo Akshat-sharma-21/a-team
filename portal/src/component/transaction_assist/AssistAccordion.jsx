@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { DotFillIcon, CheckIcon } from '@primer/octicons-react';
+import React from "react";
+import PropTypes from "prop-types";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { DotFillIcon, CheckIcon } from "@primer/octicons-react";
 
 import {
   Accordion,
@@ -10,7 +10,7 @@ import {
   Grid,
   Divider,
   Typography,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 /**
  * Display accordion for Transaction Assist.
@@ -37,19 +37,19 @@ class AssistAccordion extends React.Component {
     /**
      * Index of the accordion on the list.
      * Used for applying staggered animation.
-     * 
+     *
      * _(Default: 0)_
      */
     itemIndex: PropTypes.number,
-  }
-  
+  };
+
   render() {
     let {
       children,
       isStepComplete,
       AccordionStepIcon,
       title,
-      itemIndex=0
+      itemIndex = 0,
     } = this.props;
 
     return (
@@ -64,30 +64,26 @@ class AssistAccordion extends React.Component {
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Grid container direction="row" alignItems="center" spacing={4}>
-              <Grid item style={{
-                marginLeft: 5,
-                marginRight: 3,
-                color: !isStepComplete ? '#666666' : '#0dd663'
-              }}>
-                {
-                  !isStepComplete
-                    ? <DotFillIcon size={23} />
-                    : <CheckIcon size={23} />
-                }
+              <Grid
+                item
+                style={{
+                  marginLeft: 5,
+                  marginRight: 3,
+                  color: !isStepComplete ? "#666666" : "#0dd663",
+                }}
+              >
+                {!isStepComplete ? (
+                  <DotFillIcon size={23} />
+                ) : (
+                  <CheckIcon size={23} />
+                )}
               </Grid>
 
               <Divider orientation="vertical" style={{ height: 50 }} />
 
               <Grid item>
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  spacing={3}
-                >
-                  <Grid item>
-                    {AccordionStepIcon}
-                  </Grid>
+                <Grid container direction="row" alignItems="center" spacing={3}>
+                  <Grid item>{AccordionStepIcon}</Grid>
                   <Grid item>
                     <Typography className="assist-accordion-heading">
                       {title}
@@ -98,12 +94,12 @@ class AssistAccordion extends React.Component {
             </Grid>
           </AccordionSummary>
 
-          <AccordionDetails className="assist-accordion-details-root">
+          <AccordionDetails className="assist-accordion-details-root reallos-scroll-area">
             {children}
           </AccordionDetails>
         </Accordion>
       </Grid>
-    )
+    );
   }
 }
 
