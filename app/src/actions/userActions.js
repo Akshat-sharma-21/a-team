@@ -1,5 +1,6 @@
 import { myFirebase, myFirestore } from "../FirebaseConfig";
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
+import { fetchTasks } from "./tasksActions";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -197,6 +198,7 @@ export function fetchUser() {
       .then((doc) => {
         dispatch(setUserAction(doc.data()));
         dispatch(setLoadingFalse());
+        dispatch(fetchTasks(doc.data().Transaction));
       })
       .catch((err) => {
         dispatch(setErrors(err));
