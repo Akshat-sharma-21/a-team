@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import ProfilePic from "../../assets/Roadmap_img.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
-import { ArrowRightIcon, LockIcon } from "@primer/octicons-react";
+import { ArrowRightIcon, LockIcon, LocationIcon } from "@primer/octicons-react";
 import { fetchUser } from "../../actions/userActions";
 import { setupTasks } from "../../actions/roadmapActions";
 import { connect } from "react-redux";
@@ -53,6 +53,7 @@ function Roadmap(props) {
       </div>
     );
   }
+
   const PrimaryContent = () => {
     if (props.utils.loading === true) {
       return (
@@ -245,6 +246,20 @@ function Roadmap(props) {
                     </IconButton>
                   </div>
                 </StepContent>
+              </Step>
+
+              <Step active={false}>
+                <StepLabel
+                  StepIconComponent={() => {
+                    return (
+                      <IconButton className="step-icon" disabled>
+                        <LocationIcon size={20} className="step-icon" />
+                      </IconButton>
+                    );
+                  }}
+                >
+                  <div className="roadmap-subheading">Dream Home</div>
+                </StepLabel>
               </Step>
             </Stepper>
           </Grid>

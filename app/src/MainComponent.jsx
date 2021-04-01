@@ -5,7 +5,7 @@ import Document from "./components/Documents/Documents";
 import Questionnaire from "./components/questionnaire/Questionnaire";
 import Signin from "./components/account/SignIn/SignIn";
 import Signup from "./components/account/SignUp/SignUp";
-import PreApprovalDashboard from "./components/PreApprovalDashboard/PreApprovalDashboard";
+import TaskSummary from "./components/TaskSummary/TaskSummary";
 import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
 import SignUpWithProvider from "./components/account/SignUpWithProviders/SignUpWithProviders";
 import { getAuth } from "./Authenticate";
@@ -30,7 +30,7 @@ function Main() {
       <PrivateRoute path="/SignupWithProvider" component={SignUpWithProvider} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
-      <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
+      <PrivateRoute path="/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
       <Redirect exact from="/" to="/signin" />
