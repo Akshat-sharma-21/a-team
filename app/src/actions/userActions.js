@@ -1,5 +1,6 @@
 import { myFirebase, myFirestore } from "../FirebaseConfig";
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
+import { setTransactionAction } from "./roadmapActions";
 import { fetchTasks } from "./tasksActions";
 import axios from "axios";
 
@@ -197,8 +198,19 @@ export function fetchUser() {
       .get()
       .then((doc) => {
         dispatch(setUserAction(doc.data()));
-        dispatch(setLoadingFalse());
-        dispatch(fetchTasks(doc.data().Transaction));
+        let transactionId = doc.data().Transaction; // getting the transaction id
+        myFirestore
+          .collection("Transactions")
+          .doc(transactionId)
+          .get()
+          .then((docRef) => {
+            dispatch(setTransactionAction(docRef.data())); // setting the transaction in the redux store
+            dispatch(setLoadingFalse());
+          })
+          .catch((err) => {
+            dispatch(setErrors(err));
+          });
+        //dispatch(fetchTasks(doc.data().Transaction));
       })
       .catch((err) => {
         dispatch(setErrors(err));
