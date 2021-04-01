@@ -16,7 +16,7 @@ import ProfilePic from "../../assets/Roadmap_img.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
 import { ArrowRightIcon, LockIcon } from "@primer/octicons-react";
 import { fetchUser } from "../../actions/userActions";
-import {} from "../../actions/roadmapActions";
+import { setupTasks } from "../../actions/roadmapActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchUser }, dispatch);
+  return bindActionCreators({ fetchUser, setupTasks }, dispatch);
 };
 
 function Roadmap(props) {
@@ -53,7 +53,6 @@ function Roadmap(props) {
       </div>
     );
   }
-
   const PrimaryContent = () => {
     if (props.utils.loading === true) {
       return (
@@ -71,7 +70,6 @@ function Roadmap(props) {
         </div>
       );
     } else {
-      console.log(props.roadmap);
       return (
         <>
           <Grid item xs={12} style={{ height: "15px" }}></Grid>
@@ -141,7 +139,9 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "FindHome")
+                      }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
@@ -162,7 +162,9 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "EscrowTitle")
+                      }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
@@ -183,7 +185,12 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick
+                      onClick={() =>
+                        props.setupTasks(
+                          props.user.Transaction,
+                          "HomeInspection"
+                        )
+                      }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
@@ -204,7 +211,12 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick
+                      onClick={() =>
+                        props.setupTasks(
+                          props.user.Transaction,
+                          "HomeInsurance"
+                        )
+                      }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
@@ -225,7 +237,9 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "Closing")
+                      }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
