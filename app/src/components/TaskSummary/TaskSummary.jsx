@@ -1,8 +1,8 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocLogo from "../../assets/doc_logo.svg";
 import ProfilePic from "../../assets/postmalone.jpg";
-import { ModalSheet, ReallosButton, Scaffold } from "../utilities/core";
-import "./PreApprovalDashboard.css";
+import { ModalSheet, Scaffold } from "../utilities/core";
+import "./TaskSummary.css";
 import {
   CheckCircleIcon,
   QuestionIcon,
@@ -38,7 +38,7 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
-function PreApproval() {
+function TaskSummary() {
   const [isModalOpen, toggleModal] = useState(false);
 
   let documents = [
@@ -67,13 +67,17 @@ function PreApproval() {
     <Scaffold>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12} style={{ textAlign: "left" }}>
-          <IconButton size="small" style={{ margin: "20px 0" }}>
-            <ArrowLeftIcon size={32} className="preapproval-back-icon" />
+          <IconButton
+            size="small"
+            style={{ margin: "20px 0" }}
+            onClick={() => (window.location.href = "/dashboard")}
+          >
+            <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
           </IconButton>
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "left" }}>
-          <div className="preapproval-heading">Pre-approval</div>
+          <div className="taskSummary-heading">Pre-approval</div>
         </Grid>
 
         <Grid item xs={12} style={{ marginBottom: "15px" }}>
@@ -85,18 +89,18 @@ function PreApproval() {
         </Grid>
 
         <Grid item xs={11} style={{ textAlign: "left" }}>
-          <div className="preapproval-subtext">2 / 5 Tasks Completed</div>
+          <div className="taskSummary-subtext">2 / 5 Tasks Completed</div>
         </Grid>
 
         <Grid item xs={12} style={{ height: "35px" }}></Grid>
 
         <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="preapproval-subheading">Lender</div>
+          <div className="taskSummary-subheading">Lender</div>
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="preapproval-list">
-            <ListItem className="preapproval-lender-list">
+          <List className="taskSummary-list">
+            <ListItem className="taskSummary-lender-list">
               <Grid
                 container
                 direction="row"
@@ -137,8 +141,8 @@ function PreApproval() {
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="preapproval-list">
-            <ListItem className="preapproval-lender-list">
+          <List className="taskSummary-list">
+            <ListItem className="taskSummary-lender-list">
               <Grid
                 container
                 direction="row"
@@ -182,13 +186,13 @@ function PreApproval() {
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="preapproval-subheading">Documents</div>
+          <div className="taskSummary-subheading">Documents</div>
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="preapproval-list">
+          <List className="taskSummary-list">
             {documents.map((doc) => (
-              <ListItem className="preapproval-list-item">
+              <ListItem className="taskSummary-list-item">
                 <Grid
                   container
                   direction="row"
@@ -224,13 +228,13 @@ function PreApproval() {
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="preapproval-subheading">Tasks</div>
+          <div className="taskSummary-subheading">Tasks</div>
         </Grid>
 
         <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="preapproval-list">
+          <List className="taskSummary-list">
             {tasks.map((task) => (
-              <ListItem className="preapproval-list-item">
+              <ListItem className="taskSummary-list-item">
                 <Grid
                   container
                   direction="row"
@@ -265,11 +269,11 @@ function PreApproval() {
             </Avatar>
           </Grid>
           <Grid item xs={10} style={{ textAlign: "left" }}>
-            <div className="preapproval-modal-heading">Tax Return</div>
+            <div className="taskSummary-modal-heading">Tax Return</div>
           </Grid>
           <Grid item xs={12} style={{ height: "25px" }}></Grid>
           <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="preapproval-modal-text">
+            <div className="taskSummary-modal-text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
               cursus magna lectus, ut euismod neque feugiat sed. Phasellus
               ultrices est lacus, porttitor venenatis erat condimentum posuere.
@@ -277,14 +281,14 @@ function PreApproval() {
           </Grid>
           <Grid item xs={12} style={{ height: "15px" }}></Grid>
           <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="preapproval-modal-text">
+            <div className="taskSummary-modal-text">
               Nunc sit amet volutpat ligula. Duis nec risus eu erat molestie
               maximus quis non augue.
             </div>
           </Grid>
           <Grid item xs={12} style={{ height: "20px" }}></Grid>
           <Grid item xs={12}>
-            <Button className="preapproval-modal-btn">
+            <Button className="taskSummary-modal-btn">
               View in Documents <ChevronRightIcon size={16} />
             </Button>
           </Grid>
@@ -295,4 +299,4 @@ function PreApproval() {
   );
 }
 
-export default PreApproval;
+export default TaskSummary;

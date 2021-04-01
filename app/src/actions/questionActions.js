@@ -30,6 +30,28 @@ export function fetchQuestions(tid, step, question, answer) {
   };
 }
 
+export function resetQuestion(tid, step) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    if (step === "find-agent") step = "FindAgent";
+    else if (step === "pre-approval") step = "PreApproval";
+    axios
+      .post("/reset-question", {
+        tid: tid,
+        step: step,
+      })
+      .then((res) => {
+        if (res.data.reset === true) {
+          dispatch(setLoadingFalse());
+          dispatch(clearQuestionsAction());
+        }
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
 function setQuestionAction(payload) {
   // pure action
   return {
@@ -42,5 +64,12 @@ function setCompletedQuestionsAction() {
   //pure action
   return {
     type: COMPLETED_QUESTIONS,
+  };
+}
+
+function clearQuestionsAction() {
+  // pure action
+  return {
+    type: CLEAR_QUESTION,
   };
 }

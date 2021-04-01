@@ -42,6 +42,26 @@
   padding: 7px 18px !important;
 }
 
+.roadmap-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 40px;
+  min-height: calc(100vh - 360px);
+}
+
+.roadmap-avatar {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.roadmap-avatar-auto {
+  height: auto !important;
+  width: auto !important;
+}
+
 .roadmap-next-icon {
   color: var(--color-white);
 }

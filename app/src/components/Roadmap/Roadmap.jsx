@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Roadmap.css";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,13 +9,34 @@ import {
   StepContent,
   StepLabel,
   Stepper,
+  CircularProgress,
+  Avatar,
 } from "@material-ui/core";
 import ProfilePic from "../../assets/Roadmap_img.png";
 import Scaffold from "../utilities/Scaffold/Scaffold";
-import { ArrowRightIcon, LockIcon } from "@primer/octicons-react";
+import { ArrowRightIcon, LockIcon, LocationIcon } from "@primer/octicons-react";
+import { fetchUser } from "../../actions/userActions";
+import { setupTasks } from "../../actions/roadmapActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-function Roadmap() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  roadmap: state.roadmap,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser, setupTasks }, dispatch);
+};
+
+function Roadmap(props) {
   const history = useHistory();
+
+  useEffect(() => {
+    props.fetchUser(); // fetching the user
+  }, []);
+
   function stepIcon(props) {
     const { active, completed } = props;
     return (
@@ -33,12 +54,219 @@ function Roadmap() {
     );
   }
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const PrimaryContent = () => {
+    if (props.utils.loading === true) {
+      return (
+        <div className="roadmap-single-view-container">
+          <CircularProgress />
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          <div
+            style={{
+              marginTop: 50,
+              fontSize: 20,
+            }}
+          >
+            Setting up Dashboard...
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <Grid item xs={12} style={{ height: "15px" }}></Grid>
+          <Grid item xs={12}>
+            <Stepper orientation="vertical">
+              <Step active={!props.roadmap.PreApproval.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Pre-approval</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">
+                    It helps you find out how much you can afford and is the
+                    first.
+                  </div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() => history.push("/questions/pre-approval")}
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.FindAgent.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Find an Agent</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">
+                    An ad group contains one or more ads which target a shared
+                    set of keywords.
+                  </div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() => history.push("/questions/find-agent")}
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.FindHome.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Find a Home</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">
+                    Try out different ad text to see what brings in the most
+                    customers.
+                  </div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "FindHome")
+                      }
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.EscrowTitle.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Escrow & Title</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">Unknown step</div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "EscrowTitle")
+                      }
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.HomeInspection.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Home Inspection</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">Unknown step</div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() =>
+                        props.setupTasks(
+                          props.user.Transaction,
+                          "HomeInspection"
+                        )
+                      }
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.HomeInsurance.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Home Insurance</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">Unknown step</div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() =>
+                        props.setupTasks(
+                          props.user.Transaction,
+                          "HomeInsurance"
+                        )
+                      }
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={!props.roadmap.Closing.Locked}>
+                <StepLabel StepIconComponent={stepIcon}>
+                  <div className="roadmap-subheading">Closing</div>
+                </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">Unknown step</div>
+                  <div>
+                    <Button className="roadmap-date" disabled>
+                      30 Sep 2020
+                    </Button>
+                    <IconButton
+                      className="roadmap-next-btn"
+                      size="small"
+                      onClick={() =>
+                        props.setupTasks(props.user.Transaction, "Closing")
+                      }
+                    >
+                      <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
+                    </IconButton>
+                  </div>
+                </StepContent>
+              </Step>
+
+              <Step active={false}>
+                <StepLabel
+                  StepIconComponent={() => {
+                    return (
+                      <IconButton className="step-icon" disabled>
+                        <LocationIcon size={20} className="step-icon" />
+                      </IconButton>
+                    );
+                  }}
+                >
+                  <div className="roadmap-subheading">Dream Home</div>
+                </StepLabel>
+              </Step>
+            </Stepper>
+          </Grid>
+        </>
+      );
+    }
   };
-
   return (
     <Scaffold bottomNav bottomNavActive="Dashboard">
       <Grid container direction="row" justify="center" alignItems="center">
@@ -47,133 +275,15 @@ function Roadmap() {
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={3}>
-          <img src={ProfilePic} alt="" width="100%" />
+          <Avatar src={ProfilePic} className="roadmap-avatar" />
           {/* <Fab size="small">
               <PencilIcon size={16} />
             </Fab> */}
         </Grid>
-
-        <Grid item xs={12} style={{ height: "15px" }}></Grid>
-        <Grid item xs={12}>
-          <Stepper activeStep={activeStep} orientation="vertical">
-            <Step>
-              <StepLabel StepIconComponent={stepIcon}>
-                <div className="roadmap-subheading">Pre-approval</div>
-              </StepLabel>
-              <StepContent className="step-desc">
-                <div className="roadmap-desc">
-                  It helps you find out how much you can afford and is the
-                  first.
-                </div>
-                <div>
-                  <Button className="roadmap-date" disabled>
-                    30 Sep 2020
-                  </Button>
-                  <IconButton
-                    className="roadmap-next-btn"
-                    size="small"
-                    onClick={() => history.push("/questions/pre-approval")}
-                  >
-                    <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
-                  </IconButton>
-                </div>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel StepIconComponent={stepIcon}>
-                <div className="roadmap-subheading">Find an Agent</div>
-              </StepLabel>
-              <StepContent className="step-desc">
-                <div className="roadmap-desc">
-                  An ad group contains one or more ads which target a shared set
-                  of keywords.
-                </div>
-                <div>
-                  <Button className="roadmap-date" disabled>
-                    30 Sep 2020
-                  </Button>
-                  <IconButton
-                    className="roadmap-next-btn"
-                    size="small"
-                    onClick={() => history.push("/questions/find-agent")}
-                  >
-                    <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
-                  </IconButton>
-                </div>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel StepIconComponent={stepIcon}>
-                <div className="roadmap-subheading">Make an offer</div>
-              </StepLabel>
-              <StepContent className="step-desc">
-                <div className="roadmap-desc">
-                  Try out different ad text to see what brings in the most
-                  customers.
-                </div>
-                <div>
-                  <Button className="roadmap-date" disabled>
-                    30 Sep 2020
-                  </Button>
-                  <IconButton
-                    className="roadmap-next-btn"
-                    size="small"
-                    onClick={handleNext}
-                  >
-                    <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
-                  </IconButton>
-                </div>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel StepIconComponent={stepIcon}>
-                <div className="roadmap-subheading">Finalize your Deal</div>
-              </StepLabel>
-              <StepContent className="step-desc">
-                <div className="roadmap-desc">Unknown step</div>
-                <div>
-                  <Button className="roadmap-date" disabled>
-                    30 Sep 2020
-                  </Button>
-                  <IconButton
-                    className="roadmap-next-btn"
-                    size="small"
-                    onClick={handleNext}
-                  >
-                    <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
-                  </IconButton>
-                </div>
-              </StepContent>
-            </Step>
-
-            <Step>
-              <StepLabel StepIconComponent={stepIcon}>
-                <div className="roadmap-subheading">Home Inspection</div>
-              </StepLabel>
-              <StepContent className="step-desc">
-                <div className="roadmap-desc">Unknown step</div>
-                <div>
-                  <Button className="roadmap-date" disabled>
-                    30 Sep 2020
-                  </Button>
-                  <IconButton
-                    className="roadmap-next-btn"
-                    size="small"
-                    onClick={handleNext}
-                  >
-                    <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
-                  </IconButton>
-                </div>
-              </StepContent>
-            </Step>
-          </Stepper>
-        </Grid>
+        {PrimaryContent()}
       </Grid>
     </Scaffold>
   );
 }
 
-export default Roadmap;
+export default connect(mapStateToProps, mapDispatchToProps)(Roadmap);

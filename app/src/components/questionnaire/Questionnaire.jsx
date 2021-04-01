@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./Questionnaire.css";
 import { useParams, useHistory } from "react-router-dom";
-import { fetchQuestions } from "../../actions/questionActions";
+import { fetchQuestions, resetQuestion } from "../../actions/questionActions";
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -16,9 +16,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchQuestions, fetchUser }, dispatch);
+  return bindActionCreators(
+    { fetchQuestions, fetchUser, resetQuestion },
+    dispatch
+  );
 };
-
 
 /**
  * Renders Questionnaire page.
@@ -53,17 +55,17 @@ function Questionnaire(props) {
         }}
       />
     );
-  }
-  else if (props.questions.bg === 3) {
+  } else if (props.questions.bg === 3) {
     // If the user answers all the questions.
     return (
       <QuestionnaireOutro
         onSubmit={() => history.push("/tasks_summary")}
-        onStartOver={() => {}}
+        onStartOver={() => {
+          props.resetQuestion(transactionId, step);
+        }}
       />
     );
-  }
-  else {
+  } else {
     // Render the question that has been fetched.
     return (
       <QuestionRendererFactory

@@ -1,32 +1,32 @@
-.preapproval-back-icon {
+.taskSummary-back-icon {
   color: #707070;
 }
 
-.preapproval-heading {
+.taskSummary-heading {
   font-size: 32px !important;
   font-weight: bold !important;
   color: #707070 !important;
   margin-bottom: 25px;
 }
 
-.preapproval-subtext {
+.taskSummary-subtext {
   font-family: "Segoe UI";
   font-size: 16px !important;
   color: #707070 !important;
 }
 
-.preapproval-subheading {
+.taskSummary-subheading {
   font-family: "Gilroy" !important;
   font-size: 24px !important;
   font-weight: bold !important;
   color: #474747 !important;
 }
 
-.preapproval-list {
+.taskSummary-list {
   margin: 5px 0 !important;
 }
 
-.preapproval-list-item {
+.taskSummary-list-item {
   padding: 15px 25px !important;
   margin-bottom: 12px !important;
   border-radius: 10px 10px 10px 10px;
@@ -37,7 +37,7 @@
   -webkit-box-shadow: 0px 3px 6px 0px rgba(69, 71, 70, 0.3);
 }
 
-.preapproval-lender-list {
+.taskSummary-lender-list {
   padding: 25px 10px 25px 20px !important;
   margin-bottom: 8px !important;
   border-radius: 10px 10px 10px 10px;
@@ -83,18 +83,18 @@
   padding: 7px 20px !important;
 }
 
-.preapproval-modal-heading {
+.taskSummary-modal-heading {
   font-family: "Gilroy" !important;
   font-size: 24px !important;
   font-weight: bold !important;
 }
 
-.preapproval-modal-text {
+.taskSummary-modal-text {
   font-family: "Segoe UI", sans-serif;
   font-size: 16px !important;
 }
 
-.preapproval-modal-btn {
+.taskSummary-modal-btn {
   font-family: "Gilroy" !important;
   font-size: 17px !important;
   font-weight: bold !important;

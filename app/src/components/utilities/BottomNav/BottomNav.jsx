@@ -10,7 +10,6 @@ import "./BottomNav.css";
  */
 class BottomNav extends React.Component {
   render() {
-    console.log(this.props);
     const iconSize = 22;
     const navItems = [
       {

@@ -5,7 +5,7 @@ import Document from "./components/Documents/Documents";
 import Questionnaire from "./components/questionnaire/Questionnaire";
 import Signin from "./components/account/SignIn/SignIn";
 import Signup from "./components/account/SignUp/SignUp";
-import PreApprovalDashboard from "./components/PreApprovalDashboard/PreApprovalDashboard";
+import TaskSummary from "./components/TaskSummary/TaskSummary";
 import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
 import ReallosRecommended from "./components/Recommend/Recommend";
 import SignUpWithProvider from "./components/account/SignUpWithProviders/SignUpWithProviders";
@@ -33,6 +33,7 @@ function Main() {
       <Route path="/Signup" component={Signup} />
       <Route path="/recommend" component={ReallosRecommended} />
       <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
+      <PrivateRoute path="/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
       <Redirect exact from="/" to="/signin" />
