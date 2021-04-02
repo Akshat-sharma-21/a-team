@@ -32,7 +32,6 @@ function Main() {
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
       <Route path="/recommend" component={ReallosRecommended} />
-      <PrivateRoute path="/tasks_summary" component={PreApprovalDashboard} />
       <PrivateRoute path="/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
