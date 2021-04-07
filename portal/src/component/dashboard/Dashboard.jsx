@@ -13,7 +13,9 @@ import {
   ReallosFab,
 } from "../utilities/core";
 
-import { Box, Grid, Typography, TextField } from "@material-ui/core";
+import { validateFormField } from "../../utils";
+
+import { Box, Grid, Typography, TextField, Snackbar } from "@material-ui/core";
 
 import {
   PlusIcon,
@@ -23,6 +25,8 @@ import {
   PaperAirplaneIcon,
   SearchIcon,
 } from "@primer/octicons-react";
+
+import { Alert } from "@material-ui/lab";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -43,6 +47,12 @@ function Dashboard(props) {
   let [filteredList, setFilteredList] = useState(null);
   let [invitationEmail, setInvitationEmail] = useState("");
   let [invitationPhone, setInvitationPhone] = useState("");
+  let [showError, setShowError] = useState(false);
+  let [validated, setValidated] = useState(false);
+  let [mailError, setMailError] = useState(null);
+  let [phoneError, setPhoneError] = useState(null);
+  let mail = { hasError: true, errorText: null };
+  let phone = { hasError: true, errorText: null };
 
   /**
    * Opens Invitation Modal
@@ -56,6 +66,39 @@ function Dashboard(props) {
    */
   const closeInvitation = () => {
     setInvitationModalVisiblity(false);
+    setInvitationEmail("");
+    setInvitationPhone("");
+    setValidated(false);
+    setShowError(false);
+    setMailError(null);
+    setPhoneError(null);
+  };
+
+  /**
+   * Validates Input Values
+   */
+  const validateValues = (fieldValue, fieldType) => {
+    if (fieldType === "email") {
+      mail = validateFormField(fieldValue, fieldType);
+      setMailError(mail.errorText);
+      setInvitationEmail(fieldValue);
+    }
+    if (fieldType === "tel") {
+      phone = validateFormField(fieldValue, fieldType);
+      setPhoneError(phone.errorText);
+      setInvitationPhone(fieldValue);
+    }
+    setValidated(!(mail.hasError && phone.hasError));
+  };
+
+  /**
+   * Checks if there are errors of Input Values and shows them or else sends the invitaion
+   */
+  const checkAndSend = () => {
+    if (validated) {
+      // props.sendInvitation(invitationEmail, invitationPhone, props.user);
+      closeInvitation();
+    } else setShowError(true);
   };
 
   /**
@@ -94,11 +137,14 @@ function Dashboard(props) {
               </Grid>
               <Grid item>
                 <TextField
+                  error={showError && !validated && mailError !== null}
                   value={invitationEmail}
                   label="Email"
                   variant="outlined"
                   type="email"
-                  onChange={(event) => setInvitationEmail(event.target.value)}
+                  onChange={(event) =>
+                    validateValues(event.target.value, event.target.type)
+                  }
                   style={{ width: 650, marginLeft: 20 }}
                 />
               </Grid>
@@ -132,11 +178,14 @@ function Dashboard(props) {
               </Grid>
               <Grid item>
                 <TextField
+                  error={showError && !validated && phoneError !== null}
                   value={invitationPhone}
                   label="Phone"
                   variant="outlined"
                   type="tel"
-                  onChange={(event) => setInvitationPhone(event.target.value)}
+                  onChange={(event) =>
+                    validateValues(event.target.value, event.target.type)
+                  }
                   style={{ width: 650, marginLeft: 20 }}
                 />
               </Grid>
@@ -168,18 +217,7 @@ function Dashboard(props) {
                 </ReallosButton>
               </Grid>
               <Grid item>
-                <ReallosButton
-                  primary
-                  disabled={!invitationEmail && !invitationPhone}
-                  onClick={() => {
-                    props.sendInvitation(
-                      invitationEmail,
-                      invitationPhone,
-                      props.user
-                    );
-                    closeInvitation();
-                  }}
-                >
+                <ReallosButton primary onClick={checkAndSend}>
                   Send Invite
                   <PaperAirplaneIcon className="dashboard-invite-send-icon" />
                 </ReallosButton>
@@ -353,6 +391,28 @@ function Dashboard(props) {
           />
         )}
       </Grid>
+
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="error"
+          variant="filled"
+        >
+          {mailError === null && phoneError === null
+            ? "Both the fields cannot be left empty"
+            : mailError !== null && phoneError !== null
+            ? "Fill the correct email or phone number"
+            : mailError !== null
+            ? mailError
+            : phoneError !== null
+            ? phoneError
+            : null}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }
