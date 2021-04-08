@@ -35,8 +35,8 @@ export function resetQuestion(tid, step, id) {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     if (step === "find-agent") step = "FindAgent";
     else if (step === "pre-approval") step = "PreApproval";
-    if (id === 1) {
-      // if the first question is being asked of the preapproval
+    if (id === 1 || id === 23) {
+      // if the first question is being asked of the Pre Approval or of Find Agent
       dispatch(setLoadingFalse());
       dispatch(clearQuestionsAction());
     } else {
