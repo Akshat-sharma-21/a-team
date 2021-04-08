@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { CircularProgress, TextField } from "@material-ui/core";
+import { CircularProgress, Snackbar, TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
+import { validateFormField } from "../../utils";
+import { Alert } from "@material-ui/lab";
 
 function CreateAccountForm1(props) {
+  const [showError, setShowError] = useState(false);
   let { onStateChange = () => {}, state = {}, onNext = () => {} } = props;
+  let mail = { hasError: true, errorText: null };
 
   /**
    * Handles input change. Sets state
@@ -15,9 +19,12 @@ function CreateAccountForm1(props) {
    * @param {Event} event
    */
   const handleChange = (event) => {
-    onStateChange({
-      email: event.target.value,
-    });
+    mail = validateFormField(event.target.value, event.target.name);
+    if (!mail.hasError) {
+      onStateChange({
+        email: event.target.value,
+      });
+    } else setShowError(true);
   };
 
   return (
@@ -44,6 +51,7 @@ function CreateAccountForm1(props) {
 
               <TextField
                 fullWidth
+                error={showError}
                 variant="outlined"
                 id="account-setup-email-textfield"
                 label="Email"
@@ -71,6 +79,19 @@ function CreateAccountForm1(props) {
           </div>
         </div>
       </ReallosModal>
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="error"
+          variant="filled"
+        >
+          {mail.hasError ? mail.errorText : null}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }

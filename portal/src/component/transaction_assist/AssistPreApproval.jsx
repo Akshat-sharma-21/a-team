@@ -2,6 +2,7 @@ import React from "react";
 import DocIcon from "../../assets/doc_icon.png";
 import DocGrayscaleIcon from "../../assets/doc_icon_grayscale.png";
 import AssistAccordion from "./AssistAccordion";
+import { validateFormField } from "../../utils";
 import { ReallosButton, SideDrawer } from "../utilities/core";
 
 import {
@@ -21,7 +22,10 @@ import {
   Grid,
   FormGroup,
   TextField,
+  Snackbar,
 } from "@material-ui/core";
+
+import { Alert } from "@material-ui/lab";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -55,9 +59,28 @@ class AssistPreApproval extends React.Component {
       taskDescription: "",
       taskDate: "",
       taskPriority: "",
+
+      validated: false,
+      showError: false,
     };
     this.addTask = this.addTask.bind(this);
     this.newList = {};
+    this.titleError = {
+      hasError: true,
+      errorText: "Title cannot be empty",
+    };
+    this.descriptionError = {
+      hasError: true,
+      errorText: "Description cannot be empty",
+    };
+    this.dateError = {
+      hasError: true,
+      errorText: "Date cannot be empty",
+    };
+    this.priorityError = {
+      hasError: true,
+      errorText: "Priority cannot be empty",
+    };
   }
   /**
    * Shows "Add Task" drawer.
@@ -78,30 +101,57 @@ class AssistPreApproval extends React.Component {
       taskDescription: "",
       taskDate: "",
       taskPriority: "",
+      validated: false,
+      showError: false,
     });
   }
 
   handleChange = (event) => {
     event.preventDefault();
+
     switch (event.target.name) {
-      case "taskTitle":
+      case "title":
         this.setState({ taskTitle: event.target.value });
+        this.titleError = validateFormField(
+          event.target.value,
+          event.target.name
+        );
         break;
 
-      case "taskDescription":
+      case "description":
         this.setState({ taskDescription: event.target.value });
+        this.descriptionError = validateFormField(
+          event.target.value,
+          event.target.name
+        );
         break;
 
-      case "taskDate":
+      case "date":
         this.setState({ taskDate: event.target.value });
+        this.dateError = validateFormField(
+          event.target.value,
+          event.target.name
+        );
         break;
 
       case "taskPriority":
         this.setState({ taskPriority: event.target.value });
+        this.priorityError = validateFormField(
+          event.target.value,
+          event.target.name
+        );
         break;
 
       default:
         break;
+    }
+    if (
+      this.titleError.hasError &&
+      this.descriptionError.hasError &&
+      this.dateError.hasError &&
+      this.priorityError.hasError
+    ) {
+      this.setState({ validated: true });
     }
   };
 
@@ -125,16 +175,20 @@ class AssistPreApproval extends React.Component {
   }
 
   addTask() {
-    let dateString = this.dateToString(this.state.taskDate);
-    let newTask = {
-      Title: this.state.taskTitle,
-      Decreption: this.state.taskDescription,
-      Date: dateString,
-      Priority: this.state.taskPriority,
-      Completed: false,
-    };
-    this.props.addPreApprovalTask(this.props.list, newTask, this.props.tid);
-    this.hideAddTaskDrawer();
+    if (this.state.validated) {
+      let dateString = this.dateToString(this.state.taskDate);
+      let newTask = {
+        Title: this.state.taskTitle,
+        Decreption: this.state.taskDescription,
+        Date: dateString,
+        Priority: this.state.taskPriority,
+        Completed: false,
+      };
+      this.props.addPreApprovalTask(this.props.list, newTask, this.props.tid);
+      this.hideAddTaskDrawer();
+    } else {
+      this.setState({ showError: true });
+    }
   }
 
   render() {
@@ -308,9 +362,10 @@ class AssistPreApproval extends React.Component {
                   variant="outlined"
                   label="Title"
                   type="text"
-                  name="taskTitle"
+                  name="title"
                   value={this.state.taskTitle}
                   onChange={this.handleChange}
+                  error={this.state.showError && this.titleError.hasError}
                 />
               </div>
             </FormGroup>
@@ -325,9 +380,10 @@ class AssistPreApproval extends React.Component {
                   rows={8}
                   label="Description"
                   type="text"
-                  name="taskDescription"
+                  name="description"
                   value={this.state.taskDescription}
                   onChange={this.handleChange}
+                  error={this.state.showError && this.descriptionError.hasError}
                 />
               </div>
             </FormGroup>
@@ -340,9 +396,10 @@ class AssistPreApproval extends React.Component {
                   variant="outlined"
                   label="Date"
                   type="date"
-                  name="taskDate"
+                  name="date"
                   value={this.state.taskDate}
                   onChange={this.handleChange}
+                  error={this.state.showError && this.dateError.hasError}
                 />
               </div>
             </FormGroup>
@@ -358,6 +415,7 @@ class AssistPreApproval extends React.Component {
                   name="taskPriority"
                   value={this.state.taskPriority}
                   onChange={this.handleChange}
+                  error={this.state.showError && this.priorityError.hasError}
                 />
               </div>
             </FormGroup>
@@ -377,6 +435,27 @@ class AssistPreApproval extends React.Component {
             </ReallosButton>
           </div>
         </SideDrawer>
+
+        <Snackbar
+          open={this.state.showError}
+          autoHideDuration={6000}
+          onClose={() => this.setState({ showError: false })}
+        >
+          <Alert
+            onClose={() => this.setState({ showError: false })}
+            severity="error"
+            variant="filled"
+          >
+            {/* {this.titleError.hasError
+              ? this.titleError.errorText
+              : this.descriptionError.hasError
+              ? this.descriptionError.errorText
+              : this.dateError.hasError
+              ? this.dateError.errorText
+              : "Fill all the details correctly"} */}
+            Fill all the details correctly
+          </Alert>
+        </Snackbar>
       </>
     );
   }

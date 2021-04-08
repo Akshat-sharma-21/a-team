@@ -1,4 +1,4 @@
-import { myFirebase, myFirestore } from './FirebaseConfig';
+import { myFirebase, myFirestore } from "./FirebaseConfig";
 
 /**
  * List of maps containing user roles in the form:
@@ -255,10 +255,9 @@ export const getDecodedHash = (locationObject) => {
  * TransactionID as a string.
  */
 export const getTransactionID = (locationObject) => {
-  let transactionID =
-    locationObject.pathname.includes("transactions")
-      ? locationObject.pathname.split("/")[2]
-      : null;
+  let transactionID = locationObject.pathname.includes("transactions")
+    ? locationObject.pathname.split("/")[2]
+    : null;
 
   return transactionID;
 };
@@ -329,7 +328,7 @@ export const getUserName = (email, peopleInvolvedObject) => {
     return `${filtered[0].FirstName} ${filtered[0].LastName}`;
   }
 
-  return '';
+  return "";
 };
 
 /**
