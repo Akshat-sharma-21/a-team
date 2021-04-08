@@ -32,24 +32,34 @@ export function fetchQuestions(tid, step, id, answer) {
 
 export function resetQuestion(tid, step, id) {
   return (dispatch) => {
+    console.log(tid + "   " + step + "   " + id);
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     if (step === "find-agent") step = "FindAgent";
     else if (step === "pre-approval") step = "PreApproval";
-    axios
-      .post("/reset-step", {
-        tid: tid,
-        step: step,
-        id: id,
-      })
-      .then((res) => {
-        if (res.data.reset === true) {
-          dispatch(setLoadingFalse());
-          dispatch(clearQuestionsAction());
-        }
-      })
-      .catch((err) => {
-        dispatch(setErrors(err));
-      });
+    if (id === 1) {
+      // if the first question is being asked of the preapproval
+      dispatch(setLoadingFalse());
+      dispatch(clearQuestionsAction());
+    } else {
+      axios
+        .post("/reset-step", {
+          tid: tid,
+          step: step,
+          id: id,
+        })
+        .then((res) => {
+          if (res.data.reset && res.data.reset === true) {
+            dispatch(setLoadingFalse());
+            dispatch(clearQuestionsAction());
+          } else {
+            dispatch(setLoadingFalse());
+            dispatch(setQuestionAction(res.data));
+          }
+        })
+        .catch((err) => {
+          dispatch(setErrors(err));
+        });
+    }
   };
 }
 

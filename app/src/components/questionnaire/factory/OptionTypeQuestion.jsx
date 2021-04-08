@@ -60,6 +60,7 @@ class OptionTypeQuestion extends React.Component {
       onSelectOption,
       isLoadingNext,
       shouldUseGradientBackground = false,
+      onPrev,
     } = this.props;
 
     return (
@@ -99,7 +100,10 @@ class OptionTypeQuestion extends React.Component {
         </Grid>
 
         <div className="questionnaire-action-area questionnaire-action-nav-area">
-          <IconButton className="questionnaire-arrow-button">
+          <IconButton
+            className="questionnaire-arrow-button"
+            onClick={() => onPrev()}
+          >
             <ArrowLeftIcon size={25} />
           </IconButton>
 
