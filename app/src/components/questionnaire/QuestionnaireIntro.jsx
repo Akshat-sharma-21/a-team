@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { ArrowLeftIcon } from "@primer/octicons-react";
 import { Scaffold, ReallosButton } from "../utilities/core";
 import { IconButton, Typography } from "@material-ui/core";
 import QuestionnaireImg from "../../assets/QuestionsImg.png";
-
 
 /**
  * Intro page for Questionnaire.
@@ -35,16 +34,16 @@ class QuestionnaireIntro extends React.Component {
   };
 
   render() {
-    const {
-      stepName,
-      isLoadingQuestions,
-      onFetchQuestions
-    } = this.props;
+    const { stepName, isLoadingQuestions, onFetchQuestions } = this.props;
 
     return (
       <Scaffold bgVariant="gradient" className="questionnaire-root">
         <div className="questionnaire-back-button">
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              window.location.href = "/dashboard";
+            }}
+          >
             <ArrowLeftIcon size={30} />
           </IconButton>
         </div>
@@ -76,7 +75,7 @@ class QuestionnaireIntro extends React.Component {
           </ReallosButton>
         </div>
       </Scaffold>
-    )
+    );
   }
 }
 

@@ -92,7 +92,11 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick={() => history.push("/questions/pre-approval")}
+                      onClick={() => {
+                        props.roadmap.PreApproval.Asked
+                          ? history.push("pre-approval/tasks_summary")
+                          : history.push("/questions/pre-approval");
+                      }}
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>
@@ -116,7 +120,11 @@ function Roadmap(props) {
                     <IconButton
                       className="roadmap-next-btn"
                       size="small"
-                      onClick={() => history.push("/questions/find-agent")}
+                      onClick={() => {
+                        props.roadmap.FindAgent.Asked
+                          ? history.push("find-agent/tasks_summary")
+                          : history.push("/questions/find-agent");
+                      }}
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
                     </IconButton>

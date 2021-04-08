@@ -59,9 +59,9 @@ function Questionnaire(props) {
     // If the user answers all the questions.
     return (
       <QuestionnaireOutro
-        onSubmit={() => history.push("/tasks_summary")}
+        onSubmit={() => history.push(`/${step}/tasks_summary`)}
         onStartOver={() => {
-          props.resetQuestion(transactionId, step);
+          props.resetQuestion(transactionId, step, -1);
         }}
       />
     );
@@ -72,6 +72,7 @@ function Questionnaire(props) {
         questionData={props.questions}
         isLoadingNext={loading}
         onNext={props.fetchQuestions}
+        onPrev={props.resetQuestion}
         transactionId={transactionId}
         stepName={step}
       />

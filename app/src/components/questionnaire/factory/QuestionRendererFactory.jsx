@@ -4,7 +4,6 @@ import OptionTypeQuestion from "./OptionTypeQuestion";
 import InputTypeQuestion from "./InputTypeQuestion";
 import { LinearProgress } from "@material-ui/core";
 
-
 /**
  * Renders a question based on the given type
  * @augments {React.Component<Props>}
@@ -40,14 +39,14 @@ class QuestionRendererFactory extends React.Component {
      * multiple requests.
      */
     isLoadingNext: PropTypes.bool,
-  }
+  };
 
   renderProgressBar() {
     return (
       <LinearProgress
         className="questionnaire-progress-bar"
         style={{
-          display: this.props.isLoadingNext ? 'block' : 'none',
+          display: this.props.isLoadingNext ? "block" : "none",
         }}
       />
     );
@@ -59,7 +58,7 @@ class QuestionRendererFactory extends React.Component {
       onNext,
       isLoadingNext,
       transactionId,
-      stepName
+      stepName,
     } = this.props;
 
     if (questionData.type === "options") {
@@ -77,14 +76,13 @@ class QuestionRendererFactory extends React.Component {
             shouldUseGradientBackground={bg === 2}
             isLoadingNext={isLoadingNext}
             onSelectOption={(option) => {
-              onNext(transactionId, stepName, question, option);
+              onNext(transactionId, stepName, id, option);
             }}
           />
         </>
       );
-    }
-    else {
-      const { id, question, helper, inputLabel, bg } = this.props.questionData;
+    } else {
+      const { id, question, helper, input, bg } = this.props.questionData;
 
       return (
         <>
@@ -94,11 +92,11 @@ class QuestionRendererFactory extends React.Component {
             key={id}
             questionTitle={question}
             helperText={helper}
-            inputLabel={inputLabel}
+            input={input}
             shouldUseGradientBackground={bg === 2}
             isLoadingNext={isLoadingNext}
             onNext={(userInputValue) => {
-              onNext(transactionId, stepName, question, userInputValue);
+              onNext(transactionId, stepName, id, userInputValue);
             }}
           />
         </>
