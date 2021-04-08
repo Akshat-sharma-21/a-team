@@ -32,7 +32,6 @@ export function fetchQuestions(tid, step, id, answer) {
 
 export function resetQuestion(tid, step, id) {
   return (dispatch) => {
-    console.log(tid + "   " + step + "   " + id);
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     if (step === "find-agent") step = "FindAgent";
     else if (step === "pre-approval") step = "PreApproval";
