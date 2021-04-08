@@ -5,6 +5,7 @@ import ReallosLogo from "../../assets/reallos_white_logo.png";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from "../../actions/userActions";
+import { validateFormField } from "../../utils";
 
 import {
   CircularProgress,
@@ -12,7 +13,9 @@ import {
   IconButton,
   Checkbox,
   FormControlLabel,
+  Snackbar,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 const mapStateToProps = (state) => ({
   user: state.user,
@@ -28,10 +31,15 @@ function SignIn(props) {
   let [email, setEmail] = useState(null);
   let [password, setPassword] = useState(null);
   let [remember, setRemeber] = useState(false);
+  const [showError, setShowError] = useState(true);
+  let mail = { hasError: true, errorText: null };
 
   const handleChange = (event) => {
     if (event.target.id === "account-sigin-email-textfield") {
-      setEmail(event.target.value);
+      mail = validateFormField(event.target.value, event.target.name);
+      if (!mail.hasError) {
+        setEmail(event.target.value);
+      } else setShowError(true);
     } else if (event.target.id === "account-sigin-password-textfield") {
       setPassword(event.target.value);
     } else {
@@ -146,6 +154,19 @@ function SignIn(props) {
           </div>
         </div>
       </ReallosModal>
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="error"
+          variant="filled"
+        >
+          {mail.hasError ? mail.errorText : null}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }

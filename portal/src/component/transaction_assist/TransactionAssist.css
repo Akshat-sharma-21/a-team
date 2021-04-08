@@ -2,24 +2,24 @@
 
 .assist-accordion-heading {
   font-size: 18px !important;
-  padding: 9px !important;
+  padding: 8px !important;
   font-family: "Gilroy" !important;
 }
 
 .assist-accordion-section-root {
   display: block;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .assist-accordion-details-root {
   display: flex;
   flex-direction: column;
-  padding: 10px 30px !important;
+  padding: 15px 30px !important;
   margin-top: -25px;
   margin-bottom: 10px;
   overflow-y: scroll;
-  height: 380px;
+  height: 370px;
 }
 
 .assist-accordion-section-heading-group {

@@ -77,7 +77,7 @@ function Dashboard(props) {
   /**
    * Validates Input Values
    */
-  const validateValues = (fieldValue, fieldType) => {
+  const handleChange = (fieldValue, fieldType) => {
     if (fieldType === "email") {
       mail = validateFormField(fieldValue, fieldType);
       setMailError(mail.errorText);
@@ -139,11 +139,12 @@ function Dashboard(props) {
                 <TextField
                   error={showError && !validated && mailError !== null}
                   value={invitationEmail}
+                  name="email"
                   label="Email"
                   variant="outlined"
                   type="email"
                   onChange={(event) =>
-                    validateValues(event.target.value, event.target.type)
+                    handleChange(event.target.value, event.target.name)
                   }
                   style={{ width: 650, marginLeft: 20 }}
                 />
@@ -180,11 +181,12 @@ function Dashboard(props) {
                 <TextField
                   error={showError && !validated && phoneError !== null}
                   value={invitationPhone}
+                  name="phone"
                   label="Phone"
                   variant="outlined"
                   type="tel"
                   onChange={(event) =>
-                    validateValues(event.target.value, event.target.type)
+                    handleChange(event.target.value, event.target.name)
                   }
                   style={{ width: 650, marginLeft: 20 }}
                 />

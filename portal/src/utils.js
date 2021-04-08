@@ -126,7 +126,7 @@ export const validateFormField = (textValue, fieldType) => {
 
       break;
 
-    case "tel":
+    case "phone":
       if (textValue === "") {
         formFieldError = {
           hasError: true,
