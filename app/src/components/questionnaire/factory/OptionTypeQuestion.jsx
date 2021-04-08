@@ -2,14 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ArrowLeftIcon, ArrowRightIcon } from "@primer/octicons-react";
 import { Scaffold } from "../../utilities/core";
-import { getIcon } from './QuestionnaireIconMap';
+import { getIcon } from "./QuestionnaireIconMap";
 
-import {
-  Grid,
-  IconButton,
-  Button,
-} from "@material-ui/core";
-
+import { Grid, IconButton, Button } from "@material-ui/core";
 
 /**
  * Renders options type question
@@ -30,16 +25,18 @@ class OptionTypeQuestion extends React.Component {
     /**
      * Array of options to be displayed
      */
-    options: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
-      icon: PropTypes.string,
-    })),
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        icon: PropTypes.string,
+      })
+    ),
 
     /**
      * Callback function called when an option is selected
      * by the user.
      */
-     onSelectOption: PropTypes.func,
+    onSelectOption: PropTypes.func,
 
     /**
      * Specifies if the next question is currently being
@@ -52,8 +49,8 @@ class OptionTypeQuestion extends React.Component {
      * Specifies whether current question should render with a
      * gradient background.
      */
-     shouldUseGradientBackground: PropTypes.bool,
-  }
+    shouldUseGradientBackground: PropTypes.bool,
+  };
 
   render() {
     const {
@@ -67,18 +64,18 @@ class OptionTypeQuestion extends React.Component {
 
     return (
       <Scaffold
-        bgVariant={shouldUseGradientBackground ? 'gradient' : 'plain'}
+        bgVariant={shouldUseGradientBackground ? "gradient" : "plain"}
         className="questionnaire-root"
       >
-        <Grid container direction="column" className="questionnaire-main-container">
+        <Grid
+          container
+          direction="column"
+          className="questionnaire-main-container"
+        >
           <div className="questionnaire-header-group">
-            <div className="questionnaire-question">
-              {questionTitle}
-            </div>
+            <div className="questionnaire-question">{questionTitle}</div>
 
-            <div className="questionnaire-helper-text">
-              {helperText}
-            </div>
+            <div className="questionnaire-helper-text">{helperText}</div>
           </div>
 
           <Grid container spacing={2} className="questionnaire-form-group">
@@ -90,7 +87,7 @@ class OptionTypeQuestion extends React.Component {
                     fullWidth
                     className="questionnaire-option-item"
                     disabled={isLoadingNext}
-                    onClick={() => onSelectOption(option)}
+                    onClick={() => onSelectOption(option.label)}
                   >
                     {getIcon(option.icon)}
                     {option.label}
@@ -111,7 +108,7 @@ class OptionTypeQuestion extends React.Component {
           </IconButton>
         </div>
       </Scaffold>
-    )
+    );
   }
 }
 

@@ -2,17 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Scaffold } from "../../utilities/core";
 
-import {
-  Grid,
-  IconButton,
-  TextField,
-} from "@material-ui/core";
+import { Grid, IconButton, TextField } from "@material-ui/core";
 
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from "@primer/octicons-react";
-
+import { ArrowLeftIcon, ArrowRightIcon } from "@primer/octicons-react";
 
 /**
  * Renders input type question
@@ -33,7 +25,7 @@ class InputTypeQuestion extends React.Component {
     /**
      * Placeholder to be displayed for the input box.
      */
-    inputLabel: PropTypes.string,
+    input: PropTypes.object,
 
     /**
      * Callback function called when the user clicks on the
@@ -52,31 +44,31 @@ class InputTypeQuestion extends React.Component {
      * gradient background.
      */
     shouldUseGradientBackground: PropTypes.bool,
-  }
+  };
 
   constructor() {
     super();
 
     this.state = {
-      userInputValue: '',
+      userInputValue: "",
     };
   }
 
   /**
    * Updates User Input value
-   * @param {Event} event 
+   * @param {Event} event
    */
   updateUserInputValue(event) {
     this.setState({
       userInputValue: event.target.value,
-    })
+    });
   }
-  
+
   render() {
     const {
       questionTitle,
       helperText,
-      inputLabel,
+      input,
       isLoadingNext,
       shouldUseGradientBackground = false,
       onNext,
@@ -84,29 +76,41 @@ class InputTypeQuestion extends React.Component {
 
     return (
       <Scaffold
-        bgVariant={shouldUseGradientBackground ? 'gradient' : 'plain'}
+        bgVariant={shouldUseGradientBackground ? "gradient" : "plain"}
         className="questionnaire-root"
       >
-        <Grid container direction="column" className="questionnaire-main-container">
+        <Grid
+          container
+          direction="column"
+          className="questionnaire-main-container"
+        >
           <div className="questionnaire-header-group">
-            <div className="questionnaire-question">
-              {questionTitle}
-            </div>
+            <div className="questionnaire-question">{questionTitle}</div>
 
-            <div className="questionnaire-helper-text">
-              {helperText}
-            </div>
+            <div className="questionnaire-helper-text">{helperText}</div>
           </div>
 
           <div className="questionnaire-form-group">
-            <TextField
-              label={inputLabel}
-              variant="outlined"
-              fullWidth
-              value={this.state.userInputValue}
-              disabled={isLoadingNext}
-              onChange={(event) => this.updateUserInputValue(event)}
-            />
+            {input.type === "date" ? (
+              <TextField
+                label={input.label}
+                variant="outlined"
+                type="date"
+                fullWidth
+                value={this.state.userInputValue}
+                disabled={isLoadingNext}
+                onChange={(event) => this.updateUserInputValue(event)}
+              />
+            ) : (
+              <TextField
+                label={input.label}
+                variant="outlined"
+                fullWidth
+                value={this.state.userInputValue}
+                disabled={isLoadingNext}
+                onChange={(event) => this.updateUserInputValue(event)}
+              />
+            )}
           </div>
         </Grid>
 
@@ -123,7 +127,7 @@ class InputTypeQuestion extends React.Component {
           </IconButton>
         </div>
       </Scaffold>
-    )
+    );
   }
 }
 

@@ -5,13 +5,13 @@ export const SET_QUESTION = "SET_QUESTION";
 export const CLEAR_QUESTION = "CLEAR_QUESTION";
 export const COMPLETED_QUESTIONS = "COMPLETED_QUESTIONS";
 
-export function fetchQuestions(tid, step, question, answer) {
+export function fetchQuestions(tid, step, id, answer) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatch an action to set loading to true
     axios
       .post(`/${step}`, {
         tid: tid,
-        question: question,
+        id: id,
         answer: answer,
       })
       .then((res) => {
@@ -30,15 +30,16 @@ export function fetchQuestions(tid, step, question, answer) {
   };
 }
 
-export function resetQuestion(tid, step) {
+export function resetQuestion(tid, step, id) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     if (step === "find-agent") step = "FindAgent";
     else if (step === "pre-approval") step = "PreApproval";
     axios
-      .post("/reset-question", {
+      .post("/reset-step", {
         tid: tid,
         step: step,
+        id: id,
       })
       .then((res) => {
         if (res.data.reset === true) {
