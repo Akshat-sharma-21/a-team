@@ -72,6 +72,7 @@ class InputTypeQuestion extends React.Component {
       isLoadingNext,
       shouldUseGradientBackground = false,
       onNext,
+      onPrev,
     } = this.props;
 
     return (
@@ -115,7 +116,10 @@ class InputTypeQuestion extends React.Component {
         </Grid>
 
         <div className="questionnaire-action-area questionnaire-action-nav-area">
-          <IconButton className="questionnaire-arrow-button">
+          <IconButton
+            className="questionnaire-arrow-button"
+            onClick={() => onPrev()}
+          >
             <ArrowLeftIcon size={25} />
           </IconButton>
 

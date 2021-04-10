@@ -34,6 +34,13 @@ class QuestionRendererFactory extends React.Component {
     onNext: PropTypes.func,
 
     /**
+     * Callback function called when the user clicks on the
+     * "Previous" button
+     */
+
+    onPrev: PropTypes.func,
+
+    /**
      * Specifies if the next question is currently being
      * fetched. Used to disable the options/input to prevent
      * multiple requests.
@@ -59,6 +66,7 @@ class QuestionRendererFactory extends React.Component {
       isLoadingNext,
       transactionId,
       stepName,
+      onPrev,
     } = this.props;
 
     if (questionData.type === "options") {
@@ -78,6 +86,7 @@ class QuestionRendererFactory extends React.Component {
             onSelectOption={(option) => {
               onNext(transactionId, stepName, id, option);
             }}
+            onPrev={() => onPrev(transactionId, stepName, id)}
           />
         </>
       );
@@ -98,6 +107,7 @@ class QuestionRendererFactory extends React.Component {
             onNext={(userInputValue) => {
               onNext(transactionId, stepName, id, userInputValue);
             }}
+            onPrev={() => onPrev(transactionId, stepName, id)}
           />
         </>
       );
