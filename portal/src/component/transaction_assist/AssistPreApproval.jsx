@@ -134,7 +134,7 @@ class AssistPreApproval extends React.Component {
         );
         break;
 
-      case "taskPriority":
+      case "priority":
         this.setState({ taskPriority: event.target.value });
         this.priorityError = validateFormField(
           event.target.value,
@@ -146,13 +146,13 @@ class AssistPreApproval extends React.Component {
         break;
     }
     if (
-      this.titleError.hasError &&
-      this.descriptionError.hasError &&
-      this.dateError.hasError &&
-      this.priorityError.hasError
+      !this.titleError.hasError &&
+      !this.descriptionError.hasError &&
+      !this.dateError.hasError &&
+      !this.priorityError.hasError
     ) {
       this.setState({ validated: true });
-    }
+    } else this.setState({ validated: false });
   };
 
   dateToString(date) {
@@ -161,7 +161,7 @@ class AssistPreApproval extends React.Component {
       "Jan",
       "Feb",
       "March",
-      "Aril",
+      "April",
       "May",
       "June",
       "July",
@@ -179,7 +179,7 @@ class AssistPreApproval extends React.Component {
       let dateString = this.dateToString(this.state.taskDate);
       let newTask = {
         Title: this.state.taskTitle,
-        Decreption: this.state.taskDescription,
+        Description: this.state.taskDescription,
         Date: dateString,
         Priority: this.state.taskPriority,
         Completed: false,
@@ -400,6 +400,9 @@ class AssistPreApproval extends React.Component {
                   value={this.state.taskDate}
                   onChange={this.handleChange}
                   error={this.state.showError && this.dateError.hasError}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </div>
             </FormGroup>
@@ -411,8 +414,8 @@ class AssistPreApproval extends React.Component {
                   fullWidth
                   variant="outlined"
                   label="Priority"
-                  type="text"
-                  name="taskPriority"
+                  type="number"
+                  name="priority"
                   value={this.state.taskPriority}
                   onChange={this.handleChange}
                   error={this.state.showError && this.priorityError.hasError}
@@ -443,7 +446,7 @@ class AssistPreApproval extends React.Component {
         >
           <Alert
             onClose={() => this.setState({ showError: false })}
-            severity="error"
+            severity="warning"
             variant="filled"
           >
             {/* {this.titleError.hasError
