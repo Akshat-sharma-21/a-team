@@ -31,21 +31,62 @@ function SignIn(props) {
   let [email, setEmail] = useState(null);
   let [password, setPassword] = useState(null);
   let [remember, setRemeber] = useState(false);
-  const [showError, setShowError] = useState(true);
+  const [showError, setShowError] = useState(false);
+  const [mailError, setMailError] = useState(true);
+  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
   let mail = { hasError: true, errorText: null };
 
   const handleChange = (event) => {
+    setMailError(
+      validateFormField(event.target.value, event.target.name).hasError
+    );
+    setMailErrorText(
+      validateFormField(event.target.value, event.target.name).errorText
+    );
     if (event.target.id === "account-sigin-email-textfield") {
-      mail = validateFormField(event.target.value, event.target.name);
-      if (!mail.hasError) {
-        setEmail(event.target.value);
-      } else setShowError(true);
+      setEmail(event.target.value);
     } else if (event.target.id === "account-sigin-password-textfield") {
       setPassword(event.target.value);
     } else {
       setRemeber(!remember);
     }
   };
+
+  const onSubmit = () => {
+    if (mailError) {
+      setShowError(true);
+    } else {
+      props.login({ email, password });
+      setTimeout(() => {
+        console.log(props.utils.errors);
+        if (props.utils.errors.code === "auth/wrong-password") {
+          setMailErrorText("Password is incorrect");
+          setShowError(true);
+        }
+
+        if (props.utils.errors.code === "auth/invalid-email") {
+          setMailErrorText("Email is invalid");
+          setShowError(true);
+        }
+
+        if (props.utils.errors.code === "auth/user-not-found") {
+          setMailErrorText("User not found");
+          setShowError(true);
+        }
+
+        if (props.utils.errors.code === "auth/user-disabled") {
+          setMailErrorText("User is disabled");
+          setShowError(true);
+        }
+
+        if (props.utils.errors.code === "auth/too-many-requests") {
+          setMailErrorText("Too many requests");
+          setShowError(true);
+        }
+      }, 2000);
+    }
+  };
+
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal
@@ -137,7 +178,7 @@ function SignIn(props) {
                 primary
                 fullWidth
                 disabled={props.utils.loading}
-                onClick={() => props.login({ email, password })}
+                onClick={onSubmit}
               >
                 Sign In
               </ReallosButton>
@@ -161,10 +202,10 @@ function SignIn(props) {
       >
         <Alert
           onClose={() => setShowError(false)}
-          severity="error"
+          severity="warning"
           variant="filled"
         >
-          {mail.hasError ? mail.errorText : null}
+          {mailErrorText}
         </Alert>
       </Snackbar>
     </Scaffold>

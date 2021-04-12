@@ -10,14 +10,14 @@
 }
 
 :root {
-  --color-primary: #0432FA;
-  --color-gradient-start: #7C67E8;
-  --color-gradient-stop: #16B3EF;
+  --color-primary: #0432fa;
+  --color-gradient-start: #7c67e8;
+  --color-gradient-stop: #16b3ef;
   --reallos-scrollbar-width: 8px;
 }
 
 .App {
-  font-family: 'Roboto Slab', 'Gilroy';
+  font-family: "Roboto Slab", "Gilroy";
 }
 
 a,
@@ -178,5 +178,13 @@ a:active,
 }
 
 .reallos-menu-root * {
-  font-family: 'Gilroy' !important;
+  font-family: "Gilroy" !important;
+}
+
+.MuiAlert-message {
+  font-size: 22px !important;
+}
+
+.MuiAlert-icon {
+  font-size: 35px !important;
 }

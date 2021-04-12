@@ -401,7 +401,7 @@ function Dashboard(props) {
       >
         <Alert
           onClose={() => setShowError(false)}
-          severity="error"
+          severity="warning"
           variant="filled"
         >
           {mailError === null && phoneError === null

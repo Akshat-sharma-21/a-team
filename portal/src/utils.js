@@ -57,7 +57,7 @@ export const phoneNumberValidationRegex = /^[0-9]{10}$/;
  * @param {string} textValue
  * The value to validate.
  *
- * @param {"firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password"} fieldType
+ * @param {"firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password" | "date" | "priority" } fieldType
  * Type of form field that needs to be validated.
  *
  * @returns {{hasError: boolean, errorText: string}}
@@ -196,6 +196,38 @@ export const validateFormField = (textValue, fieldType) => {
         formFieldError = {
           hasError: true,
           errorText: "Password must be atleast 8 characters long!",
+        };
+      }
+
+      break;
+
+    case "date":
+      let currentDate = new Date();
+      let newDate = new Date(textValue);
+      if (textValue === "") {
+        formFieldError = {
+          hasError: true,
+          errorText: "Date cannot be empty",
+        };
+      } else if (newDate < currentDate) {
+        formFieldError = {
+          hasError: true,
+          errorText: "Date is invalid",
+        };
+      }
+
+      break;
+
+    case "priority":
+      if (textValue === "") {
+        formFieldError = {
+          hasError: true,
+          errorText: "Priority cannot be empty",
+        };
+      } else if (textValue < 0 || textValue > 2) {
+        formFieldError = {
+          hasError: true,
+          errorText: "Priority must be between 0 to 2",
         };
       }
 

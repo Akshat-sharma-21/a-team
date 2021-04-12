@@ -9,8 +9,9 @@ import { Alert } from "@material-ui/lab";
 
 function CreateAccountForm1(props) {
   const [showError, setShowError] = useState(false);
+  const [mailError, setMailError] = useState(true);
+  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
   let { onStateChange = () => {}, state = {}, onNext = () => {} } = props;
-  let mail = { hasError: true, errorText: null };
 
   /**
    * Handles input change. Sets state
@@ -19,14 +20,22 @@ function CreateAccountForm1(props) {
    * @param {Event} event
    */
   const handleChange = (event) => {
-    mail = validateFormField(event.target.value, event.target.name);
-    if (!mail.hasError) {
-      onStateChange({
-        email: event.target.value,
-      });
-    } else setShowError(true);
+    setMailError(
+      validateFormField(event.target.value, event.target.name).hasError
+    );
+    setMailErrorText(
+      validateFormField(event.target.value, event.target.name).errorText
+    );
+    onStateChange({
+      email: event.target.value,
+    });
   };
 
+  const nextStep = () => {
+    if (mailError) {
+      setShowError(true);
+    } else onNext();
+  };
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal
@@ -55,6 +64,7 @@ function CreateAccountForm1(props) {
                 variant="outlined"
                 id="account-setup-email-textfield"
                 label="Email"
+                name="email"
                 type="email"
                 value={state.email}
                 onChange={handleChange}
@@ -69,7 +79,7 @@ function CreateAccountForm1(props) {
             </div>
 
             <div className="account-setup-action-footer-group">
-              <ReallosButton cta primary fullWidth onClick={onNext}>
+              <ReallosButton cta primary fullWidth onClick={nextStep}>
                 Next
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />
@@ -86,10 +96,10 @@ function CreateAccountForm1(props) {
       >
         <Alert
           onClose={() => setShowError(false)}
-          severity="error"
+          severity="warning"
           variant="filled"
         >
-          {mail.hasError ? mail.errorText : null}
+          {mailErrorText}
         </Alert>
       </Snackbar>
     </Scaffold>
