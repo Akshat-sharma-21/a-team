@@ -33,6 +33,7 @@ function TransactionCard({ transactionDetails }) {
       setProgress(transactionDetails.Completion / 100);
     });
   }, []);
+
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card variant="outlined">
@@ -43,7 +44,7 @@ function TransactionCard({ transactionDetails }) {
           <CardActionArea
             className="transaction-card-content-root"
             aria-label={[
-              `${transactionDetails.Name} of ${transactionDetails.Buyer}`,
+              `${transactionDetails.Buyer}`,
               `${Math.round(transactionDetails.Completion)}% completed`,
             ].join(" - ")}
           >
@@ -92,7 +93,7 @@ function TransactionCard({ transactionDetails }) {
                 </div>
 
                 <div className="transaction-card-transaction-name">
-                  {transactionDetails.Name}
+                  {"Temp"}
                 </div>
               </Grid>
 
@@ -113,27 +114,18 @@ function TransactionCard({ transactionDetails }) {
 
                 <div className="transaction-card-detail-main">
                   <VersionsIcon size={20} />
-                  {transactionDetails.Stage.Step}
+                  {transactionDetails.Stage.step}
 
                   <div
                     className="transaction-card-detail-sub"
                     style={{ lineHeight: "27px" }}
                   >
                     <span className="transaction-card-detail-subtask-date">
-                      {moment
-                        .unix(
-                          transactionDetails.Tasks[
-                            transactionDetails.Stage.Task
-                          ].Date
-                        )
-                        .format("DD MMM")}
+                      {/*Task Dates comes here*/}
                     </span>
 
                     <span style={{ textOverflow: "ellipsis" }}>
-                      {
-                        transactionDetails.Tasks[transactionDetails.Stage.Task]
-                          .Task
-                      }
+                      {/*Task Name comes here*/}
                     </span>
                   </div>
                 </div>

@@ -65,14 +65,7 @@ export function fetchUser() {
                       // storing the transactions in the redux store
                       addTransactionFunction({
                         id: transaction,
-                        Buyer: doc.data().Buyer,
-                        Completion: doc.data().Completion,
-                        Paperwork: doc.data().Paperwork,
-                        People: doc.data().People,
-                        Stage: doc.data().Stage,
-                        Address: doc.data().Address,
-                        Tasks: doc.data().Tasks,
-                        Name: doc.data().Name,
+                        ...doc.data(), // spreading the data of the transaction
                       })
                     );
                     dispatch(setTasksAction(doc.data()));

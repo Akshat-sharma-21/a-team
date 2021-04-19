@@ -8,15 +8,25 @@ function transactionReducer(state = initialState, action) {
       return [
         ...state,
         {
+          // All the details about the transaction
           id: action.payload.id,
-          Buyer: action.payload.Buyer,
-          Completion: action.payload.Completion,
-          Paperwork: action.payload.Paperwork,
-          People: action.payload.People,
-          Stage: action.payload.Stage,
           Address: action.payload.Address,
-          Tasks: action.payload.Tasks,
-          Name: action.payload.Name,
+          Buyer: action.payload.Buyer,
+          BuyerId: action.payload.BuyerId,
+          Completion: action.payload.Completion,
+          Floors: action.payload.Floors,
+          HomeInspectionVoided: action.payload.HomeInspectionVoided,
+          Pool: action.payload.Pool,
+          SquareFt: action.payload.SquareFt,
+          Stage: action.payload.Stage,
+          // All the steps
+          PreApproval: action.payload.PreApproval,
+          FindAgent: action.payload.FindAgent,
+          FindHome: action.payload.FindHome,
+          EscrowTitle: action.payload.EscrowTitle,
+          HomeInspection: action.payload.HomeInspection,
+          HomeInsurance: action.payload.HomeInsurance,
+          Closing: action.payload.Closing,
         },
       ];
     }
