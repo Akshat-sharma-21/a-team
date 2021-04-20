@@ -55,15 +55,24 @@
   color: #474747 !important;
 }
 
+.doc-list-title-use {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
 .doc-list-subtext {
   font-family: "Segoe UI", sans-serif;
   font-size: 14px !important;
   color: #474747 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 
 .doc-list-subtext2 {
   font-family: "Segoe UI", sans-serif;
-  font-size: 12px !important;
+  font-size: 14px !important;
   color: #474747 !important;
 }
 
@@ -95,6 +104,25 @@
 }
 
 .taskSummary-modal-btn {
+  font-family: "Gilroy" !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+  border: none !important;
+  text-transform: none !important;
+  color: #2b44ff !important;
+}
+
+.taskSummary-singleView-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 40px;
+  min-height: calc(100vh - 360px);
+}
+
+.taskSummary-showMore {
   font-family: "Gilroy" !important;
   font-size: 17px !important;
   font-weight: bold !important;
