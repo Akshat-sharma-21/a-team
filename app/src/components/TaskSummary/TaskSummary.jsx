@@ -11,6 +11,7 @@ import {
   MailIcon,
   DeviceMobileIcon,
   ChevronRightIcon,
+  ProjectIcon,
 } from "@primer/octicons-react";
 import {
   LinearProgress,
@@ -20,8 +21,28 @@ import {
   Grid,
   Avatar,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
-import { useState } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { fetchUser } from "../../actions/userActions";
+import { useParams } from "react-router";
+
+const mapStateToProps = (state) => ({
+  roadmap: state.roadmap,
+  utils: state.utils,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      fetchUser,
+    },
+    dispatch
+  );
+};
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -38,161 +59,143 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
-function TaskSummary() {
+function TaskSummary(props) {
   const [isModalOpen, toggleModal] = useState(false);
+  const [showMoreTasks, toggleTasks] = useState(false);
+  const [showMoreDocuments, toggleDocuments] = useState(false);
+  const [type, changeType] = useState("");
+  const [title, changeTitle] = useState("");
+  const [description, changeDescription] = useState("");
 
-  let documents = [
-    {
-      title: "Tax Returns",
-      description: "Lorum Ipsum fit amet",
-    },
-    {
-      title: "ID",
-      description: "Lorum Ipsum fit amet",
-    },
-    {
-      title: "Income & Employment",
-      description: "Lorum Ipsum fit amet",
-    },
-  ];
+  let { step } = useParams(); // Getting the step of the transaction
+  let completed = 0;
+  let activeStep = null; // To store the active step
+  let activeStepName = "";
 
-  let tasks = [
-    {
-      title: "Tax Returns",
-      description: "Lorum Ipsum fit amet",
-    },
-  ];
+  if (step === "pre-approval") activeStepName = "Pre-approval"; // Setting the display name for the screen
 
-  return (
-    <Scaffold>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12} style={{ textAlign: "left" }}>
-          <IconButton
-            size="small"
-            style={{ margin: "20px 0" }}
-            onClick={() => (window.location.href = "/dashboard")}
-          >
-            <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
-          </IconButton>
-        </Grid>
+  useEffect(() => {
+    if (props.utils.reload === true) {
+      // if the page has been refresehed
+      props.fetchUser();
+    }
+  }, []);
 
-        <Grid item xs={12} style={{ textAlign: "left" }}>
-          <div className="taskSummary-heading">Pre-approval</div>
-        </Grid>
+  if (props.utils.reload === false) {
+    // If the transaction has been loaded
 
-        <Grid item xs={12} style={{ marginBottom: "15px" }}>
-          <BorderLinearProgress variant="determinate" value="50" />
-        </Grid>
+    if (step === "pre-approval") {
+      activeStep = props.roadmap.PreApproval;
+      activeStep.Tasks.forEach((task) => {
+        if (task.completed === true) {
+          completed++;
+        }
+      });
+    }
+  }
 
-        <Grid item xs={1}>
-          <CheckCircleIcon style={{ color: "#707070" }} />
-        </Grid>
+  function modalOpen(title, description, type) {
+    toggleModal(true);
+    changeTitle(title);
+    changeDescription(description);
+    changeType(type);
+  }
 
-        <Grid item xs={11} style={{ textAlign: "left" }}>
-          <div className="taskSummary-subtext">2 / 5 Tasks Completed</div>
-        </Grid>
+  function modalClose() {
+    toggleModal(false);
+    changeTitle("");
+    changeDescription("");
+    changeType("");
+  }
 
-        <Grid item xs={12} style={{ height: "35px" }}></Grid>
-
-        <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="taskSummary-subheading">Lender</div>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="taskSummary-list">
-            <ListItem className="taskSummary-lender-list">
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
+  function displayModal() {
+    // Function to open the modal sheet
+    if (type === "task") {
+      return (
+        <ModalSheet isOpen={isModalOpen} onClose={() => modalClose()}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            {/* Change the Image for this */}
+            <Grid item xs={2} style={{ textAlign: "center" }}>
+              <Avatar
+                variant="rounded"
+                style={{ backgroundColor: "#00000000" }}
               >
-                <Grid item xs={1} style={{ textAlign: "center" }}>
-                  <Avatar
-                    variant="circle"
-                    style={{ backgroundColor: "#2B44FF", marginBottom: "10px" }}
-                  />
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="lender-list-title">Lender</div>
-                  </Grid>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="doc-list-subtext2">
-                      You haven't yet selected a lender. Please select one to
-                      move forward
-                    </div>
-                  </Grid>
-                </Grid>
-                <Grid item xs={1}></Grid>
-
-                <Grid item xs={12} style={{ height: "20px" }}></Grid>
-
-                <Grid item xs={5}></Grid>
-                <Grid item xs={7}>
-                  <Button className="lender-btn">
-                    View all Offers <ChevronRightIcon size={16} />
-                  </Button>
-                </Grid>
-              </Grid>
-            </ListItem>
-          </List>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="taskSummary-list">
-            <ListItem className="taskSummary-lender-list">
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
+                <img src={DocLogo} alt="" />
+              </Avatar>
+            </Grid>
+            <Grid item xs={10} style={{ textAlign: "left" }}>
+              <div className="taskSummary-modal-heading">{title}</div>
+            </Grid>
+            <Grid item xs={12} style={{ height: "25px" }}></Grid>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="taskSummary-modal-text">{description}</div>
+            </Grid>
+            <Grid item xs={12} style={{ height: "20px" }}></Grid>
+            <Grid item xs={12}>
+              <Button
+                className="taskSummary-modal-btn"
+                onClick={() => (window.location.href = "/tasks")}
               >
-                <Grid item xs={1} style={{ textAlign: "center" }}>
-                  <Avatar variant="circle" src={ProfilePic} />
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="lender-list-title">John Smith</div>
-                  </Grid>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="doc-list-subtext">Bank of America</div>
-                  </Grid>
-                </Grid>
-                <Grid item xs={1}></Grid>
+                View in Tasks <ChevronRightIcon size={16} />
+              </Button>
+            </Grid>
+            <Grid item xs={12} style={{ height: "5px" }}></Grid>
+          </Grid>
+        </ModalSheet>
+      );
+    } else {
+      return (
+        <ModalSheet isOpen={isModalOpen} onClose={() => modalClose()}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={2} style={{ textAlign: "center" }}>
+              <Avatar
+                variant="rounded"
+                style={{ backgroundColor: "#00000000" }}
+              >
+                <img src={DocLogo} alt="" />
+              </Avatar>
+            </Grid>
+            <Grid item xs={10} style={{ textAlign: "left" }}>
+              <div className="taskSummary-modal-heading">{title}</div>
+            </Grid>
+            <Grid item xs={12} style={{ height: "25px" }}></Grid>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="taskSummary-modal-text">{description}</div>
+            </Grid>
+            <Grid item xs={12} style={{ height: "20px" }}></Grid>
+            <Grid item xs={12}>
+              <Button
+                className="taskSummary-modal-btn"
+                onClick={() => (window.location.href = "/documents")}
+              >
+                View in Documents <ChevronRightIcon size={16} />
+              </Button>
+            </Grid>
+            <Grid item xs={12} style={{ height: "5px" }}></Grid>
+          </Grid>
+        </ModalSheet>
+      );
+    }
+  }
 
-                <Grid item xs={12} style={{ height: "20px" }}></Grid>
+  function displayProfessional() {
+    let profession = "";
+    // Function to display the Professional
+    if (activeStep.Professional === null) {
+      // If the professional is not present
+      if (activeStepName === "Pre-approval") {
+        // To select what profession to display
+        profession = "Lender";
+      }
 
-                <Grid item xs={2}></Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={9} container>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="doc-list-subtext">
-                      <MailIcon size={16} /> &nbsp;&nbsp; john.smith@gmail.com
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} style={{ textAlign: "left" }}>
-                    <div className="doc-list-subtext">
-                      <DeviceMobileIcon size={16} />
-                      &nbsp;&nbsp; +1 99999 99999
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </ListItem>
-          </List>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="taskSummary-subheading">Documents</div>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="taskSummary-list">
-            {documents.map((doc) => (
-              <ListItem className="taskSummary-list-item">
+      return (
+        <>
+          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+            <div className="taskSummary-subheading">{profession}</div>
+          </Grid>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <List className="taskSummary-list">
+              <ListItem className="taskSummary-lender-list">
                 <Grid
                   container
                   direction="row"
@@ -201,102 +204,287 @@ function TaskSummary() {
                 >
                   <Grid item xs={1} style={{ textAlign: "center" }}>
                     <Avatar
-                      variant="rounded"
-                      style={{ backgroundColor: "#00000000" }}
-                    >
-                      <img src={DocLogo} alt="" />
-                    </Avatar>
+                      variant="circle"
+                      style={{
+                        backgroundColor: "#2B44FF",
+                        marginBottom: "10px",
+                      }}
+                    />
                   </Grid>
                   <Grid item xs={1}></Grid>
                   <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-title1">{doc.title}</div>
+                      <div className="lender-list-title">{profession}</div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">{doc.description}</div>
+                      <div className="doc-list-subtext2">
+                        You haven't yet selected a {profession}. Please select
+                        one to move forward
+                      </div>
                     </Grid>
                   </Grid>
-                  <Grid item xs={1}>
-                    <IconButton onClick={() => toggleModal(true)}>
-                      <QuestionIcon size={18} style={{ color: "#707070" }} />
-                    </IconButton>
+                  <Grid item xs={1}></Grid>
+
+                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
+
+                  <Grid item xs={5}></Grid>
+                  <Grid item xs={7}>
+                    <Button className="lender-btn">
+                      View all Offers <ChevronRightIcon size={16} />
+                    </Button>
                   </Grid>
                 </Grid>
               </ListItem>
-            ))}
-          </List>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-          <div className="taskSummary-subheading">Tasks</div>
-        </Grid>
-
-        <Grid item xs={12} style={{ textAlign: "center" }}>
-          <List className="taskSummary-list">
-            {tasks.map((task) => (
-              <ListItem className="taskSummary-list-item">
+            </List>
+          </Grid>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <List className="taskSummary-list">
+              <ListItem className="taskSummary-lender-list">
                 <Grid
                   container
                   direction="row"
                   justify="center"
                   alignItems="center"
                 >
-                  <Grid item xs={2} style={{ textAlign: "center" }}>
-                    <ListUnorderedIcon size={32} />
+                  <Grid item xs={1} style={{ textAlign: "center" }}>
+                    <Avatar variant="circle" src={ProfilePic} />
                   </Grid>
                   <Grid item xs={1}></Grid>
-                  <Grid item xs={8} container>
+                  <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-title1">{task.title}</div>
+                      <div className="lender-list-title">John Smith</div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">{task.description}</div>
+                      <div className="doc-list-subtext">Bank of America</div>
                     </Grid>
                   </Grid>
                   <Grid item xs={1}></Grid>
+
+                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
+
+                  <Grid item xs={2}></Grid>
+                  <Grid item xs={1}></Grid>
+                  <Grid item xs={9} container>
+                    <Grid item xs={12} style={{ textAlign: "left" }}>
+                      <div className="doc-list-subtext">
+                        <MailIcon size={16} /> &nbsp;&nbsp; john.smith@gmail.com
+                      </div>
+                    </Grid>
+                    <Grid item xs={12} style={{ textAlign: "left" }}>
+                      <div className="doc-list-subtext">
+                        <DeviceMobileIcon size={16} />
+                        &nbsp;&nbsp; +1 99999 99999
+                      </div>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </ListItem>
-            ))}
-          </List>
-        </Grid>
-      </Grid>
+            </List>
+          </Grid>
+        </>
+      );
+    }
+  }
 
-      <ModalSheet isOpen={isModalOpen} onClose={() => toggleModal(false)}>
+  function displayDocuments() {
+    if (activeStep.Documents.length === 0) {
+      // If there are no documents to render
+      return <></>;
+    } else {
+      return (
+        <>
+          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+            <div className="taskSummary-subheading">Documents</div>
+          </Grid>
+
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <List className="taskSummary-list">
+              {activeStep.Documents.map((doc) => (
+                <ListItem className="taskSummary-list-item">
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs={1} style={{ textAlign: "center" }}>
+                      <Avatar
+                        variant="rounded"
+                        style={{ backgroundColor: "#00000000" }}
+                      >
+                        <img src={DocLogo} alt="" />
+                      </Avatar>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div>{doc.title}</div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-subtext">
+                          {doc.description}
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={1}>
+                      <IconButton
+                        onClick={() =>
+                          modalOpen(doc.title, doc.description, "document")
+                        }
+                      >
+                        <QuestionIcon size={18} style={{ color: "#707070" }} />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+        </>
+      );
+    }
+  }
+
+  function displayTasks() {
+    // Function to display the Tasks
+    if (activeStep.Tasks.length === 0) {
+      // If there are are no Tasks to render
+      return <></>;
+    } else {
+      return (
+        <>
+          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+            <div className="taskSummary-subheading">Tasks</div>
+          </Grid>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <List className="taskSummary-list">
+              {activeStep.Tasks.map((task) => (
+                <ListItem className="taskSummary-list-item">
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs={2} style={{ textAlign: "center" }}>
+                      <ListUnorderedIcon size={32} />
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={8} container>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-title-use">{task.title}</div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-subtext">
+                          {task.description}
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={1}>
+                      <IconButton
+                        onClick={() =>
+                          modalOpen(task.title, task.description, "task")
+                        }
+                      >
+                        <QuestionIcon size={18} style={{ color: "#707070" }} />
+                      </IconButton>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                  </Grid>
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+        </>
+      );
+    }
+  }
+
+  if (props.utils.loading === true || props.utils.reload === true) {
+    // If the page is loading or if the page is not fetched yet
+    return (
+      <Scaffold>
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={2} style={{ textAlign: "center" }}>
-            <Avatar variant="rounded" style={{ backgroundColor: "#00000000" }}>
-              <img src={DocLogo} alt="" />
-            </Avatar>
-          </Grid>
-          <Grid item xs={10} style={{ textAlign: "left" }}>
-            <div className="taskSummary-modal-heading">Tax Return</div>
-          </Grid>
-          <Grid item xs={12} style={{ height: "25px" }}></Grid>
           <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="taskSummary-modal-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              cursus magna lectus, ut euismod neque feugiat sed. Phasellus
-              ultrices est lacus, porttitor venenatis erat condimentum posuere.
+            <IconButton
+              size="small"
+              style={{ margin: "20px 0" }}
+              onClick={() => (window.location.href = "/dashboard")}
+            >
+              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+            </IconButton>
+          </Grid>
+
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="taskSummary-heading">{activeStepName}</div>
+          </Grid>
+
+          <Grid className="">
+            <div className="taskSummary-singleView-container">
+              <CircularProgress />
+
+              <div
+                style={{
+                  marginTop: 50,
+                  fontSize: 20,
+                }}
+              >
+                Setting up {activeStepName}
+              </div>
             </div>
           </Grid>
-          <Grid item xs={12} style={{ height: "15px" }}></Grid>
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="taskSummary-modal-text">
-              Nunc sit amet volutpat ligula. Duis nec risus eu erat molestie
-              maximus quis non augue.
-            </div>
-          </Grid>
-          <Grid item xs={12} style={{ height: "20px" }}></Grid>
-          <Grid item xs={12}>
-            <Button className="taskSummary-modal-btn">
-              View in Documents <ChevronRightIcon size={16} />
-            </Button>
-          </Grid>
-          <Grid item xs={12} style={{ height: "5px" }}></Grid>
         </Grid>
-      </ModalSheet>
-    </Scaffold>
-  );
+      </Scaffold>
+    );
+  } else {
+    return (
+      <Scaffold>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <IconButton
+              size="small"
+              style={{ margin: "20px 0" }}
+              onClick={() => (window.location.href = "/dashboard")}
+            >
+              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+            </IconButton>
+          </Grid>
+
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="taskSummary-heading">{activeStepName}</div>
+          </Grid>
+
+          <Grid item xs={12} style={{ marginBottom: "15px" }}>
+            <BorderLinearProgress
+              variant="determinate"
+              value={(completed / activeStep.Tasks.length) * 100} // Calculating the % of completed Tasks
+            />
+          </Grid>
+
+          <Grid item xs={1}>
+            <CheckCircleIcon style={{ color: "#707070" }} />
+          </Grid>
+
+          <Grid item xs={11} style={{ textAlign: "left" }}>
+            <div className="taskSummary-subtext">
+              {completed}/{activeStep.Tasks.length} Tasks Completed
+            </div>
+          </Grid>
+
+          <Grid item xs={12} style={{ height: "35px" }}></Grid>
+          {displayProfessional()}
+          {displayDocuments()}
+          {displayTasks()}
+        </Grid>
+        {displayModal()}
+      </Scaffold>
+    );
+  }
 }
 
-export default TaskSummary;
+export default connect(mapStateToProps, mapDispatchToProps)(TaskSummary);
