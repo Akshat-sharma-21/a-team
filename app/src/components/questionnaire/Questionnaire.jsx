@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./Questionnaire.css";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchQuestions, resetQuestion } from "../../actions/questionActions";
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
@@ -35,8 +35,6 @@ function Questionnaire(props) {
     }
   }, []);
 
-  const history = useHistory();
-
   // getting the step for which the questions must be fetched
   let { step } = useParams();
 
@@ -59,7 +57,7 @@ function Questionnaire(props) {
     // If the user answers all the questions.
     return (
       <QuestionnaireOutro
-        onSubmit={() => history.push(`/${step}/tasks_summary`)}
+        onSubmit={() => (window.location.href = `/${step}/tasks_summary`)}
         onStartOver={() => {
           props.resetQuestion(transactionId, step, -1);
         }}

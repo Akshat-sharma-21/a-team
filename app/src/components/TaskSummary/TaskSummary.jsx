@@ -11,7 +11,6 @@ import {
   MailIcon,
   DeviceMobileIcon,
   ChevronRightIcon,
-  ProjectIcon,
 } from "@primer/octicons-react";
 import {
   LinearProgress,
@@ -68,11 +67,16 @@ function TaskSummary(props) {
   const [description, changeDescription] = useState("");
 
   let { step } = useParams(); // Getting the step of the transaction
-  let completed = 0;
   let activeStep = null; // To store the active step
   let activeStepName = "";
 
   if (step === "pre-approval") activeStepName = "Pre-approval"; // Setting the display name for the screen
+
+  if (props.utils.reload === false) {
+    if (step === "pre-approval") {
+      activeStep = props.roadmap.PreApproval;
+    }
+  }
 
   useEffect(() => {
     if (props.utils.reload === true) {
@@ -80,19 +84,6 @@ function TaskSummary(props) {
       props.fetchUser();
     }
   }, []);
-
-  if (props.utils.reload === false) {
-    // If the transaction has been loaded
-
-    if (step === "pre-approval") {
-      activeStep = props.roadmap.PreApproval;
-      activeStep.Tasks.forEach((task) => {
-        if (task.completed === true) {
-          completed++;
-        }
-      });
-    }
-  }
 
   function modalOpen(title, description, type) {
     toggleModal(true);
@@ -304,7 +295,10 @@ function TaskSummary(props) {
 
           <Grid item xs={12} style={{ textAlign: "center" }}>
             <List className="taskSummary-list">
-              {activeStep.Documents.map((doc) => (
+              {activeStep.Documents.slice(
+                0,
+                showMoreDocuments ? activeStep.Documents.length : 3
+              ).map((doc) => (
                 <ListItem className="taskSummary-list-item">
                   <Grid
                     container
@@ -344,6 +338,27 @@ function TaskSummary(props) {
                 </ListItem>
               ))}
             </List>
+            {activeStep.Documents.length > 2 ? (
+              showMoreDocuments ? (
+                <Button
+                  onClick={() => toggleDocuments(false)}
+                  className="taskSummary-showMore"
+                >
+                  Show Less
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    toggleDocuments(true);
+                  }}
+                  className="taskSummary-showMore"
+                >
+                  Show More
+                </Button>
+              )
+            ) : (
+              <></>
+            )}
           </Grid>
         </>
       );
@@ -363,7 +378,10 @@ function TaskSummary(props) {
           </Grid>
           <Grid item xs={12} style={{ textAlign: "center" }}>
             <List className="taskSummary-list">
-              {activeStep.Tasks.map((task) => (
+              {activeStep.Tasks.slice(
+                0,
+                showMoreTasks ? activeStep.Tasks.length : 3
+              ).map((task) => (
                 <ListItem className="taskSummary-list-item">
                   <Grid
                     container
@@ -399,6 +417,27 @@ function TaskSummary(props) {
                 </ListItem>
               ))}
             </List>
+            {activeStep.Tasks.length > 2 ? (
+              showMoreTasks ? (
+                <Button
+                  onClick={() => toggleTasks(false)}
+                  className="taskSummary-showMore"
+                >
+                  Show Less
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    toggleTasks(true);
+                  }}
+                  className="taskSummary-showMore"
+                >
+                  Show More
+                </Button>
+              )
+            ) : (
+              <></>
+            )}
           </Grid>
         </>
       );
@@ -462,7 +501,11 @@ function TaskSummary(props) {
           <Grid item xs={12} style={{ marginBottom: "15px" }}>
             <BorderLinearProgress
               variant="determinate"
-              value={(completed / activeStep.Tasks.length) * 100} // Calculating the % of completed Tasks
+              value={
+                (activeStep.Tasks.filter((task) => task.completed).length /
+                  activeStep.Tasks.length) *
+                100
+              } // Calculating the % of completed Tasks
             />
           </Grid>
 
@@ -472,7 +515,8 @@ function TaskSummary(props) {
 
           <Grid item xs={11} style={{ textAlign: "left" }}>
             <div className="taskSummary-subtext">
-              {completed}/{activeStep.Tasks.length} Tasks Completed
+              {activeStep.Tasks.filter((task) => task.completed).length} /{" "}
+              {activeStep.Tasks.length} Tasks Completed
             </div>
           </Grid>
 

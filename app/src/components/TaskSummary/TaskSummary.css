@@ -121,3 +121,12 @@
   margin-top: 40px;
   min-height: calc(100vh - 360px);
 }
+
+.taskSummary-showMore {
+  font-family: "Gilroy" !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+  border: none !important;
+  text-transform: none !important;
+  color: #2b44ff !important;
+}
