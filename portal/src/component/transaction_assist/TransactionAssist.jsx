@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import TransactionAssistIllustration from "../../assets/transaction-assist-first-time.png";
+import AssistInitialConsultation from "./AssistInitialConsultation";
 import AssistPreApproval from "./AssistPreApproval";
 import AssistFindAgent from "./AssistFindAgent";
 import AssistHomeInspection from "./AssistHomeInspection";
 import AssistEscrowTitle from "./AssistEscrowTitle";
 import AssistClosing from "./AssistClosing";
 import AssistHomeInsurance from "./AssistHomeInsurance";
-import AssistLoanApproval from "./AssistLoanApproval";
 import "./TransactionAssist.css";
 
 import {
@@ -141,25 +141,23 @@ function TransactionAssist(props) {
           spacing={2}
           style={{ marginBottom: 20 }}
         >
-          {props.task.HomeInspection.Tasks.length !== 0 ? (
+          <AssistInitialConsultation />
+          {!props.task.HomeInspection.Locked ? (
             <AssistHomeInspection list={props.task.HomeInspection} tid={tid} />
           ) : null}
-          {props.task.HomeInsurance.Tasks.length !== 0 ? (
+          {!props.task.HomeInsurance.Locked ? (
             <AssistHomeInsurance list={props.task.HomeInsurance} tid={tid} />
           ) : null}
-          {props.task.PreApproval.Tasks.length !== 0 ? (
+          {!props.task.PreApproval.Locked ? (
             <AssistPreApproval list={props.task.PreApproval} tid={tid} />
           ) : null}
-          {props.task.EscrowTitle.Tasks.length !== 0 ? (
+          {!props.task.EscrowTitle.Locked ? (
             <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
           ) : null}
-          {props.task.FindAgent.Tasks.length !== 0 ? (
+          {!props.task.FindAgent.Locked ? (
             <AssistFindAgent list={props.task.FindAgent} tid={tid} />
           ) : null}
-          {props.task.LoanApproval.Tasks.length !== 0 ? (
-            <AssistLoanApproval list={props.task.LoanApproval} tid={tid} />
-          ) : null}
-          {props.task.Closing.Tasks.length !== 0 ? (
+          {!props.task.Closing.Locked ? (
             <AssistClosing list={props.task.Closing} tid={tid} />
           ) : null}
         </Grid>
