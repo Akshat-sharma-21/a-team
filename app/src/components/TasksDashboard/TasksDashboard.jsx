@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { SearchIcon } from "@primer/octicons-react";
-import { ReallosButton, Scaffold, SearchBar } from "../utilities/core";
+import { Scaffold, SearchBar } from "../utilities/core";
 import "./TasksDashboard.css";
 
 import {
@@ -16,18 +16,17 @@ import {
 } from "@material-ui/core";
 
 import { fetchUser } from "../../actions/userActions";
-import { fetchTasks } from "../../actions/tasksActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
-  tasks: state.tasks,
   user: state.user,
+  roadmap: state.roadmap,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchTasks, fetchUser }, dispatch);
+  return bindActionCreators({ fetchUser }, dispatch);
 };
 
 function TasksDashboard(props) {
@@ -38,61 +37,11 @@ function TasksDashboard(props) {
     if (props.utils.reload === true) {
       props.fetchUser();
     }
-    const _tasks = await _dummyApi();
 
-    setTasksList(_tasks);
-    setFilteredList(_tasks);
-
-    return () => {
-      // Cleanup
-    };
+    setTasksList(props.roadmap.PreApproval.Tasks);
   }, []);
 
-  const _dummyApi = (emptyResponse = false, timeout = 2000) => {
-    return new Promise((resolve, _) => {
-      const _tasks = props.tasks.PreApproval.Tasks;
-
-      // const _tasks = [
-      //   {
-      //     id: "qwertyuio",
-      //     dueDate: "10 Jul",
-      //     title: "Upload Photo ID",
-      //     description:
-      //       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit fuga dolorum explicabo quo suscipit nihil minus aspernatur laboriosam. Dolorem cupiditate adipisci voluptates perferendis, facere mollitia at atque magnam maxime cum!",
-      //     actions: [
-      //       {
-      //         label: "Upload",
-      //         onClick: () => {},
-      //       },
-      //       {
-      //         label: "Something else",
-      //         onClick: () => {},
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: "asdfghjkl",
-      //     dueDate: "5 Aug",
-      //     title: "This is yet another task",
-      //     description:
-      //       "Morbi vitae tortor metus. Donec vel dignissim ex. Duis nec enim et libero bibendum cursus eu ac lorem. Praesent bibendum lorem non odio auctor aliquet.",
-      //     actions: [],
-      //   },
-      //   {
-      //     id: "zxcvbnm",
-      //     dueDate: "12 Aug",
-      //     title: "Upload Photo ID",
-      //     description:
-      //       "Duis auctor ultrices ex, eu tincidunt libero imperdiet ut. Donec sollicitudin luctus luctus. Pellentesque ut consectetur nunc. Vivamus mauris eros, interdum eu massa id, iaculis malesuada justo.",
-      //     actions: [],
-      //   },
-      // ];
-
-      setTimeout(() => {
-        resolve(emptyResponse ? [] : _tasks);
-      }, timeout);
-    });
-  };
+  console.log(props.roadmap);
 
   const PrimaryContent = () => {
     if (tasksList === null || filteredList === null) {
