@@ -156,7 +156,6 @@ class AssistPreApproval extends React.Component {
   };
 
   dateToString(date) {
-    let dateObj = new Date(date);
     const months = [
       "Jan",
       "Feb",
@@ -171,18 +170,18 @@ class AssistPreApproval extends React.Component {
       "Nov",
       "Dec",
     ];
-    return dateObj.getDate() + " " + months[dateObj.getMonth()];
+    return date.getDate() + " " + months[date.getMonth()];
   }
 
   addTask() {
     if (this.state.validated) {
-      let dateString = this.dateToString(this.state.taskDate);
+      let dateObj = new Date(this.state.taskDate);
       let newTask = {
-        Title: this.state.taskTitle,
-        Description: this.state.taskDescription,
-        Date: dateString,
-        Priority: this.state.taskPriority,
-        Completed: false,
+        title: this.state.taskTitle,
+        description: this.state.taskDescription,
+        date: dateObj,
+        priority: this.state.taskPriority,
+        completed: false,
       };
       this.props.addPreApprovalTask(this.props.list, newTask, this.props.tid);
       this.hideAddTaskDrawer();
@@ -238,19 +237,20 @@ class AssistPreApproval extends React.Component {
                 .slice(
                   0,
                   this.state.isEntireTaskListVisible
-                    ? this.state.taskList1.length
+                    ? this.state.taskList.length
                     : taskListSplitPoint
                 )
                 .map((task) => {
+                  let dateString = this.dateToString(task.date.toDate());
                   return (
                     <ListItem
                       className={[
                         "assist-task-list-item",
-                        task.Completed ? "assist-task-completed" : "",
+                        task.completed ? "assist-task-completed" : "",
                       ].join(" ")}
                     >
                       <ListItemIcon className="assist-task-list-item-icon">
-                        {task.Completed ? (
+                        {task.completed ? (
                           <div style={{ color: "#0dd663" }}>
                             <CheckIcon size={20} />
                           </div>
@@ -263,10 +263,10 @@ class AssistPreApproval extends React.Component {
 
                       <ListItemText>
                         <span className="assist-task-list-item-date">
-                          {task.Date}
+                          {dateString}
                         </span>
                         <span className="assist-task-list-item-label">
-                          {task.Title}
+                          {task.title}
                         </span>
                       </ListItemText>
                     </ListItem>

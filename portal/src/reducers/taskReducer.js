@@ -6,7 +6,6 @@ const initialState = {
   FindAgent: null,
   HomeInspection: null,
   HomeInsurance: null,
-  LoanApproval: null,
   PreApproval: null,
 };
 
@@ -15,13 +14,13 @@ function taskReducer(state = initialState, action) {
     case actions.FETCH_TASKS: {
       return {
         ...state,
-        Closing: action.payload.Closing,
-        EscrowTitle: action.payload.EscrowTitle,
+        PreApproval: action.payload.PreApproval,
         FindAgent: action.payload.FindAgent,
+        FindHome: action.payload.FindHome,
+        EscrowTitle: action.payload.EscrowTitle,
         HomeInspection: action.payload.HomeInspection,
         HomeInsurance: action.payload.HomeInsurance,
-        LoanApproval: action.payload.LoanApproval,
-        PreApproval: action.payload.PreApproval,
+        Closing: action.payload.Closing,
       };
     }
     case actions.ADD_CLOSING_TASKS: {

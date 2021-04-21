@@ -192,3 +192,83 @@
   gap: 10px;
   justify-content: flex-end;
 }
+
+.assist-accordion-profile-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-right: 2px solid #7070704d;
+  padding: 0px 40px;
+  color: #707070;
+}
+
+.assist-accordion-profile-name {
+  margin: 8px 0;
+  font-size: 20px;
+  font-family: "Roboto Slab";
+  font-weight: bold;
+}
+
+.assist-accordion-profile-mail {
+  margin: 8px 0;
+  font-size: 17px;
+  text-align: center;
+  font-family: "Roboto Slab";
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.assist-accordion-profile-phone {
+  margin: 8px 0;
+  font-size: 17px;
+  text-align: center;
+  font-family: "Roboto Slab";
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.assist-accordion-icon-div {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  color: #707070;
+  border-radius: 50%;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.assist-accordion-ques-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.assist-accordion-ques-div {
+  display: flex;
+  margin: 10px 30px;
+  align-items: center;
+}
+
+.assist-accordion-ques {
+  margin: 0 20px;
+  font-size: 25px;
+  color: #706ee8;
+  font-family: "Roboto Slab";
+}
+
+.assist-accordion-input {
+  margin-left: 10px !important;
+  width: 190px;
+  border: none !important;
+  font-size: 18px !important;
+  color: #707070 !important;
+  padding: 0px 15px !important;
+  border-radius: 2em !important;
+  box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.16);
+}
