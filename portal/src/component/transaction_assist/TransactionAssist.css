@@ -198,20 +198,19 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-right: 2px solid #7070704d;
-  padding: 0px 40px;
+  padding: 10px 40px 0 20px !important;
   color: #707070;
 }
 
 .assist-accordion-profile-name {
   margin: 8px 0;
-  font-size: 20px;
+  font-size: 22px;
   font-family: "Roboto Slab";
   font-weight: bold;
 }
 
 .assist-accordion-profile-mail {
-  margin: 8px 0;
+  margin: 12px 0;
   font-size: 17px;
   text-align: center;
   font-family: "Roboto Slab";
@@ -222,7 +221,7 @@
 }
 
 .assist-accordion-profile-phone {
-  margin: 8px 0;
+  margin: 12px 0;
   font-size: 17px;
   text-align: center;
   font-family: "Roboto Slab";
@@ -246,29 +245,29 @@
 
 .assist-accordion-ques-list {
   display: flex;
+  padding-top: 12px;
   flex-direction: column;
+  border-left: 2px solid #7070704d;
 }
 
 .assist-accordion-ques-div {
   display: flex;
-  margin: 10px 30px;
+  margin: 0 0 22px 50px;
   align-items: center;
 }
 
 .assist-accordion-ques {
   margin: 0 20px;
-  font-size: 25px;
+  font-size: 21px;
   color: #706ee8;
   font-family: "Roboto Slab";
 }
 
-.assist-accordion-input {
-  margin-left: 10px !important;
-  width: 190px;
-  border: none !important;
-  font-size: 18px !important;
-  color: #707070 !important;
-  padding: 0px 15px !important;
-  border-radius: 2em !important;
+.assist-accordion-ans {
+  margin-left: 10px;
+  font-size: 18px;
+  color: #707070;
+  padding: 5px 25px;
+  border-radius: 2em;
   box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.16);
 }
