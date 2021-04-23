@@ -4,6 +4,7 @@ const initialState = {
   Closing: null,
   EscrowTitle: null,
   FindAgent: null,
+  FindHome: null,
   HomeInspection: null,
   HomeInsurance: null,
   PreApproval: null,
@@ -53,10 +54,10 @@ function taskReducer(state = initialState, action) {
         HomeInsurance: action.payload,
       };
     }
-    case actions.ADD_LOANAPPROVAL_TASKS: {
+    case actions.ADD_FINDHOME_TASKS: {
       return {
         ...state,
-        LoanApproval: action.payload,
+        FindHome: action.payload,
       };
     }
     case actions.ADD_PREAPPROVAL_TASKS: {

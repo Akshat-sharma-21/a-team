@@ -3,7 +3,7 @@ import DocIcon from "../../assets/doc_icon.png";
 import DocGrayscaleIcon from "../../assets/doc_icon_grayscale.png";
 import AssistAccordion from "./AssistAccordion";
 import { validateFormField } from "../../utils";
-import { ReallosButton, SideDrawer } from "../utilities/core";
+import { ReallosButton, ReallosModal, SideDrawer } from "../utilities/core";
 
 import {
   CheckCircleIcon,
@@ -13,6 +13,7 @@ import {
   PencilIcon,
   CalendarIcon,
   IssueOpenedIcon,
+  OrganizationIcon,
 } from "@primer/octicons-react";
 
 import {
@@ -23,34 +24,38 @@ import {
   FormGroup,
   TextField,
   Snackbar,
+  LinearProgress,
 } from "@material-ui/core";
 
 import { Alert } from "@material-ui/lab";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addHomeInsuranceTask } from "../../actions/taskActions";
+import { addFindHomeTask } from "../../actions/taskActions";
 
 const mapActionToProps = (dispatch) => {
   return bindActionCreators(
     {
-      addHomeInsuranceTask,
+      addFindHomeTask,
     },
     dispatch
   );
 };
 
 /**
- * Implements Pre-Approval tasks, documents, etc.
+ * Implements Find Home tasks, documents, etc.
  * to be displayed in transaction assist
  */
-class AssistHomeInsurance extends React.Component {
+class AssistFindHome extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isAddTaskDrawerVisible: false,
       isEntireTaskListVisible: false,
+
+      isQuestionsModalVisible: false,
+      quesNo: 1,
 
       taskList: this.props.list.Tasks,
       docList: this.props.list.Documents,
@@ -82,6 +87,25 @@ class AssistHomeInsurance extends React.Component {
       errorText: "Priority cannot be empty",
     };
   }
+
+  /**
+   * Shows "Question" modal.
+   */
+  showQuestionsModal() {
+    this.setState({
+      isQuestionsModalVisible: true,
+    });
+  }
+
+  /**
+   * Hides "Question" modal.
+   */
+  hideQuestionsModal() {
+    this.setState({
+      isQuestionsModalVisible: false,
+    });
+  }
+
   /**
    * Shows "Add Task" drawer.
    */
@@ -183,7 +207,7 @@ class AssistHomeInsurance extends React.Component {
         priority: this.state.taskPriority,
         completed: false,
       };
-      this.props.addHomeInsuranceTask(this.props.list, newTask, this.props.tid);
+      this.props.addFindHomeTask(this.props.list, newTask, this.props.tid);
       this.hideAddTaskDrawer();
     } else {
       this.setState({ showError: true });
@@ -206,12 +230,32 @@ class AssistHomeInsurance extends React.Component {
         <AssistAccordion
           isStepComplete={false}
           AccordionStepIcon={<CheckCircleIcon size={23} />}
-          title="Home Insurance"
+          title="Find a Home"
           itemIndex={0}
         >
           {/* TASK LIST */}
           <div className="assist-accordion-section-root">
             <div className="assist-accordion-section-heading-group">
+              <h1>Questions</h1>
+              <span className="assist-accordion-section-status">
+                Answer the questions as soon as you can
+              </span>
+
+              <div style={{ marginLeft: 10 }}>
+                <ReallosButton
+                  primary
+                  onClick={() => this.showQuestionsModal()}
+                  className="add-task-button"
+                >
+                  Let's Start
+                </ReallosButton>
+              </div>
+            </div>
+
+            <div
+              className="assist-accordion-section-heading-group"
+              style={{ marginTop: 34 }}
+            >
               <h1>Tasks</h1>
               <span className="assist-accordion-section-status">
                 {
@@ -439,6 +483,68 @@ class AssistHomeInsurance extends React.Component {
           </div>
         </SideDrawer>
 
+        {/* QUESTIONS MODAL */}
+        <ReallosModal
+          visible={this.state.isQuestionsModalVisible}
+          dismissCallback={() => this.hideQuestionsModal()}
+          modalWidth={750}
+          className="assist-question-modal"
+        >
+          <div style={{ height: "5px" }}></div>
+          <LinearProgress
+            variant="determinate"
+            value={this.state.quesNo * (100 / 7)}
+            className="assist-question-modal-progress"
+          />
+          <div className="assist-question-modal-heading">
+            Questions
+            <span className="assist-question-modal-subheading-dot">
+              <DotFillIcon />
+            </span>
+            <span className="assist-question-modal-subheading">
+              {this.state.quesNo} out of 7
+            </span>
+          </div>
+
+          <div style={{ height: "20px" }}></div>
+          <div className="assist-question-modal-question">
+            What is the Address of the house?
+          </div>
+          <div className="assist-question-modal-answer">
+            <OrganizationIcon size={40} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              multiline
+              rows={2}
+              fullWidth
+              label="Address"
+              variant="outlined"
+            />
+          </div>
+          <div style={{ height: "50px" }}></div>
+          <Grid container direction="row" justify="flex-end" spacing={3}>
+            <Grid item xs={3}>
+              <ReallosButton
+                fullWidth
+                secondary
+                className="assist-question-modal-btn"
+              >
+                Back
+              </ReallosButton>
+            </Grid>
+            <Grid item xs={3}>
+              <ReallosButton
+                fullWidth
+                primary
+                className="assist-question-modal-btn"
+              >
+                Next
+              </ReallosButton>
+            </Grid>
+          </Grid>
+        </ReallosModal>
+
+        {/* ERROR ALERTS */}
         <Snackbar
           open={this.state.showError}
           autoHideDuration={6000}
@@ -464,4 +570,4 @@ class AssistHomeInsurance extends React.Component {
   }
 }
 
-export default connect(null, mapActionToProps)(AssistHomeInsurance);
+export default connect(null, mapActionToProps)(AssistFindHome);
