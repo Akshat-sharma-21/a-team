@@ -3,7 +3,7 @@ import AssistAccordion from "./AssistAccordion";
 import InitialConsultationIcon from "../../assets/assist_initial_consult.svg";
 import { validateFormField } from "../../utils";
 
-import { Grid, Snackbar, Avatar, InputBase } from "@material-ui/core";
+import { Grid, Snackbar, Avatar } from "@material-ui/core";
 
 import {
   GpsFixedOutlined,
@@ -115,7 +115,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-icon-div">
                   <MailOutline size={22} />
                 </div>
-                <div style={{ marginTop: "5px" }}>
+                <div style={{ marginTop: "8px" }}>
                   sharmaakshat212000@gmail.com
                 </div>
               </div>
@@ -123,9 +123,10 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-icon-div">
                   <PhoneOutlined fontSize="inherit" />
                 </div>
-                <div style={{ marginTop: "5px" }}>+1 469-350-9711</div>
+                <div style={{ marginTop: "8px" }}>+1 469-350-9711</div>
               </div>
             </Grid>
+
             <Grid item xs={9} className="assist-accordion-ques-list">
               <div className="assist-accordion-ques-div">
                 <div className="assist-accordion-icon-div">
@@ -134,7 +135,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-ques">
                   What is the Square Footage you are interested in?
                 </div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">750 sqft</div>
               </div>
 
               <div className="assist-accordion-ques-div">
@@ -144,7 +145,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-ques">
                   What cities in North Texas are you interested in?
                 </div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">Dallas</div>
               </div>
 
               <div className="assist-accordion-ques-div">
@@ -154,7 +155,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-ques">
                   How many bedrooms are you interested in?
                 </div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">4+</div>
               </div>
 
               <div className="assist-accordion-ques-div">
@@ -164,7 +165,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-ques">
                   What type of home are you looking for?
                 </div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">Condo</div>
               </div>
 
               <div className="assist-accordion-ques-div">
@@ -172,17 +173,20 @@ class AssistInitialConsultation extends React.Component {
                   <Pool fontSize="inherit" />
                 </div>
                 <div className="assist-accordion-ques">Do you want a pool?</div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">Yes</div>
               </div>
 
-              <div className="assist-accordion-ques-div">
+              <div
+                className="assist-accordion-ques-div"
+                style={{ marginBottom: "5px" }}
+              >
                 <div className="assist-accordion-icon-div">
                   <LocalLaundryService fontSize="inherit" />
                 </div>
                 <div className="assist-accordion-ques">
                   How many bathrooms are you interested in?
                 </div>
-                <InputBase className="assist-accordion-input" />
+                <div className="assist-accordion-ans">4+</div>
               </div>
             </Grid>
           </Grid>

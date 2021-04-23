@@ -7,7 +7,7 @@ export const ADD_ESCROWTITLE_TASKS = "ADD_ESCROWTITLE_TASKS";
 export const ADD_FINDAGENT_TASKS = "ADD_FINDAGENT_TASKS";
 export const ADD_HOMEINSPECTION_TASKS = "ADD_HOMEINSPECTION_TASKS";
 export const ADD_HOMEINSURANCE_TASKS = "ADD_HOMEINSURANCE_TASKS";
-export const ADD_LOANAPPROVAL_TASKS = "ADD_LOANAPPROVAL_TASKS";
+export const ADD_FINDHOME_TASKS = "ADD_FINDHOME_TASKS";
 export const ADD_PREAPPROVAL_TASKS = "ADD_PREAPPROVAL_TASKS";
 
 export function addClosingTask(list, newTask, transactionId) {
@@ -110,7 +110,7 @@ export function addHomeInsuranceTask(list, newTask, transactionId) {
   };
 }
 
-export function addLoanApprovalTask(list, newTask, transactionId) {
+export function addFindHomeTask(list, newTask, transactionId) {
   let newTasks = list.Tasks;
   newTasks[newTasks.length] = newTask;
   let newList = { ...list, Tasks: newTasks };
@@ -119,9 +119,9 @@ export function addLoanApprovalTask(list, newTask, transactionId) {
     myFirestore
       .collection("Transactions")
       .doc(transactionId)
-      .update({ LoanApproval: newList })
+      .update({ FindHome: newList })
       .then(
-        dispatch(addLoanApproval(newList)),
+        dispatch(addFindHome(newList)),
         dispatch(setLoadingFalse()) // dispatching an action to set loading to false
       )
       .catch((err) => {
@@ -194,9 +194,9 @@ function addHomeInsurance(payload) {
   };
 }
 
-function addLoanApproval(payload) {
+function addFindHome(payload) {
   return {
-    type: ADD_LOANAPPROVAL_TASKS,
+    type: ADD_FINDHOME_TASKS,
     payload,
   };
 }

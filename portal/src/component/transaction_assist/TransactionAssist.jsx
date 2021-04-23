@@ -3,6 +3,7 @@ import TransactionAssistIllustration from "../../assets/transaction-assist-first
 import AssistInitialConsultation from "./AssistInitialConsultation";
 import AssistPreApproval from "./AssistPreApproval";
 import AssistFindAgent from "./AssistFindAgent";
+import AssistFindHome from "./AssistFindHome";
 import AssistHomeInspection from "./AssistHomeInspection";
 import AssistEscrowTitle from "./AssistEscrowTitle";
 import AssistClosing from "./AssistClosing";
@@ -39,22 +40,21 @@ const mapActionToProps = (dispatch) => {
   );
 };
 
-function selectTransaction(transactions, id) {
-  // function to select the current transaction
-  if (transactions) {
-    // transactions is not null
-    transactions.forEach((transaction) => {
-      if (transaction.id === id) {
-        return transaction;
-      }
-    });
-  }
-}
+// function selectTransaction(transactions, id) {
+//   // function to select the current transaction
+//   if (transactions) {
+//     // transactions is not null
+//     transactions.forEach((transaction) => {
+//       if (transaction.id === id) {
+//         return transaction;
+//       }
+//     });
+//   }
+// }
 
 function TransactionAssist(props) {
   const [isInitModalVisibile, setInitModalVisibility] = useState(false);
   let { tid } = useParams(); // getting the id of the transaction
-
   useEffect(() => {
     if (props.utils.reload === true) {
       // if the page was reloaded
@@ -142,20 +142,23 @@ function TransactionAssist(props) {
           style={{ marginBottom: 20 }}
         >
           <AssistInitialConsultation />
+          {!props.task.PreApproval.Locked ? (
+            <AssistPreApproval list={props.task.PreApproval} tid={tid} />
+          ) : null}
+          {!props.task.FindAgent.Locked ? (
+            <AssistFindAgent list={props.task.FindAgent} tid={tid} />
+          ) : null}
+          {props.task.FindHome.Locked ? (
+            <AssistFindHome list={props.task.FindHome} tid={tid} />
+          ) : null}
+          {!props.task.EscrowTitle.Locked ? (
+            <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
+          ) : null}
           {!props.task.HomeInspection.Locked ? (
             <AssistHomeInspection list={props.task.HomeInspection} tid={tid} />
           ) : null}
           {!props.task.HomeInsurance.Locked ? (
             <AssistHomeInsurance list={props.task.HomeInsurance} tid={tid} />
-          ) : null}
-          {!props.task.PreApproval.Locked ? (
-            <AssistPreApproval list={props.task.PreApproval} tid={tid} />
-          ) : null}
-          {!props.task.EscrowTitle.Locked ? (
-            <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
-          ) : null}
-          {!props.task.FindAgent.Locked ? (
-            <AssistFindAgent list={props.task.FindAgent} tid={tid} />
           ) : null}
           {!props.task.Closing.Locked ? (
             <AssistClosing list={props.task.Closing} tid={tid} />
