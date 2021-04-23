@@ -3,7 +3,7 @@ import AssistAccordion from "./AssistAccordion";
 import InitialConsultationIcon from "../../assets/assist_initial_consult.svg";
 import { validateFormField } from "../../utils";
 
-import { Grid, Snackbar, Avatar, InputBase } from "@material-ui/core";
+import { Grid, Snackbar, Avatar } from "@material-ui/core";
 
 import {
   GpsFixedOutlined,

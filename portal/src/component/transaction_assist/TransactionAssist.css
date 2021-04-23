@@ -193,6 +193,8 @@
   justify-content: flex-end;
 }
 
+/* Initial Consultation */
+
 .assist-accordion-profile-div {
   display: flex;
   align-items: center;
@@ -270,4 +272,67 @@
   padding: 5px 25px;
   border-radius: 2em;
   box-shadow: 2px 3px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+/* Question Modal: Find Home */
+
+.assist-question-modal .modal-close-btn {
+  position: absolute;
+  top: 10px !important;
+  right: 10px !important;
+}
+
+.assist-question-modal-subheading {
+  color: #707070;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assist-question-modal-subheading-dot {
+  font-size: 18px;
+  color: #707070;
+  margin-left: 20px;
+  display: flex;
+}
+
+.assist-question-modal-heading {
+  color: #000000;
+  font-size: 35px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-family: "Roboto Slab";
+}
+
+.assist-question-modal-progress {
+  margin: 20px;
+  height: 5px !important;
+  border-radius: 2em !important;
+  background-color: #00000033 !important;
+}
+
+.assist-question-modal-progress .MuiLinearProgress-determinate {
+  background-color: #00000033 !important;
+}
+
+.assist-question-modal-question {
+  margin: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #707070;
+}
+
+.assist-question-modal-answer {
+  display: flex;
+  color: #707070;
+  margin: 5px 20px 20px 20px;
+}
+
+.assist-question-modal-btn {
+  padding: 10px 25px !important;
 }
