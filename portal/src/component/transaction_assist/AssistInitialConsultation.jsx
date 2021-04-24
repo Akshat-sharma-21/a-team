@@ -1,7 +1,7 @@
 import React from "react";
 import AssistAccordion from "./AssistAccordion";
 import InitialConsultationIcon from "../../assets/assist_initial_consult.svg";
-import { validateFormField } from "../../utils";
+// import { validateFormField } from "../../utils";
 
 import { Grid, Snackbar, Avatar } from "@material-ui/core";
 
@@ -115,7 +115,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-icon-div">
                   <MailOutline size={22} />
                 </div>
-                <div style={{ marginTop: "8px" }}>
+                <div style={{ marginTop: "10px" }}>
                   sharmaakshat212000@gmail.com
                 </div>
               </div>
@@ -123,7 +123,7 @@ class AssistInitialConsultation extends React.Component {
                 <div className="assist-accordion-icon-div">
                   <PhoneOutlined fontSize="inherit" />
                 </div>
-                <div style={{ marginTop: "8px" }}>+1 469-350-9711</div>
+                <div style={{ marginTop: "10px" }}>+1 469-350-9711</div>
               </div>
             </Grid>
 
