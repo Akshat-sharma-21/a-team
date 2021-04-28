@@ -1,20 +1,20 @@
-import "./Recommend.css";
-import React, { useEffect, useState } from "react";
-import { Grid, Box, CircularProgress, IconButton } from "@material-ui/core";
+import { Box, CircularProgress, Grid, IconButton } from "@material-ui/core";
+import { ArrowLeftIcon, SearchIcon } from "@primer/octicons-react";
+import React, { useState, useEffect } from "react";
 import { Scaffold, SearchBar } from "../utilities/core";
-import PeopleCard from "./PeopleCard";
-import { SearchIcon, XIcon } from "@primer/octicons-react";
+import InsuranceCard from "./InsuranceCard";
+import "./HomeInsurance.css";
 
-function ReallosRecommended() {
-  let [peopleList, setPeopleList] = useState(null);
+function HomeInsurance() {
+  let [providerList, setproviderList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
 
   useEffect(async () => {
     // Dummy values
-    const _peopleList = await _dummyApi();
+    const _providerList = await _dummyApi();
 
-    setPeopleList(_peopleList);
-    setFilteredList(_peopleList);
+    setproviderList(_providerList);
+    setFilteredList(_providerList);
 
     return () => {
       // Cleanup
@@ -23,7 +23,7 @@ function ReallosRecommended() {
 
   const _dummyApi = (emptyResponse = false, timeout = 2000) => {
     return new Promise((resolve, _) => {
-      const _peopleList = [
+      const _providerList = [
         {
           name: "Shawn Mendes",
           photo: "../../assets/shawn.jpg",
@@ -71,13 +71,13 @@ function ReallosRecommended() {
       ];
 
       setTimeout(() => {
-        resolve(emptyResponse ? [] : _peopleList);
+        resolve(emptyResponse ? [] : _providerList);
       }, timeout);
     });
   };
 
   const PrimaryContent = () => {
-    if (peopleList === null || filteredList === null) {
+    if (providerList === null || filteredList === null) {
       return (
         <div className="documents-single-view-container">
           <CircularProgress />
@@ -92,18 +92,19 @@ function ReallosRecommended() {
           </div>
         </div>
       );
-    } else if (peopleList.length === 0) {
-      // If there is no peopleList
+    } else if (providerList.length === 0) {
+      // If there is no providerList
       return (
         <div className="documents-single-view-container">
           {/* <img src={NoDoc} alt="" /> */}
 
           <h2 className="documents-subheading">
-            Find all your agents right here!
+            Find all your insurance providers right here!
           </h2>
 
           <p className="documents-text">
-            View all the agents available for you all in one place...
+            View all the insurance providers available for you all in one
+            place...
           </p>
         </div>
       );
@@ -142,8 +143,8 @@ function ReallosRecommended() {
       // If list is present to be rendered
       return (
         <Grid container spacing={2}>
-          {filteredList.map((peopleData) => (
-            <PeopleCard key={peopleData.id} peopleData={peopleData} />
+          {filteredList.map((providerData) => (
+            <InsuranceCard key={providerData.id} providerData={providerData} />
           ))}
         </Grid>
       );
@@ -151,30 +152,36 @@ function ReallosRecommended() {
   };
 
   return (
-    <Scaffold>
-      <Grid container direction="column">
-        <div style={{ display: "flex" }}>
-          <IconButton className="recommend-close-btn">
-            <XIcon size={60} />
-          </IconButton>
-          <h1 className="recommend-heading">Reallos Recommend</h1>
-        </div>
+    <div>
+      <Scaffold>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <IconButton
+              size="small"
+              style={{ margin: "20px 0" }}
+              onClick={() => (window.location.href = "/dashboard")}
+            >
+              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+            </IconButton>
+          </Grid>
 
-        <div className="recommend-page-header">
-          {
-            <SearchBar
-              filterByFields={["name", "creator"]}
-              list={peopleList}
-              onUpdate={(filtered) => {
-                setFilteredList(filtered);
-              }}
-            />
-          }
-        </div>
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="providers-heading">Home-Insurance</div>
+          </Grid>
 
-        {PrimaryContent()}
-      </Grid>
-    </Scaffold>
+          <SearchBar
+            filterByFields={["title", "description", "dueDate"]}
+            list={providerList}
+            onUpdate={(filtered) => {
+              setFilteredList(filtered);
+            }}
+          />
+          <Grid item xs={12} style={{ height: "10px" }}></Grid>
+          {PrimaryContent()}
+        </Grid>
+      </Scaffold>
+    </div>
   );
 }
-export default ReallosRecommended;
+
+export default HomeInsurance;
