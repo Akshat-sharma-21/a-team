@@ -18,8 +18,7 @@
   padding: 15px 30px !important;
   margin-top: -25px;
   margin-bottom: 10px;
-  overflow-y: scroll;
-  height: 370px;
+  height: 400px;
 }
 
 .assist-accordion-section-heading-group {
@@ -200,19 +199,19 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 10px 40px 0 20px !important;
+  padding: 20px 40px 0 20px !important;
   color: #707070;
 }
 
 .assist-accordion-profile-name {
-  margin: 8px 0;
+  margin: 10px 0;
   font-size: 22px;
   font-family: "Roboto Slab";
   font-weight: bold;
 }
 
 .assist-accordion-profile-mail {
-  margin: 12px 0;
+  margin: 15px 0;
   font-size: 17px;
   text-align: center;
   font-family: "Roboto Slab";
@@ -223,7 +222,7 @@
 }
 
 .assist-accordion-profile-phone {
-  margin: 12px 0;
+  margin: 15px 0;
   font-size: 17px;
   text-align: center;
   font-family: "Roboto Slab";
@@ -247,19 +246,18 @@
 
 .assist-accordion-ques-list {
   display: flex;
-  padding-top: 12px;
   flex-direction: column;
   border-left: 2px solid #7070704d;
 }
 
 .assist-accordion-ques-div {
   display: flex;
-  margin: 0 0 22px 50px;
+  margin: 0 0 30px 60px;
   align-items: center;
 }
 
 .assist-accordion-ques {
-  margin: 0 20px;
+  margin: 0 35px;
   font-size: 21px;
   color: #706ee8;
   font-family: "Roboto Slab";
@@ -276,15 +274,23 @@
 
 /* Question Modal: Find Home */
 
-.assist-question-modal .modal-close-btn {
-  position: absolute;
-  top: 10px !important;
-  right: 10px !important;
+.assist-question-modal {
+  padding: 5px;
+}
+
+.assist-question-modal-heading {
+  color: #000000;
+  font-size: 45px;
+  text-align: left;
+  display: flex;
+  align-items: baseline;
+  font-weight: bold;
+  font-family: "Roboto Slab";
 }
 
 .assist-question-modal-subheading {
   color: #707070;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   margin-left: 20px;
   display: flex;
@@ -293,24 +299,20 @@
 }
 
 .assist-question-modal-subheading-dot {
-  font-size: 18px;
+  font-size: 22px;
   color: #707070;
   margin-left: 20px;
   display: flex;
 }
 
-.assist-question-modal-heading {
-  color: #000000;
-  font-size: 35px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-family: "Roboto Slab";
+.assist-question-modal .modal-close-btn {
+  position: absolute;
+  top: 10px !important;
+  right: 10px !important;
 }
 
 .assist-question-modal-progress {
-  margin: 20px;
+  margin: 40px 30px;
   height: 5px !important;
   border-radius: 2em !important;
   background-color: #00000033 !important;
@@ -321,8 +323,8 @@
 }
 
 .assist-question-modal-question {
-  margin: 20px;
-  font-size: 25px;
+  margin: 30px;
+  font-size: 30px;
   font-weight: bold;
   color: #707070;
 }
@@ -330,9 +332,12 @@
 .assist-question-modal-answer {
   display: flex;
   color: #707070;
-  margin: 5px 20px 20px 20px;
+  margin: 30px 35px;
 }
 
 .assist-question-modal-btn {
-  padding: 10px 25px !important;
+  padding: 18px 40px !important;
+  font-size: 18px !important;
+  font-weight: normal !important;
+  font-family: "Segoe UI", sans-serif !important;
 }

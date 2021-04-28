@@ -14,6 +14,7 @@ import {
   CalendarIcon,
   IssueOpenedIcon,
   OrganizationIcon,
+  ArrowRightIcon,
 } from "@primer/octicons-react";
 
 import {
@@ -487,10 +488,10 @@ class AssistFindHome extends React.Component {
         <ReallosModal
           visible={this.state.isQuestionsModalVisible}
           dismissCallback={() => this.hideQuestionsModal()}
-          modalWidth={750}
+          modalWidth={800}
           className="assist-question-modal"
         >
-          <div style={{ height: "5px" }}></div>
+          <div style={{ height: "20px" }}></div>
           <LinearProgress
             variant="determinate"
             value={this.state.quesNo * (100 / 7)}
@@ -515,7 +516,7 @@ class AssistFindHome extends React.Component {
             &nbsp;&nbsp;&nbsp;&nbsp;
             <TextField
               multiline
-              rows={2}
+              rows={3}
               fullWidth
               label="Address"
               variant="outlined"
@@ -538,7 +539,8 @@ class AssistFindHome extends React.Component {
                 primary
                 className="assist-question-modal-btn"
               >
-                Next
+                Next&nbsp;
+                <ArrowRightIcon size={20} />
               </ReallosButton>
             </Grid>
           </Grid>

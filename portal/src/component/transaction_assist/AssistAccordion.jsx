@@ -94,7 +94,7 @@ class AssistAccordion extends React.Component {
             </Grid>
           </AccordionSummary>
 
-          <AccordionDetails className="assist-accordion-details-root reallos-scroll-area">
+          <AccordionDetails className="assist-accordion-details-root">
             {children}
           </AccordionDetails>
         </Accordion>
