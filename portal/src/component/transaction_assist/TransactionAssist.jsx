@@ -24,6 +24,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchUser } from "../../actions/userActions";
+import { setTasks } from "../../actions/taskActions";
 
 const mapStateToProps = (state) => ({
   task: state.task,
@@ -35,22 +36,11 @@ const mapActionToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchUser,
+      setTasks,
     },
     dispatch
   );
 };
-
-// function selectTransaction(transactions, id) {
-//   // function to select the current transaction
-//   if (transactions) {
-//     // transactions is not null
-//     transactions.forEach((transaction) => {
-//       if (transaction.id === id) {
-//         return transaction;
-//       }
-//     });
-//   }
-// }
 
 function TransactionAssist(props) {
   const [isInitModalVisibile, setInitModalVisibility] = useState(false);
@@ -59,6 +49,11 @@ function TransactionAssist(props) {
     if (props.utils.reload === true) {
       // if the page was reloaded
       props.fetchUser(); // fetching the user and storing its state in Redux
+    } else {
+      // If the active transaction is not set
+      props.setTasks(
+        props.transaction.filter((transaction) => transaction.id === tid)[0]
+      );
     }
   }, []);
 
@@ -132,7 +127,7 @@ function TransactionAssist(props) {
    * Renders acordions within the screen.
    */
   const displayAccordions = () => {
-    if (props.utils.loading === false)
+    if (props.task.SET === true && props.utils.loading === false)
       // only return when the component is loaded
       return (
         <Grid
@@ -141,10 +136,13 @@ function TransactionAssist(props) {
           spacing={2}
           style={{ marginBottom: 20 }}
         >
-          <AssistInitialConsultation />
           {!props.task.PreApproval.Locked ? (
             <AssistPreApproval list={props.task.PreApproval} tid={tid} />
           ) : null}
+          <AssistInitialConsultation // Sending the Questions and the Buyer information
+            Questions={props.task.FindAgent.Questions}
+            Buyer={props.task.Buyer}
+          />
           {!props.task.FindAgent.Locked ? (
             <AssistFindAgent list={props.task.FindAgent} tid={tid} />
           ) : null}
@@ -168,7 +166,7 @@ function TransactionAssist(props) {
   };
 
   const displayLoadingComponent = () => {
-    if (props.utils.loading === true)
+    if (props.utils.loading === true) {
       return (
         <Grid container spacing={2}>
           {Array(4)
@@ -185,8 +183,13 @@ function TransactionAssist(props) {
             ))}
         </Grid>
       );
+    } else if (props.task.SET === false && props.utils.reload === false) {
+      // if the active transaction is not set and the user has been loaded
+      props.setTasks(
+        props.transaction.filter((transaction) => transaction.id === tid)[0]
+      );
+    }
   };
-
   return (
     <Scaffold navBar navRail>
       <div style={{ paddingBottom: 10 }}>

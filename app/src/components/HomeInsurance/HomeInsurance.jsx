@@ -166,7 +166,7 @@ function HomeInsurance() {
           </Grid>
 
           <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="providers-heading">Home-Insurance</div>
+            <div className="providers-heading">Home Insurance</div>
           </Grid>
 
           <SearchBar

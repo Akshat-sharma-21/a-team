@@ -9,6 +9,7 @@ export const ADD_HOMEINSPECTION_TASKS = "ADD_HOMEINSPECTION_TASKS";
 export const ADD_HOMEINSURANCE_TASKS = "ADD_HOMEINSURANCE_TASKS";
 export const ADD_FINDHOME_TASKS = "ADD_FINDHOME_TASKS";
 export const ADD_PREAPPROVAL_TASKS = "ADD_PREAPPROVAL_TASKS";
+export const ADD_BUYER = "ADD_BUYER";
 
 export function addClosingTask(list, newTask, transactionId) {
   let newTasks = list.Tasks;
@@ -150,7 +151,26 @@ export function addPreApprovalTask(list, newTask, transactionId) {
   };
 }
 
-export function setTasksAction(payload) {
+export function setTasks(payload) {
+  return (dispatch) => {
+    dispatch(setTasksAction(payload)); // Setting the Active Transaction
+    dispatch(setLoadingTrue()); // Setting Loading to True
+    myFirestore
+      .collection("Users")
+      .doc(payload.BuyerId)
+      .get()
+      .then((buyer) => {
+        dispatch(addBuyer(buyer.data())); // Fetching and setting the buyer
+
+        dispatch(setLoadingFalse());
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+function setTasksAction(payload) {
   // Pure Action to add fetched tasks to Redux
   return {
     type: FETCH_TASKS,
@@ -204,6 +224,13 @@ function addFindHome(payload) {
 function addPreApproval(payload) {
   return {
     type: ADD_PREAPPROVAL_TASKS,
+    payload,
+  };
+}
+
+function addBuyer(payload) {
+  return {
+    type: ADD_BUYER,
     payload,
   };
 }
