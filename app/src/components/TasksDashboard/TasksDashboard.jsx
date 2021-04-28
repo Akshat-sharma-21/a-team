@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { SearchIcon } from "@primer/octicons-react";
-import { Scaffold, SearchBar } from "../utilities/core";
+import { ReallosButton, Scaffold, SearchBar } from "../utilities/core";
 import "./TasksDashboard.css";
 
 import {
