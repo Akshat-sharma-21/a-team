@@ -1,10 +1,5 @@
-.tasks-dashboard-section-title {
-  font-size: 27px;
-  margin: 20px 0 15px 0 !important;
-  color: var(--color-dark-grey);
-}
-
 .tasks-dashboard-list {
+  margin: 20px 0 15px 0 !important;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -33,11 +28,12 @@
   border-radius: 10px;
   background: #bdbdbd;
   color: #ffffff;
-  padding: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   margin-right: 15px;
   text-align: center;
-  width: 80px;
-  font-size: 18px;
+  width: 30%;
+  font-size: 15px;
 }
 
 .tasks-dashboard-list-item-header-text-group {
@@ -55,6 +51,11 @@
 .tasks-dashboard-list-item-subheading {
   font-family: "Segoe", sans-serif;
   font-size: 14px;
+}
+
+.tasks-dashboard-task-list-item-details {
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .tasks-dashboard-task-list-item-details-desc {

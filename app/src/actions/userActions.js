@@ -6,7 +6,6 @@ import {
   setReload,
 } from "./utilsActions";
 import { setTransactionAction } from "./roadmapActions";
-import { fetchTasks } from "./tasksActions";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -216,7 +215,6 @@ export function fetchUser() {
           .catch((err) => {
             dispatch(setErrors(err));
           });
-        //dispatch(fetchTasks(doc.data().Transaction));
       })
       .catch((err) => {
         dispatch(setErrors(err));
