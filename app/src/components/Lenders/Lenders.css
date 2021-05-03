@@ -1,7 +1,7 @@
 .lenders-heading {
-  font-size: 34px !important;
+  font-size: 36px !important;
   font-weight: bold !important;
-  color: #474747 !important;
+  color: var(--color-dark-grey) !important;
   margin-bottom: 25px;
 }
 

@@ -153,19 +153,21 @@ function Lenders() {
   return (
     <div>
       <Scaffold>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <IconButton
-              size="small"
-              style={{ margin: "20px 0" }}
-              onClick={() => (window.location.href = "/dashboard")}
-            >
-              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
-            </IconButton>
-          </Grid>
+        <div className="page-header">
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <IconButton
+                size="small"
+                style={{ margin: "20px 0" }}
+                onClick={() => (window.location.href = "/dashboard")}
+              >
+                <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+              </IconButton>
+            </Grid>
 
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="lenders-heading">Lenders</div>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="lenders-heading">Lenders</div>
+            </Grid>
           </Grid>
 
           <SearchBar
@@ -175,6 +177,9 @@ function Lenders() {
               setFilteredList(filtered);
             }}
           />
+        </div>
+
+        <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12} style={{ height: "10px" }}></Grid>
           {PrimaryContent()}
         </Grid>

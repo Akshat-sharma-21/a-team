@@ -154,28 +154,33 @@ function HomeInsurance() {
   return (
     <div>
       <Scaffold>
+        <div className="page-header">
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <IconButton
+                size="small"
+                style={{ margin: "20px 0" }}
+                onClick={() => (window.location.href = "/dashboard")}
+              >
+                <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="providers-heading">Home-Insurance</div>
+            </Grid>
+
+            <SearchBar
+              filterByFields={["title", "description", "dueDate"]}
+              list={providerList}
+              onUpdate={(filtered) => {
+                setFilteredList(filtered);
+              }}
+            />
+          </Grid>
+        </div>
+
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <IconButton
-              size="small"
-              style={{ margin: "20px 0" }}
-              onClick={() => (window.location.href = "/dashboard")}
-            >
-              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
-            </IconButton>
-          </Grid>
-
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="providers-heading">Home-Insurance</div>
-          </Grid>
-
-          <SearchBar
-            filterByFields={["title", "description", "dueDate"]}
-            list={providerList}
-            onUpdate={(filtered) => {
-              setFilteredList(filtered);
-            }}
-          />
           <Grid item xs={12} style={{ height: "10px" }}></Grid>
           {PrimaryContent()}
         </Grid>
