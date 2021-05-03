@@ -1,8 +1,7 @@
 .providers-heading {
-  font-size: 34px !important;
+  font-size: 36px !important;
   font-weight: bold !important;
-  color: var(--color-dark) !important;
-  font-family: "Gilroy Extrabold" !important;
+  color: var(--color-dark-grey) !important;
   margin-bottom: 25px;
 }
 
