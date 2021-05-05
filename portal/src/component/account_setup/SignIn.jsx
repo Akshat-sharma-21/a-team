@@ -34,7 +34,6 @@ function SignIn(props) {
   const [showError, setShowError] = useState(false);
   const [mailError, setMailError] = useState(true);
   const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
-  let mail = { hasError: true, errorText: null };
 
   const handleChange = (event) => {
     setMailError(

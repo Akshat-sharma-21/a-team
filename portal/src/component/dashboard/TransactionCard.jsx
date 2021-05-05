@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import moment from "moment";
 import { Link } from "react-router-dom";
 import "./TransactionCard.css";
 
@@ -24,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TransactionCard({ transactionDetails }) {
+function TransactionCard({ transactionDetails, userRole }) {
   const classes = useStyles();
   let [progress, setProgress] = useState(0);
+  const nextPage = userRole === "lender" ? "documents" : "assist";
 
   useEffect(() => {
     setTimeout(() => {
@@ -39,7 +39,7 @@ function TransactionCard({ transactionDetails }) {
       <Card variant="outlined">
         <Link
           className="link-basic"
-          to={`/transactions/${transactionDetails.id}/assist`}
+          to={`/transactions/${transactionDetails.id}/${nextPage}`}
         >
           <CardActionArea
             className="transaction-card-content-root"

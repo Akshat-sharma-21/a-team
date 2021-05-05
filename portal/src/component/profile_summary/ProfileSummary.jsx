@@ -108,7 +108,7 @@ function ProfileSummary(props) {
 
           <Grid item xs={6}>
             <Card className="summary-graph-card">
-              <img src={GraphImage} width="100%" />
+              <img src={GraphImage} alt="" width="100%" />
             </Card>
           </Grid>
 

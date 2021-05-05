@@ -34,6 +34,7 @@ export const getRoleLabel = (roleValue) => {
     if (role.value === roleValue) {
       roleLabel = role.label;
     }
+    return null;
   });
 
   return roleLabel;
