@@ -12,37 +12,37 @@ const initialState = {
 
 function registrationReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.ADD_EMAIL: {
+    case actions.ADD_EMAIL:
       return {
         ...state,
         email: true,
       };
-    }
-    case actions.ADD_PASSWORD: {
+
+    case actions.ADD_PASSWORD:
       return {
         ...state,
         password: true,
       };
-    }
-    case actions.VERIFY_EMAIL: {
+
+    case actions.VERIFY_EMAIL:
       return {
         ...state,
         emailVerified: true,
       };
-    }
-    case actions.VERIFY_PHONE: {
+
+    case actions.VERIFY_PHONE:
       return {
         ...state,
         phoneVerified: true,
       };
-    }
-    case actions.INCREMENT_STEP: {
+
+    case actions.INCREMENT_STEP:
       return {
         ...state,
         step: action.payload,
       };
-    }
-    case actions.DECREMENT_STEP: {
+
+    case actions.DECREMENT_STEP:
       if (state.step - 1 === 0) {
         // if conditions added to deal with a potential bug of not valid emails advancing to next steps
         return {
@@ -72,19 +72,21 @@ function registrationReducer(state = initialState, action) {
           phoneVerified: false,
         };
       }
-    }
-    case actions.SET_EMAIL_HASH: {
+
+      break;
+
+    case actions.SET_EMAIL_HASH:
       return {
         ...state,
         emailHash: action.Hash,
       };
-    }
-    case actions.SET_PHONE_HASH: {
+
+    case actions.SET_PHONE_HASH:
       return {
         ...state,
         phoneHash: action.Hash,
       };
-    }
+
     default: {
       return state;
     }

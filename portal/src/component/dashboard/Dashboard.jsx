@@ -335,6 +335,7 @@ function Dashboard(props) {
             <TransactionCard
               key={transaction.id}
               transactionDetails={transaction}
+              userRole={props.user.Role}
             />
           ))}
         </Grid>

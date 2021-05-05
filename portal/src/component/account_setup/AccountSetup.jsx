@@ -126,9 +126,7 @@ class AccountSetup extends React.Component {
       this.props.register.step === 4 &&
       this.props.register.phoneVerified === true
     ) {
-      {
-        return <SignIn />;
-      }
+      return <SignIn />;
     } else
       return (
         <AccessDeny
