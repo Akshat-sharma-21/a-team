@@ -14,7 +14,7 @@ import {
   Scaffold,
   SearchBar,
   ReallosPageHeader,
-  ReallosFab
+  ReallosFab,
 } from "../utilities/core";
 
 import {
@@ -41,6 +41,11 @@ import {
   SearchIcon,
 } from "@primer/octicons-react";
 
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
 
 class Documents extends React.Component {
   constructor(props) {
@@ -144,15 +149,17 @@ class Documents extends React.Component {
 
   /**
    * Downloads the document to the client's device.
-   * 
+   *
    * @param {object} documentData
    * Data of the associated document to be downloaded.
-   * 
+   *
    * @todo Check if this function works when the origin
    * for CORS is changed in the backend.
    */
   async downloadDocument(documentData) {
-    const downloadLink = await myStorage.ref(documentData.path).getDownloadURL();
+    const downloadLink = await myStorage
+      .ref(documentData.path)
+      .getDownloadURL();
     const documentName = getEffectiveDocumentName(documentData.name);
     const response = await fetch(downloadLink);
 
@@ -160,10 +167,10 @@ class Documents extends React.Component {
       const responseBlob = await response.blob();
       const objectUrl = window.URL.createObjectURL(responseBlob);
 
-      const anchor = document.createElement('a');
+      const anchor = document.createElement("a");
       anchor.href = objectUrl;
       anchor.download = `Reallos - ${documentName}.pdf`;
-      anchor.dispatchEvent(new MouseEvent('click'));
+      anchor.dispatchEvent(new MouseEvent("click"));
     }
   }
 
@@ -191,17 +198,13 @@ class Documents extends React.Component {
       let documentRef = myStorage.ref().child(documentMetadata.path);
       let creator = "Unknown";
       let filteredPeopleList = peopleList.filter(
-        (person) => person.Email === documentMetadata.creator,
+        (person) => person.Email === documentMetadata.creator
       );
 
       if (documentMetadata.creator === getCurrentUser().email) {
-        creator = 'You';
-      }
-      else if (filteredPeopleList[0]?.Email === documentMetadata.creator) {
-        creator = getUserName(
-          filteredPeopleList[0].Email,
-          peopleList,
-        );
+        creator = "You";
+      } else if (filteredPeopleList[0]?.Email === documentMetadata.creator) {
+        creator = getUserName(filteredPeopleList[0].Email, peopleList);
       }
 
       documents.push({
@@ -256,7 +259,7 @@ class Documents extends React.Component {
           spacing={2}
           className="zoom-in-animation"
         >
-          <Grid item style={{marginTop: 20}}>
+          <Grid item style={{ marginTop: 20 }}>
             <img
               src={NoDocument}
               className="no-document-image"
@@ -291,11 +294,14 @@ class Documents extends React.Component {
           spacing={2}
           className="zoom-in-animation"
         >
-          <Grid item style={{
-            paddingTop: 50,
-            paddingBottom: 60,
-            opacity: 0.5
-          }}>
+          <Grid
+            item
+            style={{
+              paddingTop: 50,
+              paddingBottom: 60,
+              opacity: 0.5,
+            }}
+          >
             <SearchIcon size={150} />
           </Grid>
           <Grid item>
@@ -323,7 +329,9 @@ class Documents extends React.Component {
             <DocumentCard
               key={docData.name}
               docData={docData}
-              onOpenMenu={(event) => this.openMenu(event.currentTarget, docData)}
+              onOpenMenu={(event) =>
+                this.openMenu(event.currentTarget, docData)
+              }
               itemIndex={itemIndex}
               locationObject={this.props.location}
             />
@@ -349,7 +357,7 @@ class Documents extends React.Component {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                this.showSnackbar('Preparing document for download...');
+                this.showSnackbar("Preparing document for download...");
 
                 this.downloadDocument(this.state.menuTagetDocumentData);
                 this.dismissMenu();
@@ -411,23 +419,28 @@ class Documents extends React.Component {
   }
 
   render() {
+    const isLender = this.props.user.Role === "lender" ? true : false;
     return (
-      <Scaffold navBar navRail>
-        <div style={{
-          background: '#eeeeee',
-          position: 'sticky',
-          top: 84,
-          zIndex: 120
-        }}>
+      <Scaffold navBar navRail={!isLender}>
+        <div
+          style={{
+            background: "#eeeeee",
+            position: "sticky",
+            top: 84,
+            zIndex: 120,
+          }}
+        >
           <ReallosPageHeader
             transactionName="Transaction 1"
             pageName="Documents"
           />
 
-          <div style={{
-            paddingBottom: 20,
-            paddingTop: 20,
-          }}>
+          <div
+            style={{
+              paddingBottom: 20,
+              paddingTop: 20,
+            }}
+          >
             {(() => {
               if (this.state.documents === null) {
                 return (
@@ -437,26 +450,22 @@ class Documents extends React.Component {
                     height={56}
                     style={{ borderRadius: 10 }}
                   />
-                )
+                );
               } else if (this.state.documents.length !== 0) {
                 return (
                   <SearchBar
                     placeholder="Search by document name and creator"
                     list={this.state.documents}
-                    filterByFields={[
-                      'name',
-                      'creator',
-                      'creatorEmail',
-                    ]}
+                    filterByFields={["name", "creator", "creatorEmail"]}
                     onUpdate={(filteredDocumentsList) => {
                       this.setState({
-                        filteredDocumentsList
+                        filteredDocumentsList,
                       });
                     }}
                   />
-                )
+                );
               } else {
-                return <React.Fragment />
+                return <React.Fragment />;
               }
             })()}
           </div>
@@ -493,4 +502,4 @@ class Documents extends React.Component {
   }
 }
 
-export default Documents;
+export default connect(mapStateToProps)(Documents);
