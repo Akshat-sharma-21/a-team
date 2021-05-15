@@ -7,12 +7,26 @@ import { SearchIcon } from "@primer/octicons-react";
 import "./Documents.css";
 
 import { Grid, Divider, Box, CircularProgress } from "@material-ui/core";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
 
-function Documents() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  roadmap: state.roadmap,
+  user: state.user,
+});
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser }, dispatch);
+};
+
+function Documents(props) {
   let [documents, setDocuments] = useState(null);
   let [filteredDocuments, setFilteredDocuments] = useState(null);
 
   useEffect(async () => {
+    if (props.utils.reload === true) props.fetchUser();
     // Dummy values
     const _documents = await _dummyApi();
 
@@ -165,4 +179,4 @@ function Documents() {
   );
 }
 
-export default Documents;
+export default connect(mapStateToProps, mapActionsToProps)(Documents);
