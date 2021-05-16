@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
 import { Scaffold, SearchBar } from "../utilities/core";
 import NoDoc from "../../assets/Documents-Img.png";
 import DocumentCard from "./DocumentCard";
@@ -41,30 +40,30 @@ function Documents(props) {
   const _dummyApi = (emptyResponse = false, timeout = 2000) => {
     return new Promise((resolve, _) => {
       const _documents = [
-        {
-          id: "reqsqwexyg",
-          name: "Document 1",
-          creator: "John Doe",
-          path: "",
-        },
-        {
-          id: "fhuwierwieo",
-          name: "Document 2",
-          creator: "You",
-          path: "",
-        },
-        {
-          id: "sjqiwuewdad",
-          name: "Document 3",
-          creator: "Mr. Bean",
-          path: "",
-        },
-        {
-          id: "ascnoqwewqe",
-          name: "Document 4",
-          creator: "Mr. Bean",
-          path: "",
-        },
+        // {
+        //   id: "reqsqwexyg",
+        //   name: "Document 1",
+        //   creator: "John Doe",
+        //   path: "",
+        // },
+        // {
+        //   id: "fhuwierwieo",
+        //   name: "Document 2",
+        //   creator: "You",
+        //   path: "",
+        // },
+        // {
+        //   id: "sjqiwuewdad",
+        //   name: "Document 3",
+        //   creator: "Mr. Bean",
+        //   path: "",
+        // },
+        // {
+        //   id: "ascnoqwewqe",
+        //   name: "Document 4",
+        //   creator: "Mr. Bean",
+        //   path: "",
+        // },
       ];
 
       setTimeout(() => {
