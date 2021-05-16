@@ -28,16 +28,15 @@
   border-radius: 10px;
   background: #bdbdbd;
   color: #ffffff;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 5px 0;
   margin-right: 15px;
   text-align: center;
-  width: 30%;
-  font-size: 15px;
+  width: 27%;
+  font-size: 14px;
 }
 
 .tasks-dashboard-list-item-header-text-group {
-  width: 160px;
+  width: 175px;
   display: flex;
   flex-direction: column;
 }
@@ -45,12 +44,13 @@
 .tasks-dashboard-list-item-heading {
   font-family: "Segoe", sans-serif;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .tasks-dashboard-list-item-subheading {
-  font-family: "Segoe", sans-serif;
-  font-size: 14px;
+  font-family: "Segoe", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
 }
 
 .tasks-dashboard-task-list-item-details {
@@ -60,8 +60,9 @@
 
 .tasks-dashboard-task-list-item-details-desc {
   margin-bottom: 20px !important;
-  font-family: "Segoe", sans-serif;
-  font-size: 14px;
+  font-family: "Segoe", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
 }
 
 .tasks-dashboard-task-list-item-actions-group {

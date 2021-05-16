@@ -114,7 +114,7 @@
 }
 
 .doc-card-context-menu-root {
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   padding: 0;
 }
 
@@ -139,7 +139,7 @@
 .doc-card-context-menu-header > div {
   display: flex;
   align-items: center;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
 }
 
 .doc-card-context-menu-actions-list {
@@ -149,4 +149,29 @@
 .doc-card-context-menu-actions-list li {
   font-size: 20px;
   padding: 20px 30px;
+}
+
+.no-document-img {
+  height: 160px;
+  padding-top: 120px;
+  padding-bottom: 60px;
+}
+
+.no-doc-heading {
+  color: var(--color-dark);
+  font-size: 33px;
+}
+
+.no-doc-body {
+  padding: 20px 40px !important;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  color: var(--color-dark);
+  font-size: 20px;
+}
+
+.no-doc-btn {
+  margin-top: 50px;
+  width: 100% !important;
+  padding: 10px 120px !important;
 }

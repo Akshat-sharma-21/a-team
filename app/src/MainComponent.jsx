@@ -12,6 +12,8 @@ import HomeInsurance from "./components/HomeInsurance/HomeInsurance";
 import SignUpWithProvider from "./components/account/SignUpWithProviders/SignUpWithProviders";
 import { getAuth } from "./Authenticate";
 
+import NoDocument from "./components/Documents/NoDocuments";
+
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated
 ) => (
@@ -34,11 +36,13 @@ function Main() {
       <Route path="/Signup" component={Signup} />
       <Route path="/lenders" component={Lenders} />
       <Route path="/insurance" component={HomeInsurance} />
+      <Route path="/nodoc" component={NoDocument} />
       <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
       <Redirect exact from="/" to="/signin" />
       <Route path="*" component={Signin} />
+
       {/* Later change the last route to a error page */}
     </Switch>
   );
