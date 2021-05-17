@@ -36,35 +36,44 @@ export function addEmail(email) {
 export function setPassword(email, password) {
   // function to set the password for the user
   return (dispatch) => {
+    let Obj = null;
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
-    myFirebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        let userId = res.user.uid;
-        myFirestore
-          .collection("Portal_Users")
-          .get()
-          .then((snapshot) => {
-            snapshot.forEach((doc) => {
-              if (doc.data().Email === email) {
-                localStorage.setItem("phone", doc.data().Phone); // Setting the phone number for phone verification
-                myFirestore
-                  .doc(`Portal_Users/${doc.id}`)
-                  .update({
-                    id: userId,
-                  })
-                  .then(() => {
-                    dispatch(setPasswordAction());
-                    dispatch(setLoadingFalse()); // dispatching an action to set loading to false
-                    dispatch(incrementStepAction(2)); // Incrementing the page
+    myFirestore
+      .collection("Portal_Users")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          if (doc.data().Email === email) {
+            Obj = doc.data(); // Storing the data of the object
+            myFirestore
+              .collection("Portal_Users")
+              .doc(doc.id)
+              .delete() // Deleting the user
+              .then(() => {
+                myFirebase
+                  .auth()
+                  .createUserWithEmailAndPassword(email, password)
+                  .then((res) => {
+                    myFirestore
+                      .collection("Portal_Users")
+                      .doc(res.user.uid)
+                      .set({
+                        ...Obj,
+                      })
+                      .then(() => {
+                        localStorage.setItem("Id", res.user.uid); // Setting the Id
+                        localStorage.setItem("phone", Obj.Phone); // Setting the phone
+                        dispatch(setPasswordAction());
+                        dispatch(setLoadingFalse()); // Dispatching an action to set loading to false
+                        dispatch(incrementStepAction(2)); // Incrementing to the next step
+                      })
+                      .catch((err) => {
+                        dispatch(setErrors(err));
+                      });
                   });
-              }
-            });
-          });
-      })
-      .catch((err) => {
-        dispatch(setErrors(err));
+              });
+          }
+        });
       });
   };
 }
@@ -72,8 +81,8 @@ export function setPassword(email, password) {
 export function sendEmailOTP(email) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
-    // Getting the email hash for the next step and sending the verification email
-    axios
+
+    axios // Getting the email hash for the next step and sending the verification email
       .post("/send-email-otp", { email: email })
       .then((res) => {
         dispatch(setEmailHashAction({ hash: res.data.hash })); // dispatching an action to set the hash
@@ -105,6 +114,10 @@ export function verifyEmail(emailCode, hash) {
           // dispatch an action to let user know that the entered email was incorrect
           dispatch(setErrors("incorrect email otp"));
         }
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+        console.error(err);
       });
   };
 }

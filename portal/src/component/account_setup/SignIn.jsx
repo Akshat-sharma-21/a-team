@@ -58,29 +58,31 @@ function SignIn(props) {
       props.login({ email, password });
       setTimeout(() => {
         console.log(props.utils.errors);
-        if (props.utils.errors.code === "auth/wrong-password") {
-          setMailErrorText("Password is incorrect");
-          setShowError(true);
-        }
+        if (props.utils.errors) {
+          if (props.utils.errors.code === "auth/wrong-password") {
+            setMailErrorText("Password is incorrect");
+            setShowError(true);
+          }
 
-        if (props.utils.errors.code === "auth/invalid-email") {
-          setMailErrorText("Email is invalid");
-          setShowError(true);
-        }
+          if (props.utils.errors.code === "auth/invalid-email") {
+            setMailErrorText("Email is invalid");
+            setShowError(true);
+          }
 
-        if (props.utils.errors.code === "auth/user-not-found") {
-          setMailErrorText("User not found");
-          setShowError(true);
-        }
+          if (props.utils.errors.code === "auth/user-not-found") {
+            setMailErrorText("User not found");
+            setShowError(true);
+          }
 
-        if (props.utils.errors.code === "auth/user-disabled") {
-          setMailErrorText("User is disabled");
-          setShowError(true);
-        }
+          if (props.utils.errors.code === "auth/user-disabled") {
+            setMailErrorText("User is disabled");
+            setShowError(true);
+          }
 
-        if (props.utils.errors.code === "auth/too-many-requests") {
-          setMailErrorText("Too many requests");
-          setShowError(true);
+          if (props.utils.errors.code === "auth/too-many-requests") {
+            setMailErrorText("Too many requests");
+            setShowError(true);
+          }
         }
       }, 2000);
     }
