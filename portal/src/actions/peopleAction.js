@@ -5,39 +5,84 @@ import axios from "axios";
 export const ADD_PEOPLE = "ADD_PEOPLE";
 export const REMOVE_ALL = "REMOVE_ALL";
 
+const fetchPeopleHelper = (id) => {
+  // function to help fetch people
+  return new Promise((resolve, reject) => {
+    myFirestore
+      .collection("Portal_Users")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        resolve(doc.data());
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 export function fetchPeople(tid) {
-  let counter = 0; // To make sure the loading state is set properly
   return (dispatch) => {
-    dispatch(setLoadingTrue());
-    dispatch(removeAllFunction());
+    dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
+    dispatch(removeAllFunction()); // To clear the Redux state
     myFirestore
       .collection("Transactions")
       .doc(tid)
       .get()
       .then((doc) => {
-        if (doc.data().People && doc.data().length !== 0) {
-          doc.data().People.forEach((person) => {
-            counter++;
-            myFirestore
-              .collection("Portal_Users")
-              .doc(person)
-              .get()
-              .then((doc) => {
-                dispatch(addPeopleFunction(doc.data()));
-              })
-              .then(() => {
-                if (counter === doc.data().People.length)
-                  // only when all the people are fetched and added
-                  dispatch(setLoadingFalse());
-              })
-              .catch((err) => {
-                dispatch(setErrors(err));
-              });
-          });
+        if (
+          doc.data().PreApproval.Professional &&
+          doc.data().PreApproval.Professional !== localStorage.Id // To check if the user is not itself
+        ) {
+          // If there is a Professional
+          fetchPeopleHelper(doc.data().PreApproval.Professional)
+            .then((data) => {
+              dispatch(addPeopleFunction(data));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
         }
-      })
-      .catch((err) => {
-        dispatch(setErrors());
+        if (
+          doc.data().FindAgent.Professional &&
+          doc.data().FindAgent.Professional !== localStorage.Id // To check if the user is not itself
+        ) {
+          fetchPeopleHelper(doc.data().FindAgent.Professional)
+            .then((data) => {
+              dispatch(addPeopleFunction(data));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
+        if (doc.data().HomeInspection.Professional) {
+          fetchPeopleHelper(doc.data().HomeInspection.Professional)
+            .then((data) => {
+              dispatch(addPeopleFunction(data));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
+        if (doc.data().EscrowTitle.Professional) {
+          fetchPeopleHelper(doc.data().EscrowTitle.Professional)
+            .then((data) => {
+              dispatch(addPeopleFunction(data));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
+        if (doc.data().HomeInsurance.Professional) {
+          fetchPeopleHelper(doc.data().HomeInsurance.Professional)
+            .then((data) => {
+              dispatch(addPeopleFunction(data));
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
+        dispatch(setLoadingFalse());
       });
   };
 }

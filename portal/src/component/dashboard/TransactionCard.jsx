@@ -33,7 +33,6 @@ function TransactionCard({ transactionDetails, userRole }) {
       setProgress(transactionDetails.Completion / 100);
     });
   }, []);
-
   return (
     <Grid item xs={12} sm={6} md={6} lg={4}>
       <Card variant="outlined">
@@ -91,10 +90,6 @@ function TransactionCard({ transactionDetails, userRole }) {
                     {`${Math.round(progress * 100)}%`}
                   </div>
                 </div>
-
-                <div className="transaction-card-transaction-name">
-                  {"Temp"}
-                </div>
               </Grid>
 
               {/* DETAILS SIDE */}
@@ -121,11 +116,14 @@ function TransactionCard({ transactionDetails, userRole }) {
                     style={{ lineHeight: "27px" }}
                   >
                     <span className="transaction-card-detail-subtask-date">
-                      {/*Task Dates comes here*/}
+                      {transactionDetails.task // Conditional Rendering for Tasks Date
+                        ? transactionDetails.task.Date
+                        : "Coming Soon"}
                     </span>
 
                     <span style={{ textOverflow: "ellipsis" }}>
-                      {/*Task Name comes here*/}
+                      {transactionDetails.task && // Conditional Rendering for Tasks Name
+                        transactionDetails.task.Name}
                     </span>
                   </div>
                 </div>
@@ -134,7 +132,9 @@ function TransactionCard({ transactionDetails, userRole }) {
                   <OrganizationIcon size={20} />
                   Address
                   <div className="transaction-card-detail-sub">
-                    {transactionDetails.Address}
+                    {transactionDetails.Address // Conditional Rendering for the address
+                      ? transactionDetails.Address
+                      : "Home not selected yet"}
                   </div>
                 </div>
               </Grid>

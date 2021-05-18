@@ -4,7 +4,7 @@
 
 .transaction-card-content-root {
   --graph-size: 130px;
-  
+
   padding: 30px 20px !important;
   position: relative;
 }
@@ -29,7 +29,7 @@
 }
 
 .transaction-card-progress-text {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-weight: bold;
   font-size: 16px;
   display: flex;
@@ -39,12 +39,6 @@
   width: var(--graph-size);
 }
 
-.transaction-card-transaction-name {
-  margin-top: 20px;
-  font-family: 'Gilroy';
-  font-size: 20px;
-}
-
 .transaction-card-detail-wrapper {
   display: flex;
   gap: 20px;
@@ -52,7 +46,7 @@
 
 .transaction-card-detail-main {
   font-weight: bold;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-size: 18px;
 }
 
@@ -64,14 +58,14 @@
   margin-top: 10px;
   margin-left: 40px;
   font-size: 14px;
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-weight: 400;
 }
 
 .transaction-card-detail-subtask-date {
   background-color: #afafaf;
   color: #ffffff;
-  font-family: 'Gilroy';
+  font-family: "Gilroy";
   font-weight: bold;
   margin-right: 10px;
   padding: 5px 10px;
