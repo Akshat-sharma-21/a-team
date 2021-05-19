@@ -89,9 +89,47 @@ class InsuranceCard extends React.Component {
     });
   }
 
+  displayReviews(reviews) {
+    // Function to display all the stars
+    let halfstars = (reviews % 1) * 2; // To get the total number of half stars
+    let fullStars = parseInt(reviews); // To get the total number of full stars
+    let leftStars = 5 - (halfstars + fullStars); // ALl the left stars
+
+    return (
+      <>
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+      </>
+    );
+  }
+
   render() {
     const { providerData } = this.props;
-
+    const { tid } = this.props;
+    const { selectHomeInsurance } = this.props; // Function to select the home Insurance
     return (
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -101,11 +139,13 @@ class InsuranceCard extends React.Component {
               <div className="provider-card-info">
                 <div className="provider-card-head-details">
                   <Person className="provider-card-head-icon" />
-                  <div>Akshat Sharma</div>
+                  <div>
+                    {providerData.FirstName + " " + providerData.LastName}
+                  </div>
                 </div>
                 <div className="provider-card-head-details">
                   <Work className="provider-card-head-icon" />
-                  <div>Legacy Mutuals</div>
+                  <div>{providerData.Company}</div>
                 </div>
               </div>
             </div>
@@ -123,13 +163,7 @@ class InsuranceCard extends React.Component {
               </Grid>
               <Grid item xs={10}>
                 <div className="provider-card-body-heading">Reviews</div>
-                <div className="provider-card-body-details">
-                  <Star className="provider-card-body-stars" />
-                  <Star className="provider-card-body-stars" />
-                  <Star className="provider-card-body-stars" />
-                  <StarHalfOutlined className="provider-card-body-stars" />
-                  <StarOutline className="provider-card-body-stars" />
-                </div>
+                {this.displayReviews(providerData.Reviews)}
               </Grid>
 
               <Grid item xs={1}></Grid>
@@ -138,7 +172,9 @@ class InsuranceCard extends React.Component {
               </Grid>
               <Grid item xs={10}>
                 <div className="provider-card-body-heading">Quotes</div>
-                <div className="provider-card-body-details">3% p.a.</div>
+                <div className="provider-card-body-details">
+                  $ {providerData.Quote} per month
+                </div>
               </Grid>
 
               <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -163,25 +199,45 @@ class InsuranceCard extends React.Component {
             }}
           >
             <div className="provider-card-context-head">
-              Do you want to confirm Akshat as your Insurance Provider?
+              Do you want to confirm {providerData.FirstName} as your Insurance
+              Provider?
             </div>
 
             <div className="provider-card-context-body">
               <Error />
               <div className="provider-card-context-text">
-                As your home insurance provider, Akshat will be responsible for
-                your home insurance
+                As your home insurance provider, {providerData.FirstName} will
+                be responsible for your home insurance
               </div>
             </div>
             <div className="provider-card-contect-btn">
               <Check />
               &nbsp;&nbsp;&nbsp;
-              <span style={{ color: "#474747" }}>Confirm</span>
+              <span
+                style={{ color: "#474747" }}
+                onClick={() => {
+                  this.setState({
+                    isModalSheetVisible: false,
+                  });
+                  selectHomeInsurance(providerData.id, tid);
+                }}
+              >
+                Confirm
+              </span>
             </div>
             <div className="provider-card-contect-btn">
               <Search />
               &nbsp;&nbsp;&nbsp;
-              <span style={{ color: "#474747" }}>Keep Searching</span>
+              <span
+                style={{ color: "#474747" }}
+                onClick={() => {
+                  this.setState({
+                    isModalSheetVisible: false,
+                  });
+                }}
+              >
+                Keep Searching
+              </span>
             </div>
           </ModalSheet>
         </Grid>

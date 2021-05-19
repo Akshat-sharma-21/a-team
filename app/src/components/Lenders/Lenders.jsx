@@ -38,7 +38,7 @@ function Lenders(props) {
   }, []);
 
   const PrimaryContent = () => {
-    if (props.utils.loading == true) {
+    if (props.utils.loading === true) {
       return (
         <div className="documents-single-view-container">
           <CircularProgress />
