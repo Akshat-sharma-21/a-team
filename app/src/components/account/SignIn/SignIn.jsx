@@ -137,8 +137,9 @@ class SignIn extends React.Component {
             color="primary"
             size="large"
             aria-label="Login with Google"
-            disabled={this.props.utils.loading}
-            onClick={() => this.props.loginWithGoggle()}
+            onClick={() => {
+              if (!this.props.utils.loading) this.props.loginWithGoggle();
+            }}
           >
             <img src={GoogleLogo} />
           </Fab>
@@ -147,8 +148,9 @@ class SignIn extends React.Component {
             color="primary"
             size="large"
             aria-label="Login with LinkedIn"
-            disabled={this.props.utils.loading}
-            onClick={() => this.props.loginWithFacebook()}
+            onClick={() => {
+              if (!this.props.utils.loading) this.props.loginWithFacebook();
+            }}
           >
             <img src={FacebookLogo} />
           </Fab>
