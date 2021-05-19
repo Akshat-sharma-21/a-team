@@ -5,78 +5,55 @@ import { Scaffold, SearchBar } from "../utilities/core";
 import LenderCard from "./LenderCard";
 import "./Lenders.css";
 
-function Lenders() {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
+import { fetchLenders, selectLender } from "../../actions/lenderActions";
+
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  user: state.user,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser, selectLender }, dispatch);
+};
+
+function Lenders(props) {
   let [lenderList, setlenderList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
 
-  useEffect(async () => {
-    // Dummy values
-    const _lenderList = await _dummyApi();
-
-    setlenderList(_lenderList);
-    setFilteredList(_lenderList);
-
-    return () => {
-      // Cleanup
-    };
+  useEffect(() => {
+    if (props.utils.reload === true) {
+      props.fetchUser();
+    }
+    fetchLenders()
+      .then((dataArray) => {
+        setlenderList(dataArray);
+        setFilteredList(dataArray);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
-  const _dummyApi = (emptyResponse = false, timeout = 2000) => {
-    return new Promise((resolve, _) => {
-      const _lenderList = [
-        {
-          name: "Shawn Mendes",
-          photo: "../../assets/shawn.jpg",
-          email: "shawnmendis@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "10%",
-          lifetimeCost: "$120000",
-          bankName: "Bank of America",
-        },
-        {
-          name: "Martin Garrix",
-          photo: "../../assets/martin.jpg",
-          email: "martingarix@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "15.8%",
-          lifetimeCost: "$150000",
-          bankName: "Bank of Netherland",
-        },
-        {
-          name: "Weeknd",
-          photo: "../../assets/weeknd.jpg",
-          email: "weeknd@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "15.6%",
-          lifetimeCost: "$130000",
-          bankName: "Bank of Toronto",
-        },
-        {
-          name: "Post Malone",
-          photo: "../../assets/postmalone.jpg",
-          email: "postmalon@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "17%",
-          lifetimeCost: "$200000",
-          bankName: "Bank of New York",
-        },
-      ];
-
-      setTimeout(() => {
-        resolve(emptyResponse ? [] : _lenderList);
-      }, timeout);
-    });
-  };
-
   const PrimaryContent = () => {
+    if (props.utils.loading === true) {
+      return (
+        <div className="documents-single-view-container">
+          <CircularProgress />
+
+          <div
+            style={{
+              marginTop: 50,
+              fontSize: 20,
+            }}
+          >
+            Loading...
+          </div>
+        </div>
+      );
+    }
     if (lenderList === null || filteredList === null) {
       return (
         <div className="documents-single-view-container">
@@ -88,7 +65,7 @@ function Lenders() {
               fontSize: 20,
             }}
           >
-            Fetching List...
+            Fetching Lenders...
           </div>
         </div>
       );
@@ -103,7 +80,7 @@ function Lenders() {
           </h2>
 
           <p className="documents-text">
-            View all the lendees available for you all in one place...
+            View all the lenders available for you in one place...
           </p>
         </div>
       );
@@ -133,7 +110,7 @@ function Lenders() {
               marginTop={-2}
               style={{ fontSize: 18, fontFamily: "Open Sans" }}
             >
-              The entered search term did not match any agen's name
+              The entered search term did not match any lender's name
             </Box>
           </Grid>
         </div>
@@ -143,7 +120,12 @@ function Lenders() {
       return (
         <Grid container spacing={2}>
           {filteredList.map((lenderData) => (
-            <LenderCard key={lenderData.id} lenderData={lenderData} />
+            <LenderCard
+              key={lenderData.id}
+              lenderData={lenderData}
+              tid={props.user.Transaction}
+              selectLender={props.selectLender}
+            />
           ))}
         </Grid>
       );
@@ -188,4 +170,4 @@ function Lenders() {
   );
 }
 
-export default Lenders;
+export default connect(mapStateToProps, mapActionToProps)(Lenders);

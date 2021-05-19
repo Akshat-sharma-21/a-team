@@ -5,78 +5,58 @@ import { Scaffold, SearchBar } from "../utilities/core";
 import InsuranceCard from "./InsuranceCard";
 import "./HomeInsurance.css";
 
-function HomeInsurance() {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
+import {
+  fetchHomeInsurance,
+  selectHomeInsurance,
+} from "../../actions/homeInsuranceActions";
+
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  user: state.user,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser, selectHomeInsurance }, dispatch);
+};
+
+function HomeInsurance(props) {
   let [providerList, setproviderList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
 
-  useEffect(async () => {
-    // Dummy values
-    const _providerList = await _dummyApi();
-
-    setproviderList(_providerList);
-    setFilteredList(_providerList);
-
-    return () => {
-      // Cleanup
-    };
+  useEffect(() => {
+    if (props.utils.reload) {
+      props.fetchUser();
+    }
+    fetchHomeInsurance()
+      .then((dataArray) => {
+        setproviderList(dataArray);
+        setFilteredList(dataArray);
+      })
+      .catch((err) => {
+        console.error(err); // logging the error
+      });
   }, []);
 
-  const _dummyApi = (emptyResponse = false, timeout = 2000) => {
-    return new Promise((resolve, _) => {
-      const _providerList = [
-        {
-          name: "Shawn Mendes",
-          photo: "../../assets/shawn.jpg",
-          email: "shawnmendis@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "10%",
-          lifetimeCost: "$120000",
-          bankName: "Bank of America",
-        },
-        {
-          name: "Martin Garrix",
-          photo: "../../assets/martin.jpg",
-          email: "martingarix@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "15.8%",
-          lifetimeCost: "$150000",
-          bankName: "Bank of Netherland",
-        },
-        {
-          name: "Weeknd",
-          photo: "../../assets/weeknd.jpg",
-          email: "weeknd@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "15.6%",
-          lifetimeCost: "$130000",
-          bankName: "Bank of Toronto",
-        },
-        {
-          name: "Post Malone",
-          photo: "../../assets/postmalone.jpg",
-          email: "postmalon@gmail.com",
-          phone: "+1 999999999",
-          desc:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel fermentum risus, at lobortis mauris.",
-          interstRate: "17%",
-          lifetimeCost: "$200000",
-          bankName: "Bank of New York",
-        },
-      ];
-
-      setTimeout(() => {
-        resolve(emptyResponse ? [] : _providerList);
-      }, timeout);
-    });
-  };
-
   const PrimaryContent = () => {
+    if (props.utils.loading === true) {
+      return (
+        <div className="documents-single-view-container">
+          <CircularProgress />
+
+          <div
+            style={{
+              marginTop: 50,
+              fontSize: 20,
+            }}
+          >
+            Loading...
+          </div>
+        </div>
+      );
+    }
     if (providerList === null || filteredList === null) {
       return (
         <div className="documents-single-view-container">
@@ -88,7 +68,7 @@ function HomeInsurance() {
               fontSize: 20,
             }}
           >
-            Fetching List...
+            Fetching Insurance...
           </div>
         </div>
       );
@@ -144,7 +124,12 @@ function HomeInsurance() {
       return (
         <Grid container spacing={2}>
           {filteredList.map((providerData) => (
-            <InsuranceCard key={providerData.id} providerData={providerData} />
+            <InsuranceCard
+              key={providerData.id}
+              providerData={providerData}
+              tid={props.user.Transaction}
+              selectHomeInsurance={props.selectHomeInsurance}
+            />
           ))}
         </Grid>
       );
@@ -189,4 +174,4 @@ function HomeInsurance() {
   );
 }
 
-export default HomeInsurance;
+export default connect(mapStateToProps, mapActionToProps)(HomeInsurance);

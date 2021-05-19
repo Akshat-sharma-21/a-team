@@ -27,6 +27,7 @@ import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchUser } from "../../actions/userActions";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   roadmap: state.roadmap,
@@ -59,6 +60,8 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 function TaskSummary(props) {
+  const history = useHistory();
+
   const [isModalOpen, toggleModal] = useState(false);
   const [showMoreTasks, toggleTasks] = useState(false);
   const [showMoreDocuments, toggleDocuments] = useState(false);
@@ -70,11 +73,37 @@ function TaskSummary(props) {
   let activeStep = null; // To store the active step
   let activeStepName = "";
 
+  //TODO: Create a literal for all these steps and store it in the general file
   if (step === "pre-approval") activeStepName = "Pre-approval"; // Setting the display name for the screen
+  if (step === "find-agent") activeStepName = "Find-Agent";
+  if (step === "find-home") activeStepName = "Find-Home";
+  if (step === "home-inspection") activeStepName = "Home-Inspection";
+  if (step === "escrow-title") activeStepName = "Escrow-Title";
+  if (step === "home-insurance") activeStepName = "Home-Insurance";
+  if (step === "closing") activeStepName = "Closing";
 
   if (props.utils.reload === false) {
+    // Storing the Appropriate Step
     if (step === "pre-approval") {
       activeStep = props.roadmap.PreApproval;
+    }
+    if (step === "find-agent") {
+      activeStep = props.roadmap.FindAgent;
+    }
+    if (step === "find-home") {
+      activeStep = props.roadmap.FindHome;
+    }
+    if (step === "home-inspection") {
+      activeStep = props.roadmap.HomeInspection;
+    }
+    if (step === "escrow-title") {
+      activeStep = props.roadmap.EscrowTitle;
+    }
+    if (step === "home-insurance") {
+      activeStep = props.roadmap.HomeInsurance;
+    }
+    if (step === "closing") {
+      activeStep = props.roadmap.Closing;
     }
   }
 
@@ -171,14 +200,18 @@ function TaskSummary(props) {
 
   function displayProfessional() {
     let profession = "";
+    let linkToProfession = "";
     // Function to display the Professional
     if (activeStep.Professional === null) {
       // If the professional is not present
       if (activeStepName === "Pre-approval") {
         // To select what profession to display
         profession = "Lender";
+        linkToProfession = "/lenders";
+      } else if (activeStepName === "Home-Insurance") {
+        profession = "Insurance Provider";
+        linkToProfession = "/insurance";
       }
-
       return (
         <>
           <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
@@ -220,7 +253,10 @@ function TaskSummary(props) {
 
                   <Grid item xs={5}></Grid>
                   <Grid item xs={7}>
-                    <Button className="lender-btn">
+                    <Button
+                      className="lender-btn"
+                      onClick={() => history.push(linkToProfession)}
+                    >
                       View all Offers <ChevronRightIcon size={16} />
                     </Button>
                   </Grid>
@@ -231,6 +267,7 @@ function TaskSummary(props) {
         </>
       );
     } else {
+      //TODO: Dynamically fetch the data for that professional
       return (
         <>
           <Grid item xs={12} style={{ textAlign: "center" }}>
