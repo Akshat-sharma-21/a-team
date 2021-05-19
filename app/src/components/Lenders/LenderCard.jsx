@@ -89,9 +89,47 @@ class LenderCard extends React.Component {
     });
   }
 
+  displayReviews(reviews) {
+    // Function to display all the stars
+    let halfstars = (reviews % 1) * 2; // To get the total number of half stars
+    let fullStars = parseInt(reviews); // To get the total number of full stars
+    let leftStars = 5 - (halfstars + fullStars); // ALl the left stars
+
+    return (
+      <>
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {fullStars-- > 0 && <Star className="lender-card-body-stars" />}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {halfstars-- > 0 && (
+          <StarHalfOutlined className="lender-card-body-stars" />
+        )}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+        {leftStars-- > 0 && <StarOutline className="lender-card-body-stars" />}
+      </>
+    );
+  }
+
   render() {
     const { lenderData } = this.props;
-
+    const { tid } = this.props;
+    const { selectLender } = this.props; // Function to select the lender
     return (
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -101,11 +139,11 @@ class LenderCard extends React.Component {
               <div className="lender-card-info">
                 <div className="lender-card-head-details">
                   <Person className="lender-card-head-icon" />
-                  <div>Akshat Sharma</div>
+                  <div>{lenderData.FirstName + " " + lenderData.LastName}</div>
                 </div>
                 <div className="lender-card-head-details">
                   <Work className="lender-card-head-icon" />
-                  <div>Legacy Mutuals</div>
+                  <div>{lenderData.Company}</div>
                 </div>
               </div>
             </div>
@@ -125,7 +163,9 @@ class LenderCard extends React.Component {
                 <div className="lender-card-body-heading">
                   NMLS Identification Number
                 </div>
-                <div className="lender-card-body-details">1230943</div>
+                <div className="lender-card-body-details">
+                  {lenderData.NMLS}
+                </div>
               </Grid>
 
               <Grid item xs={1}></Grid>
@@ -135,11 +175,7 @@ class LenderCard extends React.Component {
               <Grid item xs={10}>
                 <div className="lender-card-body-heading">Reviews</div>
                 <div className="lender-card-body-details">
-                  <Star className="lender-card-body-stars" />
-                  <Star className="lender-card-body-stars" />
-                  <Star className="lender-card-body-stars" />
-                  <StarHalfOutlined className="lender-card-body-stars" />
-                  <StarOutline className="lender-card-body-stars" />
+                  {this.displayReviews(lenderData.Reviews)}
                 </div>
               </Grid>
 
@@ -149,7 +185,9 @@ class LenderCard extends React.Component {
               </Grid>
               <Grid item xs={10}>
                 <div className="lender-card-body-heading">Interst Rate</div>
-                <div className="lender-card-body-details">3% p.a.</div>
+                <div className="lender-card-body-details">
+                  {lenderData.Rate}% p.a.
+                </div>
               </Grid>
 
               <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -174,25 +212,41 @@ class LenderCard extends React.Component {
             }}
           >
             <div className="lender-card-context-head">
-              Do you want to confirm Akshat as your Lender?
+              Do you want to confirm {lenderData.FirstName} as your Lender?
             </div>
 
             <div className="lender-card-context-body">
               <Error />
               <div className="lender-card-context-text">
-                As your lender, Akshat will be responsible to get you
-                Pre-Approved and for your loan
+                As your lender, {lenderData.FirstName} will be responsible to
+                get you Pre-Approved and for your loan
               </div>
             </div>
             <div className="lender-card-contect-btn">
               <Check />
               &nbsp;&nbsp;&nbsp;
-              <span style={{ color: "#474747" }}>Confirm</span>
+              <span
+                style={{ color: "#474747" }}
+                onClick={() => {
+                  this.setState({ isModalSheetVisible: false });
+                  selectLender(lenderData.id, tid);
+                }}
+              >
+                {" "}
+                Confirm
+              </span>
             </div>
             <div className="lender-card-contect-btn">
               <Search />
               &nbsp;&nbsp;&nbsp;
-              <span style={{ color: "#474747" }}>Keep Searching</span>
+              <span
+                style={{ color: "#474747" }}
+                onClick={() => {
+                  this.setState({ isModalSheetVisible: false });
+                }}
+              >
+                Keep Searching
+              </span>
             </div>
           </ModalSheet>
         </Grid>
