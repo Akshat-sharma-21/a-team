@@ -75,11 +75,11 @@ function TaskSummary(props) {
 
   //TODO: Create a literal for all these steps and store it in the general file
   if (step === "pre-approval") activeStepName = "Pre-approval"; // Setting the display name for the screen
-  if (step === "find-agent") activeStepName = "Find-Agent";
-  if (step === "find-home") activeStepName = "Find-Home";
-  if (step === "home-inspection") activeStepName = "Home-Inspection";
-  if (step === "escrow-title") activeStepName = "Escrow-Title";
-  if (step === "home-insurance") activeStepName = "Home-Insurance";
+  if (step === "find-agent") activeStepName = "Find Agent";
+  if (step === "find-home") activeStepName = "Find Home";
+  if (step === "home-inspection") activeStepName = "Home Inspection";
+  if (step === "escrow-title") activeStepName = "Escrow & Title";
+  if (step === "home-insurance") activeStepName = "Home Insurance";
   if (step === "closing") activeStepName = "Closing";
 
   if (props.utils.reload === false) {
@@ -108,10 +108,8 @@ function TaskSummary(props) {
   }
 
   useEffect(() => {
-    if (props.utils.reload === true) {
-      // if the page has been refresehed
-      props.fetchUser();
-    }
+    //TODO: Make this more efficient by trying to fetch the user at roadmap
+    if (props.utils.reload === true) props.fetchUser(step); // re-loading the page everytime it is refreshed
   }, []);
 
   function modalOpen(title, description, type) {
@@ -208,7 +206,7 @@ function TaskSummary(props) {
         // To select what profession to display
         profession = "Lender";
         linkToProfession = "/lenders";
-      } else if (activeStepName === "Home-Insurance") {
+      } else if (activeStepName === "Home Insurance") {
         profession = "Insurance Provider";
         linkToProfession = "/insurance";
       }
@@ -285,10 +283,14 @@ function TaskSummary(props) {
                   <Grid item xs={1}></Grid>
                   <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="lender-list-title">John Smith</div>
+                      <div className="lender-list-title">
+                        {props.roadmap.ActiveProfessional.Name}
+                      </div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">Bank of America</div>
+                      <div className="doc-list-subtext">
+                        {props.roadmap.ActiveProfessional.Company}
+                      </div>
                     </Grid>
                   </Grid>
                   <Grid item xs={1}></Grid>
@@ -300,13 +302,14 @@ function TaskSummary(props) {
                   <Grid item xs={9} container>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
                       <div className="doc-list-subtext">
-                        <MailIcon size={16} /> &nbsp;&nbsp; john.smith@gmail.com
+                        <MailIcon size={16} /> &nbsp;&nbsp;{" "}
+                        {props.roadmap.ActiveProfessional.Email}
                       </div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
                       <div className="doc-list-subtext">
                         <DeviceMobileIcon size={16} />
-                        &nbsp;&nbsp; +1 99999 99999
+                        &nbsp;&nbsp; {props.roadmap.ActiveProfessional.Phone}
                       </div>
                     </Grid>
                   </Grid>

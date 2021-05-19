@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./Roadmap.css";
-import { useHistory } from "react-router-dom";
 import {
   Button,
   Grid,
@@ -31,8 +30,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function Roadmap(props) {
-  const history = useHistory();
-
   useEffect(() => {
     props.fetchUser(); // fetching the user
   }, []);
@@ -94,8 +91,9 @@ function Roadmap(props) {
                       size="small"
                       onClick={() => {
                         props.roadmap.PreApproval.Asked
-                          ? history.push("pre-approval/tasks_summary")
-                          : history.push("/questions/pre-approval");
+                          ? (window.location.href =
+                              "pre-approval/tasks_summary")
+                          : (window.location.href = "/questions/pre-approval");
                       }}
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
@@ -122,8 +120,8 @@ function Roadmap(props) {
                       size="small"
                       onClick={() => {
                         props.roadmap.FindAgent.Asked
-                          ? history.push("find-agent/tasks_summary")
-                          : history.push("/questions/find-agent");
+                          ? (window.location.href = "find-agent/tasks_summary")
+                          : (window.location.href = "/questions/find-agent");
                       }}
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />

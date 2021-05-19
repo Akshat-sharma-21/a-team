@@ -8,7 +8,7 @@ const initialState = {
   HomeInspection: {},
   HomeInsurance: {},
   Closing: {},
-  Professionals: [],
+  ActiveProfessional: {},
 };
 
 function roadmapReducer(state = initialState, action) {
@@ -16,6 +16,13 @@ function roadmapReducer(state = initialState, action) {
     case actions.SET_TRANSACTION: {
       return {
         ...action.transaction,
+      };
+    }
+    case actions.SET_PROFESSIONAL: {
+      // Setting the active profession
+      return {
+        ...state,
+        ActiveProfessional: action.professional,
       };
     }
     default: {

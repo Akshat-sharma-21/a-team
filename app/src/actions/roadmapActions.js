@@ -2,6 +2,7 @@ import axios from "axios";
 import { setErrors } from "./utilsActions";
 
 export const SET_TRANSACTION = "SET_TRANSACTION";
+export const SET_PROFESSIONAL = "SET_PROFESSIONAL";
 
 export function setupTasks(tid, step) {
   return (dispatch) => {
@@ -34,10 +35,17 @@ export function setTransactionAction(Transaction) {
     HomeInspection: Transaction.HomeInspection,
     HomeInsurance: Transaction.HomeInsurance,
     Closing: Transaction.Closing,
-    Professionals: Transaction.Professionals,
   };
   return {
     type: SET_TRANSACTION,
     transaction,
   };
 } // pure Action
+
+export function setActiveProfessionalAction(professional) {
+  // pure Action
+  return {
+    type: SET_PROFESSIONAL,
+    professional,
+  };
+}

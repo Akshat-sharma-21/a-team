@@ -5,7 +5,10 @@ import {
   setErrors,
   setReload,
 } from "./utilsActions";
-import { setTransactionAction } from "./roadmapActions";
+import {
+  setTransactionAction,
+  setActiveProfessionalAction,
+} from "./roadmapActions";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -192,7 +195,7 @@ export function signupWithProvider(user) {
   };
 }
 
-export function fetchUser() {
+export function fetchUser(step) {
   return (dispatch) => {
     let Id = localStorage.getItem("Id");
     dispatch(setLoadingTrue());
@@ -209,8 +212,188 @@ export function fetchUser() {
           .get()
           .then((docRef) => {
             dispatch(setTransactionAction(docRef.data())); // setting the transaction in the redux store
-            dispatch(setReload());
-            dispatch(setLoadingFalse());
+            if (step === undefined || step === null) {
+              // if no argument is passed
+              dispatch(setReload());
+              dispatch(setLoadingFalse());
+            } else {
+              // If a argument is passed
+              if (step === "pre-approval") {
+                if (docRef.data().PreApproval.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().PreApproval.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "find-agent") {
+                if (docRef.data().FindAgent.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().FindAgent.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "find-home") {
+                if (docRef.data().FindHome.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().FindHome.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "home-inspection") {
+                if (docRef.data().HomeInspection.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().HomeInspection.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "escrow-title") {
+                if (docRef.data().EscrowTitle.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().EscrowTitle.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "home-insurance") {
+                if (docRef.data().HomeInsurance.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().HomeInsurance.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+              if (step === "closing") {
+                if (docRef.data().Closing.Professional) {
+                  myFirestore
+                    .collection("Portal_Users")
+                    .doc(docRef.data().Closing.Professional)
+                    .get()
+                    .then((obj) => {
+                      let objData = {
+                        Name: obj.data().FirstName + " " + obj.data().LastName,
+                        Company: obj.data().Company,
+                        Email: obj.data().Email,
+                        Phone: obj.data().Phone,
+                      }; // Storing the appropiate data
+                      dispatch(setActiveProfessionalAction(objData));
+                      dispatch(setReload());
+                      dispatch(setLoadingFalse());
+                    })
+                    .catch((err) => {
+                      dispatch(setErrors(err));
+                    });
+                } else {
+                  dispatch(setReload());
+                  dispatch(setLoadingFalse());
+                }
+              }
+            }
           })
           .catch((err) => {
             dispatch(setErrors(err));
