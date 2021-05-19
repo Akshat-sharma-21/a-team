@@ -1,26 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
 import { TextField } from "@material-ui/core";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import "./SignUp.css";
 import { Phone } from "@material-ui/icons";
 
-class VerifyPhone extends React.Component {
-  constructor() {
-    super();
+function VerifyPhone() {
+  let [verificationCodeList, setVerificationCodeList] = useState(
+    Array(4).fill("")
+  );
 
-    this.state = {
-      verificationCodeList: ["", "", "", ""],
-    };
-  }
-  renderForm() {
+  const handleInputKeyDown = (event, index) => {
+    /** @type string */
+    let key = event.key;
+    let isNumeric = !!key.match(/^\d$/);
+
+    if (isNumeric || ["Backspace", "Delete"].includes(key)) {
+      let currentVerificationCodeList = [...verificationCodeList];
+      currentVerificationCodeList[index] = isNumeric ? key : "";
+
+      setVerificationCodeList(currentVerificationCodeList);
+
+      if (key !== "Backspace") {
+        let nextSibling = event.target.parentElement.parentElement.nextSibling;
+        if (nextSibling) nextSibling.querySelector("input").focus();
+      } else {
+        let prevSibling =
+          event.target.parentElement.parentElement.previousSibling;
+        if (prevSibling) prevSibling.querySelector("input").focus();
+      }
+    }
+  };
+
+  function renderForm() {
     return (
       <div className="signup-form">
         <div className="verification-code-textfield-group">
-          {this.state.verificationCodeList.map((code, index) => (
+          {verificationCodeList.map((code, index) => (
             <TextField
               key={index}
+              value={code}
               variant="outlined"
+              onKeyDown={(event) => handleInputKeyDown(event, index)}
               onFocus={(event) => event.target.select()}
               inputProps={{
                 maxLength: 1,
@@ -45,24 +66,22 @@ class VerifyPhone extends React.Component {
     );
   }
 
-  render() {
-    return (
-      <Scaffold className="signup-page-root">
-        <div className="signup-reallos-decoration">
-          <img src={ReallosLogo} alt="" />
+  return (
+    <Scaffold className="signup-page-root">
+      <div className="signup-reallos-decoration">
+        <img src={ReallosLogo} alt="" />
+      </div>
+
+      <div className="signup-body-root">
+        <div className="signup-page-title">
+          <h1>Verify Phone</h1>
+          <h2>Please Verify your phone</h2>
         </div>
 
-        <div className="signup-body-root">
-          <div className="signup-page-title">
-            <h1>Verify Phone</h1>
-            <h2>Please Verify your phone</h2>
-          </div>
-
-          {this.renderForm()}
-        </div>
-      </Scaffold>
-    );
-  }
+        {renderForm()}
+      </div>
+    </Scaffold>
+  );
 }
 
 export default VerifyPhone;
