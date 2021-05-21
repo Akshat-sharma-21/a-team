@@ -28,13 +28,40 @@ export function setupTasks(tid, step) {
 
 export function setTransactionAction(Transaction) {
   let transaction = {
-    PreApproval: Transaction.PreApproval,
-    FindAgent: Transaction.FindAgent,
-    FindHome: Transaction.FindHome,
-    EscrowTitle: Transaction.EscrowTitle,
-    HomeInspection: Transaction.HomeInspection,
-    HomeInsurance: Transaction.HomeInsurance,
-    Closing: Transaction.Closing,
+    PreApproval: {
+      Professional: Transaction.PreApproval.Professional,
+      Locked: Transaction.PreApproval.Locked,
+      Asked: Transaction.PreApproval.Asked,
+    },
+    FindAgent: {
+      Professional: Transaction.FindAgent.Professional,
+      Locked: Transaction.FindAgent.Locked,
+      Asked: Transaction.FindAgent.Asked,
+    },
+
+    FindHome: {
+      Asked: Transaction.FindHome.Asked,
+      Locked: Transaction.FindHome.Locked,
+    },
+    EscrowTitle: {
+      Asked: Transaction.EscrowTitle.Asked,
+      Professional: Transaction.EscrowTitle.Professional,
+      Locked: Transaction.EscrowTitle.Locked,
+    },
+    HomeInspection: {
+      Professional: Transaction.HomeInspection.Professional,
+      Locked: Transaction.HomeInspection.Locked,
+      Asked: Transaction.HomeInspection.Asked,
+    },
+    HomeInsurance: {
+      Professional: Transaction.HomeInsurance.Professional,
+      Locked: Transaction.HomeInsurance.Locked,
+      Asked: Transaction.HomeInsurance.Asked,
+    },
+    Closing: {
+      Locked: Transaction.Closing.Locked,
+      Asked: Transaction.Closing.Asked,
+    },
   };
   return {
     type: SET_TRANSACTION,

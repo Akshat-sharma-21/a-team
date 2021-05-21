@@ -5,14 +5,13 @@ import DocumentCard from "./DocumentCard";
 import { SearchIcon } from "@primer/octicons-react";
 import "./Documents.css";
 
-import { Grid, Divider, Box, CircularProgress } from "@material-ui/core";
+import { Grid, Box, CircularProgress } from "@material-ui/core";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchUser } from "../../actions/userActions";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
-  roadmap: state.roadmap,
   user: state.user,
   documents: state.documents,
 });
@@ -33,7 +32,7 @@ function Documents(props) {
   let [closingDocuments, setClosingDocuments] = useState(null);
   let [documentSet, updateDocumentSet] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (props.utils.reload === true) props.fetchUser();
   }, []);
 
@@ -147,8 +146,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 20, marginBottom: 20 }}>
                   <div className="documents-heading-2">Pre-approval</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -162,8 +159,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Find Agent</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -177,8 +172,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Find Home</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -192,8 +185,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Home Inspection</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -207,8 +198,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Escrow Title</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -222,8 +211,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Home Insurance</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -237,8 +224,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Closing</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -323,8 +308,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 20, marginBottom: 20 }}>
                   <div className="documents-heading-2">Pre-approval</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -338,8 +321,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Find Agent</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -353,8 +334,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Find Home</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -368,8 +347,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Home Inspection</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -383,8 +360,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Escrow Title</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -398,8 +373,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Home Insurance</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>
@@ -413,8 +386,6 @@ function Documents(props) {
               <>
                 <div style={{ marginTop: 30, marginBottom: 20 }}>
                   <div className="documents-heading-2">Closing</div>
-
-                  <Divider variant="fullWidth" className="doc-divider" />
                 </div>
 
                 <Grid container spacing={2}>

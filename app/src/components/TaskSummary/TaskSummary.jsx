@@ -33,6 +33,8 @@ const mapStateToProps = (state) => ({
   roadmap: state.roadmap,
   utils: state.utils,
   user: state.user,
+  tasks: state.tasks,
+  documents: state.documents,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -70,7 +72,10 @@ function TaskSummary(props) {
   const [description, changeDescription] = useState("");
 
   let { step } = useParams(); // Getting the step of the transaction
-  let activeStep = null; // To store the active step
+  let activeStep = {
+    Tasks: [],
+    Documents: [],
+  }; // To store the active step
   let activeStepName = "";
 
   //TODO: Create a literal for all these steps and store it in the general file
@@ -85,25 +90,32 @@ function TaskSummary(props) {
   if (props.utils.reload === false) {
     // Storing the Appropriate Step
     if (step === "pre-approval") {
-      activeStep = props.roadmap.PreApproval;
+      activeStep.Tasks = props.tasks.PreApprovalTasks;
+      activeStep.Documents = props.documents.PreApprovalDocuments;
     }
     if (step === "find-agent") {
-      activeStep = props.roadmap.FindAgent;
+      activeStep.Tasks = props.tasks.FindAgentTasks;
+      activeStep.Documents = props.documents.FindAgentDocuments;
     }
     if (step === "find-home") {
-      activeStep = props.roadmap.FindHome;
+      activeStep.Tasks = props.tasks.FindHomeTasks;
+      activeStep.Documents = props.documents.FindHomeDocuments;
     }
     if (step === "home-inspection") {
-      activeStep = props.roadmap.HomeInspection;
+      activeStep.Tasks = props.tasks.HomeInspectionTasks;
+      activeStep.Documents = props.documents.HomeInspectionDocuments;
     }
     if (step === "escrow-title") {
-      activeStep = props.roadmap.EscrowTitle;
+      activeStep.Tasks = props.tasks.EscrowTitleTasks;
+      activeStep.Documents = props.documents.EscrowTitleDocuments;
     }
     if (step === "home-insurance") {
-      activeStep = props.roadmap.HomeInsurance;
+      activeStep.Tasks = props.tasks.HomeInsuranceTasks;
+      activeStep.Documents = props.documents.HomeInsuranceDocuments;
     }
     if (step === "closing") {
-      activeStep = props.roadmap.Closing;
+      activeStep.Tasks = props.tasks.ClosingTasks;
+      activeStep.Documents = props.documents.ClosingDocuments;
     }
   }
 

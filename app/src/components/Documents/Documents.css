@@ -53,11 +53,10 @@
 }
 
 .documents-heading-2 {
-  text-align: left !important;
-  font-family: "Gilroy Extrabold" !important;
-  font-weight: bold !important;
-  font-size: 18px !important;
-  color: var(--color-dark-grey) !important;
+  margin-top: 20px !important;
+  font-size: 25px;
+  margin: 20px 0 15px 0 !important;
+  color: var(--color-dark-grey);
 }
 
 .doc-divider {
@@ -171,7 +170,7 @@
 }
 
 .no-doc-btn {
-  margin-top: 70px;
+  margin-top: 55%;
   width: 100% !important;
   padding: 10px 120px !important;
 }

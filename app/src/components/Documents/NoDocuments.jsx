@@ -17,8 +17,8 @@ function NoDocuments(props) {
       <Grid item>
         <div className="no-doc-body">
           Document has not been uploaded yet! Please upload it here or email it
-          at <span style={{ color: "#0432FA" }}>documents@reallos.com</span>{" "}
-          with "Gift Letter" as the subject
+          at <span style={{ color: "#0432FA" }}>my@documents.reallos.com</span>{" "}
+          with "{props.location.state.title}" as the subject
         </div>
       </Grid>
       <Grid item>

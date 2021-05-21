@@ -92,10 +92,17 @@ class DocumentCard extends React.Component {
 
             <div className="doc-card-main">
               <NavLink
-                to={{
-                  pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
-                  state: docData,
-                }}
+                to={
+                  docData.filled
+                    ? {
+                        pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
+                        state: docData,
+                      }
+                    : {
+                        pathname: "nodoc",
+                        state: docData,
+                      }
+                }
               >
                 <Card className="doc-card" title={docData.name} elevation={0}>
                   <CardMedia>
