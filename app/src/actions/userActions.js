@@ -9,6 +9,7 @@ import {
   setTransactionAction,
   setActiveProfessionalAction,
 } from "./roadmapActions";
+import { setAllDocumentsAction } from "./documentsActions";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -212,6 +213,7 @@ export function fetchUser(step) {
           .get()
           .then((docRef) => {
             dispatch(setTransactionAction(docRef.data())); // setting the transaction in the redux store
+            dispatch(setAllDocumentsAction(docRef.data())); // Setting all the documents in the reduz store
             if (step === undefined || step === null) {
               // if no argument is passed
               dispatch(setReload());
