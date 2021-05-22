@@ -31,7 +31,7 @@ function utilReducer(state = intitialState, action) {
     case actions.SET_RELOAD: {
       return {
         ...state,
-        reload: false,
+        reload: action.reload === true ? true : false,
       };
     }
     default:

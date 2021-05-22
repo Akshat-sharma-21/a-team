@@ -3,27 +3,24 @@ import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import { KebabHorizontalIcon } from "@primer/octicons-react";
-import { getEffectiveDocumentName, getDecodedHash, getTransactionID } from "../../utils";
+import {
+  getEffectiveDocumentName,
+  getDecodedHash,
+  getTransactionID,
+} from "../../utils";
 import { myStorage } from "../../FirebaseConfig";
 import UserAvatar from "../../assets/user.png";
 import CardThumbnail from "./CardThumbnail";
 import "./Documents.css";
 
-import {
-  Grid,
-  Avatar,
-  Card,
-  CardContent,
-  IconButton,
-} from "@material-ui/core";
+import { Grid, Avatar, Card, CardContent, IconButton } from "@material-ui/core";
 
-const styles = (theme) => ({
+const styles = () => ({
   docCardUserAvatar: {
     width: 30,
     height: 30,
   },
 });
-
 
 class DocumentCard extends React.Component {
   static propTypes = {
@@ -54,7 +51,7 @@ class DocumentCard extends React.Component {
     /**
      * Object containing location data. You must pass either
      * `this.props.location` or a `useLocation` object.
-     * 
+     *
      * This will be used to extract `TransactionID` from URL
      * and for getting hash from current location (or route)
      * for highlighting purpose.
@@ -67,22 +64,24 @@ class DocumentCard extends React.Component {
    */
   async getThumbnail() {
     const docName = this.props.docData.name;
-    
+
     try {
       /**
        * @todo Uses Firebase
        */
 
       const transactionID = getTransactionID(this.props.locationObject);
-      const thumbnailRef = myStorage.ref().child(
-        `${transactionID}/documents/thumbnails/${getEffectiveDocumentName(docName)}.png`
-      );
+      const thumbnailRef = myStorage
+        .ref()
+        .child(
+          `${transactionID}/documents/thumbnails/${getEffectiveDocumentName(
+            docName
+          )}.png`
+        );
 
       const thumbnailUrl = await thumbnailRef.getDownloadURL();
       return thumbnailUrl;
-    }
-
-    catch (e) {
+    } catch (e) {
       // Fallback: return null
       return;
     }
@@ -91,17 +90,21 @@ class DocumentCard extends React.Component {
   render() {
     const {
       classes,
-      itemIndex=0,
+      itemIndex = 0,
       docData,
       onOpenMenu,
-      locationObject
+      locationObject,
     } = this.props;
 
     const transactionID = getTransactionID(locationObject);
-    
+
     return (
       <Grid
-        item xs={12} sm={6} md={4} lg={3}
+        item
+        xs={12}
+        sm={6}
+        md={4}
+        lg={3}
         style={{
           opacity: 0,
           animation: "slide-up-anim 150ms ease-out forwards",
@@ -126,11 +129,10 @@ class DocumentCard extends React.Component {
             >
               <Card
                 className={
-                  "doc-card " + (
-                    getDecodedHash(locationObject) === `#${docData.name}`
-                      ? "paper-highlight"
-                      : ""
-                  )
+                  "doc-card " +
+                  (getDecodedHash(locationObject) === `#${docData.name}`
+                    ? "paper-highlight"
+                    : "")
                 }
                 title={docData.name}
               >
@@ -151,7 +153,7 @@ class DocumentCard extends React.Component {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {getEffectiveDocumentName(docData.name)}
+                    {getEffectiveDocumentName(docData.title)}
                   </h2>
 
                   <div
@@ -176,7 +178,7 @@ class DocumentCard extends React.Component {
           </div>
         </div>
       </Grid>
-    )
+    );
   }
 }
 
