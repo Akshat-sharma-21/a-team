@@ -33,16 +33,16 @@ export function signup(user) {
           })
           .then(() => {
             axios
-              .post(
-                "/create-transaction", // make sure to add proxy support
-                {
-                  buyer: user.name,
-                  buyerId: res.user.uid,
-                }
-              )
+              .post("/create-transaction", {
+                buyer: user.name,
+                buyerId: res.user.uid,
+              })
               .then(() => {
                 dispatch(setLoadingFalse());
-                window.location.href = "/signin";
+                localStorage.setItem("Id", res.user.uid);
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("userPhone", user.phone);
+                window.location.href = "/verifyEmail";
               })
               .catch((err) => {
                 dispatch(setErrors(err));
@@ -69,29 +69,46 @@ export function login(user) {
         return userCredentials.user.getIdToken();
       })
       .then((token) => {
-        localStorage.setItem("Token", token);
         myFirestore
           .collection("Users")
           .doc(localStorage.getItem("Id"))
           .get()
           .then((doc) => {
-            if (doc.data().FirstTime === true) {
-              myFirestore
-                .collection("Users")
-                .doc(doc.id)
-                .update({
-                  FirstTime: false,
-                })
-                .then(() => {
-                  dispatch(setLoadingFalse());
-                  window.location.href = "/onboarding"; // moving to the desired location after signin
-                })
-                .catch((err) => {
-                  dispatch(setErrors(err));
-                });
+            if (
+              doc.data().emailVerified === true &&
+              doc.data().phoneVerified === true
+            ) {
+              // If the user has verified both the email and phone
+              localStorage.setItem("Token", token);
+              if (doc.data().FirstTime === true) {
+                myFirestore
+                  .collection("Users")
+                  .doc(doc.id)
+                  .update({
+                    FirstTime: false,
+                  })
+                  .then(() => {
+                    dispatch(setLoadingFalse());
+                    window.location.href = "/onboarding"; // moving to the desired location after signin
+                  })
+                  .catch((err) => {
+                    dispatch(setErrors(err));
+                  });
+              } else {
+                dispatch(setLoadingFalse());
+                window.location.href = "/dashboard";
+              }
             } else {
-              dispatch(setLoadingFalse());
-              window.location.href = "/dashboard";
+              if (doc.data().emailVerified !== true) {
+                // If the user has not verified the email
+                localStorage.setItem("userEmail", doc.data().Email);
+                localStorage.setItem("userPhone", doc.data().Phone);
+                window.location.href = "/verifyEmail";
+              } else {
+                // If the user has not verified the phone
+                localStorage.setItem("userPhone", doc.data().Phone);
+                window.location.href = "/verifyPhone";
+              }
             }
           })
           .catch((err) => {
@@ -145,7 +162,6 @@ export function loginWithProviderHelper() {
       .then((token) => {
         if (token) {
           // if a token was passed
-          localStorage.setItem("Token", token);
           myFirestore
             .collection("Users")
             .doc(localStorage.getItem("Id"))
@@ -157,7 +173,32 @@ export function loginWithProviderHelper() {
                 window.location.href = "/SignupWithProvider";
               } else {
                 // if the basic information about the user exists
-                window.location.href = "/dashboard"; // sending th
+                if (doc.data().phoneVerified === true) {
+                  // If the phone is verified
+                  localStorage.setItem("Token", token);
+                  if (doc.data().FirstTime === true) {
+                    // If the user is logging in for the first time
+                    myFirestore
+                      .collection("Users")
+                      .doc(localStorage.Id)
+                      .update({
+                        FirstTime: false,
+                      })
+                      .then(() => {
+                        dispatch(setLoadingFalse());
+                        window.location.href = "/onboarding"; // Sending the user to onboarding
+                      })
+                      .catch((err) => {
+                        dispatch(setErrors(err));
+                      });
+                  } else {
+                    // If the user has already logged in
+                    window.location.href = "/dashboard"; // sending the user to dashboard
+                  }
+                } else {
+                  localStorage.setItem("userPhone", doc.data().Phone);
+                  window.location.href = "/verifyPhone";
+                }
               }
             });
         }
@@ -175,9 +216,11 @@ export function signupWithProvider(user) {
         Name: user.name,
         Email: user.email,
         Phone: user.phone,
-        FirstTime: false, // This is set to false as we will automatically send the user to onboarding
+        FirstTime: true,
+        emailVerified: true, // Automatically setting the email verified to true if the user uses google or facebook
       })
       .then(() => {
+        localStorage.setItem("userPhone", user.phone); // Storing user's phone in loclaStorage
         axios
           .post("/create-transaction", {
             buyer: user.name,
@@ -185,7 +228,7 @@ export function signupWithProvider(user) {
           })
           .then(() => {
             dispatch(setLoadingFalse());
-            window.location.href = "/onboarding";
+            window.location.href = "/verifyPhone";
           })
           .catch((err) => {
             dispatch(setErrors(err));
@@ -402,6 +445,95 @@ export function fetchUser(step) {
           .catch((err) => {
             dispatch(setErrors(err));
           });
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function sendEmailOtp() {
+  // Function to send the email otp
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
+    axios
+      .post("/send-email-otp", { email: localStorage.userEmail })
+      .then((res) => {
+        localStorage.removeItem("userEmail"); // Removing user's email from the local storage
+        localStorage.setItem("emailHash", res.data.hash); // Storing the hash returned from the email
+        dispatch(setLoadingFalse());
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function verifyEmail(otp) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    otp = otp.replaceAll(",", ""); // Extracting the otp from its string format
+    axios
+      .post("/verify-email", {
+        code: otp,
+        hash: localStorage.emailHash,
+        id: localStorage.Id,
+        user: true,
+      })
+      .then((res) => {
+        if (res.data.verified === true) {
+          localStorage.removeItem("emailHash");
+          dispatch(setLoadingFalse());
+          window.location.href = "/verifyPhone";
+        } else {
+          dispatch(setErrors("incorrect email otp"));
+        }
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function sendPhoneOtp() {
+  // Function to send the otp
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    axios
+      .post("/send-text-otp", {
+        phone: localStorage.userPhone,
+      })
+      .then((res) => {
+        localStorage.removeItem("userPhone");
+        localStorage.setItem("phoneHash", res.data.hash);
+        dispatch(setLoadingFalse());
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function verifyPhone(otp) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    otp = otp.replaceAll(",", "");
+    axios
+      .post("/verify-phone", {
+        code: otp,
+        hash: localStorage.phoneHash,
+        id: localStorage.Id,
+        user: true,
+      })
+      .then((res) => {
+        if (res.data.verified === true) {
+          localStorage.removeItem("Id");
+          localStorage.removeItem("phoneHash");
+          dispatch(setLoadingFalse());
+          window.location.href = "/";
+        } else {
+          dispatch(setErrors("invalid phone otp"));
+        }
       })
       .catch((err) => {
         dispatch(setErrors(err));

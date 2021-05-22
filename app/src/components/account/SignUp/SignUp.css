@@ -107,3 +107,12 @@
   font-family: "Roboto Slab";
   font-size: 17px;
 }
+
+.signup-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 35%;
+}

@@ -36,11 +36,11 @@ function Main() {
       <PrivateRoute path="/SignupWithProvider" component={SignUpWithProvider} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
-      <Route path="/lenders" component={Lenders} />
-      <Route path="/insurance" component={HomeInsurance} />
-      <Route path="/nodoc" component={NoDocument} />
-      <Route path="/phone" component={VerifyPhone} />
-      <Route path="/mail" component={VerifyMail} />
+      <PrivateRoute path="/lenders" component={Lenders} />
+      <PrivateRoute path="/insurance" component={HomeInsurance} />
+      <PrivateRoute path="/nodoc" component={NoDocument} />
+      <Route path="/verifyPhone" component={VerifyPhone} />
+      <Route path="/verifyEmail" component={VerifyMail} />
       <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
