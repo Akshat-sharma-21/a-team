@@ -15,6 +15,7 @@ import { getAuth } from "./Authenticate";
 import NoDocument from "./components/Documents/NoDocuments";
 import VerifyPhone from "./components/account/SignUp/VerifyPhone";
 import VerifyMail from "./components/account/SignUp/VerifyMail";
+import ProfileEdit from "./components/Roadmap/ProfileEdit";
 
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated
@@ -41,6 +42,7 @@ function Main() {
       <Route path="/nodoc" component={NoDocument} />
       <Route path="/phone" component={VerifyPhone} />
       <Route path="/mail" component={VerifyMail} />
+      <Route path="/profile" component={ProfileEdit} />
       <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
       <PrivateRoute path="/questions/:step" component={Questionnaire} />
