@@ -1,10 +1,9 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import { ReactComponent as StampIcon } from "../../../assets/stamp_icon.svg";
 import DocUploadStatus from "../uploader/DocUploadStatus";
 import { myStorage } from "../../../FirebaseConfig";
-import { getCurrentUser, getTransactionID } from "../../../utils";
-import WebViewer from '@pdftron/webviewer';
+import WebViewer from "@pdftron/webviewer";
 
 import {
   ReallosModal,
@@ -12,145 +11,57 @@ import {
   ReallosPageHeader,
   ReallosButton,
   ReallosFab,
-  Scaffold
-} from '../../utilities/core';
+  Scaffold,
+} from "../../utilities/core";
 
-import {
-  Grid,
-  Box,
-  Divider,
-  Snackbar,
-} from "@material-ui/core";
+import { Grid, Box, Divider, Snackbar } from "@material-ui/core";
 
 import "./DocumentViewer.css";
 
-/**
- * Component for viewing, editing & saving
- * documents
- *
- * @augments React.Component<Props>
- */
-class DocumentViewer extends React.Component {
-  constructor() {
-    super();
+let viewer = null; // The viewer must not change with every rendering
+let documentLink = null; // The document link that is being displayed
 
-    this.state = {
-      hasChanges: false,
-      isLoadingDocument: true,
-      isUploadModalVisible: false,
-      isResetModalVisible: false,
-      isSnackbarVisible: false,
-      snackbarMessage: null,
-      uploadTaskStatus: {
-        filename: "",
-        progress: 0,
-        isPaused: false,
-        uploadTask: null,
-      },
-    };
+function DocumentViewer(props) {
+  let { tid } = useParams();
+  let viewerRoot = React.createRef(); // Intializing viewerRoot
+  // Defining all the states
+  let [documentLoaded, setDocumentLoaded] = useState(true);
+  let [documentChanged, setDocumentChanged] = useState(false);
+  let [uploadModalVisible, setUploadModalVisible] = useState(false);
+  let [resetModalVisbile, setResetModalVisible] = useState(false);
+  let [uploadTaskStatus, setUploadTaskStatus] = useState({
+    filename: "",
+    progress: 0,
+    isPaused: false,
+    uploadTask: null,
+  });
+  let [snackbarVisible, setSnackBarVisible] = useState(false);
+  let [snackbarMessage, setSnackBarMessage] = useState("");
 
-    this.documentLink = null;
-    this.viewerRoot = React.createRef();
+  async function fetchAndSetDocument(docPath) {
+    // To fetch and set the document
+    let downloadUrl = await myStorage.ref(docPath).getDownloadURL(); // Getting the download url
+    viewer.loadDocument(downloadUrl);
+    documentLink = downloadUrl;
   }
 
-  componentDidMount() {
-    if (this.getState) {
-      WebViewer(
-        { path: '/webviewer/lib', fullAPI: true },
-        this.viewerRoot.current
-      )
-        .then(viewerInstance => {
-          const { docViewer, annotManager, FitMode } = viewerInstance;
-          this.viewer = viewerInstance;
-          this.setDocument(this.getState.path);
-
-          docViewer.on('documentLoaded', () => {
-            this.setDocumentLoaded();
-            viewerInstance.setFitMode(FitMode.FitWidth);
-            annotManager.setCurrentUser(getCurrentUser().email);
-          });
-
-          annotManager.on('annotationChanged', () => {
-            /**
-             * The document is not flattened when saving.
-             *
-             * Non-flattened document would contain raw annotations
-             * which when rendered initially (when loading document)
-             * would fire the `annotationChanged`.
-             */
-
-            this.setDocumentChanged();
-          });
-        });
+  function resetDocument() {
+    // To reset the document
+    if (documentLink) {
+      viewer.loadDocument(documentLink);
+      setDocumentChanged(false);
     }
   }
 
-  /**
-   * Show signature panel provided by **PDFTron**
-   *
-   * @returns {void}
-   * Void
-   */
-  async showSignaturePanel() {
-    if (this.viewerRoot.current.querySelector('iframe').contentDocument)
-      this.viewerRoot.current.querySelector('iframe').contentDocument.querySelector(
-        'div[data-element="signatureToolButton"]'
-      ).firstChild.click();
-  }
+  async function saveChangesToCloud(docPath) {
+    // To save any changes done to the pdf
+    const doc = viewer.docViewer.getDocument();
+    const xfdfString = await viewer.annotManager.exportAnnotations();
 
-  /**
-   * Set document within the viewer using relative document path.
-   *
-   * @param {string} docPath
-   * Relative path to the document in Firebase Storage.
-   *
-   * @returns {Promise<void>}
-   * Void
-   */
-  async setDocument(docPath) {
-    // @TODO
-    // DUMMY value
-
-    let downloadLink = await myStorage.ref(docPath).getDownloadURL();
-    this.viewer.loadDocument(downloadLink);
-    this.documentLink = downloadLink;
-  }
-
-  /**
-   * Resets the document in the viewer.
-   *
-   * Call to this function will not do anything
-   * if `setDocument` was not called initially.
-   */
-  resetDocument() {
-    if (this.documentLink) {
-      this.viewer.loadDocument(this.documentLink);
-
-      this.setState({
-        hasChanges: false,
-      });
-    }
-  }
-
-  /**
-   * Saves the changes made in the PDF viewer to
-   * the cloud **(Firebase)**.
-   *
-   * @param {string} docPath
-   * Relative path to the document in Firebase Storage.
-   *
-   * @returns {Promise<void>}
-   * Void
-   */
-  async saveChangesToCloud(docPath) {
-    // @TODO Uses Firebase
-
-    const doc = this.viewer.docViewer.getDocument();
-    const xfdfString = await this.viewer.annotManager.exportAnnotations();
     const options = { xfdfString, flatten: false };
     const data = await doc.getFileData(options);
     const arr = new Uint8Array(data);
-    const docBlob = new Blob([arr], { type: 'application/pdf' });
+    const docBlob = new Blob([arr], { type: "application/pdf" });
 
     let fileRef = myStorage.ref().child(docPath);
     let uploadTask = fileRef.put(docBlob);
@@ -160,259 +71,242 @@ class DocumentViewer extends React.Component {
       let isPaused = snapshot.state === "paused";
 
       let newUploadTaskDetails = {
-        filename: this.getState.name,
+        filename: props.location.state.title,
         progress,
         isPaused,
         uploadTask,
       };
 
-      this.setState({
-        isUploadModalVisible: true,
-        uploadTaskStatus: newUploadTaskDetails,
-      });
+      setUploadTaskStatus(newUploadTaskDetails);
+      setUploadModalVisible(true);
+      setDocumentChanged(false);
     });
   }
 
-  /**
-   * Resets upload status.
-   */
-  dismissUploadModalCallback() {
-    this.setState({
-      isUploadModalVisible: false,
-      uploadTaskStatus: {
-        progress: 0,
-        isPaused: false,
-        uploadTask: null,
-      },
-    });
+  async function showSignaturePanel() {
+    // To open the signature panel
+    if (viewerRoot.current.querySelector("iframe").contentDocument) {
+      viewerRoot.current
+        .querySelector("iframe")
+        .contentDocument.querySelector(
+          'div[data-element="signatureToolButton"]'
+        )
+        .firstChild.click();
+    }
   }
 
-  /**
-   * Set `isLoadingDocument` state to false when
-   * document is loaded in the viewer.
-   */
-  setDocumentLoaded() {
-    this.setState({
-      isLoadingDocument: false,
-    });
-  }
+  useEffect(() => {
+    if (props.location) {
+      // If the location object exists in props
+      WebViewer({ path: "/webviewer/lib", fullAPI: true }, viewerRoot.current)
+        .then((viewerInstance) => {
+          const { docViewer, annotManager, FitMode } = viewerInstance;
+          viewer = viewerInstance;
+          fetchAndSetDocument(props.location.state.location);
 
-  /**
-   * Set `hasChanges` state when document changed.
-   */
-  setDocumentChanged() {
-    this.setState({
-      hasChanges: true,
-    });
-  }
+          docViewer.on("documentLoaded", () => {
+            setDocumentLoaded(false);
+            viewerInstance.setFitMode(FitMode.FitWidth);
+            annotManager.setCurrentUser(localStorage.Id); // Setting the id of the current user
+          });
 
-  /**
-   * Getter which returns the state information (document metadata)
-   * from props.
-   *
-   * @returns {object | null}
-   * Document Metadata passed by `Paperwork` component
-   */
-  get getState() {
-    return this.props.location ? this.props.location.state : null;
-  }
+          annotManager.on("annotationChanged", () => {
+            setDocumentChanged(true);
+          });
+        })
+        .catch(() => {
+          window.location.href = `/transactions/${props.location.state.location}`;
+        });
+    }
+  }, []);
 
-  render() {
-    const transactionId = getTransactionID(this.props.location);
+  if (props.location) {
+    // Proceed if document metadata is available in props
+    const docData = props.location.state;
+    return (
+      <Scaffold
+        navBar
+        navRail
+        navRailProps={{
+          backButtonRoute: `/transactions/${tid}/documents`,
+        }}
+      >
+        <Box component="div" paddingBottom={5}>
+          <ReallosPageHeader
+            transactionName="Transaction 1"
+            pageName="Document Editor"
+          />
 
-    if (this.getState) {
-      // Proceed if document metadata is available in props
-      const docData = this.getState;
-
-      return (
-        <Scaffold
-          navBar navRail
-          navRailProps={{
-            backButtonRoute: `/transactions/${transactionId}/documents`
-          }}
-        >
-          <Box component="div" paddingBottom={5}>
-            <ReallosPageHeader
-              transactionName="Transaction 1"
-              pageName="Document Editor"
-            />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div>
+              <NavLink to={`/transactions/${tid}/documents`} className="link">
+                Documents
+              </NavLink>
+              <span style={{ margin: "0 10px" }}>/</span>
+              {docData.title}
+            </div>
 
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                gap: 10,
               }}
             >
-              <div>
-                <NavLink to={`/transactions/${transactionId}/documents`} className="link">
-                  Documents
-                </NavLink>
-                <span style={{ margin: "0 10px" }}>/</span>
-                {docData.name}
-              </div>
-
-              <div style={{
-                display: 'flex',
-                gap: 10
-              }}>
-                <ReallosButton
-                  secondaryButtonBgColor="#eeeeee"
-                  disabled={!this.state.hasChanges}
-                  onClick={() => {
-                    this.setState({
-                      isResetModalVisible: true,
-                    });
-                  }}
-                >
-                  Revert Changes
-                </ReallosButton>
-
-                <ReallosButton
-                  primary
-                  disabled={!this.state.hasChanges}
-                  onClick={() => this.saveChangesToCloud(docData.path)}
-                >
-                  Save Changes
-                </ReallosButton>
-              </div>
-            </div>
-          </Box>
-
-          {/* Holds the PDF Viewer */}
-          <div className="pdf-viewer-root" ref={this.viewerRoot} />
-
-          <ReallosModal
-            title="Saving Changes"
-            visible={this.state.isUploadModalVisible}
-            dismissCallback={() => this.dismissUploadModalCallback()}
-            modalWidth={700}
-          >
-            <DocUploadStatus
-              showSnackbarCallback={(message) => {
-                this.setState({
-                  isSnackbarVisible: true,
-                  snackbarMessage: message,
-                });
-              }}
-              dismissCallback={() => this.dismissUploadModalCallback()}
-              uploadStatus={this.state.uploadTaskStatus}
-              isSavingDocument={true}
-              onSuccessCallback={async () => {
-                /**
-                 * Update Document URL after the latest
-                 * changes are saved to cloud.
-                 *
-                 * This would prevent 403 (Forbidden) HTTP error
-                 * when "Revert Changes" button is clicked.
-                 */
-
-                const docPath = this.getState.path;
-                this.documentLink = await myStorage.ref(docPath).getDownloadURL();
-              }}
-            />
-          </ReallosModal>
-          <ReallosModal
-            title="Revert Changes"
-            visible={this.state.isResetModalVisible}
-            dismissCallback={() =>
-              this.setState({ isResetModalVisible: false })
-            }
-            modalWidth={700}
-          >
-            This will reset all the changes you have made to this document until
-            the last save.
-            <br />
-            This action cannot be undone. Are you sure to continue?
-
-            <ModalActionFooter>
               <ReallosButton
+                secondaryButtonBgColor="#eeeeee"
+                disabled={!documentChanged}
                 onClick={() => {
-                  this.setState({ isResetModalVisible: false });
-                }}
-              >
-                Cancel
-              </ReallosButton>
-
-              <ReallosButton
-                primary
-                onClick={() => {
-                  this.setState({ isResetModalVisible: false });
-                  this.resetDocument();
+                  setResetModalVisible(true);
                 }}
               >
                 Revert Changes
               </ReallosButton>
-            </ModalActionFooter>
-          </ReallosModal>
-          <Snackbar
-            open={this.state.isSnackbarVisible}
-            onClose={() => this.setState({ isSnackbarVisible: false })}
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            message={this.state.snackbarMessage}
-          />
 
-          <div style={{display: 'block'}}>
-            <ReallosFab
-              LeadingIcon={
-                <StampIcon
-                  fill="var(--color-primary)"
-                />
-              }
-              title="E-Sign Document"
-              onClick={() => this.showSignaturePanel()}
-              leadingIconStyle={{
-                marginRight: 15,
-                height: 25,
-              }}
-            />
-          </div>
-        </Scaffold>
-      );
-    } else {
-      // Show error when no document metadata is available in props
-
-      return (
-        <Scaffold navBar navRail>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignContent="center"
-            style={{ height: "85vh", textAlign: "center" }}
-          >
-            <div style={{ fontSize: 150, opacity: 0.5 }}>{"( >_< )"}</div>
-
-            <div style={{ marginTop: 50, marginBottom: 20 }}>
-              <h1>Oops!</h1>
-
-              <p style={{ fontSize: 20 }}>
-                Can't fetch the document.
-                <br />
-                <div
-                  style={{
-                    fontStyle: "italic",
-                    opacity: 0.5,
-                  }}
-                >
-                  Did you enter the URL manually?
-                </div>
-              </p>
+              <ReallosButton
+                primary
+                disabled={!documentChanged}
+                onClick={() => saveChangesToCloud(docData.location)}
+              >
+                Save Changes
+              </ReallosButton>
             </div>
+          </div>
+        </Box>
 
-            <Divider />
+        {/* Holds the PDF Viewer */}
+        <div className="pdf-viewer-root" ref={viewerRoot} />
 
-            <p>
-              Go back to&nbsp;
-              <NavLink to={`/transactions/${transactionId}/documents`} className="link">
-                Documents
-              </NavLink>
-              &nbsp;and select the document you want to view.
+        <ReallosModal
+          title="Saving Changes"
+          visible={uploadModalVisible}
+          dismissCallback={() => {
+            setUploadModalVisible(false);
+            setUploadTaskStatus({
+              progress: 0,
+              isPaused: false,
+              uploadTask: null,
+            });
+          }}
+          modalWidth={700}
+        >
+          <DocUploadStatus
+            showSnackbarCallback={(message) => {
+              setSnackBarVisible(true);
+              setSnackBarMessage(message);
+            }}
+            dismissCallback={() => {
+              setUploadModalVisible(false);
+              setUploadTaskStatus({
+                progress: 0,
+                isPaused: false,
+                uploadTask: null,
+              });
+            }}
+            uploadStatus={uploadTaskStatus}
+            isSavingDocument={true}
+            onSuccessCallback={async () => {
+              const docPath = props.location.state.location;
+              documentLink = await myStorage.ref(docPath).getDownloadURL();
+            }}
+          />
+        </ReallosModal>
+        <ReallosModal
+          title="Revert Changes"
+          visible={resetModalVisbile}
+          dismissCallback={() => setResetModalVisible(false)}
+          modalWidth={700}
+        >
+          This will reset all the changes you have made to this document until
+          the last save.
+          <br />
+          This action cannot be undone. Are you sure to continue?
+          <ModalActionFooter>
+            <ReallosButton
+              onClick={() => {
+                setResetModalVisible(false);
+              }}
+            >
+              Cancel
+            </ReallosButton>
+
+            <ReallosButton
+              primary
+              onClick={() => {
+                resetDocument();
+                setResetModalVisible(false);
+              }}
+            >
+              Revert Changes
+            </ReallosButton>
+          </ModalActionFooter>
+        </ReallosModal>
+        <Snackbar
+          open={snackbarVisible}
+          onClose={() => setSnackBarVisible(false)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          message={snackbarMessage}
+        />
+        <div style={{ display: "block" }}>
+          <ReallosFab
+            LeadingIcon={<StampIcon fill="var(--color-primary)" />}
+            title="E-Sign Document"
+            onClick={() => showSignaturePanel()}
+            leadingIconStyle={{
+              marginRight: 15,
+              height: 25,
+            }}
+          />
+        </div>
+      </Scaffold>
+    );
+  } else {
+    // Show error when no document metadata is available in props
+    return (
+      <Scaffold navBar navRail>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignContent="center"
+          style={{ height: "85vh", textAlign: "center" }}
+        >
+          <div style={{ fontSize: 150, opacity: 0.5 }}>{"( >_< )"}</div>
+
+          <div style={{ marginTop: 50, marginBottom: 20 }}>
+            <h1>Oops!</h1>
+
+            <p style={{ fontSize: 20 }}>
+              Can't fetch the document.
+              <br />
+              <div
+                style={{
+                  fontStyle: "italic",
+                  opacity: 0.5,
+                }}
+              >
+                Did you enter the URL manually?
+              </div>
             </p>
-          </Grid>
-        </Scaffold>
-      );
-    }
+          </div>
+
+          <Divider />
+
+          <p>
+            Go back to&nbsp;
+            <NavLink to={`/transactions/${tid}/documents`} className="link">
+              Documents
+            </NavLink>
+            &nbsp;and select the document you want to view.
+          </p>
+        </Grid>
+      </Scaffold>
+    );
   }
 }
 
