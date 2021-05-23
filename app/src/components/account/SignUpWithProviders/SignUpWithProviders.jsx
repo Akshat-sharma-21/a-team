@@ -75,6 +75,7 @@ class SignUp extends React.Component {
             primary
             fullWidth
             onClick={() => this.props.signupWithProvider(this.state)}
+            disabled={this.props.utils.loading}
           >
             Create Account
             <span style={{ marginLeft: 10 }}></span>

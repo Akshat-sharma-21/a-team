@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router";
+import { useParams } from "react-router";
 import { ReallosModal } from "../../utilities/core";
 import DocUploadDropzone from "./DocUploadDropzone";
 import DocUploadStatus from "./DocUploadStatus";
-import { getTransactionID } from "../../../utils";
 import { myStorage } from "../../../FirebaseConfig";
 import "./DocUploadModal.css";
 
@@ -36,7 +35,7 @@ function DocUploadModal({
   dismissCallback,
   showSnackbarCallback,
   onSuccessCallback,
-  onFileExistsCallback = () => {}
+  onFileExistsCallback = () => {},
 }) {
   let [isUploading, setUploadState] = useState(false);
   let [uploadTaskStatus, setUploadTaskStatus] = useState({
@@ -45,8 +44,7 @@ function DocUploadModal({
     uploadTask: null,
   });
 
-  const location = useLocation();
-  const transactionID = getTransactionID(location);
+  let { tid } = useParams(); // Getting the trnsaction id
 
   /**
    * Returns a boolean value stating if a file exists
@@ -62,11 +60,10 @@ function DocUploadModal({
     try {
       await fileRef.getDownloadURL();
       return true;
-    }
-    catch(e) {
+    } catch (e) {
       return false;
     }
-  }
+  };
 
   /**
    * Uploads document selected in uploader
@@ -80,14 +77,8 @@ function DocUploadModal({
    */
   const uploadDocument = async (acceptedFiles) => {
     if (acceptedFiles.length === 1) {
-      /*
-        Uses Firebase
-        @TODO: Logic to be replaced
-      */
-
       let filename = acceptedFiles[0].name;
-      let fileRef = myStorage.ref()
-        .child(`${transactionID}/documents/${filename}`);
+      let fileRef = myStorage.ref().child(`${tid}/documents/${filename}`);
 
       if (await checkFileExists(fileRef)) {
         onFileExistsCallback(filename);

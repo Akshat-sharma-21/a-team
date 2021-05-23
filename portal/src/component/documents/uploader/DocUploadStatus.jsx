@@ -1,12 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { useParams } from "react-router";
 import { createUseStyles } from "react-jss";
 import { ReallosButton } from "../../utilities/core";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import PauseIcon from "../../../assets/pause-icon.svg";
 import { CheckIcon, UploadIcon } from "@primer/octicons-react";
-import { getTransactionID, getCurrentUser } from "../../../utils";
-import { myFirebase, myFirestore } from "../../../FirebaseConfig";
+import { setMetadata } from "../../../actions/documentsActions";
 import "./DocUploadStatus.css";
 
 // Locks further upload trigger when one is already running
@@ -58,8 +57,7 @@ function DocUploadStatus({
   onSuccessCallback = () => {},
   isSavingDocument = false,
 }) {
-  let location = useLocation();
-
+  let { tid } = useParams();
   /**
    * Pause upload task.
    */
@@ -109,66 +107,37 @@ function DocUploadStatus({
   // upload is completed.
   if (uploadStatus.progress === 100) {
     (async () => {
-      let transactionID = getTransactionID(location);
-      let currentEmail = getCurrentUser().email;
-
       if (!isBusyUploading) {
         if (!isSavingDocument) {
           isBusyUploading = true;
-
-          /*
-            Uses Firebase
-            @TODO: Logic to be replaced
-          */
-
-          await myFirestore
-            .collection('Transactions')
-            .doc(transactionID)
-            .collection('documents')
-            .doc(uploadStatus.filename)
-            .set({
-              creator: currentEmail,
-              path: `${transactionID}/documents/${uploadStatus.filename}`,
-              lastModified: {
-                email: currentEmail,
-                timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
-              }
-            });
-        }
-
-        else {
-          isBusyUploading = true;
-
-          /*
-            Uses Firebase
-            @TODO: Logic to be replaced
-          */
-
-          await myFirestore
-            .collection('transactions')
-            .doc(transactionID)
-            .collection('document')
-            .doc(uploadStatus.filename)
-            .update({
-              lastModified: {
-                email: currentEmail,
-                timestamp: myFirebase.firestore.FieldValue.serverTimestamp()
-              }
-            });
-        }
+          /**
+           * TODO: Create a new field in the modal for upload to ask for the step and other metadata for eg:- title, sub-title
+           */
+          await setMetadata(
+            {
+              title: uploadStatus.filename,
+              location: `${tid}/documents/${uploadStatus.filename}`,
+            },
+            tid,
+            "PreApproval"
+          );
+        } // isSavingDocument can be used in the future if we want to update the time of last changes made to the file
       }
 
-      setTimeout(() => {
-        isBusyUploading = false;
-        dismissCallback();
-        resetUploadStateCallback();
-        showSnackbarCallback(
-          isSavingDocument
-            ? "Document Saved Successfully"
-            : "Document Uploaded Successfully"
-        );
-        onSuccessCallback();
-      }, isSavingDocument ? 1000 : 500);
+      setTimeout(
+        () => {
+          isBusyUploading = false;
+          dismissCallback();
+          resetUploadStateCallback();
+          showSnackbarCallback(
+            isSavingDocument
+              ? "Document Saved Successfully"
+              : "Document Uploaded Successfully"
+          );
+          onSuccessCallback();
+        },
+        isSavingDocument ? 1000 : 500
+      );
     })();
   }
 

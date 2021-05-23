@@ -91,7 +91,7 @@ export function fetchUser() {
                   if (counter === doc.data().Transactions_List.length) {
                     // When all the transactions are fetched
                     dispatch(setLoadingFalse());
-                    dispatch(setReload());
+                    dispatch(setReload(false));
                   }
                 });
             });

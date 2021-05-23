@@ -22,7 +22,7 @@ import { bindActionCreators } from "redux";
 const mapStateToProps = (state) => ({
   utils: state.utils,
   user: state.user,
-  roadmap: state.roadmap,
+  tasks: state.tasks,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -30,69 +30,80 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function TasksDashboard(props) {
+  const USER = "user";
   let [tasksList, setTasksList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
+  let [preApprovalTasks, setPreApprovalTasks] = useState(null);
+  let [findAgentTasks, setFindAgentTasks] = useState(null);
+  let [findHomeTasks, setFindHomeTasks] = useState(null);
+  let [homeInspectionTasks, setHomeInspectionTasks] = useState(null);
+  let [escrowTitleTasks, setEscrowTitleTasks] = useState(null);
+  let [homeInsuranceTasks, setHomeInsuranceTasks] = useState(null);
+  let [closingTasks, setClosingTasks] = useState(null);
+  let [taskSet, updateTaskset] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (props.utils.reload === true) {
       props.fetchUser();
     }
   }, []);
 
-  if (props.utils.reload === false && tasksList === null) {
+  if (props.utils.reload === false && taskSet === false) {
     // If the user has not been loaded and the tasklist is not set
     let addArray = [];
 
-    if (props.roadmap.PreApproval.Tasks.length !== 0) {
-      // if PreApproval has Tasks
-      props.roadmap.PreApproval.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    // Filtering and storing all the tasks that are for the user
+    setPreApprovalTasks(
+      props.tasks.PreApprovalTasks.filter((ele) => ele.to === USER)
+    );
+    setFindAgentTasks(
+      props.tasks.FindAgentTasks.filter((ele) => ele.to === USER)
+    );
+    setFindHomeTasks(
+      props.tasks.FindHomeTasks.filter((ele) => ele.to === USER)
+    );
+    setHomeInspectionTasks(
+      props.tasks.HomeInspectionTasks.filter((ele) => ele.to === USER)
+    );
+    setEscrowTitleTasks(
+      props.tasks.EscrowTitleTasks.filter((ele) => ele.to === USER)
+    );
+    setHomeInsuranceTasks(
+      props.tasks.HomeInsuranceTasks.filter((ele) => ele.to === USER)
+    );
+    setClosingTasks(props.tasks.ClosingTasks.filter((ele) => ele.to === USER));
 
-    if (props.roadmap.FindAgent.Tasks.length !== 0) {
-      // if FindAgent has Tasks
-      props.roadmap.FindAgent.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.PreApprovalTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    if (props.roadmap.FindHome.Tasks.length !== 0) {
-      // if FindHome has Tasks
-      props.roadmap.FindHome.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.FindAgentTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    if (props.roadmap.HomeInspection.Tasks.length !== 0) {
-      // if HomeInspection has Tasks
-      props.roadmap.HomeInspection.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.FindHomeTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    if (props.roadmap.EscrowTitle.Tasks.length !== 0) {
-      // if EscrowTitle has Tasks
-      props.roadmap.EscrowTitle.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.HomeInspectionTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    if (props.roadmap.HomeInsurance.Tasks.length !== 0) {
-      // if HomeInsuramnce has Tasks
-      props.roadmap.HomeInsurance.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.EscrowTitleTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    if (props.roadmap.Closing.Tasks.length !== 0) {
-      // if Closing has Tasks
-      props.roadmap.Closing.Tasks.forEach((val) => {
-        if (val.to === "user") addArray.push(val);
-      });
-    }
+    props.tasks.HomeInsuranceTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
 
-    setTasksList(addArray);
+    props.tasks.ClosingTasks.forEach((val) => {
+      if (val.to === USER) addArray.push(val);
+    });
+
+    setTasksList(addArray); // Storing all the tasks in tasksList
+    setFilteredList(addArray); // Settting the filteredList with all the tasks
+    updateTaskset(true); // updating the state of TaskSet
   }
 
   function displayDate(date) {
@@ -244,46 +255,715 @@ function TasksDashboard(props) {
       );
     } else {
       // If Tasks are present to be rendered
-      return (
-        <div style={{ width: "100%" }}>
-          <List className="tasks-dashboard-list">
-            {filteredList.map((task, index) => (
-              <Accordion key={index} className="tasks-dashboard-list-item">
-                <AccordionSummary
-                  className="tasks-dashboard-list-item-header"
-                  expandIcon={<ExpandMoreIcon />}
-                >
-                  <div className="tasks-dashboard-accordion-date">
-                    {displayDate(task.date)}
-                  </div>
-
-                  <div className="tasks-dashboard-list-item-header-text-group">
-                    <Typography
-                      noWrap
-                      className="tasks-dashboard-list-item-heading"
+      if (tasksList.length === filteredList.length) {
+        return (
+          <div style={{ width: "100%" }}>
+            {preApprovalTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Pre-approval
+                </div>
+                <List className="tasks-dashboard-list">
+                  {preApprovalTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
                     >
-                      {task.title}
-                    </Typography>
-                    <Typography
-                      noWrap
-                      className="tasks-dashboard-list-item-subheading"
-                    >
-                      {task.description}
-                    </Typography>
-                  </div>
-                </AccordionSummary>
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
 
-                <AccordionDetails className="tasks-dashboard-task-list-item-details">
-                  <Typography className="tasks-dashboard-task-list-item-details-desc">
-                    {task.description}
-                  </Typography>
-                  {displayButton(task.type)}
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </List>
-        </div>
-      );
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {findAgentTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Find Agent</div>
+                <List className="tasks-dashboard-list">
+                  {findAgentTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {findHomeTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Find Home</div>
+                <List className="tasks-dashboard-list">
+                  {findHomeTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {homeInspectionTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Home Inspection
+                </div>
+                <List className="tasks-dashboard-list">
+                  {homeInspectionTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {escrowTitleTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Escrow & Title
+                </div>
+                <List className="tasks-dashboard-list">
+                  {escrowTitleTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {homeInsuranceTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Home Insurance
+                </div>
+                <List className="tasks-dashboard-list">
+                  {homeInsuranceTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {closingTasks.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Closing</div>
+                <List className="tasks-dashboard-list">
+                  {closingTasks.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+          </div>
+        );
+      } else {
+        // pa - Pre-Approval, fa - FindAgent, fh - FindHome, hi - Home Inspection, et - EscrowTitle, hin - Home Insurance, c = Closing
+        let paId = [],
+          faId = [],
+          fhId = [],
+          hiId = [],
+          etId = [],
+          hinId = [],
+          cId = [];
+
+        // Storing all the doc Ids and whether we should display a particular step or not
+        preApprovalTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              paId.push(e);
+            }
+          });
+        });
+
+        findAgentTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              faId.push(e);
+            }
+          });
+        });
+
+        findHomeTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              fhId.push(e);
+            }
+          });
+        });
+
+        escrowTitleTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              etId.push(e);
+            }
+          });
+        });
+
+        homeInspectionTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              hiId.push(e);
+            }
+          });
+        });
+
+        homeInsuranceTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              hinId.push(e);
+            }
+          });
+        });
+
+        closingTasks.forEach((doc) => {
+          filteredList.forEach((e) => {
+            if (e.id === doc.id) {
+              cId.push(e);
+            }
+          });
+        });
+
+        return (
+          <div style={{ width: "100%" }}>
+            {paId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Pre-approval
+                </div>
+                <List className="tasks-dashboard-list">
+                  {paId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {faId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Find Agent</div>
+                <List className="tasks-dashboard-list">
+                  {faId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {fhId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Find Home</div>
+                <List className="tasks-dashboard-list">
+                  {fhId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {hiId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Home Inspection
+                </div>
+                <List className="tasks-dashboard-list">
+                  {hiId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {etId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Escrow & Title
+                </div>
+                <List className="tasks-dashboard-list">
+                  {etId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {hinId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">
+                  Home Insurance
+                </div>
+                <List className="tasks-dashboard-list">
+                  {hinId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+            {cId.length !== 0 && (
+              <>
+                <div className="tasks-dashboard-section-title">Closing</div>
+                <List className="tasks-dashboard-list">
+                  {cId.map((task, index) => (
+                    <Accordion
+                      key={index}
+                      className="tasks-dashboard-list-item"
+                    >
+                      <AccordionSummary
+                        className="tasks-dashboard-list-item-header"
+                        expandIcon={<ExpandMoreIcon />}
+                      >
+                        <div className="tasks-dashboard-accordion-date">
+                          {displayDate(task.date)}
+                        </div>
+
+                        <div className="tasks-dashboard-list-item-header-text-group">
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-heading"
+                          >
+                            {task.title}
+                          </Typography>
+                          <Typography
+                            noWrap
+                            className="tasks-dashboard-list-item-subheading"
+                          >
+                            {task.description}
+                          </Typography>
+                        </div>
+                      </AccordionSummary>
+
+                      <AccordionDetails className="tasks-dashboard-task-list-item-details">
+                        <Typography className="tasks-dashboard-task-list-item-details-desc">
+                          {task.description}
+                        </Typography>
+                        {displayButton(task.type)}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </List>
+              </>
+            )}
+          </div>
+        );
+      }
     }
   };
 

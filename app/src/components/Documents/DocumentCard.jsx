@@ -1,10 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import CardThumbnail from "./CardThumbnail";
 import { getEffectiveDocumentName } from "../../utils";
-import { ModalSheet } from '../utilities/core';
-import { DownloadIcon, TrashIcon, KebabHorizontalIcon } from '@primer/octicons-react';
+import { ModalSheet } from "../utilities/core";
+import {
+  DownloadIcon,
+  TrashIcon,
+  KebabHorizontalIcon,
+} from "@primer/octicons-react";
 
 import {
   Grid,
@@ -17,7 +21,6 @@ import {
   ListItemIcon,
   IconButton,
 } from "@material-ui/core";
-
 
 /**
  * Document Card Component
@@ -42,9 +45,9 @@ class DocumentCard extends React.Component {
       /**
        * Path to the document. Used as link href.
        */
-      path: PropTypes.string
+      path: PropTypes.string,
     }),
-  }
+  };
 
   constructor() {
     super();
@@ -55,50 +58,53 @@ class DocumentCard extends React.Component {
   }
 
   getThumbnail() {
-    return 'https://image.slidesharecdn.com/importanceofwordandpdfdocument-100430022036-phpapp01/95/importance-of-word-and-pdf-document-1-728.jpg?cb=1272594071';
+    return "https://image.slidesharecdn.com/importanceofwordandpdfdocument-100430022036-phpapp01/95/importance-of-word-and-pdf-document-1-728.jpg?cb=1272594071";
   }
 
   /**
-   * 
+   *
    * @param {MouseEvent} event
    */
   showContextMenu(event) {
     event.preventDefault();
 
     this.setState({
-      isModalSheetVisible: true
+      isModalSheetVisible: true,
     });
   }
 
   render() {
     const { docData } = this.props;
-
     return (
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <div className="doc-card-root" onContextMenu={(event) => this.showContextMenu(event)}>
+          <div
+            className="doc-card-root"
+            onContextMenu={(event) => this.showContextMenu(event)}
+          >
             <IconButton
               aria-label={`Show options for ${docData.name}`}
               className="doc-card-top-action-btn"
-              onClick={(event) =>
-                this.showContextMenu(event)
-              }
+              onClick={(event) => this.showContextMenu(event)}
             >
               <KebabHorizontalIcon />
             </IconButton>
-            
+
             <div className="doc-card-main">
               <NavLink
-                to={{
-                  pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
-                  state: docData,
-                }}
+                to={
+                  docData.filled
+                    ? {
+                        pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
+                        state: docData,
+                      }
+                    : {
+                        pathname: "nodoc",
+                        state: docData,
+                      }
+                }
               >
-                <Card
-                  className="doc-card"
-                  title={docData.name}
-                  elevation={0}
-                >
+                <Card className="doc-card" title={docData.name} elevation={0}>
                   <CardMedia>
                     <CardThumbnail
                       getThumbnailFunction={() =>
@@ -120,7 +126,7 @@ class DocumentCard extends React.Component {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {getEffectiveDocumentName(docData.name)}
+                      {getEffectiveDocumentName(docData.title)}
                     </h2>
 
                     <div
@@ -149,14 +155,12 @@ class DocumentCard extends React.Component {
           isOpen={this.state.isModalSheetVisible}
           onClose={() => {
             this.setState({
-              isModalSheetVisible: false
-            })
+              isModalSheetVisible: false,
+            });
           }}
         >
           <div className="doc-card-context-menu-header">
-            <h1>
-              {docData.name}
-            </h1>
+            <h1>{docData.name}</h1>
 
             <div>
               <Avatar />
@@ -172,7 +176,6 @@ class DocumentCard extends React.Component {
               <ListItemIcon>
                 <DownloadIcon size={24} />
               </ListItemIcon>
-
               Download
             </MenuItem>
 
@@ -180,13 +183,12 @@ class DocumentCard extends React.Component {
               <ListItemIcon>
                 <TrashIcon size={24} />
               </ListItemIcon>
-
               Delete
             </MenuItem>
           </List>
         </ModalSheet>
       </>
-    )
+    );
   }
 }
 

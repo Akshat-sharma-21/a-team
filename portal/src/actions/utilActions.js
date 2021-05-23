@@ -22,8 +22,9 @@ export function setErrors(payload) {
   };
 }
 
-export function setReload() {
+export function setReload(reload) {
   return {
     type: SET_RELOAD,
+    reload,
   };
 }
