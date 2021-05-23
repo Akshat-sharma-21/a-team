@@ -33,7 +33,7 @@ function Main() {
       <PrivateRoute path="/onboarding" component={Onboarding} />
       <PrivateRoute path="/dashboard" component={Roadmap} />
       <PrivateRoute path="/documents" component={Document} />
-      <PrivateRoute path="/SignupWithProvider" component={SignUpWithProvider} />
+      <Route path="/SignupWithProvider" component={SignUpWithProvider} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />
       <PrivateRoute path="/lenders" component={Lenders} />

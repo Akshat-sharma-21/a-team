@@ -1,4 +1,4 @@
-import { myFirestore, myFirebase } from "../FirebaseConfig";
+import { myFirestore, myFirebase, myStorage } from "../FirebaseConfig";
 
 export function getAllDocuments(transaction) {
   // Function to return all the documents that are filled
@@ -89,4 +89,24 @@ export function setMetadata(metadata, tid, step) {
     .catch((err) => {
       console.error(err); // Logging the error
     });
+}
+
+export async function downloadPdf(documentData) {
+  // function to download the document
+  const link = await myStorage
+    .ref()
+    .child(documentData.location)
+    .getDownloadURL();
+  const res = await fetch(link);
+
+  if (res.ok) {
+    // If the response was ok
+    const resBlob = await res.blob();
+    const objUrl = window.URL.createObjectURL(resBlob);
+
+    const anchor = document.createElement("a");
+    anchor.href = objUrl;
+    anchor.download = `Reallos - ${documentData.title}`;
+    anchor.dispatchEvent(new MouseEvent("click"));
+  }
 }

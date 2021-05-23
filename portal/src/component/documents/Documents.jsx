@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DocUploadModal from "./uploader/DocUploadModal";
 import PdfLogo from "../../assets/pdf_icon_duotone.svg";
 import NoDocument from "../../assets/no-document-image.png";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { myFirestore, myStorage } from "../../FirebaseConfig";
 import DocumentCard from "./DocumentCard";
 import "./Documents.css";
 
@@ -34,7 +33,7 @@ import {
 } from "@primer/octicons-react";
 
 import { connect } from "react-redux";
-import { getAllDocuments } from "../../actions/documentsActions"; // Function to get all the documents
+import { getAllDocuments, downloadPdf } from "../../actions/documentsActions"; // Function to get all the documents
 import { fetchUser } from "../../actions/userActions";
 import { setReload } from "../../actions/utilActions";
 import { useParams } from "react-router";
@@ -58,7 +57,11 @@ function Documents(props) {
   let [menuAnchorElement, setMenuAnchorElement] = useState(null); // To store which document to open
   let [menuTargetMetaData, setMenuTargetMetaData] = useState(null); // To store the data of the document that is opened
   let [uploadModal, setUploadModal] = useState(false);
-  let [successfulUpload, setSuccessfulUpload] = useState(false);
+  let [successfulUpload, setSuccessfulUpload] = useState(false); // If a new document has been uploaded
+  let [snackBarVisible, setSnackBarVisible] = useState(false); // If the snackbar is visible
+  let [snackBarMessage, setSnackBarMessage] = useState(null); // To store the message of snackbar
+  let [fileExistsModal, setFileExitsModal] = useState(false);
+  let [existingFile, setExistingFile] = useState(null);
 
   if (successfulUpload === true) {
     // If the document has been successfully uploaded
@@ -205,13 +208,55 @@ function Documents(props) {
               </div>
               Send Document
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                downloadPdf(menuTargetMetaData); // Sending the metadata of the currently open document
+                setSnackBarMessage("Preparing document for download...");
+                setSnackBarVisible(true);
+                setMenuAnchorElement(null);
+                setMenuTargetMetaData(null);
+              }}
+            >
               <div style={{ margin: "auto 20px auto 0" }}>
                 <DownloadIcon size={20} />
               </div>
               Download
             </MenuItem>
           </Menu>
+
+          <ReallosModal
+            title="Can't Upload"
+            visible={fileExistsModal}
+            dismissCallback={() => setFileExitsModal(true)}
+            modalWidth={700}
+          >
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 30,
+              }}
+            >
+              <img
+                src={PdfLogo}
+                alt=""
+                style={{ marginRight: 30, width: 80 }}
+              />
+
+              <div style={{ fontSize: 18 }}>
+                You cannot upload "<strong>{existingFile}</strong>" as it
+                already exists in this transaction. If you want to upload this
+                document, delete the existing document first.
+              </div>
+            </Box>
+
+            <ModalActionFooter>
+              <ReallosButton primary onClick={() => setFileExitsModal(false)}>
+                Close
+              </ReallosButton>
+            </ModalActionFooter>
+          </ReallosModal>
         </Grid>
       );
     }
@@ -283,6 +328,17 @@ function Documents(props) {
         onSuccessCallback={() => {
           setSuccessfulUpload(true);
         }}
+        onFileExistsCallback={(fileName) => {
+          setFileExitsModal(true);
+          setExistingFile(fileName);
+        }}
+      />
+
+      <Snackbar
+        open={snackBarVisible}
+        onClose={() => setSnackBarVisible(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        message={snackBarMessage}
       />
     </Scaffold>
   );

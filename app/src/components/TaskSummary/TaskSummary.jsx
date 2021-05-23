@@ -92,10 +92,12 @@ function TaskSummary(props) {
     if (step === "pre-approval") {
       activeStep.Tasks = props.tasks.PreApprovalTasks;
       activeStep.Documents = props.documents.PreApprovalDocuments;
+      activeStep.Professional = props.roadmap.PreApproval.Professional;
     }
     if (step === "find-agent") {
       activeStep.Tasks = props.tasks.FindAgentTasks;
       activeStep.Documents = props.documents.FindAgentDocuments;
+      activeStep.Professional = props.roadmap.FindAgent.Professional;
     }
     if (step === "find-home") {
       activeStep.Tasks = props.tasks.FindHomeTasks;
@@ -104,14 +106,17 @@ function TaskSummary(props) {
     if (step === "home-inspection") {
       activeStep.Tasks = props.tasks.HomeInspectionTasks;
       activeStep.Documents = props.documents.HomeInspectionDocuments;
+      activeStep.Professional = props.roadmap.HomeInspection.Professional;
     }
     if (step === "escrow-title") {
       activeStep.Tasks = props.tasks.EscrowTitleTasks;
       activeStep.Documents = props.documents.EscrowTitleDocuments;
+      activeStep.Professional = props.roadmap.EscrowTitle.Professional;
     }
     if (step === "home-insurance") {
       activeStep.Tasks = props.tasks.HomeInsuranceTasks;
       activeStep.Documents = props.documents.HomeInsuranceDocuments;
+      activeStep.Professional = props.roadmap.HomeInsurance.Professional;
     }
     if (step === "closing") {
       activeStep.Tasks = props.tasks.ClosingTasks;
