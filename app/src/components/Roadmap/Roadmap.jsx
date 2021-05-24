@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Roadmap.css";
 import {
   Button,
@@ -11,6 +11,7 @@ import {
   CircularProgress,
   Avatar,
   Fab,
+  Drawer,
 } from "@material-ui/core";
 import ProfilePic from "../../assets/martin.jpg";
 import Scaffold from "../utilities/Scaffold/Scaffold";
@@ -20,6 +21,7 @@ import {
   LocationIcon,
   PencilIcon,
 } from "@primer/octicons-react";
+import ProfileEdit from "./ProfileEdit";
 import { fetchUser } from "../../actions/userActions";
 import { setupTasks } from "../../actions/roadmapActions";
 import { connect } from "react-redux";
@@ -36,9 +38,15 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function Roadmap(props) {
+  const [isModalOpen, toggleModal] = useState(false);
+
   useEffect(() => {
     props.fetchUser(); // fetching the user
   }, []);
+
+  function closeModal() {
+    toggleModal(false);
+  }
 
   function stepIcon(props) {
     const { active, completed } = props;
@@ -288,12 +296,17 @@ function Roadmap(props) {
         alignItems="center"
         className="page-header"
       >
-        <Grid item xs={8}>
+        <Grid item xs={8} style={{ marginTop: "10px" }}>
           <div className="roadmap-heading">Roadmap</div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} style={{ marginTop: "10px" }}>
           <Avatar src={ProfilePic} className="roadmap-avatar" />
-          <Fab className="roadmap-fab-btn">
+          <Fab
+            className="roadmap-fab-btn"
+            onClick={() => {
+              toggleModal(true);
+            }}
+          >
             <PencilIcon size={16} />
           </Fab>
         </Grid>
@@ -301,6 +314,15 @@ function Roadmap(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         {PrimaryContent()}
       </Grid>
+      <Drawer
+        anchor="bottom"
+        open={isModalOpen}
+        onClose={() => {
+          closeModal();
+        }}
+      >
+        <ProfileEdit />
+      </Drawer>
     </Scaffold>
   );
 }
