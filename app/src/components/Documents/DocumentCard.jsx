@@ -95,7 +95,7 @@ class DocumentCard extends React.Component {
                 to={
                   docData.filled
                     ? {
-                        pathname: `/transaction/${this.transactionID}/document/${docData.name}`,
+                        pathname: `documents/${docData.title}`,
                         state: docData,
                       }
                     : {

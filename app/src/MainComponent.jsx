@@ -12,6 +12,7 @@ import HomeInsurance from "./components/HomeInsurance/HomeInsurance";
 import SignUpWithProvider from "./components/account/SignUpWithProviders/SignUpWithProviders";
 import { getAuth } from "./Authenticate";
 
+import DocumentViewer from "./components/Documents/viewer/DocumentViewer";
 import NoDocument from "./components/Documents/NoDocuments";
 import VerifyPhone from "./components/account/SignUp/VerifyPhone";
 import VerifyMail from "./components/account/SignUp/VerifyMail";
@@ -33,7 +34,8 @@ function Main() {
     <Switch>
       <PrivateRoute path="/onboarding" component={Onboarding} />
       <PrivateRoute path="/dashboard" component={Roadmap} />
-      <PrivateRoute path="/documents" component={Document} />
+      <PrivateRoute exact path="/documents" component={Document} />
+      <PrivateRoute path="/documents/:doc" component={DocumentViewer} />
       <Route path="/SignupWithProvider" component={SignUpWithProvider} />
       <Route path="/Signin" component={Signin} />
       <Route path="/Signup" component={Signup} />

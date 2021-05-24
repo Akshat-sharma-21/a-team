@@ -1,0 +1,79 @@
+.document-viewer-container {
+  height: 100vh;
+  overflow-y: hidden !important;
+}
+.document-viewer-signature-btn {
+  background-color: blue;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: float;
+  font-size: 16px;
+  margin-left: 50%;
+  top: -10vh !important;
+  position: absolute !important;
+  left: 33vh !important;
+}
+
+.document-viewer-signature-btn-disabled {
+  background-color: grey;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: float;
+  font-size: 16px;
+  margin-left: 50%;
+  top: -10vh !important;
+  position: absolute !important;
+  left: 33vh !important;
+}
+
+.document-viewer-save-btn {
+  background-color: blue;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: float;
+  font-size: 16px;
+  margin-left: 25%;
+  top: -10vh !important;
+  position: absolute !important;
+  left: 18vh !important;
+}
+
+.document-viewer-save-btn-disbaled {
+  background-color: grey;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: float;
+  font-size: 16px;
+  margin-left: 25%;
+  top: -10vh !important;
+  position: absolute !important;
+  left: 18vh !important;
+}
+
+.document-viewer-back-button {
+  position: absolute !important;
+  top: -93vh !important ;
+  left: -13vh !important;
+}
+
+.documents-viewer-circular-progress {
+  position: absolute !important;
+  top: 50vh !important;
+  left: 20vh !important;
+}
