@@ -10,10 +10,16 @@ import {
   Stepper,
   CircularProgress,
   Avatar,
+  Fab,
 } from "@material-ui/core";
-import ProfilePic from "../../assets/Roadmap_img.png";
+import ProfilePic from "../../assets/martin.jpg";
 import Scaffold from "../utilities/Scaffold/Scaffold";
-import { ArrowRightIcon, LockIcon, LocationIcon } from "@primer/octicons-react";
+import {
+  ArrowRightIcon,
+  LockIcon,
+  LocationIcon,
+  PencilIcon,
+} from "@primer/octicons-react";
 import { fetchUser } from "../../actions/userActions";
 import { setupTasks } from "../../actions/roadmapActions";
 import { connect } from "react-redux";
@@ -72,7 +78,7 @@ function Roadmap(props) {
         <>
           <Grid item xs={12} style={{ height: "15px" }}></Grid>
           <Grid item xs={12}>
-            <Stepper orientation="vertical">
+            <Stepper orientation="vertical" className="roadmap-stepper">
               <Step active={!props.roadmap.PreApproval.Locked}>
                 <StepLabel StepIconComponent={stepIcon}>
                   <div className="roadmap-subheading">Pre-approval</div>
@@ -275,17 +281,24 @@ function Roadmap(props) {
   };
   return (
     <Scaffold bottomNav bottomNavActive="Dashboard">
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={7}>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className="page-header"
+      >
+        <Grid item xs={8}>
           <div className="roadmap-heading">Roadmap</div>
         </Grid>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <Avatar src={ProfilePic} className="roadmap-avatar" />
-          {/* <Fab size="small">
-              <PencilIcon size={16} />
-            </Fab> */}
+          <Fab className="roadmap-fab-btn">
+            <PencilIcon size={16} />
+          </Fab>
         </Grid>
+      </Grid>
+      <Grid container direction="row" justify="center" alignItems="center">
         {PrimaryContent()}
       </Grid>
     </Scaffold>
