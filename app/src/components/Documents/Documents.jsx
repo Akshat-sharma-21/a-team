@@ -150,7 +150,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {preApprovalDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"PreApproval"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -163,7 +168,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {findAgentDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"FindAgent"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -176,7 +186,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {findHomeDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"FindHome"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -189,7 +204,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {homeInspectionDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"HomeInspection"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -202,7 +222,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {escrowTitleDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"EscrowTitle"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -215,7 +240,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {homeInsuranceDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"HomeInsurance"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>
@@ -228,7 +258,12 @@ function Documents(props) {
 
                 <Grid container spacing={2}>
                   {closingDocuments.map((docData) => (
-                    <DocumentCard key={docData.id} docData={docData} />
+                    <DocumentCard
+                      key={docData.id}
+                      docData={docData}
+                      step={"Closing"}
+                      transaction={props.user.Transaction}
+                    />
                   ))}
                 </Grid>
               </>

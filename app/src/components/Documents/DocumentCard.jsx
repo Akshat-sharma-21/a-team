@@ -74,7 +74,7 @@ class DocumentCard extends React.Component {
   }
 
   render() {
-    const { docData } = this.props;
+    const { docData, step, transaction } = this.props;
     return (
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -100,15 +100,15 @@ class DocumentCard extends React.Component {
                       }
                     : {
                         pathname: "nodoc",
-                        state: docData,
+                        state: { ...docData, step: step, tid: transaction },
                       }
                 }
               >
-                <Card className="doc-card" title={docData.name} elevation={0}>
+                <Card className="doc-card" title={docData.title} elevation={0}>
                   <CardMedia>
                     <CardThumbnail
                       getThumbnailFunction={() =>
-                        this.getThumbnail(docData.name)
+                        this.getThumbnail(docData.title)
                       }
                     />
                   </CardMedia>
@@ -160,7 +160,7 @@ class DocumentCard extends React.Component {
           }}
         >
           <div className="doc-card-context-menu-header">
-            <h1>{docData.name}</h1>
+            <h1>{docData.title}</h1>
 
             <div>
               <Avatar />

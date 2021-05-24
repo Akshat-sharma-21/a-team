@@ -170,7 +170,15 @@
 }
 
 .no-doc-btn {
-  margin-top: 55%;
+  margin-top: 45%;
   width: 100% !important;
   padding: 10px 120px !important;
+}
+
+.no-documents-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 115%;
 }
