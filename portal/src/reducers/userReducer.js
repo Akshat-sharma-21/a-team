@@ -11,6 +11,7 @@ const initialState = {
   Transactions: null,
   leadsTo: null,
   leadsFrom: null,
+  PhotoUrl: null,
 };
 
 function userReducer(state = initialState, action) {
@@ -18,16 +19,17 @@ function userReducer(state = initialState, action) {
     case actions.ADD_USER: {
       return {
         ...state,
-        id: action.payload.id,
+        id: localStorage.Id,
         FirstName: action.payload.FirstName,
         LastName: action.payload.LastName,
         Email: action.payload.Email,
         Phone: action.payload.Phone,
         Role: action.payload.Role,
         Company: action.payload.Company,
-        Transactions: action.payload.Transactions,
-        leadsTo: action.payload.leadsTo,
-        leadsFrom: action.payload.leadsFrom,
+        Transactions: action.payload.Transactions_List,
+        leadsTo: action.payload.LeadsTo,
+        leadsFrom: action.payload.LeadsFrom,
+        PhotoUrl: action.payload.PhotoUrl,
       };
     }
     case actions.EDIT_USER: {

@@ -50,7 +50,7 @@ const NavRailTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function NavRail({ backButtonRoute = '/transactions' }) {
+function NavRail({ backButtonRoute = "/transactions" }) {
   const classes = useStyles();
   const history = useHistory();
   const routerLocation = useLocation();
@@ -110,11 +110,10 @@ function NavRail({ backButtonRoute = '/transactions' }) {
         >
           <div
             className={
-              "nav-rail-item-icon " + (
-                isActiveRoute
-                  ? "nav-rail-item-active"
-                  : "nav-rail-item-inactive"
-              )
+              "nav-rail-item-icon " +
+              (isActiveRoute
+                ? "nav-rail-item-active"
+                : "nav-rail-item-inactive")
             }
           >
             {icon}
@@ -134,9 +133,11 @@ function NavRail({ backButtonRoute = '/transactions' }) {
               marginBottom: 40,
             }}
           >
-            <IconButton onClick={() => {
-              history.push(backButtonRoute);
-            }}>
+            <IconButton
+              onClick={() => {
+                window.location.href = "/transactions"; //TODO: find a better way to deal with this
+              }}
+            >
               <ArrowLeftIcon size={24} />
             </IconButton>
           </div>
@@ -169,10 +170,10 @@ NavRail.propTypes = {
   /**
    * Specifies the link to follow when the
    * Back Button is pressed.
-   * 
+   *
    * _(Default: /transactions)_
    */
   backButtonRoute: PropTypes.string,
-}
+};
 
 export default NavRail;

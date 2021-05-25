@@ -34,14 +34,11 @@ const mapActionsToProps = (dispatch) => {
 };
 
 function Navbar(props) {
-  let [
-    isUserProfileEditDrawerVisible,
-    setUserProfileEditDrawerVisibility,
-  ] = useState(false);
+  let [isUserProfileEditDrawerVisible, setUserProfileEditDrawerVisibility] =
+    useState(false);
   let [userProfilePopupAnchorEl, setUserProfilePopupAnchorEl] = useState(null);
-  let [notificationPopupAnchorEl, setNotificationPopupAnchorEl] = useState(
-    null
-  );
+  let [notificationPopupAnchorEl, setNotificationPopupAnchorEl] =
+    useState(null);
   let [notifications, setNotifications] = useState(null);
 
   const navbarStickyClassName = props.sticky ? "navbar-sticky" : "";
@@ -196,7 +193,7 @@ function Navbar(props) {
     phone: props.user.Phone,
 
     // Could use mutiple resolution images as array
-    profilePhoto: "https://i.imgur.com/zOnwBpQ.png", // Still need to add the image url
+    profilePhoto: props.user.PhotoUrl, // Still need to add the image url
   };
 
   /**
@@ -215,7 +212,6 @@ function Navbar(props) {
       removeNotificationSubscription();
     };
   }, []);
-
   return (
     <div
       className={`navbar-main ${navbarStickyClassName}`}
@@ -282,7 +278,15 @@ function Navbar(props) {
                   disabled={props.utils.loading}
                   onClick={showUserProfilePopup}
                 >
-                  <Avatar src={user.profilePhoto} />
+                  {!props.utils.reload ? (
+                    user.profilePhoto !== null ? (
+                      <Avatar src={user.profilePhoto} />
+                    ) : (
+                      <Avatar>{user.firstName[0] + user.lastName[0]}</Avatar>
+                    )
+                  ) : (
+                    <Avatar />
+                  )}
                 </IconButton>
               </Tooltip>
             </div>

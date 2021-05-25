@@ -22,7 +22,11 @@ import {
 
 import Skeleton from "@material-ui/lab/Skeleton";
 
-import { PaperAirplaneIcon, SearchIcon } from "@primer/octicons-react";
+import {
+  PaperAirplaneIcon,
+  SearchIcon,
+  PeopleIcon,
+} from "@primer/octicons-react";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -66,7 +70,6 @@ function PeopleInvolved(props) {
    * as primary content, like Cards and
    * error screen.
    */
-
   const primaryContent = () => {
     if (props.utils.loading === true || filteredPeopleList === null) {
       // if the people aren't fetched
@@ -85,6 +88,44 @@ function PeopleInvolved(props) {
               </Grid>
             ))}
         </Grid>
+      );
+    } else if (
+      props.utils.reload === false &&
+      props.utils.loading === false &&
+      props.people.length === 0
+    ) {
+      return (
+        <>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+            spacing={2}
+            className="zoom-in-animation"
+          >
+            <Grid
+              item
+              style={{
+                paddingTop: 50,
+                paddingBottom: 20,
+                opacity: 0.5,
+              }}
+            >
+              <PeopleIcon size={150} />
+            </Grid>
+            <Grid item>
+              <Box marginTop={-3} component="h1">
+                <h4>No Professionals Found</h4>
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box marginTop={-5} style={{ fontSize: 18 }}>
+                No One is a part of this Transaction yet
+              </Box>
+            </Grid>
+          </Grid>
+        </>
       );
     } else if (filteredPeopleList.length === 0) {
       // If no results found
@@ -178,7 +219,7 @@ function PeopleInvolved(props) {
                 />
               );
             } else {
-              return <React.Fragment />;
+              return <></>;
             }
           })()}
         </div>
