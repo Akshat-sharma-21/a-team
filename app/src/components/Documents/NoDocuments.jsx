@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Scaffold } from "../utilities/core";
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress, IconButton } from "@material-ui/core";
+import { ArrowLeftIcon } from "@primer/octicons-react";
 import NoDoc from "../../assets/no-doc-img.svg";
 import { uploadDocument } from "../../actions/documentsActions";
 import "./Documents.css";
 
 import { Grid } from "@material-ui/core";
 
-//TODO: EDIT the upload button & add a back button
+//TODO: EDIT the upload button
 function NoDocuments(props) {
   let [uploadingDocument, setUploadingDocument] = useState(false);
 
@@ -27,6 +28,13 @@ function NoDocuments(props) {
     if (uploadingDocument !== true)
       return (
         <Scaffold>
+          <IconButton
+            size="small"
+            style={{ margin: "20px 0" }}
+            onClick={() => (window.location.href = "/documents")}
+          >
+            <ArrowLeftIcon size={32} className="no-document-back-icon" />
+          </IconButton>
           <Grid container direction="column" alignItems="center">
             <Grid item>
               <img src={NoDoc} alt="" className="no-document-img" />
@@ -67,6 +75,9 @@ function NoDocuments(props) {
     else
       return (
         <Scaffold>
+          <IconButton size="small" style={{ margin: "20px 0" }} disabled={true}>
+            <ArrowLeftIcon size={32} className="no-document-back-icon" />
+          </IconButton>
           <div className="no-documents-single-view-container">
             <CircularProgress />
 

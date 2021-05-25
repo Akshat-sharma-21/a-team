@@ -143,7 +143,7 @@ function Lenders(props) {
                 style={{ margin: "20px 0" }}
                 onClick={() => (window.location.href = "/dashboard")}
               >
-                <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+                <ArrowLeftIcon size={32} className="lender-back-icon" />
               </IconButton>
             </Grid>
 

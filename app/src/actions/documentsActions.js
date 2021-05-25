@@ -1,4 +1,4 @@
-import { myFirestore, myStorage } from "../FirebaseConfig";
+import { myFirestore, myStorage, myFirebase } from "../FirebaseConfig";
 export const SET_ALL_DOCUMENTS = "SET_ALL_DOCUMENTS";
 
 export function setAllDocumentsAction(transaction) {
@@ -18,8 +18,8 @@ export function setAllDocumentsAction(transaction) {
   };
 }
 
-//TODO: save the time in metadata
 export function uploadDocument(file, docData) {
+  // function to upload the document
   return new Promise((resolve, reject) => {
     let fileRef = myStorage
       .ref()
@@ -40,6 +40,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().PreApproval.Tasks;
@@ -70,6 +73,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().FindAgent.Tasks;
@@ -100,6 +106,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().FindHome.Tasks;
@@ -130,6 +139,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().HomeInspection.Tasks;
@@ -160,6 +172,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().EscrowTitle.Tasks;
@@ -190,6 +205,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().HomeInsurance.Tasks;
@@ -220,6 +238,9 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
+                    e.date = new Date(
+                      myFirebase.default.firestore.Timestamp.now().toMillis()
+                    );
                   }
                 });
                 let Tasks = doc.data().Closing.Tasks;
@@ -255,6 +276,264 @@ export function uploadDocument(file, docData) {
       })
       .catch((err) => {
         reject(err);
+      });
+  });
+}
+
+export async function downloadPdf(documentData) {
+  // function to download the document
+  const link = await myStorage
+    .ref()
+    .child(documentData.location)
+    .getDownloadURL();
+  const res = await fetch(link);
+
+  if (res.ok) {
+    // If the response was ok
+    const resBlob = await res.blob();
+    const objUrl = window.URL.createObjectURL(resBlob);
+
+    const anchor = document.createElement("a");
+    anchor.href = objUrl;
+    anchor.download = `Reallos - ${documentData.title}`;
+    anchor.dispatchEvent(new MouseEvent("click"));
+  }
+}
+
+export async function deletePdf(docData, tid, step) {
+  return new Promise((resolve, reject) => {
+    let fileRef = myStorage.ref().child(docData.location); // Creating a reference for the file to be deleted
+    fileRef
+      .delete()
+      .then(() => {
+        // Making changes to the metadata
+        myFirestore
+          .collection("Transactions")
+          .doc(tid)
+          .get()
+          .then((doc) => {
+            if (step === "PreApproval") {
+              let Documents = doc.data().PreApproval.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().PreApproval.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  PreApproval: {
+                    ...doc.data().PreApproval,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "FindAgent") {
+              let Documents = doc.data().FindAgent.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().FindAgent.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  FindAgent: {
+                    ...doc.data().FindAgent,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "FindHome") {
+              let Documents = doc.data().FindHome.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().FindHome.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  FindHome: {
+                    ...doc.data().FindHome,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "HomeInspection") {
+              let Documents = doc.data().HomeInspection.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().HomeInspection.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  HomeInspection: {
+                    ...doc.data().HomeInspection,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "EscrowTitle") {
+              let Documents = doc.data().EscrowTitle.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().EscrowTitle.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  EscrowTitle: {
+                    ...doc.data().EscrowTitle,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "HomeInsurance") {
+              let Documents = doc.data().HomeInsurance.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().HomeInsurance.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  HomeInsurance: {
+                    ...doc.data().HomeInsurance,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            } else if (step === "Closing") {
+              let Documents = doc.data().Closing.Documents;
+              Documents.forEach((e) => {
+                if (e.id === docData.id) {
+                  e.location = null;
+                  e.date = null;
+                  e.filled = false;
+                }
+              });
+              let Tasks = doc.data().Closing.Tasks;
+              Tasks.forEach((e) => {
+                if (e.documentId === docData.id) {
+                  e.completed = false;
+                }
+              });
+              myFirestore
+                .collection("Transactions")
+                .doc(tid)
+                .update({
+                  Closing: {
+                    ...doc.data().Closing,
+                    Documents: Documents,
+                    Tasks: Tasks,
+                  },
+                })
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            }
+          });
+      })
+      .catch((err) => {
+        reject(err); // Rejecting the promise
       });
   });
 }

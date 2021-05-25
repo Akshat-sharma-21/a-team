@@ -42,7 +42,6 @@ export function getAllDocuments(transaction) {
   return Documents;
 }
 
-// TODO: Add support for all the other steps
 export function setMetadata(metadata, tid, step) {
   let saveMetadata = {
     date: new Date(myFirebase.default.firestore.Timestamp.now().toMillis()),
@@ -77,6 +76,126 @@ export function setMetadata(metadata, tid, step) {
             .update({
               PreApproval: {
                 ...doc.data().PreApproval,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "FindAgent") {
+        // if the step is FindAgent
+        documents = doc.data().FindAgent.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              FindAgent: {
+                ...doc.data().FindAgent,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "FindHome") {
+        // if the step is FindHome
+        documents = doc.data().FindHome.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              FindHome: {
+                ...doc.data().FindHome,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "HomeInspection") {
+        // if the step is HomeInspection
+        documents = doc.data().HomeInspection.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              HomeInspection: {
+                ...doc.data().HomeInspection,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "EscrowTitle") {
+        // if the step is EscorwTitle
+        documents = doc.data().EscrowTitle.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              EscrowTitle: {
+                ...doc.data().EscrowTitle,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "HomeInsurance") {
+        // if the step is HomeInsurance
+        documents = doc.data().HomeInsurance.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              HomeInsurance: {
+                ...doc.data().HomeInsurance,
+                Documents: documents,
+              },
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+      } else if (step === "Closing") {
+        // if the step is Closing
+        documents = doc.data().Closing.Documents;
+        if (
+          documents.filter((e) => e.title === saveMetadata.title).length === 0 // If the document's metadata is not saved
+        ) {
+          documents.push(saveMetadata);
+          myFirestore
+            .collection("Transactions")
+            .doc(tid)
+            .update({
+              Closing: {
+                ...doc.data().Closing,
                 Documents: documents,
               },
             })

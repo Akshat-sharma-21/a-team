@@ -180,5 +180,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 115%;
+  margin-top: 85%;
+}
+
+.no-document-back-icon {
+  color: #707070;
 }

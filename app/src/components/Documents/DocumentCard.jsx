@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import CardThumbnail from "./CardThumbnail";
-import { getEffectiveDocumentName } from "../../utils";
 import { ModalSheet } from "../utilities/core";
 import {
   DownloadIcon,
@@ -10,10 +9,11 @@ import {
   KebabHorizontalIcon,
 } from "@primer/octicons-react";
 
+import { downloadPdf, deletePdf } from "../../actions/documentsActions";
+
 import {
   Grid,
   CardContent,
-  Avatar,
   Card,
   CardMedia,
   List,
@@ -54,6 +54,7 @@ class DocumentCard extends React.Component {
 
     this.state = {
       isModalSheetVisible: false,
+      documentDeleting: false,
     };
   }
 
@@ -73,6 +74,54 @@ class DocumentCard extends React.Component {
     });
   }
 
+  displayDate(date) {
+    // To display the date in the required format
+    let newDate = new Date(date.seconds * 1000);
+    let month = null;
+    switch (newDate.getMonth()) {
+      case 0:
+        month = "Jan";
+        break;
+      case 1:
+        month = "Feb";
+        break;
+      case 2:
+        month = "March";
+        break;
+      case 3:
+        month = "April";
+        break;
+      case 4:
+        month = "May";
+        break;
+      case 5:
+        month = "June";
+        break;
+      case 6:
+        month = "July";
+        break;
+      case 7:
+        month = "Aug";
+        break;
+      case 8:
+        month = "Sept";
+        break;
+      case 9:
+        month = "Oct";
+        break;
+      case 10:
+        month = "Nov";
+        break;
+      case 11:
+        month = "Dec";
+        break;
+      default:
+        month = "";
+        break;
+    }
+    return `${newDate.getDate()} ${month}`;
+  }
+
   render() {
     const { docData, step, transaction } = this.props;
     return (
@@ -83,6 +132,7 @@ class DocumentCard extends React.Component {
             onContextMenu={(event) => this.showContextMenu(event)}
           >
             <IconButton
+              disabled={this.state.documentDeleting || !docData.filled}
               aria-label={`Show options for ${docData.name}`}
               className="doc-card-top-action-btn"
               onClick={(event) => this.showContextMenu(event)}
@@ -93,15 +143,17 @@ class DocumentCard extends React.Component {
             <div className="doc-card-main">
               <NavLink
                 to={
-                  docData.filled
-                    ? {
-                        pathname: `documents/${docData.title}`,
-                        state: docData,
-                      }
-                    : {
-                        pathname: "nodoc",
-                        state: { ...docData, step: step, tid: transaction },
-                      }
+                  !this.state.documentDeleting
+                    ? docData.filled
+                      ? {
+                          pathname: `documents/${docData.title}`,
+                          state: docData,
+                        }
+                      : {
+                          pathname: "nodoc",
+                          state: { ...docData, step: step, tid: transaction },
+                        }
+                    : {}
                 }
               >
                 <Card className="doc-card" title={docData.title} elevation={0}>
@@ -126,7 +178,7 @@ class DocumentCard extends React.Component {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {getEffectiveDocumentName(docData.title)}
+                      {docData.title}
                     </h2>
 
                     <div
@@ -137,11 +189,16 @@ class DocumentCard extends React.Component {
                         fontFamily: "Open Sans",
                       }}
                     >
-                      <Avatar />
-
-                      <span style={{ marginLeft: 10 }}>
-                        Uploaded by <strong>{docData.creator}</strong>
-                      </span>
+                      {docData.date !== null ? (
+                        <span style={{ marginLeft: 10 }}>
+                          Uploaded on{" "}
+                          <strong>{this.displayDate(docData.date)}</strong>
+                        </span>
+                      ) : (
+                        <span style={{ marginLeft: 10 }}>
+                          Yet to be <strong>Uploaded</strong>
+                        </span>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -163,23 +220,49 @@ class DocumentCard extends React.Component {
             <h1>{docData.title}</h1>
 
             <div>
-              <Avatar />
-
-              <span style={{ marginLeft: 10 }}>
-                Uploaded by <strong>{docData.creator}</strong>
-              </span>
+              {docData.date !== null ? (
+                <span style={{ marginLeft: 10 }}>
+                  Uploaded on <strong>{this.displayDate(docData.date)}</strong>
+                </span>
+              ) : (
+                <span style={{ marginLeft: 10 }}>
+                  Yet to be <strong>Uploaded</strong>
+                </span>
+              )}
             </div>
           </div>
 
           <List className="doc-card-context-menu-actions-list">
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                downloadPdf(docData);
+                this.setState({
+                  isModalSheetVisible: false,
+                });
+              }}
+            >
               <ListItemIcon>
                 <DownloadIcon size={24} />
               </ListItemIcon>
               Download
             </MenuItem>
 
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.setState({
+                  documentDeleting: true,
+                  isModalSheetVisible: false,
+                });
+                deletePdf(docData, transaction, step)
+                  .then(() => {
+                    this.setState({ documentDeleting: false });
+                    window.location.href = "/documents"; // TODO: make it more efficient with better routing for the app
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+              }}
+            >
               <ListItemIcon>
                 <TrashIcon size={24} />
               </ListItemIcon>
