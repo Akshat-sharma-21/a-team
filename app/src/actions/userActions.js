@@ -1,4 +1,4 @@
-import { myFirebase, myFirestore } from "../FirebaseConfig";
+import { myFirebase, myFirestore, myStorage } from "../FirebaseConfig";
 import {
   setLoadingTrue,
   setLoadingFalse,
@@ -30,6 +30,7 @@ export function signup(user) {
             Email: user.email,
             Phone: user.phone,
             FirstTime: true, // This is used to showcase the onboarding screens
+            PhotoUrl: null, // This is used to store the photo url
           })
           .then(() => {
             axios
@@ -218,6 +219,7 @@ export function signupWithProvider(user) {
         Phone: user.phone,
         FirstTime: true,
         emailVerified: true, // Automatically setting the email verified to true if the user uses google or facebook
+        PhotoUrl: null, // This is used to store the photo url
       })
       .then(() => {
         localStorage.setItem("userPhone", user.phone); // Storing user's phone in loclaStorage
@@ -541,7 +543,151 @@ export function verifyPhone(otp) {
   };
 }
 
-function setUserAction(payload) {
+export function uploadPicture(file) {
+  return new Promise((resolve, reject) => {
+    // returning a new promise
+    let fileRef = myStorage.ref().child(`users/${localStorage.Id}`);
+    fileRef.listAll().then((files) => {
+      if (files.items.length === 0) {
+        // If the document is not already stored
+        fileRef
+          .put(file)
+          .then((snapshot) => {
+            if (snapshot.bytesTransferred === snapshot.totalBytes) {
+              // If the document is uploaded
+              fileRef
+                .getDownloadURL()
+                .then((url) => {
+                  // Getting the downloadable url
+                  myFirestore
+                    .collection("Users")
+                    .doc(localStorage.Id)
+                    .update({
+                      PhotoUrl: url,
+                    })
+                    .then(() => {
+                      resolve(url); // Resolving the promise
+                    })
+                    .catch((err) => {
+                      reject(err);
+                    });
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            }
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } else {
+        fileRef
+          .delete()
+          .then(() => {
+            fileRef
+              .put(file)
+              .then((snapshot) => {
+                if (snapshot.bytesTransferred === snapshot.totalBytes) {
+                  // If the document is uploaded
+                  fileRef
+                    .getDownloadURL()
+                    .then((url) => {
+                      // Getting the downloadable url
+                      myFirestore
+                        .collection("Users")
+                        .doc(localStorage.Id)
+                        .update({
+                          PhotoUrl: url,
+                        })
+                        .then(() => {
+                          resolve(url); // Resolving the promise
+                        })
+                        .catch((err) => {
+                          reject(err);
+                        });
+                    })
+                    .catch((err) => {
+                      reject(err);
+                    });
+                }
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }
+    });
+  });
+}
+
+export function updateUser(updatedData) {
+  return new Promise((resolve, reject) => {
+    // returning new Promise
+    if (updatedData.emailChanged === true) {
+      // if the email is updated
+      myFirebase
+        .auth()
+        .fetchSignInMethodsForEmail(updatedData.Email)
+        .then((doc) => {
+          if (doc.length === 0) {
+            // if the email is not linked with another account
+            myFirestore
+              .collection("Users")
+              .doc(localStorage.Id)
+              .update({
+                Name: updatedData.Name,
+                Email: updatedData.Email,
+                Phone: updatedData.Phone,
+                emailVerified:
+                  updatedData.emailVerified === false
+                    ? false
+                    : !updatedData.emailChanged,
+                phoneVerified:
+                  updatedData.phoneVerified === false
+                    ? false
+                    : !updatedData.phoneChanged,
+              })
+              .then(() => {
+                resolve();
+              })
+              .catch((err) => {
+                reject(err);
+              });
+          } else {
+            reject("Email already linked with other account");
+          }
+        });
+    } else {
+      myFirestore
+        .collection("Users")
+        .doc(localStorage.Id)
+        .update({
+          Name: updatedData.Name,
+          Email: updatedData.Email,
+          Phone: updatedData.Phone,
+          emailVerified:
+            updatedData.emailVerified === false
+              ? false
+              : !updatedData.emailChanged,
+          phoneVerified:
+            updatedData.phoneVerified === false
+              ? false
+              : !updatedData.phoneChanged,
+        })
+        .then(() => {
+          resolve();
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }
+  });
+}
+
+export function setUserAction(payload) {
   // pure user action
   return {
     type: SET_USER,

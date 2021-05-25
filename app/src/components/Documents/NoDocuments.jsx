@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Scaffold } from "../utilities/core";
-import { Button, CircularProgress, IconButton } from "@material-ui/core";
+import { Scaffold, ReallosButton } from "../utilities/core";
+import { CircularProgress, IconButton } from "@material-ui/core";
 import { ArrowLeftIcon } from "@primer/octicons-react";
 import NoDoc from "../../assets/no-doc-img.svg";
 import { uploadDocument } from "../../actions/documentsActions";
@@ -8,7 +8,6 @@ import "./Documents.css";
 
 import { Grid } from "@material-ui/core";
 
-//TODO: EDIT the upload button
 function NoDocuments(props) {
   let [uploadingDocument, setUploadingDocument] = useState(false);
 
@@ -40,7 +39,7 @@ function NoDocuments(props) {
               <img src={NoDoc} alt="" className="no-document-img" />
             </Grid>
             <Grid item>
-              <div className="no-doc-heading">Gift Letter</div>
+              <div className="no-doc-heading">{props.location.state.title}</div>
             </Grid>
             <Grid item>
               <div className="no-doc-body">
@@ -53,21 +52,22 @@ function NoDocuments(props) {
               </div>
             </Grid>
             <Grid item>
-              <Button
+              <input
+                id="inputFile"
+                type="file"
+                hidden
+                multiple={false}
+                accept={".pdf"}
+                onChange={getSelectedFile}
+              />
+              <ReallosButton
                 primary
                 variant="primary"
                 className="no-doc-btn"
-                component="label"
+                onClick={(e) => document.getElementById("inputFile").click()}
               >
                 Upload
-                <input
-                  type="file"
-                  hidden
-                  multiple={false}
-                  accept={".pdf"}
-                  onChange={getSelectedFile}
-                />
-              </Button>
+              </ReallosButton>
             </Grid>
           </Grid>
         </Scaffold>

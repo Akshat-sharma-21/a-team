@@ -13,7 +13,6 @@ import {
   Fab,
   Drawer,
 } from "@material-ui/core";
-import ProfilePic from "../../assets/martin.jpg";
 import Scaffold from "../utilities/Scaffold/Scaffold";
 import {
   ArrowRightIcon,
@@ -39,7 +38,6 @@ const mapDispatchToProps = (dispatch) => {
 
 function Roadmap(props) {
   const [isModalOpen, toggleModal] = useState(false);
-
   useEffect(() => {
     props.fetchUser(); // fetching the user
   }, []);
@@ -300,7 +298,11 @@ function Roadmap(props) {
           <div className="roadmap-heading">Roadmap</div>
         </Grid>
         <Grid item xs={4} style={{ marginTop: "10px" }}>
-          <Avatar src={ProfilePic} className="roadmap-avatar" />
+          {props.user.PhotoUrl === null ? ( // To display the photo of the user
+            <Avatar className="roadmap-avatar">{props.user.Name[0]}</Avatar>
+          ) : (
+            <Avatar className="roadmap-avatar" src={props.user.PhotoUrl} />
+          )}
           <Fab
             className="roadmap-fab-btn"
             onClick={() => {
@@ -321,7 +323,7 @@ function Roadmap(props) {
           closeModal();
         }}
       >
-        <ProfileEdit />
+        <ProfileEdit user={props.user} closeDrawer={closeModal} />
       </Drawer>
     </Scaffold>
   );

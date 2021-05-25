@@ -114,6 +114,7 @@
   background-position-y: -8px;
   background-repeat: no-repeat;
   background-size: 100vw;
+  height: 100vh; /* Setting the height to be 100% */
 }
 
 .profile-img-div {
@@ -135,7 +136,6 @@
   margin-top: 80px !important;
   margin-left: 70px !important;
   position: absolute !important;
-  pointer-events: none !important;
 }
 
 .profile-label {

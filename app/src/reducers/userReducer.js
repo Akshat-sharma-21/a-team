@@ -5,6 +5,9 @@ const initialState = {
   Email: "",
   Phone: "",
   Transaction: "",
+  PhotoUrl: null,
+  emailVerified: null,
+  phoneVerified: null,
 };
 
 function userReducer(state = initialState, action) {
@@ -15,6 +18,9 @@ function userReducer(state = initialState, action) {
         Email: action.payload.Email,
         Phone: action.payload.Phone,
         Transaction: action.payload.Transaction,
+        PhotoUrl: action.payload.PhotoUrl,
+        emailVerified: action.payload.emailVerified,
+        phoneVerified: action.payload.phoneVerified,
       };
     }
     default: {
