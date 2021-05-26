@@ -1,6 +1,5 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocLogo from "../../assets/doc_logo.svg";
-import ProfilePic from "../../assets/postmalone.jpg";
 import { ModalSheet, Scaffold } from "../utilities/core";
 import "./TaskSummary.css";
 import {
@@ -282,7 +281,6 @@ function TaskSummary(props) {
         </>
       );
     } else {
-      //TODO: Dynamically fetch the data for that professional
       return (
         <>
           <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -295,7 +293,21 @@ function TaskSummary(props) {
                   alignItems="center"
                 >
                   <Grid item xs={1} style={{ textAlign: "center" }}>
-                    <Avatar variant="circle" src={ProfilePic} />
+                    {props.roadmap.ActiveProfessional.PhotoUrl !== null ? (
+                      <Avatar
+                        variant="circle"
+                        src={props.roadmap.ActiveProfessional.PhotoUrl}
+                      />
+                    ) : (
+                      <Avatar variant="circle">
+                        {props.roadmap.ActiveProfessional.Name.split(
+                          " "
+                        )[0][0] +
+                          props.roadmap.ActiveProfessional.Name.split(
+                            " "
+                          )[1][0]}
+                      </Avatar>
+                    )}
                   </Grid>
                   <Grid item xs={1}></Grid>
                   <Grid item xs={9} container style={{ paddingLeft: "15px" }}>

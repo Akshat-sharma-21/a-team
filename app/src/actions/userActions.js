@@ -279,6 +279,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -304,6 +305,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -329,6 +331,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -354,6 +357,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -379,6 +383,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -404,6 +409,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());
@@ -429,6 +435,7 @@ export function fetchUser(step) {
                         Company: obj.data().Company,
                         Email: obj.data().Email,
                         Phone: obj.data().Phone,
+                        PhotoUrl: obj.data().PhotoUrl, // Getting the professional's Photo
                       }; // Storing the appropiate data
                       dispatch(setActiveProfessionalAction(objData));
                       dispatch(setReload());

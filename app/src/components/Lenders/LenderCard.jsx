@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Avtar from "../../assets/martin.jpg";
 import { Grid, Avatar } from "@material-ui/core";
 import { ModalSheet, ReallosButton } from "../utilities/core";
 import {
@@ -135,7 +134,16 @@ class LenderCard extends React.Component {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <div className="lender-card-root">
             <div className="lender-card-head">
-              <Avatar src={Avtar} className="lender-card-avtar" alt="" />
+              {lenderData.PhotoUrl !== null ? ( // Displaying the profile picture of the lender
+                <Avatar
+                  src={lenderData.PhotoUrl}
+                  className="lender-card-avatar"
+                />
+              ) : (
+                <Avatar className="lender-card-avatar">
+                  {lenderData.FirstName[0] + lenderData.LastName[0]}
+                </Avatar>
+              )}
               <div className="lender-card-info">
                 <div className="lender-card-head-details">
                   <Person className="lender-card-head-icon" />

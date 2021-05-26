@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Avtar from "../../assets/martin.jpg";
 import { Grid, Avatar } from "@material-ui/core";
 import { ModalSheet, ReallosButton } from "../utilities/core";
 import {
@@ -135,7 +134,17 @@ class InsuranceCard extends React.Component {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <div className="provider-card-root">
             <div className="provider-card-head">
-              <Avatar src={Avtar} className="provider-card-avtar" alt="" />
+              {providerData.PhotoUrl !== null ? ( // Displaying the picture of the insurance provider
+                <Avatar
+                  src={providerData.PhotoUrl}
+                  className="provider-card-avatar"
+                />
+              ) : (
+                <Avatar className="provider-card-avatar">
+                  {providerData.FirstName[0] + providerData.LastName[0]}
+                </Avatar>
+              )}
+
               <div className="provider-card-info">
                 <div className="provider-card-head-details">
                   <Person className="provider-card-head-icon" />
