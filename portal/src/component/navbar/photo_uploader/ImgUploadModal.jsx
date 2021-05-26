@@ -29,7 +29,7 @@ import "./ImgUploadModal.css";
  * @returns {JSX.Element}
  * Document Upload Modal
  */
-function DocUploadModal({
+function ImgUploadModal({
   visible,
   dismissCallback,
   showSnackbarCallback,
@@ -158,4 +158,4 @@ function DocUploadModal({
   );
 }
 
-export default DocUploadModal;
+export default ImgUploadModal;
