@@ -306,6 +306,7 @@ function Navbar(props) {
       {props.utils.loading === false && (
         <UserProfilePopup
           user={user}
+          utils={props.utils}
           onSignOut={() => signout()}
           onClose={hideUserProfilePopup}
           onShowProfileEditDrawer={() => {
@@ -319,6 +320,7 @@ function Navbar(props) {
       {props.utils.loading === false && (
         <UserProfileEditDrawer
           user={user}
+          utils={props.utils}
           dismissCallback={hideUserProfileEditDrawer}
           visible={isUserProfileEditDrawerVisible}
         />

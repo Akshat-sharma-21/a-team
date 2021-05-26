@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { PencilIcon } from "@primer/octicons-react";
+import ImgUploadModal from "../photo_uploader/ImgUploadModal";
 import "./UserProfileEditDrawer.css";
 // import PhotoUploadModal from "../photo_uploader/PhotoUploader";
 
@@ -11,7 +12,7 @@ import {
   SideDrawer,
 } from "../../utilities/core";
 
-import { USER_ROLES, getRoleLabel, validateFormField } from "../../../utils";
+import { USER_ROLES, validateFormField } from "../../../utils";
 
 import {
   List,
@@ -30,16 +31,15 @@ import {
   FormControl,
   FormGroup,
   FormHelperText,
-  Snackbar,
 } from "@material-ui/core";
 
-import { editUser } from "../../../actions/userActions";
+import { editUser, updatePhotoAction } from "../../../actions/userActions";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ editUser }, dispatch);
+  return bindActionCreators({ editUser, updatePhotoAction }, dispatch);
 };
 
 /**
@@ -93,15 +93,10 @@ class UserProfileEditDrawer extends React.Component {
       email: props.user.email,
       phone: props.user.phone,
       profilePhoto: props.user.profilePhoto,
+      modalOpen: false,
 
       // Is the update user data modal visible
       isUpdateModalVisible: false,
-
-      // Is the (photo) upload modal visible
-      isUploadModalVisible: false,
-
-      // Is the snackbar visible
-      isSnackbarVisible: false,
 
       // Type of data which is being updated currently
       updateModalType: "",
@@ -118,8 +113,6 @@ class UserProfileEditDrawer extends React.Component {
 
     this.showUploadModalVisibility = this.showUploadModalVisibility.bind(this);
     this.dismissUploadModal = this.dismissUploadModal.bind(this);
-    this.showSnackbar = this.showSnackbar.bind(this);
-    this.dismissSnackbar = this.dismissSnackbar.bind(this);
   }
 
   /**
@@ -206,28 +199,6 @@ class UserProfileEditDrawer extends React.Component {
   dismissUploadModal() {
     this.setState({
       isUploadModalVisible: false,
-    });
-  }
-
-  /**
-   * Show Snackbar with a message
-   *
-   * @param {string} message
-   * Snackbar message
-   */
-  showSnackbar(message) {
-    this.setState({
-      isSnackbarVisible: true,
-      snackbarMessage: message,
-    });
-  }
-
-  /**
-   * Dismiss the snackbar
-   */
-  dismissSnackbar() {
-    this.setState({
-      isSnackbarVisible: false,
     });
   }
 
@@ -398,9 +369,8 @@ class UserProfileEditDrawer extends React.Component {
         ModalContent = (
           <div>
             <p style={{ marginBottom: 30 }}>
-              Your current role is "
-              <strong>{getRoleLabel(this.state.role)}</strong>". Select a new
-              role to change your current role.
+              Your current role is "<strong>{this.state.role}</strong>". Select
+              a new role to change your current role.
             </p>
 
             <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -590,8 +560,7 @@ class UserProfileEditDrawer extends React.Component {
   }
 
   render() {
-    let { visible, dismissCallback } = this.props;
-
+    let { visible, dismissCallback, utils } = this.props;
     const userDataList = [
       {
         id: "USER_NAME",
@@ -602,7 +571,7 @@ class UserProfileEditDrawer extends React.Component {
       {
         id: "USER_ROLE",
         label: "Role",
-        value: getRoleLabel(this.state.role),
+        value: this.state.role,
         isEditable: false,
       },
       {
@@ -614,11 +583,10 @@ class UserProfileEditDrawer extends React.Component {
       {
         id: "USER_PHONE",
         label: "Phone Number",
-        value: `+1 ${this.state.phone}`,
+        value: `${this.state.phone}`,
         isEditable: true,
       },
     ];
-
     return (
       <div className="user-profile-edit-drawer">
         <SideDrawer
@@ -626,6 +594,7 @@ class UserProfileEditDrawer extends React.Component {
           visible={visible}
           dismissCallback={dismissCallback}
           side="right"
+          className="user-profile-edit-drawer-main"
         >
           <Grid container className="user-profile-edit-avatar" justify="center">
             <Badge
@@ -635,7 +604,7 @@ class UserProfileEditDrawer extends React.Component {
                   aria-label="Edit Profile Picture"
                   size="small"
                   style={{ background: "#ffffff" }}
-                  onClick={this.showUploadModalVisibility}
+                  onClick={() => this.setState({ modalOpen: true })}
                 >
                   <PencilIcon />
                 </Fab>
@@ -645,11 +614,21 @@ class UserProfileEditDrawer extends React.Component {
                 horizontal: "right",
               }}
             >
-              <Avatar
-                src={this.state.profilePhoto}
-                alt={`${this.state.firstName} ${this.state.lastName}`}
-                style={{ width: 150, height: 150 }}
-              />
+              {utils.reload !== true ? (
+                this.state.profilePhoto !== null ? (
+                  <Avatar
+                    src={this.state.profilePhoto}
+                    alt={`${this.state.firstName} ${this.state.lastName}`}
+                    style={{ width: 150, height: 150 }}
+                  />
+                ) : (
+                  <Avatar style={{ width: 150, height: 150 }}>
+                    {this.state.firstName[0] + this.state.lastName[0]}{" "}
+                  </Avatar>
+                )
+              ) : (
+                <Avatar style={{ width: 150, height: 150 }} />
+              )}
             </Badge>
           </Grid>
 
@@ -686,17 +665,18 @@ class UserProfileEditDrawer extends React.Component {
           </div>
         </SideDrawer>
 
-        {/* <PhotoUploadModal
-          dismissCallback={this.dismissUploadModal}
-          visible={this.state.isUploadModalVisible}
-          showSnackbarCallback={this.showSnackbar}
-        /> */}
-
-        <Snackbar
-          open={this.state.isSnackbarVisible}
-          onClose={this.dismissSnackbar}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          message={this.state.snackbarMessage}
+        <ImgUploadModal
+          dismissCallback={() => {
+            this.setState({
+              modalOpen: false,
+            });
+          }}
+          visible={this.state.modalOpen}
+          onSuccessCallback={(url) => {
+            this.setState({ profilePhoto: url });
+            this.props.updatePhotoAction(url);
+            this.props.dismissCallback();
+          }}
         />
 
         {this.renderUpdateUserDataModal(this.state.updateModalType)}

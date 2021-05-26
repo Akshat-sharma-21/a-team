@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getRoleLabel } from "../../../utils";
 import "./UserProfilePopup.css";
 
 import {
@@ -69,6 +68,7 @@ class UserProfilePopup extends React.Component {
       onClose,
       onShowProfileEditDrawer,
       onSignOut,
+      utils,
     } = this.props;
 
     const actionsList = [
@@ -130,10 +130,20 @@ class UserProfilePopup extends React.Component {
             >
               <Grid item>
                 <Box component="div">
-                  <Avatar
-                    src={user.profilePhoto}
-                    className="user-profile-popup-avatar"
-                  />
+                  {utils.reload !== true ? (
+                    user.profilePhoto !== null ? (
+                      <Avatar
+                        src={user.profilePhoto}
+                        className="user-profile-popup-avatar"
+                      />
+                    ) : (
+                      <Avatar className="user-profile-popup-avatar">
+                        {user.firstName[0] + user.lastName[0]}
+                      </Avatar>
+                    )
+                  ) : (
+                    <Avatar className="user-profile-popup-avatar" />
+                  )}
                 </Box>
               </Grid>
               <Grid item justify="center">
@@ -152,7 +162,7 @@ class UserProfilePopup extends React.Component {
                     <TagIcon size={17} />
                   </span>
 
-                  <span>{getRoleLabel(user.role)}</span>
+                  <span>{user.role}</span>
                 </Box>
               </Grid>
             </Grid>

@@ -41,6 +41,12 @@ function userReducer(state = initialState, action) {
         Phone: action.Phone,
       };
     }
+    case actions.CHANGE_PHOTO: {
+      return {
+        ...state,
+        PhotoUrl: action.url,
+      };
+    }
     default:
       return state;
   }

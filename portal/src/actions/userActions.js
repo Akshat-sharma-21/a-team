@@ -1,4 +1,4 @@
-import { myFirebase, myFirestore } from "../FirebaseConfig";
+import { myFirebase, myFirestore, myStorage } from "../FirebaseConfig";
 import {
   setLoadingTrue,
   setLoadingFalse,
@@ -11,6 +11,7 @@ import {
 } from "./transactionActions";
 export const ADD_USER = "ADD_USER"; // Action to add the user to the redux store
 export const EDIT_USER = "EDIT_USER"; // Action to edit the user
+export const CHANGE_PHOTO = "CHANGE_PHOTO"; // Action to change the photo of the user
 
 export function login(user) {
   // Function to login the user
@@ -135,6 +136,32 @@ export function editUser(user) {
   };
 }
 
+export function updateProfilePicture() {
+  // function to get the user's photo url and update it
+  return new Promise((resolve, reject) => {
+    let fileRef = myStorage.ref().child(`users/${localStorage.Id}`); // getting the file ref
+    fileRef
+      .getDownloadURL()
+      .then((url) => {
+        myFirestore
+          .collection("Portal_Users")
+          .doc(localStorage.Id)
+          .update({
+            PhotoUrl: url,
+          })
+          .then(() => {
+            resolve(url);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
 function addUserAction(payload) {
   // Pure Action to add user to Redux
   return {
@@ -151,5 +178,13 @@ function editUserFunction(payload) {
     LastName: payload.lastName,
     Email: payload.email,
     Phone: payload.phone,
+  };
+}
+
+export function updatePhotoAction(url) {
+  // pure Action to update the user's profile picture
+  return {
+    type: CHANGE_PHOTO,
+    url,
   };
 }

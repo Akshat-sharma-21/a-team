@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import "./NavRail.css";
@@ -50,7 +49,7 @@ const NavRailTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function NavRail({ backButtonRoute = "/transactions" }) {
+function NavRail() {
   const classes = useStyles();
   const history = useHistory();
   const routerLocation = useLocation();
@@ -125,7 +124,7 @@ function NavRail({ backButtonRoute = "/transactions" }) {
 
   return (
     <div className={classes.root}>
-      <Drawer variant="permanent">
+      <Drawer variant="permanent" style={{ zIndex: 0 }}>
         <div className={classes.toolbarToggleOption}>
           <div
             style={{
@@ -165,15 +164,5 @@ function NavRail({ backButtonRoute = "/transactions" }) {
     </div>
   );
 }
-
-NavRail.propTypes = {
-  /**
-   * Specifies the link to follow when the
-   * Back Button is pressed.
-   *
-   * _(Default: /transactions)_
-   */
-  backButtonRoute: PropTypes.string,
-};
 
 export default NavRail;
