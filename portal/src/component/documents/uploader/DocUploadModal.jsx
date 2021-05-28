@@ -21,9 +21,6 @@ import "./DocUploadModal.css";
  * @param {Function} props.onSuccessCallback
  * Callback called after an upload is successful.
  *
- * @param {(filename: string) => void} props.onFileExistsCallback
- * Callback called when the file to be uploaded already exists.
- *
  * @param {Function} props.dismissCallback
  * Callback to dismiss the upload modal.
  *
@@ -75,13 +72,12 @@ function DocUploadModal({
    * @returns {void}
    * Void
    */
-  const uploadDocument = async (acceptedFiles) => {
+  const uploadDocument = async (acceptedFiles, title, step) => {
     if (acceptedFiles.length === 1) {
-      let filename = acceptedFiles[0].name;
-      let fileRef = myStorage.ref().child(`${tid}/documents/${filename}`);
+      let fileRef = myStorage.ref().child(`${tid}/documents/${title}`);
 
       if (await checkFileExists(fileRef)) {
-        onFileExistsCallback(filename);
+        onFileExistsCallback(title);
         dismissCallback();
         return;
       }
@@ -94,7 +90,8 @@ function DocUploadModal({
         let isPaused = snapshot.state === "paused";
 
         let newUploadTaskDetails = {
-          filename,
+          step,
+          title,
           progress,
           isPaused,
           uploadTask,

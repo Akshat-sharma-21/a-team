@@ -110,16 +110,13 @@ function DocUploadStatus({
       if (!isBusyUploading) {
         if (!isSavingDocument) {
           isBusyUploading = true;
-          /**
-           * TODO: Create a new field in the modal for upload to ask for the step and other metadata for eg:- title, sub-title
-           */
           await setMetadata(
             {
-              title: uploadStatus.filename,
-              location: `${tid}/documents/${uploadStatus.filename}`,
+              title: uploadStatus.title,
+              location: `${tid}/documents/${uploadStatus.title}`,
             },
             tid,
-            "PreApproval"
+            uploadStatus.step
           );
         } // isSavingDocument can be used in the future if we want to update the time of last changes made to the file
       }
