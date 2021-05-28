@@ -1,5 +1,6 @@
 import { setLoadingFalse, setLoadingTrue, setErrors } from "./utilActions";
 import axios from "axios";
+import { myFirebase, myFirestore } from "../FirebaseConfig";
 export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const REMOVE_ALL_TRANSACTIONS = "REMOVE_ALL_TRANSACTIONS";
 
@@ -39,4 +40,21 @@ export function sendInvitation(email, phone, user) {
         dispatch(setErrors(err));
       });
   };
+}
+
+export function answerAgentQuestions(tid, answer) {
+  myFirestore
+    .collection("Transactions")
+    .doc(tid)
+    .update({
+      ClosingDate: answer.closingDate,
+      Floors: answer.floors,
+      Address: answer.address,
+      Pool: answer.pool,
+      SquareFt: answer.sqft,
+      HomeInspectionVoided: answer.homeInspectionVoided,
+    })
+    .catch((err) => {
+      console.error(err); // logging the error
+    });
 }

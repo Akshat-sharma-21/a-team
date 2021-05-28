@@ -13,8 +13,10 @@ import {
   PencilIcon,
   CalendarIcon,
   IssueOpenedIcon,
-  OrganizationIcon,
   ArrowRightIcon,
+  ClockIcon,
+  OrganizationIcon,
+  MilestoneIcon,
 } from "@primer/octicons-react";
 
 import {
@@ -26,13 +28,20 @@ import {
   TextField,
   Snackbar,
   LinearProgress,
+  Select,
+  MenuItem,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
 } from "@material-ui/core";
 
 import { Alert } from "@material-ui/lab";
+import { NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addFindHomeTask } from "../../actions/taskActions";
+import { answerAgentQuestions } from "../../actions/transactionActions";
 
 const mapActionToProps = (dispatch) => {
   return bindActionCreators(
@@ -56,7 +65,15 @@ class AssistFindHome extends React.Component {
       isEntireTaskListVisible: false,
 
       isQuestionsModalVisible: false,
-      quesNo: 1,
+      questionNum: 1,
+      firstAnswer: "",
+      secondAnswer: "",
+      thirdAnswer: null,
+      fourthAnswer: null,
+      fifthAnswer: null,
+      sixthAnswer: null,
+      seventhAnswer: null,
+      questionsAnswered: this.props.questionsAnswered, // Initializing the state
 
       taskList: this.props.list.Tasks,
       docList: this.props.list.Documents,
@@ -198,6 +215,270 @@ class AssistFindHome extends React.Component {
     return date.getDate() + " " + months[date.getMonth()];
   }
 
+  displayQuestionModalHelper() {
+    // function to display the Question and Answer
+    if (this.state.questionNum === 1) {
+      return (
+        <>
+          <div className="assist-question-modal-question">
+            What is the Address of the house?
+          </div>
+          <div className="assist-question-modal-answer">
+            <OrganizationIcon size={30} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              multiline
+              rows={3}
+              fullWidth
+              label="Address"
+              variant="outlined"
+              value={this.state.firstAnswer}
+              onChange={(e) => {
+                this.setState({
+                  firstAnswer: e.target.value,
+                });
+              }}
+            />
+          </div>
+        </>
+      );
+    }
+    if (this.state.questionNum === 2) {
+      return (
+        <>
+          <div className="assist-question-modal-question">
+            How many Sqft. are there in the House?
+          </div>
+          <div className="assist-question-modal-answer">
+            <MilestoneIcon size={30} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              fullWidth
+              value={this.state.secondAnswer}
+              label="Sqft"
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({
+                  secondAnswer: e.target.value,
+                });
+              }}
+            />
+          </div>
+        </>
+      );
+    }
+    if (this.state.questionNum === 3) {
+      return (
+        <>
+          <div className="assist-question-modal-question">How many Floors?</div>
+          <div className="assist-question-modal-answer">
+            <MilestoneIcon size={30} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Select
+              value={this.state.thirdAnswer}
+              fullWidth="true"
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({
+                  thirdAnswer: e.target.value,
+                });
+              }}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+            </Select>
+          </div>
+        </>
+      );
+    }
+    if (this.state.questionNum === 4) {
+      return (
+        <>
+          <div className="assist-question-modal-question">
+            Has the Home Inspection been voided?
+          </div>
+          <RadioGroup
+            value={this.state.fourthAnswer}
+            onChange={(e) => {
+              this.setState({
+                fourthAnswer: e.target.value,
+              });
+            }}
+          >
+            <FormControlLabel
+              value={"Yes"}
+              control={<Radio style={{ color: "#0432fa" }} />}
+              label="Yes"
+            />
+            <FormControlLabel
+              value={"No"}
+              control={<Radio style={{ color: "#0432fa" }} />}
+              label="No"
+            />
+          </RadioGroup>
+        </>
+      );
+    }
+    if (this.state.questionNum === 5) {
+      return (
+        <>
+          {" "}
+          <div className="assist-question-modal-question">
+            Does it have a Pool?
+          </div>
+          <RadioGroup
+            value={this.state.fifthAnswer}
+            onChange={(e) => {
+              this.setState({
+                fifthAnswer: e.target.value,
+              });
+            }}
+          >
+            <FormControlLabel
+              value={"Yes"}
+              control={<Radio style={{ color: "#0432fa" }} />}
+              label="Yes"
+            />
+            <FormControlLabel
+              value={"No"}
+              control={<Radio style={{ color: "#0432fa" }} />}
+              label="No"
+            />
+          </RadioGroup>
+        </>
+      );
+    }
+    if (this.state.questionNum === 6) {
+      return (
+        <>
+          <div className="assist-question-modal-question">
+            What is the closing Date?
+          </div>
+          <div className="assist-question-modal-answer">
+            <ClockIcon size={30} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <TextField
+              fullWidth
+              type="date"
+              value={this.state.sixthAnswer}
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({
+                  sixthAnswer: e.target.value,
+                });
+              }}
+            />
+          </div>
+        </>
+      );
+    }
+  }
+
+  displayQuestionModal() {
+    // function to display the question modal
+    return (
+      <ReallosModal
+        visible={this.state.isQuestionsModalVisible}
+        dismissCallback={() =>
+          this.setState({
+            isQuestionsModalVisible: false,
+          })
+        }
+        modalWidth={800}
+        className="assist-question-modal"
+      >
+        <div style={{ height: "20px" }}></div>
+        <LinearProgress
+          variant="determinate"
+          value={this.state.questionNum * (100 / 6)}
+          className="assist-question-modal-progress"
+        />
+        <div className="assist-question-modal-heading">
+          Questions
+          <span className="assist-question-modal-subheading-dot">
+            <DotFillIcon />
+          </span>
+          <span className="assist-question-modal-subheading">
+            {this.state.questionNum} out of 6
+          </span>
+        </div>
+
+        <div style={{ height: "20px" }}></div>
+        {this.displayQuestionModalHelper()}
+        <div style={{ height: "50px" }}></div>
+        <Grid container direction="row" justify="flex-end" spacing={3}>
+          <Grid item xs={3}>
+            <ReallosButton
+              fullWidth
+              secondary
+              className="assist-question-modal-btn"
+              disabled={this.state.questionNum === 1}
+              onClick={() => {
+                if (this.state.questionNum > 1)
+                  this.setState({ questionNum: this.state.questionNum - 1 });
+              }}
+            >
+              Back
+            </ReallosButton>
+          </Grid>
+          <Grid item xs={3}>
+            <ReallosButton
+              fullWidth
+              primary
+              className="assist-question-modal-btn"
+              disabled={
+                (this.state.questionNum === 1 &&
+                  this.state.firstAnswer === "") ||
+                (this.state.questionNum === 2 &&
+                  this.state.secondAnswer === "") ||
+                (this.state.questionNum === 3 &&
+                  this.state.thirdAnswer === null) ||
+                (this.state.questionNum === 4 &&
+                  this.state.fourthAnswer === null) ||
+                (this.state.questionNum === 5 &&
+                  this.state.fifthAnswer === null) ||
+                (this.state.questionNum === 6 &&
+                  this.state.sixthAnswer === null)
+              }
+              onClick={() => {
+                this.setState({ questionNum: this.state.questionNum + 1 });
+                if (this.state.questionNum === 6) {
+                  answerAgentQuestions(this.props.tid, {
+                    // Storing the answers in firestore
+                    address: this.state.firstAnswer,
+                    sqft: this.state.secondAnswer,
+                    floors: this.state.thirdAnswer,
+                    homeInspectionVoided: this.state.fourthAnswer,
+                    pool: this.state.fifthAnswer,
+                    closingDate: new Date(this.state.sixthAnswer),
+                  });
+                  this.setState({
+                    firstAnswer: "",
+                    secondAnswer: "",
+                    thirdAnswer: null,
+                    fourthAnswer: null,
+                    fifthAnswer: null,
+                    sixthAnswer: null,
+                    seventhAnswer: null,
+                    isQuestionsModalVisible: false,
+                    questionNum: 1,
+                    questionsAnswered: true,
+                  });
+                }
+              }}
+            >
+              {this.state.questionNum === 6 ? "Submit" : "Next"}
+              &nbsp;
+              {this.state.questionNum !== 6 && <ArrowRightIcon size={20} />}
+            </ReallosButton>
+          </Grid>
+        </Grid>
+      </ReallosModal>
+    );
+  }
+
   addTask() {
     if (this.state.validated) {
       let dateObj = new Date(this.state.taskDate);
@@ -235,23 +516,26 @@ class AssistFindHome extends React.Component {
           itemIndex={0}
         >
           {/* TASK LIST */}
-          <div className="assist-accordion-section-root">
-            <div className="assist-accordion-section-heading-group">
-              <h1>Questions</h1>
-              <span className="assist-accordion-section-status">
-                Answer the questions as soon as you can
-              </span>
 
-              <div style={{ marginLeft: 10 }}>
-                <ReallosButton
-                  primary
-                  onClick={() => this.showQuestionsModal()}
-                  className="add-task-button"
-                >
-                  Let's Start
-                </ReallosButton>
+          <div className="assist-accordion-section-root">
+            {this.state.questionsAnswered !== true && ( // If the questions have not been answered
+              <div className="assist-accordion-section-heading-group">
+                <h1>Questions</h1>
+                <span className="assist-accordion-section-status">
+                  Answer the questions as soon as you can
+                </span>
+
+                <div style={{ marginLeft: 10 }}>
+                  <ReallosButton
+                    primary
+                    onClick={() => this.showQuestionsModal()}
+                    className="add-task-button"
+                  >
+                    Let's Start
+                  </ReallosButton>
+                </div>
               </div>
-            </div>
+            )}
 
             <div
               className="assist-accordion-section-heading-group"
@@ -333,59 +617,59 @@ class AssistFindHome extends React.Component {
             )}
           </div>
 
-          {/* DOCUMENTS GRID */}
-          <div className="assist-accordion-section-root">
-            <div className="assist-accordion-section-heading-group">
-              <h1>Documents</h1>
-              <span className="assist-accordion-section-status">
-                {
-                  this.state.docList.filter((docItem) => docItem.isFilled)
-                    .length
-                }{" "}
-                of {this.state.docList.length} completed
-              </span>
-            </div>
+          {this.state.docList.length !== 0 && ( // If there are documents present to be displayed
+            <div className="assist-accordion-section-root">
+              <div className="assist-accordion-section-heading-group">
+                <h1>Documents</h1>
+                <span className="assist-accordion-section-status">
+                  {
+                    this.state.docList.filter((docItem) => docItem.filled)
+                      .length
+                  }{" "}
+                  of {this.state.docList.length} completed
+                </span>
+              </div>
 
-            <Grid container spacing={1} className="assist-doc-grid-root">
-              {this.state.docList.map((doc) => {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    className="assist-doc-grid-item-root"
-                  >
-                    <a
-                      className="assist-doc-grid-item link-basic"
-                      href={doc.Link}
+              <Grid container spacing={1} className="assist-doc-grid-root">
+                {this.state.docList.map((doc) => {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      className="assist-doc-grid-item-root"
                     >
-                      <div className="assist-doc-grid-item-icon">
-                        <img
-                          src={doc.isFilled ? DocIcon : DocGrayscaleIcon}
-                          alt=""
-                        />
-                      </div>
+                      <NavLink
+                        to={{
+                          pathname: `/transactions/${this.props.tid}/documents/${doc.title}`,
+                          state: doc,
+                        }}
+                        className="assist-doc-grid-item link-basic"
+                      >
+                        <div className="assist-doc-grid-item-icon">
+                          <img src={doc.filled ? DocIcon : DocGrayscaleIcon} />
+                        </div>
 
-                      <div className="assist-doc-grid-item-text-wrapper">
-                        <div className="assist-doc-grid-item-heading">
-                          {doc.Name}
+                        <div className="assist-doc-grid-item-text-wrapper">
+                          <div className="assist-doc-grid-item-heading">
+                            {doc.title}
+                          </div>
+                          <div className="assist-doc-grid-item-subheading">
+                            {doc.filled
+                              ? "Document is filled in"
+                              : "Document yet to be filled"}
+                          </div>
                         </div>
-                        <div className="assist-doc-grid-item-subheading">
-                          {doc.isFilled
-                            ? "Document is filled in"
-                            : "Document yet to be filled"}
-                        </div>
-                      </div>
-                    </a>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </div>
+                      </NavLink>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </div>
+          )}
         </AssistAccordion>
-
         {/* ADD TASK MODAL */}
         <SideDrawer
           visible={this.state.isAddTaskDrawerVisible}
@@ -483,68 +767,7 @@ class AssistFindHome extends React.Component {
             </ReallosButton>
           </div>
         </SideDrawer>
-
-        {/* QUESTIONS MODAL */}
-        <ReallosModal
-          visible={this.state.isQuestionsModalVisible}
-          dismissCallback={() => this.hideQuestionsModal()}
-          modalWidth={800}
-          className="assist-question-modal"
-        >
-          <div style={{ height: "20px" }}></div>
-          <LinearProgress
-            variant="determinate"
-            value={this.state.quesNo * (100 / 7)}
-            className="assist-question-modal-progress"
-          />
-          <div className="assist-question-modal-heading">
-            Questions
-            <span className="assist-question-modal-subheading-dot">
-              <DotFillIcon />
-            </span>
-            <span className="assist-question-modal-subheading">
-              {this.state.quesNo} out of 7
-            </span>
-          </div>
-
-          <div style={{ height: "20px" }}></div>
-          <div className="assist-question-modal-question">
-            What is the Address of the house?
-          </div>
-          <div className="assist-question-modal-answer">
-            <OrganizationIcon size={40} />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <TextField
-              multiline
-              rows={3}
-              fullWidth
-              label="Address"
-              variant="outlined"
-            />
-          </div>
-          <div style={{ height: "50px" }}></div>
-          <Grid container direction="row" justify="flex-end" spacing={3}>
-            <Grid item xs={3}>
-              <ReallosButton
-                fullWidth
-                secondary
-                className="assist-question-modal-btn"
-              >
-                Back
-              </ReallosButton>
-            </Grid>
-            <Grid item xs={3}>
-              <ReallosButton
-                fullWidth
-                primary
-                className="assist-question-modal-btn"
-              >
-                Next&nbsp;
-                <ArrowRightIcon size={20} />
-              </ReallosButton>
-            </Grid>
-          </Grid>
-        </ReallosModal>
+        {this.displayQuestionModal()}
 
         {/* ERROR ALERTS */}
         <Snackbar

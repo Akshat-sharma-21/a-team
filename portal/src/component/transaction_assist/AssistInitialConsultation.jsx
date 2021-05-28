@@ -38,7 +38,6 @@ class AssistInitialConsultation extends React.Component {
       showError: false,
     };
   }
-
   render() {
     let QA = [];
     this.props.Questions.forEach((question) => {
@@ -66,11 +65,17 @@ class AssistInitialConsultation extends React.Component {
         >
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={3} className="assist-accordion-profile-div">
-              <Avatar
-                src="https://i.imgur.com/zOnwBpQ.png" // Set to the User's profile image
-                alt=""
-                style={{ height: "120px", width: "120px" }}
-              />
+              {this.props.Buyer.PhotoUrl !== null ? (
+                <Avatar
+                  src={this.props.Buyer.PhotoUrl}
+                  style={{ height: "120px", width: "120px" }}
+                />
+              ) : (
+                <Avatar style={{ height: "120px", width: "120px" }}>
+                  {this.props.Buyer.Name.split("")[0] +
+                    this.props.Buyer.Name.split("")[1]}
+                </Avatar>
+              )}
               <div className="assist-accordion-profile-name">
                 {this.props.Buyer !== null ? this.props.Buyer.Name : "Hang On!"}
               </div>
@@ -90,7 +95,7 @@ class AssistInitialConsultation extends React.Component {
                 </div>
                 <div style={{ marginTop: "10px" }}>
                   {this.props.Buyer !== null
-                    ? +1 + " " + this.props.Buyer.Phone
+                    ? this.props.Buyer.Phone
                     : "Hang On!"}
                 </div>
               </div>

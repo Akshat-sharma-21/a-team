@@ -141,10 +141,11 @@ export function addPreApprovalTask(list, newTask, transactionId) {
       .collection("Transactions")
       .doc(transactionId)
       .update({ PreApproval: newList })
-      .then(
-        dispatch(addPreApproval(newList)),
-        dispatch(setLoadingFalse()) // dispatching an action to set loading to false
-      )
+      .then(() => {
+        console.log(newList);
+        dispatch(addPreApproval(newList));
+        dispatch(setLoadingFalse()); // dispatching an action to set loading to false
+      })
       .catch((err) => {
         dispatch(setErrors(err));
       });

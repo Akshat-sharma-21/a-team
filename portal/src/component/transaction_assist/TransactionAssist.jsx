@@ -136,31 +136,44 @@ function TransactionAssist(props) {
           spacing={2}
           style={{ marginBottom: 20 }}
         >
-          {!props.task.PreApproval.Locked ? (
+          {!props.task.PreApproval.Locked && (
             <AssistPreApproval list={props.task.PreApproval} tid={tid} />
-          ) : null}
-          <AssistInitialConsultation // Sending the Questions and the Buyer information
-            Questions={props.task.FindAgent.Questions}
-            Buyer={props.task.Buyer}
-          />
-          {!props.task.FindAgent.Locked ? (
-            <AssistFindAgent list={props.task.FindAgent} tid={tid} />
-          ) : null}
-          {props.task.FindHome.Locked ? (
-            <AssistFindHome list={props.task.FindHome} tid={tid} />
-          ) : null}
-          {!props.task.EscrowTitle.Locked ? (
+          )}
+          {props.task.FindAgent.Questions.length !== 0 && ( // If the questions are answered by the user
+            <AssistInitialConsultation // Sending the Questions and the Buyer information
+              Questions={props.task.FindAgent.Questions}
+              Buyer={props.task.Buyer}
+            />
+          )}
+          {props.task.FindHome.Locked && (
+            <AssistFindHome
+              list={props.task.FindHome}
+              tid={tid}
+              questionsAnswered={
+                // If any of the questions are not answered
+                !(
+                  props.task.SquareFt === null ||
+                  props.task.Floors === null ||
+                  props.task.Pool === null ||
+                  props.task.Address === null ||
+                  props.task.ClosingDate === null ||
+                  props.task.HomeInspectionVoided === null
+                )
+              }
+            />
+          )}
+          {!props.task.EscrowTitle.Locked && (
             <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
-          ) : null}
-          {!props.task.HomeInspection.Locked ? (
+          )}
+          {!props.task.HomeInspection.Locked && (
             <AssistHomeInspection list={props.task.HomeInspection} tid={tid} />
-          ) : null}
-          {!props.task.HomeInsurance.Locked ? (
+          )}
+          {!props.task.HomeInsurance.Locked && (
             <AssistHomeInsurance list={props.task.HomeInsurance} tid={tid} />
-          ) : null}
-          {!props.task.Closing.Locked ? (
+          )}
+          {!props.task.Closing.Locked && (
             <AssistClosing list={props.task.Closing} tid={tid} />
-          ) : null}
+          )}
         </Grid>
       );
   };

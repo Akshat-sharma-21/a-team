@@ -26,6 +26,7 @@ import {
 } from "@material-ui/core";
 
 import { Alert } from "@material-ui/lab";
+import { NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -288,57 +289,58 @@ class AssistFindAgent extends React.Component {
             )}
           </div>
 
-          {/* DOCUMENTS GRID */}
-          <div className="assist-accordion-section-root">
-            <div className="assist-accordion-section-heading-group">
-              <h1>Documents</h1>
-              <span className="assist-accordion-section-status">
-                {
-                  this.state.docList.filter((docItem) => docItem.isFilled)
-                    .length
-                }{" "}
-                of {this.state.docList.length} completed
-              </span>
-            </div>
+          {this.state.docList.length !== 0 && ( // If there are documents present to be displayed
+            <div className="assist-accordion-section-root">
+              <div className="assist-accordion-section-heading-group">
+                <h1>Documents</h1>
+                <span className="assist-accordion-section-status">
+                  {
+                    this.state.docList.filter((docItem) => docItem.filled)
+                      .length
+                  }{" "}
+                  of {this.state.docList.length} completed
+                </span>
+              </div>
 
-            <Grid container spacing={1} className="assist-doc-grid-root">
-              {this.state.docList.map((doc) => {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    className="assist-doc-grid-item-root"
-                  >
-                    <a
-                      className="assist-doc-grid-item link-basic"
-                      href={doc.Link}
+              <Grid container spacing={1} className="assist-doc-grid-root">
+                {this.state.docList.map((doc) => {
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      className="assist-doc-grid-item-root"
                     >
-                      <div className="assist-doc-grid-item-icon">
-                        <img
-                          src={doc.isFilled ? DocIcon : DocGrayscaleIcon}
-                          alt=""
-                        />
-                      </div>
+                      <NavLink
+                        to={{
+                          pathname: `/transactions/${this.props.tid}/documents/${doc.title}`,
+                          state: doc,
+                        }}
+                        className="assist-doc-grid-item link-basic"
+                      >
+                        <div className="assist-doc-grid-item-icon">
+                          <img src={doc.filled ? DocIcon : DocGrayscaleIcon} />
+                        </div>
 
-                      <div className="assist-doc-grid-item-text-wrapper">
-                        <div className="assist-doc-grid-item-heading">
-                          {doc.Name}
+                        <div className="assist-doc-grid-item-text-wrapper">
+                          <div className="assist-doc-grid-item-heading">
+                            {doc.title}
+                          </div>
+                          <div className="assist-doc-grid-item-subheading">
+                            {doc.filled
+                              ? "Document is filled in"
+                              : "Document yet to be filled"}
+                          </div>
                         </div>
-                        <div className="assist-doc-grid-item-subheading">
-                          {doc.isFilled
-                            ? "Document is filled in"
-                            : "Document yet to be filled"}
-                        </div>
-                      </div>
-                    </a>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </div>
+                      </NavLink>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </div>
+          )}
         </AssistAccordion>
 
         {/* ADD TASK MODAL */}

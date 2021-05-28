@@ -96,7 +96,6 @@ function DocUploadModal({
           isPaused,
           uploadTask,
         };
-
         setUploadTaskStatus(newUploadTaskDetails);
       });
     }
