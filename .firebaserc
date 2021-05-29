@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "reallos-app-78a3a"
+  },
+  "targets": {
+    "reallos-app-78a3a": {
+      "hosting": {
+        "reallos-portal": [
+          "reallos-portal"
+        ],
+        "reallos-app": [
+          "reallos-app-78a3a"
+        ]
+      }
+    }
   }
 }
