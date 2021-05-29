@@ -55,16 +55,34 @@ function DocumentViewer(props) {
 
   async function showSignaturePanel() {
     // function to show the signature panel
-    if (viewerRoot.current.querySelector("iframe").contentDocument) {
+    if (
       viewerRoot.current
         .querySelector("iframe")
-        .contentDocument.querySelector(
-          'div[data-element="signatureToolButton"]'
-        )
+        .contentDocument.querySelector('div[data-element="toolsButton"]') !=
+      null
+    ) {
+      viewerRoot.current
+        .querySelector("iframe")
+        .contentDocument.querySelector('div[data-element="toolsButton"]')
         .firstChild.click();
     }
+    if (viewerRoot.current.querySelector("iframe").contentDocument) {
+      if (
+        viewerRoot.current
+          .querySelector("iframe")
+          .contentDocument.querySelector(
+            'div[data-element="signatureToolButton"]'
+          ) != null
+      ) {
+        viewerRoot.current
+          .querySelector("iframe")
+          .contentDocument.querySelector(
+            'div[data-element="signatureToolButton"]'
+          )
+          .firstChild.click();
+      }
+    }
   }
-
   async function saveChangesToCloud(docPath) {
     setDocumentSaving(true);
     const doc = viewer.docViewer.getDocument();
@@ -125,6 +143,11 @@ function DocumentViewer(props) {
             }}
           />
         </Button>
+
+        <button class="reallos-document-viewer-invisible-btn">
+          hide pencil button
+        </button>
+
         <Button>
           <SaveOutlined
             className={
