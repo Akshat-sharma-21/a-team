@@ -73,7 +73,13 @@ class PeopleInvolvedCard extends React.Component {
         <div className="people-involved-card-outer">
           <Card className="people-involved-card">
             <div className="people-involved-card-avatar">
-              <Avatar src={personDetails.photoUrl} />
+              {personDetails.PhotoUrl !== null ? (
+                <Avatar src={personDetails.PhotoUrl} />
+              ) : (
+                <Avatar>
+                  {personDetails.FirstName[0] + personDetails.LastName[0]}
+                </Avatar>
+              )}
             </div>
 
             <div className="people-involved-card-details-wrapper">
@@ -89,7 +95,7 @@ class PeopleInvolvedCard extends React.Component {
               <div className="people-involved-card-contact-details">
                 <div className="people-involved-card-phone">
                   <PhoneIcon style={{ fontSize: 24 }} />
-                  +1 {this.getFormattedPhoneNumber}
+                  {this.getFormattedPhoneNumber}
                 </div>
 
                 <div className="people-involved-card-email">

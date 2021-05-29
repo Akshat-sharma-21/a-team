@@ -231,7 +231,7 @@ function Navbar(props) {
                 }
                 TransitionComponent={Zoom}
               >
-                <IconButton disabled={props.utils.loading}>
+                <IconButton disabled={true}>
                   <GraphIcon size={20} />
                 </IconButton>
               </Tooltip>

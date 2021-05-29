@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const ADD_PEOPLE = "ADD_PEOPLE";
 export const REMOVE_ALL = "REMOVE_ALL";
+export const SET_PEOPLE_LIST = "SET_PEOPLE_LIST";
 
 const fetchPeopleHelper = (id) => {
   // function to help fetch people
@@ -21,69 +22,65 @@ const fetchPeopleHelper = (id) => {
   });
 };
 
-export function fetchPeople(tid) {
-  return (dispatch) => {
-    dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
-    dispatch(removeAllFunction()); // To clear the Redux state
-    myFirestore
-      .collection("Transactions")
-      .doc(tid)
-      .get()
-      .then((doc) => {
-        if (
-          doc.data().PreApproval.Professional &&
-          doc.data().PreApproval.Professional !== localStorage.Id // To check if the user is not itself
-        ) {
-          // If there is a Professional
-          fetchPeopleHelper(doc.data().PreApproval.Professional)
-            .then((data) => {
-              dispatch(addPeopleFunction(data));
-            })
-            .catch((err) => {
-              dispatch(setErrors(err));
-            });
-        }
-        if (
-          doc.data().FindAgent.Professional &&
-          doc.data().FindAgent.Professional !== localStorage.Id // To check if the user is not itself
-        ) {
-          fetchPeopleHelper(doc.data().FindAgent.Professional)
-            .then((data) => {
-              dispatch(addPeopleFunction(data));
-            })
-            .catch((err) => {
-              dispatch(setErrors(err));
-            });
-        }
-        if (doc.data().HomeInspection.Professional) {
-          fetchPeopleHelper(doc.data().HomeInspection.Professional)
-            .then((data) => {
-              dispatch(addPeopleFunction(data));
-            })
-            .catch((err) => {
-              dispatch(setErrors(err));
-            });
-        }
-        if (doc.data().EscrowTitle.Professional) {
-          fetchPeopleHelper(doc.data().EscrowTitle.Professional)
-            .then((data) => {
-              dispatch(addPeopleFunction(data));
-            })
-            .catch((err) => {
-              dispatch(setErrors(err));
-            });
-        }
-        if (doc.data().HomeInsurance.Professional) {
-          fetchPeopleHelper(doc.data().HomeInsurance.Professional)
-            .then((data) => {
-              dispatch(addPeopleFunction(data));
-            })
-            .catch((err) => {
-              dispatch(setErrors(err));
-            });
-        }
-        dispatch(setLoadingFalse());
-      });
+export function fetchPeople(transaction) {
+  return async (dispatch) => {
+    if (
+      transaction.PreApproval.Professional !== null &&
+      transaction.PreApproval.Professional !== localStorage.Id // Adding the Professional for PreApproval
+    ) {
+      await myFirestore
+        .collection("Portal_Users")
+        .doc(transaction.PreApproval.Professional)
+        .get()
+        .then((doc) => {
+          dispatch(addPeopleFunction({ ...doc.data(), id: doc.id }));
+        });
+    }
+
+    if (
+      transaction.FindAgent.Professional !== null &&
+      transaction.FindAgent.Professional !== localStorage.Id
+    ) {
+      await myFirestore
+        .collection("Portal_Users")
+        .doc(transaction.FindAgent.Professional)
+        .get()
+        .then((doc) => {
+          dispatch(addPeopleFunction({ ...doc.data(), id: doc.id }));
+        });
+    }
+
+    if (transaction.HomeInspection.Professional !== null) {
+      await myFirestore
+        .collection("Portal_Users")
+        .doc(transaction.HomeInspection.Professional)
+        .get()
+        .then((doc) => {
+          dispatch(addPeopleFunction(doc.data()));
+        });
+    }
+
+    if (transaction.EscrowTitle.Professional !== null) {
+      await myFirestore
+        .collection("Portal_Users")
+        .doc(transaction.EscrowTitle.Professional)
+        .get()
+        .then((doc) => {
+          dispatch(addPeopleFunction(doc.data()));
+        });
+    }
+
+    if (transaction.HomeInsurance.Professional !== null) {
+      await myFirestore
+        .collection("Portal_Users")
+        .doc(transaction.HomeInsurance.Professional)
+        .get()
+        .then((doc) => {
+          dispatch(addPeopleFunction(doc.data()));
+        });
+    }
+
+    dispatch(setPeopleFunction());
   };
 }
 
@@ -106,6 +103,12 @@ export function sendMail(email, from, transaction, emailContent) {
           dispatch(setErrors("Problem in sending the email"));
         }
       });
+  };
+}
+
+function setPeopleFunction() {
+  return {
+    type: SET_PEOPLE_LIST,
   };
 }
 

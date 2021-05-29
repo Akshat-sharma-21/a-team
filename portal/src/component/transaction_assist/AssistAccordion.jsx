@@ -94,7 +94,10 @@ class AssistAccordion extends React.Component {
             </Grid>
           </AccordionSummary>
 
-          <AccordionDetails className="assist-accordion-details-root">
+          <AccordionDetails
+            className="assist-accordion-details-root"
+            style={{ height: "auto" }}
+          >
             {children}
           </AccordionDetails>
         </Accordion>

@@ -57,7 +57,6 @@ function SignIn(props) {
     } else {
       props.login({ email, password });
       setTimeout(() => {
-        console.log(props.utils.errors);
         if (props.utils.errors) {
           if (props.utils.errors.code === "auth/wrong-password") {
             setMailErrorText("Password is incorrect");

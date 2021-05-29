@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import TransactionAssistIllustration from "../../assets/transaction-assist-first-time.png";
 import AssistInitialConsultation from "./AssistInitialConsultation";
-import AssistPreApproval from "./AssistPreApproval";
-import AssistFindAgent from "./AssistFindAgent";
-import AssistFindHome from "./AssistFindHome";
-import AssistHomeInspection from "./AssistHomeInspection";
-import AssistEscrowTitle from "./AssistEscrowTitle";
-import AssistClosing from "./AssistClosing";
-import AssistHomeInsurance from "./AssistHomeInsurance";
+import AssistComponent from "./AssistComponent";
 import "./TransactionAssist.css";
 
 import {
@@ -24,7 +18,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchUser } from "../../actions/userActions";
-import { setTasks } from "../../actions/taskActions";
+import { fetchBuyerInfo } from "../../actions/transactionActions";
 
 const mapStateToProps = (state) => ({
   task: state.task,
@@ -36,7 +30,7 @@ const mapActionToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchUser,
-      setTasks,
+      fetchBuyerInfo,
     },
     dispatch
   );
@@ -44,22 +38,35 @@ const mapActionToProps = (dispatch) => {
 
 function TransactionAssist(props) {
   const [isInitModalVisibile, setInitModalVisibility] = useState(false);
+  const [BuyerData, setBuyerData] = useState(false);
   let { tid } = useParams(); // getting the id of the transaction
+
   useEffect(() => {
     if (props.utils.reload === true) {
       // if the page was reloaded
       props.fetchUser(); // fetching the user and storing its state in Redux
-    } else {
-      // If the active transaction is not set
-      props.setTasks(
-        props.transaction.filter((transaction) => transaction.id === tid)[0]
-      );
     }
   }, []);
 
-  /**
-   * Renders first-time user modal.
-   */
+  if (
+    props.utils.reload === false &&
+    props.utils.loading === false &&
+    BuyerData === false
+  ) {
+    // If the user has been loaded
+    setBuyerData(true);
+    if (
+      props.transaction.filter((transaction) => transaction.id === tid)[0] // If the Buyer Data has not been stored
+        .BuyerData === null
+    ) {
+      props.fetchBuyerInfo(
+        props.transaction.filter((transaction) => transaction.id === tid)[0]
+          .BuyerId,
+        tid
+      );
+    }
+  }
+
   const initModal = () => {
     return (
       <ReallosModal
@@ -116,18 +123,17 @@ function TransactionAssist(props) {
     );
   };
 
-  /**
-   * Hide first-time user modal.
-   */
   const hideInitModal = () => {
     setInitModalVisibility(false);
   };
 
-  /**
-   * Renders acordions within the screen.
-   */
   const displayAccordions = () => {
-    if (props.task.SET === true && props.utils.loading === false)
+    if (
+      props.transaction.length !== 0 &&
+      props.utils.loading === false &&
+      props.transaction.filter((transaction) => transaction.id === tid)[0] // If the Buyer Data has not been stored
+        .BuyerData !== null
+    )
       // only return when the component is loaded
       return (
         <Grid
@@ -136,43 +142,122 @@ function TransactionAssist(props) {
           spacing={2}
           style={{ marginBottom: 20 }}
         >
-          {!props.task.PreApproval.Locked && (
-            <AssistPreApproval list={props.task.PreApproval} tid={tid} />
-          )}
-          {props.task.FindAgent.Questions.length !== 0 && ( // If the questions are answered by the user
-            <AssistInitialConsultation // Sending the Questions and the Buyer information
-              Questions={props.task.FindAgent.Questions}
-              Buyer={props.task.Buyer}
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .PreApproval.Locked && ( // If the Pre-approval component is not locked
+            <AssistComponent
+              title="Pre-approval"
+              completed={false}
+              index={0}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].PreApproval
+              }
+              tid={tid}
             />
           )}
-          {props.task.FindHome.Locked && (
-            <AssistFindHome
-              list={props.task.FindHome}
-              tid={tid}
-              questionsAnswered={
-                // If any of the questions are not answered
-                !(
-                  props.task.SquareFt === null ||
-                  props.task.Floors === null ||
-                  props.task.Pool === null ||
-                  props.task.Address === null ||
-                  props.task.ClosingDate === null ||
-                  props.task.HomeInspectionVoided === null
-                )
+          {props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .FindAgent.Questions.length !== 0 && (
+            <AssistInitialConsultation
+              Questions={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].FindAgent.Questions
+              }
+              Buyer={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].BuyerData
               }
             />
           )}
-          {!props.task.EscrowTitle.Locked && (
-            <AssistEscrowTitle list={props.task.EscrowTitle} tid={tid} />
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .FindAgent.Locked && (
+            <AssistComponent
+              title="Find Agent"
+              completed={false}
+              index={2}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].FindAgent
+              }
+              tid={tid}
+            />
           )}
-          {!props.task.HomeInspection.Locked && (
-            <AssistHomeInspection list={props.task.HomeInspection} tid={tid} />
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .FindHome.Locked && (
+            <AssistComponent
+              title="Find Home"
+              index={3}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].FindHome
+              }
+              tid={tid}
+              Transaction={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0]
+              }
+            />
           )}
-          {!props.task.HomeInsurance.Locked && (
-            <AssistHomeInsurance list={props.task.HomeInsurance} tid={tid} />
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .HomeInspection.Locked && (
+            <AssistComponent
+              title="Home Inspection"
+              completed={false}
+              index={4}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].HomeInspection
+              }
+              tid={tid}
+            />
           )}
-          {!props.task.Closing.Locked && (
-            <AssistClosing list={props.task.Closing} tid={tid} />
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .EscrowTitle.Locked && (
+            <AssistComponent
+              title="Escrow & Title"
+              completed={false}
+              index={5}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].EscrowTitle
+              }
+              tid={tid}
+            />
+          )}
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .HomeInsurance.Locked && (
+            <AssistComponent
+              title="Home Insurance"
+              completed={false}
+              index={6}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].HomeInsurance
+              }
+              tid={tid}
+            />
+          )}
+          {!props.transaction.filter((transaction) => transaction.id === tid)[0]
+            .Closing.Locked && (
+            <AssistComponent
+              title="Closing"
+              completed={false}
+              index={7}
+              stepObj={
+                props.transaction.filter(
+                  (transaction) => transaction.id === tid
+                )[0].Closing
+              }
+              tid={tid}
+            />
           )}
         </Grid>
       );
@@ -195,11 +280,6 @@ function TransactionAssist(props) {
               </Grid>
             ))}
         </Grid>
-      );
-    } else if (props.task.SET === false && props.utils.reload === false) {
-      // if the active transaction is not set and the user has been loaded
-      props.setTasks(
-        props.transaction.filter((transaction) => transaction.id === tid)[0]
       );
     }
   };

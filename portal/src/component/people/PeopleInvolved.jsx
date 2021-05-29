@@ -56,22 +56,15 @@ function PeopleInvolved(props) {
   let [mailSubject, changeMailSubject] = useState("");
   let [mailMessage, changeMailMessage] = useState("");
   let { tid } = useParams();
-  /**
-   * @todo `organization` is not dealt with
-   * when setting up account
-   */
 
-  useEffect(() => {
-    props.fetchPeople(tid);
-  }, [tid]);
+  if (props.utils.reload === false && props.people.peopleSet === false) {
+    props.fetchPeople(
+      props.transaction.filter((transaction) => transaction.id === tid)[0]
+    );
+  }
 
-  /**
-   * Returns JSX component to be rendered
-   * as primary content, like Cards and
-   * error screen.
-   */
   const primaryContent = () => {
-    if (props.utils.loading === true || filteredPeopleList === null) {
+    if (props.people.peopleSet === false) {
       // if the people aren't fetched
       return (
         <Grid container spacing={2}>
@@ -90,9 +83,8 @@ function PeopleInvolved(props) {
         </Grid>
       );
     } else if (
-      props.utils.reload === false &&
-      props.utils.loading === false &&
-      props.people.length === 0
+      props.people.peopleSet === true &&
+      props.people.peopleArray.length === 0
     ) {
       return (
         <>
@@ -121,13 +113,13 @@ function PeopleInvolved(props) {
             </Grid>
             <Grid item>
               <Box marginTop={-5} style={{ fontSize: 18 }}>
-                No One is a part of this Transaction yet
+                Wait for your Buyer to add more Professionals...
               </Box>
             </Grid>
           </Grid>
         </>
       );
-    } else if (filteredPeopleList.length === 0) {
+    } else if (filteredPeopleList && filteredPeopleList.length === 0) {
       // If no results found
       return (
         <Grid
@@ -161,20 +153,37 @@ function PeopleInvolved(props) {
         </Grid>
       );
     } else {
-      return (
-        <Grid container spacing={2} className="people-involved-card-group">
-          {filteredPeopleList.map((person, index) => (
-            <PeopleInvolvedCard
-              personDetails={person}
-              onSendMail={() => {
-                toggleSendMailModalVisibility(true);
-                setSendMailUserDetails(person);
-              }}
-              itemIndex={index}
-            />
-          ))}
-        </Grid>
-      );
+      if (filteredPeopleList === null) {
+        return (
+          <Grid container spacing={2} className="people-involved-card-group">
+            {props.people.peopleArray.map((person, index) => (
+              <PeopleInvolvedCard
+                personDetails={person}
+                onSendMail={() => {
+                  toggleSendMailModalVisibility(true);
+                  setSendMailUserDetails(person);
+                }}
+                itemIndex={index}
+              />
+            ))}
+          </Grid>
+        );
+      } else {
+        return (
+          <Grid container spacing={2} className="people-involved-card-group">
+            {filteredPeopleList.map((person, index) => (
+              <PeopleInvolvedCard
+                personDetails={person}
+                onSendMail={() => {
+                  toggleSendMailModalVisibility(true);
+                  setSendMailUserDetails(person);
+                }}
+                itemIndex={index}
+              />
+            ))}
+          </Grid>
+        );
+      }
     }
   };
   return (
@@ -209,10 +218,10 @@ function PeopleInvolved(props) {
                   style={{ borderRadius: 10 }}
                 />
               );
-            } else if (props.people.length !== 0) {
+            } else if (props.people.peopleArray.length !== 0) {
               return (
                 <SearchBar
-                  list={props.people}
+                  list={props.people.peopleArray}
                   filterByFields={["Name", "Role", "Company", "Phone", "Email"]}
                   onUpdate={(filtered) => setFilteredPeopleList(filtered)}
                   placeholder="Search by name, role, organization, phone or email"
@@ -240,10 +249,14 @@ function PeopleInvolved(props) {
           alignItems="center"
           style={{ marginTop: -10, marginBottom: 30 }}
         >
-          <Avatar
-            src={sendMailUserDetails.photoUrl}
-            style={{ height: 30, width: 30 }}
-          />
+          {sendMailUserDetails.PhotoUrl !== null ? (
+            <Avatar src={sendMailUserDetails.PhotoUrl} />
+          ) : (
+            <Avatar>
+              {sendMailUserDetails.FirstName[0] +
+                sendMailUserDetails.LastName[0]}
+            </Avatar>
+          )}
 
           <div style={{ marginLeft: 10 }}>
             Sending to&nbsp;
