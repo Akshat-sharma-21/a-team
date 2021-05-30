@@ -1,4 +1,7 @@
 import { myFirestore, myFirebase, myStorage } from "../FirebaseConfig";
+import randomId from "random-id";
+
+const LEN = 5; // Length of the random id
 
 export function getAllDocuments(transaction) {
   // Function to return all the documents that are filled
@@ -56,6 +59,7 @@ export function setMetadata(metadata, tid, step) {
       readWrite: ["agent"],
     },
     location: metadata.location,
+    id: randomId(LEN), // random id of the document
   };
   myFirestore
     .collection("Transactions")

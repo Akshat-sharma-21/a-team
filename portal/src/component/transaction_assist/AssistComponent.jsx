@@ -44,6 +44,7 @@ import {
 import DocIcon from "../../assets/doc_icon.png";
 import DocGrayscaleIcon from "../../assets/doc_icon_grayscale.png";
 import AssistAccordion from "./AssistAccordion";
+import randomId from "random-id";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -51,6 +52,8 @@ import { connect } from "react-redux";
 const mapActionToProps = (dispatch) => {
   return bindActionCreators({ addTask }, dispatch);
 };
+
+const LEN = 5; // Length of the random Id
 
 function AssistComponent(props) {
   let [entireTasksListVisible, setEntireTasksListVisible] = useState(false);
@@ -544,8 +547,9 @@ function AssistComponent(props) {
                 let newTaskObj = {
                   ...newTask,
                   date: new Date(newTask.date),
+                  to: "user", // Assigning the Task to user
+                  id: randomId(LEN), // Assigning the random Id
                 };
-
                 await props.addTask(
                   props.tid,
                   newTaskObj,
