@@ -1,5 +1,5 @@
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilActions";
-import { myFirebase, myFirestore } from "../FirebaseConfig";
+import { myFirebase, myFirestore, baseUrl } from "../FirebaseConfig";
 import axios from "axios";
 
 export const ADD_EMAIL = "ADD_EMAIL";
@@ -83,7 +83,7 @@ export function sendEmailOTP(email) {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
 
     axios // Getting the email hash for the next step and sending the verification email
-      .post("/send-email-otp", { email: email })
+      .post(`${baseUrl}/send-email-otp`, { email: email })
       .then((res) => {
         dispatch(setEmailHashAction({ hash: res.data.hash })); // dispatching an action to set the hash
         dispatch(setLoadingFalse());
@@ -99,7 +99,7 @@ export function verifyEmail(emailCode, hash) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post("/verify-email", {
+      .post(`${baseUrl}/verify-email`, {
         code: emailCode,
         hash: hash,
         id: localStorage.getItem("Id"),
@@ -126,7 +126,7 @@ export function sendPhoneOTP() {
   return (dispatch) => {
     dispatch(setLoadingTrue());
     axios
-      .post("/send-text-otp", {
+      .post(`${baseUrl}/send-text-otp`, {
         phone: localStorage.getItem("phone"),
       })
       .then((res) => {
@@ -145,7 +145,7 @@ export function verifyPhone(phoneCode, hash) {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
 
     axios
-      .post("/verify-phone", {
+      .post(`${baseUrl}/verify-phone`, {
         code: phoneCode,
         hash: hash,
         id: localStorage.getItem("Id"),

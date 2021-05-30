@@ -1,4 +1,4 @@
-import { myFirebase, myFirestore, myStorage } from "../FirebaseConfig";
+import { myFirebase, myFirestore, myStorage, baseUrl } from "../FirebaseConfig";
 import {
   setLoadingTrue,
   setLoadingFalse,
@@ -34,7 +34,7 @@ export function signup(user) {
           })
           .then(() => {
             axios
-              .post("/create-transaction", {
+              .post(`${baseUrl}/create-transaction`, {
                 buyer: user.name,
                 buyerId: res.user.uid,
               })
@@ -224,7 +224,7 @@ export function signupWithProvider(user) {
       .then(() => {
         localStorage.setItem("userPhone", user.phone); // Storing user's phone in loclaStorage
         axios
-          .post("/create-transaction", {
+          .post(`${baseUrl}/create-transaction`, {
             buyer: user.name,
             buyerId: localStorage.getItem("Id"),
           })
@@ -466,7 +466,7 @@ export function sendEmailOtp() {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
     axios
-      .post("/send-email-otp", { email: localStorage.userEmail })
+      .post(`${baseUrl}/send-email-otp`, { email: localStorage.userEmail })
       .then((res) => {
         localStorage.removeItem("userEmail"); // Removing user's email from the local storage
         localStorage.setItem("emailHash", res.data.hash); // Storing the hash returned from the email
@@ -483,7 +483,7 @@ export function verifyEmail(otp) {
     dispatch(setLoadingTrue());
     otp = otp.replaceAll(",", ""); // Extracting the otp from its string format
     axios
-      .post("/verify-email", {
+      .post(`${baseUrl}/verify-email`, {
         code: otp,
         hash: localStorage.emailHash,
         id: localStorage.Id,
@@ -509,7 +509,7 @@ export function sendPhoneOtp() {
   return (dispatch) => {
     dispatch(setLoadingTrue());
     axios
-      .post("/send-text-otp", {
+      .post(`${baseUrl}/send-text-otp`, {
         phone: localStorage.userPhone,
       })
       .then((res) => {
@@ -528,7 +528,7 @@ export function verifyPhone(otp) {
     dispatch(setLoadingTrue());
     otp = otp.replaceAll(",", "");
     axios
-      .post("/verify-phone", {
+      .post(`${baseUrl}/verify-phone`, {
         code: otp,
         hash: localStorage.phoneHash,
         id: localStorage.Id,

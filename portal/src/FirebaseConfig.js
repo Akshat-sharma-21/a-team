@@ -14,3 +14,5 @@ firebase.initializeApp(Config);
 export const myFirebase = firebase;
 export const myFirestore = firebase.firestore();
 export const myStorage = firebase.storage();
+export const baseUrl =
+  "https://us-central1-reallos-app-78a3a.cloudfunctions.net/api"; // exporting the base url for axios
