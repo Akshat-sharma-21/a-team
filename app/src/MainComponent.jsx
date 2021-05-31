@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Onboarding from "./components/Onboarding/Onboarding";
 import Roadmap from "./components/Roadmap/Roadmap";
@@ -35,35 +36,56 @@ const PrivateRoute = (
 );
 
 function Main() {
+  const [isNotSupported, setIsNotSupported] = useState(
+    window.innerWidth > 425 || window.innerWidth < 320
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  });
+
+  function updateViewport() {
+    setIsNotSupported(window.innerWidth > 426 || window.innerWidth < 320);
+  }
+
   return (
-    <Switch>
-      <PrivateRoute path="/onboarding" component={Onboarding} />
-      <PrivateRoute path="/dashboard" component={Roadmap} />
-      <PrivateRoute exact path="/documents" component={Document} />
-      <PrivateRoute path="/documents/:doc" component={DocumentViewer} />
-      <Route path="/SignupWithProvider" component={SignUpWithProvider} />
-      <Route path="/Signin" component={Signin} />
-      <Route path="/Signup" component={Signup} />
+    <>
+      {isNotSupported ? (
+        <Switch>
+          <Route path="*" component={DeviceNotSupported} />
+        </Switch>
+      ) : (
+        <Switch>
+          <PrivateRoute path="/onboarding" component={Onboarding} />
+          <PrivateRoute path="/dashboard" component={Roadmap} />
+          <PrivateRoute exact path="/documents" component={Document} />
+          <PrivateRoute path="/documents/:doc" component={DocumentViewer} />
+          <Route path="/SignupWithProvider" component={SignUpWithProvider} />
+          <Route path="/Signin" component={Signin} />
+          <Route path="/Signup" component={Signup} />
 
-      <PrivateRoute path="/lenders" component={Lenders} />
-      <PrivateRoute path="/insurance" component={HomeInsurance} />
-      <PrivateRoute path="/nodoc" component={NoDocument} />
-      <Route path="/verifyPhone" component={VerifyPhone} />
-      <Route path="/verifyEmail" component={VerifyMail} />
-      <Route path="/profile" component={ProfileEdit} />
-      <Route path="/not_supported" component={DeviceNotSupported} />
-      <Route path="/create_password" component={CreatePassword} />
-      <Route path="/reset_password" component={ResetPassword} />
-      <Route path="/check_mail" component={CheckYourMail} />
+          <PrivateRoute path="/lenders" component={Lenders} />
+          <PrivateRoute path="/insurance" component={HomeInsurance} />
+          <PrivateRoute path="/nodoc" component={NoDocument} />
+          <Route path="/verifyPhone" component={VerifyPhone} />
+          <Route path="/verifyEmail" component={VerifyMail} />
+          <Route path="/profile" component={ProfileEdit} />
+          <Route path="/not_supported" component={DeviceNotSupported} />
+          <Route path="/create_password" component={CreatePassword} />
+          <Route path="/reset_password" component={ResetPassword} />
+          <Route path="/check_mail" component={CheckYourMail} />
 
-      <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
-      <PrivateRoute path="/tasks" component={TasksDashboard} />
-      <PrivateRoute path="/questions/:step" component={Questionnaire} />
-      <Redirect exact from="/" to="/signin" />
-      <Route path="*" component={Signin} />
+          <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
+          <PrivateRoute path="/tasks" component={TasksDashboard} />
+          <PrivateRoute path="/questions/:step" component={Questionnaire} />
+          <Redirect exact from="/" to="/signin" />
+          <Route path="*" component={Signin} />
 
-      {/* Later change the last route to a error page */}
-    </Switch>
+          {/* Later change the last route to a error page */}
+        </Switch>
+      )}
+    </>
   );
 }
 export default Main;

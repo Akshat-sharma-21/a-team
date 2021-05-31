@@ -113,7 +113,6 @@ function ProfileEdit(props) {
     // To display the function
     return (
       <>
-        {" "}
         <Grid item xs={12} style={{ marginTop: 10 }}>
           <div className="profile-label">First Name</div>
           <TextField

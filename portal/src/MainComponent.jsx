@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Dashboard from "./component/dashboard/Dashboard";
 import TransactionAssist from "./component/transaction_assist/TransactionAssist";
 import PeopleInvolved from "./component/people/PeopleInvolved";
@@ -6,10 +7,9 @@ import DocumentViewer from "./component/documents/viewer/DocumentViewer";
 import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
 import Signin from "./component/account_setup/SignIn";
+import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { getAuth } from "./Authenticate";
-
-import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
 
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated
@@ -23,30 +23,52 @@ const PrivateRoute = (
 );
 
 function Main() {
+  const [isNotSupported, setIsNotSupported] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  });
+
+  function updateViewport() {
+    setIsNotSupported(window.innerWidth < 768);
+  }
+
   return (
-    <Switch>
-      <PrivateRoute exact path="/transactions" component={Dashboard} />
-      <PrivateRoute
-        path="/transactions/:tid/assist"
-        component={TransactionAssist}
-      />
-      <PrivateRoute
-        path="/transactions/:tid/people"
-        component={PeopleInvolved}
-      />
-      <PrivateRoute
-        path="/transactions/:tid/documents/:doc"
-        component={DocumentViewer}
-      />
-      <PrivateRoute path="/transactions/:tid/documents" component={Documents} />
-      <PrivateRoute path="/profile" component={ProfileSummary} />
-      <Route path="/account_setup" component={AccountSetup} />
-      <Route path="/home" component={Signin} />
-      <Route path="/not_supported" component={DeviceNotSupported} />
-      <Redirect exact from="/" to="home" />
-      <Route path="*" component={Signin} />
-      {/*Later change the last Route to the Error component */}
-    </Switch>
+    <>
+      {isNotSupported ? (
+        <Switch>
+          <Route path="*" component={DeviceNotSupported} />
+        </Switch>
+      ) : (
+        <Switch>
+          <PrivateRoute exact path="/transactions" component={Dashboard} />
+          <PrivateRoute
+            path="/transactions/:tid/assist"
+            component={TransactionAssist}
+          />
+          <PrivateRoute
+            path="/transactions/:tid/people"
+            component={PeopleInvolved}
+          />
+          <PrivateRoute
+            path="/transactions/:tid/documents/:doc"
+            component={DocumentViewer}
+          />
+          <PrivateRoute
+            path="/transactions/:tid/documents"
+            component={Documents}
+          />
+          <PrivateRoute path="/profile" component={ProfileSummary} />
+          <Route path="/account_setup" component={AccountSetup} />
+          <Route path="/home" component={Signin} />
+          <Route path="/not_supported" component={DeviceNotSupported} />
+          <Redirect exact from="/" to="home" />
+          <Route path="*" component={Signin} />
+          {/*Later change the last Route to the Error component */}
+        </Switch>
+      )}
+    </>
   );
 }
 

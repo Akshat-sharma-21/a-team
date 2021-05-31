@@ -195,6 +195,7 @@ function Onboarding() {
       return (
         <Screen4 page={page} increment={incrementPage} history={history} />
       );
+    default:
   }
 }
 
