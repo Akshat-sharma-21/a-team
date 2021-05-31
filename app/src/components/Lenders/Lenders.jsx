@@ -125,6 +125,7 @@ function Lenders(props) {
               lenderData={lenderData}
               tid={props.user.Transaction}
               selectLender={props.selectLender}
+              user={props.user}
             />
           ))}
         </Grid>

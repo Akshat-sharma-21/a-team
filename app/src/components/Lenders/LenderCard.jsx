@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Grid, Avatar } from "@material-ui/core";
 import { ModalSheet, ReallosButton } from "../utilities/core";
 import {
@@ -16,58 +15,7 @@ import {
 } from "@material-ui/icons";
 import { CheckCircleFillIcon } from "@primer/octicons-react";
 
-/**
- * Document Card Component
- * @augments {React.Component<Props>}
- */
 class LenderCard extends React.Component {
-  static propTypes = {
-    /**
-     * Object containing data regarding the document.
-     */
-    lenderData: PropTypes.shape({
-      /**
-       * Name of the agent
-       */
-      name: PropTypes.string,
-
-      /**
-       * Photo of the agent
-       */
-      photo: PropTypes.string,
-
-      /**
-       *  Name of bank of the agent.
-       */
-      email: PropTypes.string,
-
-      /**
-       *  Name of bank of the agent.
-       */
-      phone: PropTypes.string,
-
-      /**
-       *  Name of bank of the agent.
-       */
-      desc: PropTypes.string,
-
-      /**
-       * Interest rate of the agent.
-       */
-      interstRate: PropTypes.string,
-
-      /**
-       * Lifetime cost of the agent.
-       */
-      lifetimeCost: PropTypes.string,
-
-      /**
-       *  Name of the bank of the agent.
-       */
-      bankName: PropTypes.string,
-    }),
-  };
-
   constructor() {
     super();
 
@@ -76,10 +24,6 @@ class LenderCard extends React.Component {
     };
   }
 
-  /**
-   *
-   * @param {MouseEvent} event
-   */
   showContextMenu(event) {
     event.preventDefault();
 
@@ -126,9 +70,7 @@ class LenderCard extends React.Component {
   }
 
   render() {
-    const { lenderData } = this.props;
-    const { tid } = this.props;
-    const { selectLender } = this.props; // Function to select the lender
+    const { lenderData, tid, user, selectLender } = this.props;
     return (
       <>
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -237,7 +179,7 @@ class LenderCard extends React.Component {
                 style={{ color: "#474747" }}
                 onClick={() => {
                   this.setState({ isModalSheetVisible: false });
-                  selectLender(lenderData.id, tid);
+                  selectLender(tid, lenderData, user);
                 }}
               >
                 {" "}
