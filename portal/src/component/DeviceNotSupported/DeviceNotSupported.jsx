@@ -9,7 +9,7 @@ function DeviceNotSupported() {
         <img src={DeviceNotSupportedImg} alt="Phone img" className="dns-img" />
       </div>
       <div className="device-not-supported-heading">
-        Device not supported :(
+        Device Not Supported :(
       </div>
       <div className="device-not-supported-text">
         Reallos is not supported on this Device. Please open the app on your
