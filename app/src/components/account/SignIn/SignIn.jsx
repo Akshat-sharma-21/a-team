@@ -63,8 +63,8 @@ class SignIn extends React.Component {
           <div className="signin-top-heading">
             <h1>Real Estate, Real Easy!</h1>
           </div>
-          <div>
-            <img src={HomeImage} alt="" />
+          <div style={{ textAlign: "center" }}>
+            <img src={HomeImage} alt="" width="100%" height="auto" />
           </div>
         </div>
 
@@ -136,12 +136,13 @@ class SignIn extends React.Component {
           <Fab
             color="primary"
             size="large"
+            className="social-signin"
             aria-label="Login with Google"
             onClick={() => {
               if (!this.props.utils.loading) this.props.loginWithGoggle();
             }}
           >
-            <img src={GoogleLogo} />
+            <img src={GoogleLogo} alt="" />
           </Fab>
 
           <Fab
@@ -152,7 +153,7 @@ class SignIn extends React.Component {
               if (!this.props.utils.loading) this.props.loginWithFacebook();
             }}
           >
-            <img src={FacebookLogo} />
+            <img src={FacebookLogo} alt="" />
           </Fab>
         </div>
 

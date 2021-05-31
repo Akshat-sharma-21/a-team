@@ -12,23 +12,23 @@
 }
 
 .device-not-supported-heading {
-  margin-top: 20px;
+  margin-top: 1vw;
   font-family: "Gilroy";
   font-weight: bold;
   text-align: center;
-  font-size: 48px;
+  font-size: 2.8vw;
   color: #707070;
 }
 
 .device-not-supported-text {
-  margin: 10px 40px 10px 40px;
+  margin: 0.67vw 2.67vw 0.67vw 2.67;
   text-align: center;
   font-family: "Segoe UI", sans-serif;
-  font-size: 30px;
+  font-size: 2vw;
   color: #707070;
   width: 40%;
 }
 
 .dns-img {
-  width: 22%;
+  width: 25%;
 }
