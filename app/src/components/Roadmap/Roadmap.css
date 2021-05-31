@@ -154,3 +154,63 @@
 .profile-submit-btn {
   margin-top: 60px;
 }
+
+/*Roadmap section supported for screen sizes less than 700 */
+@media screen and (max-height: 700px) {
+  .roadmap-subheading {
+    text-align: left !important;
+    font-family: "Gilroy" !important;
+    font-weight: bold !important;
+    font-size: 19px !important;
+    color: var(--color-dark) !important;
+    padding-left: 10px;
+  }
+  .roadmap-desc {
+    font-family: "Roboto Slab";
+    font-size: 14px;
+    color: var(--color-dark) !important;
+    margin-left: 15px !important;
+    margin-bottom: 13px !important;
+    padding-left: 10px;
+  }
+  .roadmap-date {
+    font-family: "Gilroy" !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
+    color: var(--color-white) !important;
+    background-color: #0000003d !important;
+    margin-left: 13px !important;
+    margin-right: 13px !important;
+    padding: 7px 15px !important;
+  }
+  .roadmap-next-btn {
+    background-color: #2855ff !important;
+    height: 35px !important;
+    width: 35px !important;
+    border-radius: 100%;
+    color: #ffffff !important;
+  }
+  .roadmap-avatar {
+    height: 70px !important;
+    width: 70px !important;
+    margin-left: 15px;
+  }
+  .roadmap-heading {
+    text-align: left !important;
+    font-family: "Gilroy" !important;
+    font-weight: bold !important;
+    font-size: 33px !important;
+    color: var(--color-dark-grey) !important;
+  }
+  .roadmap-fab-btn {
+    width: 28px !important;
+    height: 28px !important;
+    margin-top: -28px !important;
+    margin-left: 60px !important;
+    position: absolute !important;
+  }
+  .roadmap-stepper {
+    padding: 3px 0 0px 8px !important;
+  }
+}

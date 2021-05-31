@@ -96,17 +96,31 @@ class Scaffold extends React.Component {
       >
         {bottomNav && <BottomNav Active={this.props.bottomNavActive} />}
 
-        <Container
-          className={className}
-          style={{
-            paddingLeft: 30,
-            paddingRight: 30,
-            paddingTop: 20,
-            paddingBottom: 20,
-          }}
-        >
-          {children}
-        </Container>
+        {window.innerHeight < 800 ? (
+          <Container
+            className={className}
+            style={{
+              paddingLeft: 30,
+              paddingRight: 30,
+              paddingTop: 5,
+              paddingBottom: 5,
+            }}
+          >
+            {children}
+          </Container>
+        ) : (
+          <Container
+            className={className}
+            style={{
+              paddingLeft: 30,
+              paddingRight: 30,
+              paddingTop: 20,
+              paddingBottom: 20,
+            }}
+          >
+            {children}
+          </Container>
+        )}
       </div>
     );
 

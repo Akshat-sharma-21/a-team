@@ -10,7 +10,11 @@ import "./BottomNav.css";
  */
 class BottomNav extends React.Component {
   render() {
-    const iconSize = 22;
+    let iconSize = 22;
+    if (window.innerHeight < 700) {
+      // If it is a small screen
+      iconSize = 18;
+    }
     const navItems = [
       {
         icon: <FileIcon size={iconSize} />,
