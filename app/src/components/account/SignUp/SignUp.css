@@ -44,7 +44,7 @@
   display: flex !important;
   flex-direction: column;
   flex: 1 1 auto;
-  padding: 20px 30px;
+  padding: 20px 25px;
 }
 
 .signup-page-title > h1 {
@@ -116,4 +116,36 @@
   flex-direction: column;
 
   margin-top: 35%;
+}
+
+.check-mail {
+  display: flex;
+  padding: 100px 30px 30px 30px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.check-mail-heading {
+  margin-top: 40px;
+  font-family: "Roboto";
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.check-mail-text {
+  margin-top: 15px;
+  font-family: "Gilroy";
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: #767676;
+}
+
+.check-mail-footer {
+  padding: 0 10px;
+  margin-top: 175px;
+  font-family: "Roboto Slab";
+  text-align: center;
+  font-size: 16px;
 }

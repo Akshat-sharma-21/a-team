@@ -9,6 +9,8 @@ import Signin from "./component/account_setup/SignIn";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { getAuth } from "./Authenticate";
 
+import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
+
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated
 ) => (
@@ -32,11 +34,15 @@ function Main() {
         path="/transactions/:tid/people"
         component={PeopleInvolved}
       />
-      <PrivateRoute path="/transactions/:tid/documents/:doc" component={DocumentViewer} />
+      <PrivateRoute
+        path="/transactions/:tid/documents/:doc"
+        component={DocumentViewer}
+      />
       <PrivateRoute path="/transactions/:tid/documents" component={Documents} />
       <PrivateRoute path="/profile" component={ProfileSummary} />
       <Route path="/account_setup" component={AccountSetup} />
       <Route path="/home" component={Signin} />
+      <Route path="/not_supported" component={DeviceNotSupported} />
       <Redirect exact from="/" to="home" />
       <Route path="*" component={Signin} />
       {/*Later change the last Route to the Error component */}
