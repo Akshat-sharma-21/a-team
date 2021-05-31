@@ -18,6 +18,8 @@ import VerifyPhone from "./components/account/SignUp/VerifyPhone";
 import VerifyMail from "./components/account/SignUp/VerifyMail";
 import ProfileEdit from "./components/Roadmap/ProfileEdit";
 
+import DeviceNotSupported from "./components/DeviceNotSupported/DeviceNotSupported";
+
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated
 ) => (
@@ -46,6 +48,7 @@ function Main() {
       <Route path="/verifyPhone" component={VerifyPhone} />
       <Route path="/verifyEmail" component={VerifyMail} />
       <Route path="/profile" component={ProfileEdit} />
+      <Route path="/not_supported" component={DeviceNotSupported} />
 
       <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
       <PrivateRoute path="/tasks" component={TasksDashboard} />
