@@ -155,6 +155,59 @@
   margin-top: 60px;
 }
 
+.profile-edit-avatar {
+  height: 110px !important;
+  width: 110px !important;
+}
+/*Roadmap section supported for screen sizes less than 750 */
+@media screen and (max-height: 750px) {
+  .profile-edit {
+    background-image: url("../../assets/ProfileEditImg.svg");
+    background-position: left;
+    background-position-y: -25px;
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    height: 100vh; /* Setting the height to be 100% */
+  }
+
+  .profile-submit-btn {
+    margin-top: 35px;
+    font-size: 17px;
+  }
+
+  .profile-input {
+    color: #999999;
+    height: 20px !important;
+  }
+
+  .profile-label {
+    font-family: "Segoe UI", sans-serif;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #545252;
+  }
+
+  .profile-edit-avatar {
+    height: 95px !important;
+    width: 95px !important;
+  }
+
+  .profile-img-div {
+    margin-top: -10px;
+    height: 160px;
+    display: flex;
+    padding-right: 60px;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../assets/ProfileImageBg.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
 /*Roadmap section supported for screen sizes less than 700 */
 @media screen and (max-height: 700px) {
   .roadmap-subheading {
@@ -212,5 +265,45 @@
   }
   .roadmap-stepper {
     padding: 3px 0 0px 8px !important;
+  }
+
+  .profile-edit-avatar {
+    height: 90px !important;
+    width: 90px !important;
+  }
+
+  .profile-img-div {
+    height: 150px;
+    display: flex;
+    padding-right: 60px;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../../assets/ProfileImageBg.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .profile-label {
+    font-family: "Segoe UI", sans-serif;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #545252;
+  }
+
+  .profile-edit {
+    background-image: url("../../assets/ProfileEditImg.svg");
+    background-position: left;
+    background-position-y: -50px;
+    background-repeat: no-repeat;
+    background-size: 100vw;
+    height: 100vh; /* Setting the height to be 100% */
+  }
+
+  .profile-submit-btn {
+    margin-top: 25px;
+    font-size: 15px;
   }
 }
