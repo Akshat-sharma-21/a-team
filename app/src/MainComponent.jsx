@@ -38,7 +38,7 @@ const PrivateRoute = (
 
 function Main() {
   let [screen, setScreen] = useState(
-    window.innerWidth < 500 && window.innerWidth > 300
+    window.innerWidth < 425 && window.innerWidth > 320
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function Main() {
   });
 
   const updateMedia = () => {
-    setScreen(window.innerWidth < 500 && window.innerWidth > 300);
+    setScreen(window.innerWidth < 425 && window.innerWidth > 320);
   };
 
   if (screen)

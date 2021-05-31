@@ -25,7 +25,7 @@ const PrivateRoute = (
 );
 
 function Main() {
-  let [screen, setScreen] = useState(window.innerWidth > 700);
+  let [screen, setScreen] = useState(window.innerWidth > 768);
 
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
@@ -33,7 +33,7 @@ function Main() {
   });
 
   const updateMedia = () => {
-    setScreen(window.innerWidth > 700);
+    setScreen(window.innerWidth > 768);
   };
 
   if (screen) {
