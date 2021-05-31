@@ -12,18 +12,18 @@
 }
 
 .device-not-supported-heading {
-  margin-top: 30px;
+  margin-top: 8vw;
   font-family: "Gilroy";
   font-weight: bold;
   text-align: center;
-  font-size: 29px;
+  font-size: 7.73vw;
   color: #707070;
 }
 
 .device-not-supported-text {
-  margin: 10px 40px 120px 40px;
+  margin: 2.67vw 10.67vw 32vw 10.67vw;
   text-align: center;
   font-family: "Segoe UI", sans-serif;
-  font-size: 20px;
+  font-size: 5.33vw;
   color: #707070;
 }

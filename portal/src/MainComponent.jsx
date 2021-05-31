@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import Dashboard from "./component/dashboard/Dashboard";
 import TransactionAssist from "./component/transaction_assist/TransactionAssist";
 import PeopleInvolved from "./component/people/PeopleInvolved";
@@ -23,31 +25,48 @@ const PrivateRoute = (
 );
 
 function Main() {
-  return (
-    <Switch>
-      <PrivateRoute exact path="/transactions" component={Dashboard} />
-      <PrivateRoute
-        path="/transactions/:tid/assist"
-        component={TransactionAssist}
-      />
-      <PrivateRoute
-        path="/transactions/:tid/people"
-        component={PeopleInvolved}
-      />
-      <PrivateRoute
-        path="/transactions/:tid/documents/:doc"
-        component={DocumentViewer}
-      />
-      <PrivateRoute path="/transactions/:tid/documents" component={Documents} />
-      <PrivateRoute path="/profile" component={ProfileSummary} />
-      <Route path="/account_setup" component={AccountSetup} />
-      <Route path="/home" component={Signin} />
-      <Route path="/not_supported" component={DeviceNotSupported} />
-      <Redirect exact from="/" to="home" />
-      <Route path="*" component={Signin} />
-      {/*Later change the last Route to the Error component */}
-    </Switch>
-  );
+  let [screen, setScreen] = useState(window.innerWidth > 700);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
+
+  const updateMedia = () => {
+    setScreen(window.innerWidth > 700);
+  };
+
+  if (screen) {
+    return (
+      <Switch>
+        <PrivateRoute exact path="/transactions" component={Dashboard} />
+        <PrivateRoute
+          path="/transactions/:tid/assist"
+          component={TransactionAssist}
+        />
+        <PrivateRoute
+          path="/transactions/:tid/people"
+          component={PeopleInvolved}
+        />
+        <PrivateRoute
+          path="/transactions/:tid/documents/:doc"
+          component={DocumentViewer}
+        />
+        <PrivateRoute
+          path="/transactions/:tid/documents"
+          component={Documents}
+        />
+        <PrivateRoute path="/profile" component={ProfileSummary} />
+        <Route path="/account_setup" component={AccountSetup} />
+        <Route path="/home" component={Signin} />
+        <Redirect exact from="/" to="home" />
+        <Route path="*" component={Signin} />
+        {/*Later change the last Route to the Error component */}
+      </Switch>
+    );
+  } else {
+    return <Route path="*" component={DeviceNotSupported} />;
+  }
 }
 
 export default Main;
