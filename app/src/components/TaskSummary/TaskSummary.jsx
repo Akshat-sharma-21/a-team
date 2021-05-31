@@ -142,6 +142,12 @@ function TaskSummary(props) {
     changeType("");
   }
 
+  function getEffectiveAnswer(question) {
+    // function to get the effective answer
+    let str = JSON.stringify(question).split(":")[1];
+    return str[1] + str[2] + str[3];
+  }
+
   function displayModal() {
     // Function to open the modal sheet
     if (type === "task") {
@@ -216,6 +222,58 @@ function TaskSummary(props) {
     let profession = "";
     let linkToProfession = "";
     // Function to display the Professional
+    if (
+      activeStepName === "Pre-approval" &&
+      getEffectiveAnswer(props.roadmap.PreApproval.Questions[0]) === "YES" // Logic to display External Lender
+    ) {
+      return (
+        <>
+          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+            <div className="taskSummary-subheading">Lender</div>
+          </Grid>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <List className="taskSummary-list">
+              <ListItem className="taskSummary-lender-list">
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item xs={1} style={{ textAlign: "center" }}>
+                    <Avatar
+                      variant="circle"
+                      style={{
+                        marginBottom: "10px",
+                      }}
+                    >
+                      ?
+                    </Avatar>
+                  </Grid>
+                  <Grid item xs={1}></Grid>
+                  <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
+                    <Grid item xs={12} style={{ textAlign: "left" }}>
+                      <div className="lender-list-title">External Lender</div>
+                    </Grid>
+                    <Grid item xs={12} style={{ textAlign: "left" }}>
+                      <div className="doc-list-subtext2">
+                        You have an external Lender helping you with your
+                        Process
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={1}></Grid>
+
+                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
+
+                  <Grid item xs={5}></Grid>
+                </Grid>
+              </ListItem>
+            </List>
+          </Grid>
+        </>
+      );
+    }
     if (activeStep.Professional === null) {
       // If the professional is not present
       if (activeStepName === "Pre-approval") {
