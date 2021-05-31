@@ -54,27 +54,27 @@ function Main() {
     // If the screen is in the desired range
     return (
       <Switch>
-        <PrivateRoute path="/onboarding" component={Onboarding} />
-        <PrivateRoute path="/dashboard" component={Roadmap} />
-        <PrivateRoute exact path="/documents" component={Document} />
-        <PrivateRoute path="/documents/:doc" component={DocumentViewer} />
+        <Route path="*" component={Signin} />
+        <Redirect exact from="/" to="/signin" />
+        <Route path="/Signup" component={Signup} />
         <Route path="/SignupWithProvider" component={SignUpWithProvider} />
         <Route path="/Signin" component={Signin} />
-        <Route path="/Signup" component={Signup} />
-        <PrivateRoute path="/lenders" component={Lenders} />
-        <PrivateRoute path="/insurance" component={HomeInsurance} />
-        <PrivateRoute path="/nodoc" component={NoDocument} />
-        <Route path="/verifyPhone" component={VerifyPhone} />
         <Route path="/verifyEmail" component={VerifyMail} />
-        <Route path="/profile" component={ProfileEdit} />
+        <Route path="/verifyPhone" component={VerifyPhone} />
         <Route path="/create_password" component={CreatePassword} />
         <Route path="/reset_password" component={ResetPassword} />
         <Route path="/check_mail" component={CheckYourMail} />
-        <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
-        <PrivateRoute path="/tasks" component={TasksDashboard} />
+        <Route path="/profile" component={ProfileEdit} />
+        <PrivateRoute path="/dashboard" component={Roadmap} />
+        <PrivateRoute path="/onboarding" component={Onboarding} />
         <PrivateRoute path="/questions/:step" component={Questionnaire} />
-        <Redirect exact from="/" to="/signin" />
-        <Route path="*" component={Signin} />
+        <PrivateRoute exact path="/documents" component={Document} />
+        <PrivateRoute path="/nodoc" component={NoDocument} />
+        <PrivateRoute path="/documents/:doc" component={DocumentViewer} />
+        <PrivateRoute path="/tasks" component={TasksDashboard} />
+        <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
+        <PrivateRoute path="/lenders" component={Lenders} />
+        <PrivateRoute path="/insurance" component={HomeInsurance} />
         {/* Later change the last route to a error page */}
       </Switch>
     );

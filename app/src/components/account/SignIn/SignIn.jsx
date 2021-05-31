@@ -142,7 +142,7 @@ class SignIn extends React.Component {
               if (!this.props.utils.loading) this.props.loginWithGoggle();
             }}
           >
-            <img src={GoogleLogo} alt="" />
+            <img src={GoogleLogo} alt="" style={{ borderRadius: "50%" }} />
           </Fab>
 
           <Fab
@@ -153,7 +153,7 @@ class SignIn extends React.Component {
               if (!this.props.utils.loading) this.props.loginWithFacebook();
             }}
           >
-            <img src={FacebookLogo} alt="" />
+            <img src={FacebookLogo} alt="" style={{ borderRadius: "50%" }} />
           </Fab>
         </div>
 
@@ -169,6 +169,8 @@ class SignIn extends React.Component {
 
         <div className="signin-no-account">
           <h3>Don't have an account?</h3>
+        </div>
+        <div style={{ textAlign: "center" }}>
           <ReallosButton
             primary
             dense

@@ -57,14 +57,13 @@
   align-items: center;
 }
 
-@media screen and (max-width: 355px) {
+@media screen and (max-height: 740px) {
   .signin-top-subheading {
     font-size: 25px;
-    color: rgba(255, 255, 255, 0.5);
+    margin: 3% 0 !important;
   }
 
   .signin-top-heading h1 {
-    margin: 0;
     font-size: 28px;
   }
 
@@ -73,22 +72,23 @@
   }
 
   .signin-form {
-    margin-top: 5px;
+    margin-top: 3%;
   }
 
   .signin-form > * {
-    margin-top: 15px !important;
+    margin-top: 7% !important;
   }
 
   .social-signin-group {
-    margin: 30px auto 30px auto;
-    display: flex;
-    width: 80%;
-    justify-content: space-around;
+    margin: 5% auto 5% auto;
+    padding: 6%;
   }
 
-  .social-signin .MuiFab-root {
-    height: 50px !important;
-    width: 59px !important;
+  .social-signin-group > button {
+    padding: 3%;
+  }
+
+  .signin-no-account {
+    margin: 2%;
   }
 }

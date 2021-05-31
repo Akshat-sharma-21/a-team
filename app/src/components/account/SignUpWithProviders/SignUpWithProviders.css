@@ -6,8 +6,6 @@
 }
 
 .signup-reallos-decoration {
-  --reallos-decoration-border-radius: 20px;
-
   z-index: 0;
   height: 320px;
   position: relative;
@@ -17,8 +15,8 @@
   background: url(../../../assets/reallos_home_bg.png);
   background-position: 30% center;
   background-size: cover;
-  border-bottom-left-radius: var(--reallos-decoration-border-radius);
-  border-bottom-right-radius: var(--reallos-decoration-border-radius);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .signup-reallos-decoration::before {
