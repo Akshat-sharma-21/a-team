@@ -12,6 +12,7 @@
     "firebase": "^8.2.9",
     "jwt-decode": "^3.1.2",
     "moment": "2.29.1",
+    "random-id": "^1.0.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-dropzone": "11.2.4",
@@ -48,6 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://us-central1-reallos-app-78a3a.cloudfunctions.net/api"
+  }
 }

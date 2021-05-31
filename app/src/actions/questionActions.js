@@ -1,4 +1,5 @@
 import axios from "axios";
+import { baseUrl } from "../FirebaseConfig";
 import { setLoadingTrue, setLoadingFalse, setErrors } from "./utilsActions";
 
 export const SET_QUESTION = "SET_QUESTION";
@@ -9,7 +10,7 @@ export function fetchQuestions(tid, step, id, answer) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatch an action to set loading to true
     axios
-      .post(`/${step}`, {
+      .post(`${baseUrl}/${step}`, {
         tid: tid,
         id: id,
         answer: answer,
@@ -41,7 +42,7 @@ export function resetQuestion(tid, step, id) {
       dispatch(clearQuestionsAction());
     } else {
       axios
-        .post("/reset-step", {
+        .post(`${baseUrl}/reset-step`, {
           tid: tid,
           step: step,
           id: id,

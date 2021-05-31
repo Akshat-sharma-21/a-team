@@ -9,8 +9,11 @@ var Config = {
   appId: "1:495147096103:web:b0a2798e97f5cc40365602",
   measurementId: "G-S2FRTFQLJM",
 };
+
 // Initialize Firebase
 firebase.initializeApp(Config);
 export const myFirebase = firebase;
 export const myFirestore = firebase.firestore();
 export const myStorage = firebase.storage();
+export const baseUrl =
+  "https://us-central1-reallos-app-78a3a.cloudfunctions.net/api"; // Exporting the base url for axios

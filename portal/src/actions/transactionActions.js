@@ -1,6 +1,6 @@
 import { setLoadingFalse, setLoadingTrue, setErrors } from "./utilActions";
 import axios from "axios";
-import { myFirestore } from "../FirebaseConfig";
+import { myFirestore, baseUrl } from "../FirebaseConfig";
 export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const REMOVE_ALL_TRANSACTIONS = "REMOVE_ALL_TRANSACTIONS";
 export const ADD_PREAPPROVAL_TASK = "ADD_PREAPPROVAL_TASK";
@@ -31,7 +31,7 @@ export function sendInvitation(email, phone, user) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post("/send-invitation", {
+      .post(`${baseUrl}/send-invitation`, {
         email: email,
         phone: phone,
         user: {

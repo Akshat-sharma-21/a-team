@@ -1,4 +1,5 @@
 import axios from "axios";
+import { baseUrl } from "../FirebaseConfig";
 import { setErrors } from "./utilsActions";
 
 export const SET_TRANSACTION = "SET_TRANSACTION";
@@ -13,7 +14,7 @@ export function setupTasks(tid, step) {
     else if (step === "HomeInsurance") url = "/home-insurance";
     else if (step === "Closing") url = "/closing";
     axios
-      .post(url, {
+      .post(`${baseUrl}/${url}`, {
         tid: tid,
       })
       .then((res) => {

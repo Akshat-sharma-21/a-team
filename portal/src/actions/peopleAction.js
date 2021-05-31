@@ -1,4 +1,4 @@
-import { myFirestore } from "../FirebaseConfig";
+import { myFirestore, baseUrl } from "../FirebaseConfig";
 import { setErrors, setLoadingTrue, setLoadingFalse } from "./utilActions";
 import axios from "axios";
 
@@ -88,7 +88,7 @@ export function sendMail(email, from, transaction, emailContent) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post("/send-email", {
+      .post(`${baseUrl}/send-email`, {
         email: email,
         from: from,
         transaction: transaction,
