@@ -144,7 +144,11 @@ function Lenders(props) {
                 style={{ margin: "20px 0" }}
                 onClick={() => (window.location.href = "/dashboard")}
               >
-                <ArrowLeftIcon size={32} className="lender-back-icon" />
+                {window.innerHeight < 750 ? (
+                  <ArrowLeftIcon size={29} className="lender-back-icon" />
+                ) : (
+                  <ArrowLeftIcon size={32} className="lender-back-icon" />
+                )}
               </IconButton>
             </Grid>
 

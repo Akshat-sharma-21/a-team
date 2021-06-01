@@ -147,12 +147,16 @@ function HomeInsurance(props) {
                 style={{ margin: "20px 0" }}
                 onClick={() => (window.location.href = "/dashboard")}
               >
-                <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+                {window.innerHeight < 750 ? (
+                  <ArrowLeftIcon size={29} className="taskSummary-back-icon" />
+                ) : (
+                  <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+                )}
               </IconButton>
             </Grid>
 
             <Grid item xs={12} style={{ textAlign: "left" }}>
-              <div className="providers-heading">Home-Insurance</div>
+              <div className="providers-heading">Home Insurance</div>
             </Grid>
 
             <SearchBar

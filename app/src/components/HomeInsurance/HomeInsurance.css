@@ -126,3 +126,31 @@
   align-items: center;
   justify-content: start;
 }
+
+@media screen and (max-height: 750px) {
+  .providers-heading {
+    font-size: 33px !important;
+    font-weight: bold !important;
+    color: var(--color-dark-grey) !important;
+    margin-bottom: 25px;
+  }
+
+  .provider-card-root {
+    position: relative;
+    margin-top: 10px;
+    border-radius: 10px !important;
+    border: 2px solid #dddddd;
+    padding: 20px 5px;
+    height: 82%;
+    width: auto;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .provider-card-body-btn {
+    margin-top: 20px !important;
+    width: 90% !important;
+    padding: 10px 30px !important;
+    font-size: 15px;
+  }
+}
