@@ -2,7 +2,7 @@
   text-align: left !important;
   font-family: "Gilroy Extrabold" !important;
   font-weight: bold !important;
-  font-size: 32px !important;
+  font-size: 2rem !important;
   color: var(--color-white) !important;
 }
 
@@ -14,22 +14,24 @@
   text-align: center !important;
   font-family: "Gilroy Extrabold" !important;
   font-weight: bold !important;
-  font-size: 30px !important;
+  font-size: 1.875rem !important;
   color: var(--color-white) !important;
 }
 
 .onboarding-text {
   text-align: center !important;
   font-family: "Open Sans", sans-serif !important;
-  font-size: 20px !important;
+  font-size: 1.25rem !important;
   color: var(--color-white) !important;
 }
 
 .onboarding-next-btn {
   background-color: rgba(255, 255, 255, 0.4) !important;
   position: absolute !important;
-  bottom: 35px !important;
-  right: 35px !important;
+  /* bottom: 35px !important;
+  right: 35px !important; */
+  bottom: 5% !important;
+  right: 7.5% !important;
 }
 
 .onboarding-next-icon {
@@ -40,39 +42,39 @@
   text-align: center !important;
   font-family: "Gilroy Extrabold" !important;
   font-weight: bold !important;
-  font-size: 30px !important;
+  font-size: 1.875rem !important;
   color: var(--color-dark) !important;
 }
 
 .onboarding-text-dark {
   text-align: center !important;
   font-family: "Open Sans", sans-serif !important;
-  font-size: 20px !important;
+  font-size: 1.25rem !important;
   color: var(--color-dark) !important;
 }
 
 .onboarding-next-btn-blue {
   background-color: var(--color-primary) !important;
   position: absolute !important;
-  bottom: 35px !important;
-  right: 35px !important;
+  bottom: 5% !important;
+  right: 7.5% !important;
 }
 
 .onboarding-lets-go-btn {
   position: absolute !important;
-  bottom: 35px !important;
+  bottom: 5% !important;
   width: 83% !important;
-  margin: 0 20px 0 0 !important;
+  margin: 0 10% 0 0 !important;
 }
 
 .stepper {
   position: absolute !important;
-  bottom: 140px !important;
+  bottom: 15% !important;
   left: 40% !important;
 }
 
 .MuiMobileStepper-dotActive {
-  padding: 2px;
+  padding: 2%;
 }
 
 .MuiMobileStepper-dot {
