@@ -333,6 +333,7 @@ function Documents(props) {
           setFileExitsModal(true);
           setExistingFile(fileName);
         }}
+        Role={props.user.Role}
       />
 
       <Snackbar

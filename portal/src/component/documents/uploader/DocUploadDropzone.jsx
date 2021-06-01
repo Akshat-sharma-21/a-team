@@ -3,13 +3,16 @@ import { useDropzone } from "react-dropzone";
 import AddFiles from "../../../assets/add_files.svg";
 import PdfIcon from "../../../assets/pdf_icon_duotone.svg";
 import { ModalActionFooter, ReallosButton } from "../../utilities/core";
-import { TagIcon, ClockIcon } from "@primer/octicons-react";
+import { TagIcon, ClockIcon, InfoIcon } from "@primer/octicons-react";
 import {
   TextField,
   Typography,
   Grid,
   Select,
   MenuItem,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@material-ui/core";
 import { bytesToSize } from "../../../utils";
 
@@ -39,22 +42,7 @@ const activeStyle = {
   paddingTop: "25px",
 };
 
-/**
- *
- * @param {object} props
- * Props passed to this component.
- *
- * @param {(acceptedFiles: File[]) => void} props.uploadDocumentCallback
- * Callback to upload the selected document.
- * This callback is called when "Upload" button is pressed.
- *
- * @param {Function} props.dismissCallback
- * Callback to dismiss upload modal
- *
- * @returns {JSX.Element}
- * `DocUploadDropzone` JSX Element.
- */
-function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
+function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
   let { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
       multiple: false,
@@ -63,6 +51,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
 
   let [title, setTitle] = useState(null);
   let [step, selectStep] = useState(null);
+  let [isPreApprovalDoc, selectPreApprovalDoc] = useState("No");
   let [nextStep, selectNextStep] = useState(false);
 
   const style = useMemo(
@@ -72,7 +61,6 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
     }),
     [isDragActive]
   );
-
   if (nextStep) {
     return (
       <>
@@ -135,6 +123,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
               selectNextStep(false);
               selectStep("");
               setTitle("");
+              selectPreApprovalDoc("No");
             }}
           >
             Cancel
@@ -142,7 +131,14 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
           <ReallosButton
             primary
             disabled={acceptedFiles.length === 0 || acceptedFiles[0].size === 0}
-            onClick={() => uploadDocumentCallback(acceptedFiles, title, step)}
+            onClick={() =>
+              uploadDocumentCallback(
+                acceptedFiles,
+                title,
+                step,
+                isPreApprovalDoc
+              )
+            }
           >
             Upload
           </ReallosButton>
@@ -158,7 +154,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
               Enter the title for the document
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item style={{ marginLeft: -40 }}>
             <Grid
               container
               direction="row"
@@ -195,13 +191,14 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
             justify="center"
             style={{ marginTop: 10 }}
           >
-            <Grid item>
+            <Grid item style={{ marginLeft: -40 }}>
               <ClockIcon size={30} />
             </Grid>
             <Select
               variant="outlined"
               fullWidth="true"
               value={step}
+              disabled={isPreApprovalDoc.toUpperCase() === "YES"}
               style={{ width: 500, marginLeft: 20 }}
               onChange={(e) => {
                 selectStep(e.target.value);
@@ -216,6 +213,64 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
               <MenuItem value="Closing">Closing</MenuItem>
             </Select>
           </Grid>
+          {Role &&
+            Role.toUpperCase() === "LENDER" && ( // If the user is a lender
+              <>
+                <Grid item style={{ marginTop: 18, marginLeft: 35 }}>
+                  <Typography className="document-input-helper-text">
+                    Is this the Pre-Approval Document?
+                  </Typography>
+                </Grid>
+                <RadioGroup
+                  style={{ marginLeft: 40, marginTop: 10 }}
+                  value={isPreApprovalDoc}
+                  onChange={(e) => {
+                    selectPreApprovalDoc(e.target.value);
+                    selectStep("PreApproval"); // Setting the step to automatically be Pre-Approval
+                  }}
+                >
+                  <FormControlLabel
+                    control={<Radio style={{ color: "#0432fa" }} />}
+                    label="Yes"
+                    value={"Yes"}
+                  />
+                  <FormControlLabel
+                    value={"No"}
+                    control={<Radio style={{ color: "#0432fa" }} />}
+                    label="No"
+                  />
+                </RadioGroup>
+                {isPreApprovalDoc.toUpperCase() === "YES" ? (
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item style={{ marginLeft: 40, marginTop: 10 }}>
+                      <InfoIcon
+                        className="document-PreApproval-info-icon"
+                        size={20}
+                      />
+                    </Grid>
+                    <Grid item style={{ marginTop: 10 }}>
+                      <Typography className="document-PreApproval-info-text">
+                        This will trigger automated actions for the Buyer
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item style={{ marginLeft: 40, marginTop: 10 }}>
+                      <InfoIcon
+                        className="document-PreApproval-info-icon"
+                        size={20}
+                      />
+                    </Grid>
+                    <Grid item style={{ marginTop: 10 }}>
+                      <Typography className="document-PreApproval-info-text">
+                        Please Select Yes if uploading the Pre-Approval Letter
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                )}
+              </>
+            )}
         </Grid>
         <ModalActionFooter marginTop={28}>
           <ReallosButton
@@ -223,6 +278,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback }) {
               dismissCallback();
               setTitle("");
               selectStep("");
+              selectPreApprovalDoc("No");
             }}
           >
             Cancel

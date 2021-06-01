@@ -116,7 +116,8 @@ function DocUploadStatus({
               location: `${tid}/documents/${uploadStatus.title}`,
             },
             tid,
-            uploadStatus.step
+            uploadStatus.step,
+            uploadStatus.isPreApprovalDoc
           );
         } // isSavingDocument can be used in the future if we want to update the time of last changes made to the file
       }

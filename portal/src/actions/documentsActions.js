@@ -1,5 +1,6 @@
-import { myFirestore, myFirebase, myStorage } from "../FirebaseConfig";
+import { myFirestore, myFirebase, myStorage, baseUrl } from "../FirebaseConfig";
 import randomId from "random-id";
+import axios from "axios";
 
 const LEN = 5; // Length of the random id
 
@@ -45,7 +46,7 @@ export function getAllDocuments(transaction) {
   return Documents;
 }
 
-export function setMetadata(metadata, tid, step) {
+export function setMetadata(metadata, tid, step, isPreApprovalDoc) {
   let saveMetadata = {
     date: new Date(myFirebase.default.firestore.Timestamp.now().toMillis()),
     description: metadata.description ? metadata.description : null,
@@ -212,6 +213,14 @@ export function setMetadata(metadata, tid, step) {
     .catch((err) => {
       console.error(err); // Logging the error
     });
+
+  if (isPreApprovalDoc.toUpperCase() === "YES") {
+    // If the Pre-approval letter is being uploaded then trigger the unlock find-agent action
+    axios.post(
+      `http://localhost:5000/reallos-app-78a3a/us-central1/api/unlock-find-agent`,
+      { tid: tid }
+    );
+  }
 }
 
 export async function downloadPdf(documentData) {

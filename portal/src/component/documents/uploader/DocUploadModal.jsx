@@ -33,6 +33,7 @@ function DocUploadModal({
   showSnackbarCallback,
   onSuccessCallback,
   onFileExistsCallback = () => {},
+  Role,
 }) {
   let [isUploading, setUploadState] = useState(false);
   let [uploadTaskStatus, setUploadTaskStatus] = useState({
@@ -72,7 +73,12 @@ function DocUploadModal({
    * @returns {void}
    * Void
    */
-  const uploadDocument = async (acceptedFiles, title, step) => {
+  const uploadDocument = async (
+    acceptedFiles,
+    title,
+    step,
+    isPreApprovalDoc
+  ) => {
     if (acceptedFiles.length === 1) {
       let fileRef = myStorage.ref().child(`${tid}/documents/${title}`);
 
@@ -95,6 +101,7 @@ function DocUploadModal({
           progress,
           isPaused,
           uploadTask,
+          isPreApprovalDoc, // Sending the field to check if the Pre-Approval Document is being uploaded
         };
         setUploadTaskStatus(newUploadTaskDetails);
       });
@@ -118,12 +125,13 @@ function DocUploadModal({
       title="Upload Document"
       dismissCallback={dismissCallback}
       visible={visible}
-      modalWidth={700}
+      modalWidth={750}
     >
       {!isUploading ? (
         <DocUploadDropzone
           uploadDocumentCallback={uploadDocument}
           dismissCallback={dismissCallback}
+          Role={Role}
         />
       ) : (
         <DocUploadStatus
