@@ -43,7 +43,7 @@
 
 .questionnaire-helper-text {
   padding-top: 20px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   opacity: 60%;
   font-size: 18px;
 }
@@ -137,4 +137,45 @@
 
 .reallos-gradient-bg .questionnaire-progress-bar > div {
   background-color: var(--color-white);
+}
+
+@media screen and (max-height: 750px) {
+  .questionnaire-question {
+    font-family: Gilroy;
+    font-weight: normal;
+    font-size: 32px;
+  }
+
+  .questionnaire-helper-text {
+    padding-top: 17px;
+    font-family: "Open Sans";
+    opacity: 60%;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .questionnaire-text {
+    font-family: Gilroy;
+    font-weight: normal;
+    font-size: 22.5px !important;
+    text-align: center;
+    color: #fff;
+    margin-top: 10% !important;
+  }
+
+  .questionnaire-option-item {
+    align-content: unset !important;
+    justify-content: left !important;
+    padding: 15px 30px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    color: var(--color-primary) !important;
+    text-transform: none !important;
+    font-size: 16px !important;
+  }
+
+  .questionnaire-form-group {
+    margin-top: 20px !important;
+  }
 }
