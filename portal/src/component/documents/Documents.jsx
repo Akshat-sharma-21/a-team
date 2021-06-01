@@ -179,6 +179,7 @@ function Documents(props) {
               key={docData.id}
               docData={docData}
               itemIndex={itemIndex}
+              userRole={props.user.Role}
               onOpenMenu={(event) => {
                 setMenuAnchorElement(event.currentTarget);
                 setMenuTargetMetaData(docData);
@@ -263,7 +264,7 @@ function Documents(props) {
   };
 
   return (
-    <Scaffold navBar navRail>
+    <Scaffold navBar navRail userRole={props.user.Role}>
       <div
         style={{
           background: "#eeeeee",

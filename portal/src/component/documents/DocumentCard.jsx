@@ -98,7 +98,7 @@ function DocumentCard(props) {
             className="link-basic"
             to={{
               pathname: `/transactions/${tid}/documents/${props.docData.title}`,
-              state: props.docData,
+              state: { ...props.docData, Role: props.userRole },
             }}
           >
             <Card

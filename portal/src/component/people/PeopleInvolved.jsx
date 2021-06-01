@@ -187,7 +187,7 @@ function PeopleInvolved(props) {
     }
   };
   return (
-    <Scaffold navBar navRail>
+    <Scaffold navBar navRail userRole={props.user.Role}>
       <div
         style={{
           background: "#eeeeee",

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 function TransactionCard({ transactionDetails, userRole }) {
   const classes = useStyles();
   let [progress, setProgress] = useState(0);
-  const nextPage = userRole === "lender" ? "documents" : "assist";
+  const nextPage = userRole.toUpperCase() === "LENDER" ? "documents" : "assist";
 
   useEffect(() => {
     setTimeout(() => {

@@ -130,6 +130,7 @@ function DocumentViewer(props) {
         navRailProps={{
           backButtonRoute: `/transactions/${tid}/documents`,
         }}
+        userRole={props.location.state.Role}
       >
         <Box component="div" paddingBottom={5}>
           <ReallosPageHeader

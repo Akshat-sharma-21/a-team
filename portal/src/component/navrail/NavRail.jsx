@@ -49,12 +49,11 @@ const NavRailTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function NavRail() {
+function NavRail(props) {
   const classes = useStyles();
   const history = useHistory();
   const routerLocation = useLocation();
   const { tid } = useParams();
-
   let listItems = [
     {
       icon: <PackageIcon size={30} />,
@@ -141,6 +140,7 @@ function NavRail() {
             </IconButton>
           </div>
         </div>
+
         <Divider
           style={{
             marginLeft: 7,
@@ -148,18 +148,20 @@ function NavRail() {
             backgroundColor: "rgba(0, 0, 0, 0.2)",
           }}
         />
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          className="nav-rail-list-root"
-        >
-          <List className="nav-rail-list">
-            {listItems.map((listItemData) =>
-              renderNavRailListItem(listItemData)
-            )}
-          </List>
-        </Grid>
+        {props.Role !== null && props.Role.toUpperCase() !== "LENDER" && (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            className="nav-rail-list-root"
+          >
+            <List className="nav-rail-list">
+              {listItems.map((listItemData) =>
+                renderNavRailListItem(listItemData)
+              )}
+            </List>
+          </Grid>
+        )}
       </Drawer>
     </div>
   );
