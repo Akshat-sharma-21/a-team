@@ -24,7 +24,7 @@ function CreatePasword() {
             }}
           />
         </div>
-        <div style={{ height: "140px" }}></div>
+        <div className="reset-password-divider-div"></div>
         <div className="signup-form-action-group">
           <ReallosButton primary fullWidth>
             Next

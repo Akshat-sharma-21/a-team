@@ -116,8 +116,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   margin-top: 35%;
+}
+
+.reset-password-divider-div {
+  height: 140px;
+}
+
+.create-password-divider-div {
+  height: 60px;
 }
 
 .check-mail {
@@ -166,6 +173,14 @@
     margin-bottom: 5px;
   }
 
+  .reset-password-divider-div {
+    height: 129px;
+  }
+
+  .create-password-divider-div {
+    height: 40px;
+  }
+
   .check-mail {
     padding: 80px 50px 0px 50px;
   }
@@ -207,6 +222,14 @@
 
   .signup-form-fields > * {
     margin-top: 12px !important;
+  }
+
+  .reset-password-divider-div {
+    height: 100px;
+  }
+
+  .create-password-divider-div {
+    height: 20px;
   }
 
   .check-mail {
