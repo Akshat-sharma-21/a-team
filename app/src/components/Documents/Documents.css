@@ -186,3 +186,128 @@
 .no-document-back-icon {
   color: #707070;
 }
+
+/*Document support for components that are less than 750 in height*/
+@media screen and (max-height: 750px) {
+  .documents-single-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    margin-top: 40px;
+    min-height: calc(100vh - 360px);
+  }
+
+  .documents-single-view-container > img {
+    width: 40%;
+    margin-bottom: 35px;
+  }
+
+  .documents-heading {
+    font-family: "Gilroy";
+    font-weight: bold;
+    font-size: 33px;
+    color: var(--color-dark-grey);
+    margin-top: 15px;
+  }
+
+  .documents-heading-2 {
+    font-size: 23px;
+    color: var(--color-dark-grey);
+  }
+
+  .documents-subheading {
+    text-align: center;
+    font-family: "Gilroy";
+    font-weight: bold;
+    font-size: 27px;
+    color: var(--color-dark);
+  }
+  .documents-text {
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 18px;
+    color: var(--color-dark);
+  }
+
+  .doc-card-top-action-btn {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 2px 0.5px #00000040;
+  }
+
+  .doc-card-root {
+    width: 87%;
+    height: 65%;
+    padding-left: 5%;
+  }
+
+  .doc-card-context-menu-actions-list li {
+    font-size: 20px;
+    padding: 20px 30px;
+  }
+
+  .no-doc-heading {
+    color: var(--color-dark);
+    font-size: 28px;
+  }
+
+  .no-doc-body {
+    padding: 15px 40px !important;
+    text-align: center;
+    font-family: "Segoe UI", sans-serif;
+    color: var(--color-dark);
+    font-size: 18px;
+  }
+
+  .no-document-img {
+    height: 150px;
+    padding-top: 10vh;
+    padding-bottom: 60px;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .documents-subheading {
+    text-align: center;
+    font-family: "Gilroy";
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--color-dark);
+  }
+
+  .documents-text {
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 16px;
+    color: var(--color-dark);
+  }
+
+  .no-doc-heading {
+    color: var(--color-dark);
+    font-size: 25px;
+  }
+
+  .no-doc-body {
+    padding: 15px 40px !important;
+    text-align: center;
+    font-family: "Segoe UI", sans-serif;
+    color: var(--color-dark);
+    font-size: 16px;
+  }
+
+  .no-doc-btn {
+    margin-top: 5vh;
+    width: 100% !important;
+    padding: 10px 120px !important;
+    font-size: 15px !important;
+  }
+
+  .doc-card-context-menu-actions-list li {
+    font-size: 18px;
+    padding: 20px 30px;
+  }
+}

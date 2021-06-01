@@ -75,6 +75,8 @@ class InputTypeQuestion extends React.Component {
       onPrev,
     } = this.props;
 
+    let ArrowIconSize = 25;
+    if (window.innerHeight < 750) ArrowIconSize = 21;
     return (
       <Scaffold
         bgVariant={shouldUseGradientBackground ? "gradient" : "plain"}
@@ -120,14 +122,14 @@ class InputTypeQuestion extends React.Component {
             className="questionnaire-arrow-button"
             onClick={() => onPrev()}
           >
-            <ArrowLeftIcon size={25} />
+            <ArrowLeftIcon size={ArrowIconSize} />
           </IconButton>
 
           <IconButton
             className="questionnaire-arrow-button"
             onClick={() => onNext(this.state.userInputValue)}
           >
-            <ArrowRightIcon size={25} />
+            <ArrowRightIcon size={ArrowIconSize} />
           </IconButton>
         </div>
       </Scaffold>

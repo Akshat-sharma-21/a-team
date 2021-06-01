@@ -78,7 +78,6 @@ function Documents(props) {
       return (
         <div className="documents-single-view-container">
           <CircularProgress />
-
           <div
             style={{
               marginTop: 50,
@@ -89,7 +88,7 @@ function Documents(props) {
           </div>
         </div>
       );
-    } else if (documents.length == 0) {
+    } else if (documents.length === 0) {
       // If there are no documents that are uploaded for the user
       return (
         <div className="documents-single-view-container">
@@ -119,7 +118,11 @@ function Documents(props) {
               opacity: 0.5,
             }}
           >
-            <SearchIcon size={150} />
+            {window.innerHeight < 750 ? (
+              <SearchIcon size={100} />
+            ) : (
+              <SearchIcon size={150} />
+            )}
           </Grid>
           <Grid item>
             <Box marginTop={-3} component="h1">

@@ -137,7 +137,11 @@ class DocumentCard extends React.Component {
               className="doc-card-top-action-btn"
               onClick={(event) => this.showContextMenu(event)}
             >
-              <KebabHorizontalIcon />
+              {window.innerHeight < 750 ? (
+                <KebabHorizontalIcon size={14} />
+              ) : (
+                <KebabHorizontalIcon />
+              )}
             </IconButton>
 
             <div className="doc-card-main">
@@ -171,35 +175,73 @@ class DocumentCard extends React.Component {
                       minWidth: 250,
                     }}
                   >
-                    <h2
-                      style={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {docData.title}
-                    </h2>
+                    {window.innerHeight < 750 ? (
+                      <>
+                        <h2
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            fontSize: 20,
+                          }}
+                        >
+                          {docData.title}
+                        </h2>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        fontFamily: "Open Sans",
-                      }}
-                    >
-                      {docData.date !== null ? (
-                        <span style={{ marginLeft: 10 }}>
-                          Uploaded on{" "}
-                          <strong>{this.displayDate(docData.date)}</strong>
-                        </span>
-                      ) : (
-                        <span style={{ marginLeft: 10 }}>
-                          Yet to be <strong>Uploaded</strong>
-                        </span>
-                      )}
-                    </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            fontFamily: "Open Sans",
+                            fontSize: 15,
+                          }}
+                        >
+                          {docData.date !== null ? (
+                            <span style={{ marginLeft: 10 }}>
+                              Uploaded on{" "}
+                              <strong>{this.displayDate(docData.date)}</strong>
+                            </span>
+                          ) : (
+                            <span style={{ marginLeft: 10 }}>
+                              Yet to be <strong>Uploaded</strong>
+                            </span>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h2
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {docData.title}
+                        </h2>
+
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            fontFamily: "Open Sans",
+                          }}
+                        >
+                          {docData.date !== null ? (
+                            <span style={{ marginLeft: 10 }}>
+                              Uploaded on{" "}
+                              <strong>{this.displayDate(docData.date)}</strong>
+                            </span>
+                          ) : (
+                            <span style={{ marginLeft: 10 }}>
+                              Yet to be <strong>Uploaded</strong>
+                            </span>
+                          )}
+                        </div>
+                      </>
+                    )}
                   </CardContent>
                 </Card>
               </NavLink>
@@ -217,12 +259,27 @@ class DocumentCard extends React.Component {
           }}
         >
           <div className="doc-card-context-menu-header">
-            <h1>{docData.title}</h1>
-
+            {window.innerHeight < 750 ? (
+              <h1 style={{ fontSize: 22 }}>{docData.title}</h1>
+            ) : (
+              <h1>{docData.title}</h1>
+            )}
             <div>
               {docData.date !== null ? (
-                <span style={{ marginLeft: 10 }}>
-                  Uploaded on <strong>{this.displayDate(docData.date)}</strong>
+                window.innerHeight < 750 ? (
+                  <span style={{ marginLeft: 10, fontSize: 17 }}>
+                    Uploaded on{" "}
+                    <strong>{this.displayDate(docData.date)}</strong>
+                  </span>
+                ) : (
+                  <span style={{ marginLeft: 10 }}>
+                    Uploaded on{" "}
+                    <strong>{this.displayDate(docData.date)}</strong>
+                  </span>
+                )
+              ) : window.innerHeight < 750 ? (
+                <span style={{ marginLeft: 10, fontSize: 17 }}>
+                  Yet to be <strong>Uploaded</strong>
                 </span>
               ) : (
                 <span style={{ marginLeft: 10 }}>
@@ -242,7 +299,11 @@ class DocumentCard extends React.Component {
               }}
             >
               <ListItemIcon>
-                <DownloadIcon size={24} />
+                {window.innerHeight < 750 ? (
+                  <DownloadIcon size={20} />
+                ) : (
+                  <DownloadIcon size={24} />
+                )}
               </ListItemIcon>
               Download
             </MenuItem>
@@ -264,7 +325,11 @@ class DocumentCard extends React.Component {
               }}
             >
               <ListItemIcon>
-                <TrashIcon size={24} />
+                {window.innerHeight < 750 ? (
+                  <TrashIcon size={20} />
+                ) : (
+                  <TrashIcon size={24} />
+                )}
               </ListItemIcon>
               Delete
             </MenuItem>

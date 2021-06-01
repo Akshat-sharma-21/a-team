@@ -63,6 +63,9 @@ class OptionTypeQuestion extends React.Component {
       onPrev,
     } = this.props;
 
+    let ArrowIconSize = 25;
+    if (window.innerHeight < 750) ArrowIconSize = 21;
+
     return (
       <Scaffold
         bgVariant={shouldUseGradientBackground ? "gradient" : "plain"}
@@ -104,11 +107,11 @@ class OptionTypeQuestion extends React.Component {
             className="questionnaire-arrow-button"
             onClick={() => onPrev()}
           >
-            <ArrowLeftIcon size={25} />
+            <ArrowLeftIcon size={ArrowIconSize} />
           </IconButton>
 
           <IconButton disabled className="questionnaire-arrow-button">
-            <ArrowRightIcon size={25} />
+            <ArrowRightIcon size={ArrowIconSize} />
           </IconButton>
         </div>
       </Scaffold>

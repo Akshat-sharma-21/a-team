@@ -309,7 +309,11 @@ function Roadmap(props) {
               toggleModal(true);
             }}
           >
-            <PencilIcon size={16} />
+            {window.innerHeight < 700 ? (
+              <PencilIcon size={13} />
+            ) : (
+              <PencilIcon size={16} />
+            )}
           </Fab>
         </Grid>
       </Grid>

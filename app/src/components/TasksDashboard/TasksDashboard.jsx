@@ -161,6 +161,7 @@ function TasksDashboard(props) {
         <div className="tasks-dashboard-task-list-item-actions-group">
           <ReallosButton
             dense
+            className="task-summary-btn"
             fullWidth
             variant="primary"
             primary={true}
@@ -179,6 +180,7 @@ function TasksDashboard(props) {
             dense
             fullWidth
             variant="primary"
+            className="task-summary-btn"
             primary={true}
             onClick={() => {}}
           >
@@ -188,6 +190,7 @@ function TasksDashboard(props) {
             dense
             fullWidth
             variant="primary"
+            className="task-summary-btn"
             primary={false}
             onClick={() => {}}
           >
@@ -236,7 +239,11 @@ function TasksDashboard(props) {
               opacity: 0.5,
             }}
           >
-            <SearchIcon size={150} />
+            {window.innerHeight < 750 ? (
+              <SearchIcon size={100} />
+            ) : (
+              <SearchIcon size={150} />
+            )}
           </Grid>
           <Grid item>
             <Box marginTop={-3} component="h1">
@@ -970,7 +977,7 @@ function TasksDashboard(props) {
   return (
     <Scaffold bottomNav bottomNavActive="Tasks">
       <Grid container direction="column">
-        <h1 className="page-header-heading">Tasks</h1>
+        <h1 className="tasks-dashboard-heading">Tasks</h1>
 
         {tasksList && (
           <SearchBar

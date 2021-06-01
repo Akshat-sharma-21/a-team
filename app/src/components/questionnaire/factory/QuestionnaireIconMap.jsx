@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment } from "react";
 
 import {
   FlameIcon,
@@ -7,24 +7,26 @@ import {
   RocketIcon,
   SmileyIcon,
   ThumbsdownIcon,
-  ThumbsupIcon
-} from '@primer/octicons-react';
+  ThumbsupIcon,
+} from "@primer/octicons-react";
 
-const iconSize = 20;
+let iconSize = 20;
+
+if (window.innerHeight < 750) iconSize = 18;
 
 export const IconMap = {
-  'IssueOpenedIcon': <IssueOpenedIcon size={iconSize} />,
-  'ThumbsupIcon': <ThumbsupIcon size={iconSize} />,
-  'ThumbsdownIcon': <ThumbsdownIcon size={iconSize} />,
-  'SmileyIcon': <SmileyIcon size={iconSize} />,
-  'RocketIcon': <RocketIcon size={iconSize} />,
-  'FlameIcon': <FlameIcon size={iconSize} />,
-  'KeyIcon': <KeyIcon size={iconSize} />,
+  IssueOpenedIcon: <IssueOpenedIcon size={iconSize} />,
+  ThumbsupIcon: <ThumbsupIcon size={iconSize} />,
+  ThumbsdownIcon: <ThumbsdownIcon size={iconSize} />,
+  SmileyIcon: <SmileyIcon size={iconSize} />,
+  RocketIcon: <RocketIcon size={iconSize} />,
+  FlameIcon: <FlameIcon size={iconSize} />,
+  KeyIcon: <KeyIcon size={iconSize} />,
 };
 
 /**
  * Returns an icon based on `iconName`.
- * 
+ *
  * @param {string?} iconName
  * @returns {JSX.Element}
  */
@@ -34,4 +36,4 @@ export const getIcon = (iconName) => {
   }
 
   return <Fragment />;
-}
+};

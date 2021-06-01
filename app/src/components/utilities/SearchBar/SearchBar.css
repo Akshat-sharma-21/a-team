@@ -1,9 +1,17 @@
 .search-bar {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-    border-radius: 8px !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 8px !important;
 }
 
 .search-icon {
-    align-self: center !important;
-    fill: rgba(0, 0, 0, 0.5);
+  align-self: center !important;
+  fill: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-height: 700px) {
+  .search-bar {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 8px !important;
+    height: 7vh !important;
+  }
 }

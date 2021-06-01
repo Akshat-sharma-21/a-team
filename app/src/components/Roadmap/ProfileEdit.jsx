@@ -240,14 +240,9 @@ function ProfileEdit(props) {
         <Grid item xs={12} style={{ textAlign: "center" }}>
           <div className="profile-img-div">
             {profilePicture === null ? ( // To display the appropriate Avatar Icon
-              <Avatar style={{ height: "110px", width: "110px" }}>
-                {user.Name[0]}
-              </Avatar>
+              <Avatar className="profile-edit-avatar">{user.Name[0]}</Avatar>
             ) : (
-              <Avatar
-                style={{ height: "110px", width: "110px" }}
-                src={profilePicture}
-              />
+              <Avatar className="profile-edit-avatar" src={profilePicture} />
             )}
             <input
               id="fileInput"
