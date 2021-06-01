@@ -6,10 +6,8 @@
 }
 
 .signup-reallos-decoration {
-  --reallos-decoration-border-radius: 20px;
-
   z-index: 0;
-  height: 320px;
+  height: 300px;
   position: relative;
   display: flex;
   align-items: center;
@@ -17,8 +15,8 @@
   background: url(../../../assets/reallos_home_bg.png);
   background-position: 30% center;
   background-size: cover;
-  border-bottom-left-radius: var(--reallos-decoration-border-radius);
-  border-bottom-right-radius: var(--reallos-decoration-border-radius);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .signup-reallos-decoration::before {
@@ -30,8 +28,8 @@
   right: 0;
   bottom: 0;
   opacity: 0.8;
-  border-bottom-left-radius: var(--reallos-decoration-border-radius);
-  border-bottom-right-radius: var(--reallos-decoration-border-radius);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 
   background: linear-gradient(
     to bottom,
@@ -63,6 +61,10 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1 1 auto;
+}
+
+.signup-form-fields > * {
+  margin-top: 15px !important;
 }
 
 .signup-form-action-group {
@@ -148,4 +150,87 @@
   font-family: "Roboto Slab";
   text-align: center;
   font-size: 16px;
+}
+
+@media screen and (max-height: 740px) {
+  .signup-body-root {
+    padding: 20px 20px;
+  }
+
+  .signup-page-title > h1 {
+    margin-top: 10px;
+  }
+
+  .signup-page-title > h2 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+
+  .check-mail {
+    padding: 80px 50px 0px 50px;
+  }
+
+  .check-mail-heading {
+    margin-top: 30 px;
+    font-size: 35px;
+  }
+
+  .check-mail-text {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+
+  .check-mail-footer {
+    padding: 0 10px;
+    margin-top: 140px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-height: 670px) {
+  .signup-reallos-decoration {
+    height: 270px;
+  }
+
+  .signup-body-root {
+    padding: 15px 20px;
+  }
+
+  .signup-page-title > h1 {
+    margin-top: 5px;
+  }
+
+  .signup-page-title > h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .signup-form-fields > * {
+    margin-top: 12px !important;
+  }
+
+  .check-mail {
+    padding: 70px 30px 0px 30px;
+  }
+
+  .check-mail-img {
+    align-self: center;
+    width: 90%;
+  }
+
+  .check-mail-heading {
+    margin-top: 25px;
+    font-size: 35px;
+  }
+
+  .check-mail-text {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+
+  .check-mail-footer {
+    padding: 0 10px;
+    margin-top: 130px;
+    font-size: 15px;
+  }
 }

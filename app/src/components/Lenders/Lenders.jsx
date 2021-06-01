@@ -134,44 +134,42 @@ function Lenders(props) {
   };
 
   return (
-    <div>
-      <Scaffold>
-        <div className="page-header">
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item xs={12} style={{ textAlign: "left" }}>
-              <IconButton
-                size="small"
-                style={{ margin: "20px 0" }}
-                onClick={() => (window.location.href = "/dashboard")}
-              >
-                {window.innerHeight < 750 ? (
-                  <ArrowLeftIcon size={29} className="lender-back-icon" />
-                ) : (
-                  <ArrowLeftIcon size={32} className="lender-back-icon" />
-                )}
-              </IconButton>
-            </Grid>
-
-            <Grid item xs={12} style={{ textAlign: "left" }}>
-              <div className="lenders-heading">Lenders</div>
-            </Grid>
+    <Scaffold>
+      <div className="page-header">
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <IconButton
+              size="small"
+              style={{ margin: "20px 0" }}
+              onClick={() => (window.location.href = "/dashboard")}
+            >
+              {window.innerHeight < 750 ? (
+                <ArrowLeftIcon size={29} className="lender-back-icon" />
+              ) : (
+                <ArrowLeftIcon size={32} className="lender-back-icon" />
+              )}
+            </IconButton>
           </Grid>
 
-          <SearchBar
-            filterByFields={["title", "description", "dueDate"]}
-            list={lenderList}
-            onUpdate={(filtered) => {
-              setFilteredList(filtered);
-            }}
-          />
-        </div>
-
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} style={{ height: "10px" }}></Grid>
-          {PrimaryContent()}
+          <Grid item xs={12} style={{ textAlign: "left" }}>
+            <div className="lenders-heading">Lenders</div>
+          </Grid>
         </Grid>
-      </Scaffold>
-    </div>
+
+        <SearchBar
+          filterByFields={["title", "description", "dueDate"]}
+          list={lenderList}
+          onUpdate={(filtered) => {
+            setFilteredList(filtered);
+          }}
+        />
+      </div>
+
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={12} style={{ height: "10px" }}></Grid>
+        {PrimaryContent()}
+      </Grid>
+    </Scaffold>
   );
 }
 

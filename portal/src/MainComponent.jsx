@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Dashboard from "./component/dashboard/Dashboard";
 import TransactionAssist from "./component/transaction_assist/TransactionAssist";
 import PeopleInvolved from "./component/people/PeopleInvolved";
@@ -8,10 +7,9 @@ import DocumentViewer from "./component/documents/viewer/DocumentViewer";
 import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
 import Signin from "./component/account_setup/SignIn";
+import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { getAuth } from "./Authenticate";
-
-import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
 
 const PrivateRoute = (
   { component: Component, ...rest } // Component that protects all the routing if the user is not autenticated

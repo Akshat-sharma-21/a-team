@@ -5,7 +5,12 @@ import "./SignUp.css";
 function CheckYourMail() {
   return (
     <div className="check-mail">
-      <img src={CheckMailImg} alt="Mail Img" width="100%"></img>
+      <img
+        src={CheckMailImg}
+        alt="Mail Img"
+        width="100%"
+        className="check-mail-img"
+      ></img>
 
       <div className="check-mail-heading">Check your Email</div>
 
