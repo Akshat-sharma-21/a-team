@@ -310,10 +310,12 @@ function TaskSummary(props) {
                   <Grid item xs={1}></Grid>
                   <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="lender-list-title">{profession}</div>
+                      <div className="taskSummary-Profession-list-title">
+                        {profession}
+                      </div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext2">
+                      <div className="taskSummary-list-subtext2">
                         You haven't yet selected a {profession}. Please select
                         one to move forward
                       </div>
@@ -326,7 +328,7 @@ function TaskSummary(props) {
                   <Grid item xs={5}></Grid>
                   <Grid item xs={7}>
                     <Button
-                      className="lender-btn"
+                      className="taskSummary-Profession-btn"
                       onClick={() => history.push(linkToProfession)}
                     >
                       View all Offers <ChevronRightIcon size={16} />
@@ -582,7 +584,11 @@ function TaskSummary(props) {
               style={{ margin: "20px 0" }}
               onClick={() => (window.location.href = "/dashboard")}
             >
-              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+              {window.innerHeight < 750 ? (
+                <ArrowLeftIcon size={29} className="lender-back-icon" />
+              ) : (
+                <ArrowLeftIcon size={32} className="lender-back-icon" />
+              )}
             </IconButton>
           </Grid>
 
@@ -617,7 +623,11 @@ function TaskSummary(props) {
               style={{ margin: "20px 0" }}
               onClick={() => (window.location.href = "/dashboard")}
             >
-              <ArrowLeftIcon size={32} className="taskSummary-back-icon" />
+              {window.innerHeight < 750 ? (
+                <ArrowLeftIcon size={29} className="lender-back-icon" />
+              ) : (
+                <ArrowLeftIcon size={32} className="lender-back-icon" />
+              )}
             </IconButton>
           </Grid>
 
