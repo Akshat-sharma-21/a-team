@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container } from '@material-ui/core';
-import NavBar from '../../navbar/Navbar';
-import NavRail from '../../navrail/NavRail';
-import './Scaffold.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { Container } from "@material-ui/core";
+import NavBar from "../../navbar/Navbar";
+import NavRail from "../../navrail/NavRail";
+import "./Scaffold.css";
 
 /**
  * `Scaffold` is the root level component which encloses
@@ -33,65 +33,75 @@ import './Scaffold.css';
  * @augments {React.Component<Prop>}
  */
 class Scaffold extends React.Component {
-    static propTypes = {
-        /**
-         * CSS class name to be applied to this component
-         */
-        className: PropTypes.string,
+  static propTypes = {
+    /**
+     * CSS class name to be applied to this component
+     */
+    className: PropTypes.string,
 
-        /**
-         * If set to `true`, the page would include
-         * a navigation bar.
-         */
-        navBar: PropTypes.bool,
+    /**
+     * If set to `true`, the page would include
+     * a navigation bar.
+     */
+    navBar: PropTypes.bool,
 
-        /**
-         * If set to `true`, the page would include
-         * a navigation rail.
-         */
-        navRail: PropTypes.bool,
+    /**
+     * If set to `true`, the page would include
+     * a navigation rail.
+     */
+    navRail: PropTypes.bool,
 
-        /**
-         * Props to be sent to `NavRail` component.
-         */
-        navRailProps: PropTypes.shape({
-            /**
-             * Specifies the link to follow when the
-             * Back Button is pressed.
-             * 
-             * _(Default: /transactions)_
-             */
-            backButtonRoute: PropTypes.string,
-        }),
-    }
+    /**
+     * Props to be sent to `NavRail` component.
+     */
+    navRailProps: PropTypes.shape({
+      /**
+       * Specifies the link to follow when the
+       * Back Button is pressed.
+       *
+       * _(Default: /transactions)_
+       */
+      backButtonRoute: PropTypes.string,
+    }),
+  };
 
-    _noop() {
-        return () => {};
-    }
+  _noop() {
+    return () => {};
+  }
 
-    render() {
-        let { children, className='', navBar=false, navRail=false } = this.props;
-        let navRailClassName = navRail ? 'scaffold-navrail' : '';
+  render() {
+    let {
+      children,
+      className = "",
+      navBar = false,
+      navRail = false,
+      userRole = "",
+    } = this.props;
+    let navRailClassName = navRail ? "scaffold-navrail" : "";
+    let navRailProps = Object.assign(
+      {
+        backButtonRoute: "/transactions",
+      },
+      this.props.navRailProps
+    );
 
-        let navRailProps = Object.assign({
-            backButtonRoute: '/transactions',
-        }, this.props.navRailProps);
+    let { backButtonRoute } = navRailProps;
 
-        let { backButtonRoute } = navRailProps;
+    return (
+      <div className={`scaffold-root ${navRailClassName} ${className}`}>
+        <Container>
+          {navBar ? <NavBar sticky /> : this._noop()}
+          {navRail ? (
+            <NavRail backButtonRoute={backButtonRoute} Role={userRole} />
+          ) : (
+            this._noop()
+          )}
 
-        return (
-            <div className={`scaffold-root ${navRailClassName} ${className}`}>
-                <Container>
-                    {(navBar) ? <NavBar sticky /> : this._noop()}
-                    {(navRail) ? (
-                        <NavRail backButtonRoute={backButtonRoute} />
-                    ) : this._noop()}
-
-                    {children}
-                </Container>
-            </div>
-        )
-    }
+          {children}
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default Scaffold;

@@ -24,6 +24,7 @@ const mapStateToProps = (state) => ({
   task: state.task,
   utils: state.utils,
   transaction: state.transaction,
+  user: state.user,
 });
 
 const mapActionToProps = (dispatch) => {
@@ -284,7 +285,7 @@ function TransactionAssist(props) {
     }
   };
   return (
-    <Scaffold navBar navRail>
+    <Scaffold navBar navRail userRole={props.user.Role}>
       <div style={{ paddingBottom: 10 }}>
         <ReallosPageHeader
           transactionName="Transaction 1"
