@@ -165,6 +165,26 @@
     margin-top: 0px;
     margin-bottom: 5px;
   }
+
+  .check-mail {
+    padding: 80px 50px 0px 50px;
+  }
+
+  .check-mail-heading {
+    margin-top: 30 px;
+    font-size: 35px;
+  }
+
+  .check-mail-text {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+
+  .check-mail-footer {
+    padding: 0 10px;
+    margin-top: 140px;
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-height: 670px) {
@@ -187,5 +207,30 @@
 
   .signup-form-fields > * {
     margin-top: 12px !important;
+  }
+
+  .check-mail {
+    padding: 70px 30px 0px 30px;
+  }
+
+  .check-mail-img {
+    align-self: center;
+    width: 90%;
+  }
+
+  .check-mail-heading {
+    margin-top: 25px;
+    font-size: 35px;
+  }
+
+  .check-mail-text {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+
+  .check-mail-footer {
+    padding: 0 10px;
+    margin-top: 130px;
+    font-size: 15px;
   }
 }
