@@ -49,6 +49,7 @@ function Main() {
     window.innerWidth < 425 && window.innerWidth > 319
   );
 
+  console.log(getAuth());
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
@@ -62,8 +63,6 @@ function Main() {
     // If the screen is in the desired range
     return (
       <Switch>
-        {/* <Route path="*" component={Signin} />
-        <Redirect exact from="/" to="/signin" />
         <Route path="/Signup" component={Signup} />
         <Route path="/SignupWithProvider" component={SignUpWithProvider} />
         <Route path="/Signin" component={Signin} />
@@ -72,7 +71,7 @@ function Main() {
         <Route path="/create_password" component={CreatePassword} />
         <Route path="/reset_password" component={ResetPassword} />
         <Route path="/check_mail" component={CheckYourMail} />
-        <Route path="/profile" component={ProfileEdit} />
+        <PrivateRoute path="/profile" component={ProfileEdit} />
         <PrivateRoute path="/dashboard" component={Roadmap} />
         <PrivateRoute path="/onboarding" component={Onboarding} />
         <PrivateRoute path="/questions/:step" component={Questionnaire} />
@@ -82,30 +81,10 @@ function Main() {
         <PrivateRoute path="/tasks" component={TasksDashboard} />
         <PrivateRoute path="/:step/tasks_summary" component={TaskSummary} />
         <PrivateRoute path="/lenders" component={Lenders} />
-        <PrivateRoute path="/insurance" component={HomeInsurance} /> */}
-        {/* Later change the last route to a error page */}
-        <Route path="/onboarding" component={Onboarding} />{" "}
-        <Route path="/dashboard" component={Roadmap} />{" "}
-        <Route exact path="/documents" component={Document} />{" "}
-        <Route path="/documents/:doc" component={DocumentViewer} />{" "}
-        <Route path="/SignupWithProvider" component={SignUpWithProvider} />{" "}
-        <Route path="/Signin" component={Signin} />{" "}
-        <Route path="/Signup" component={Signup} />
-        <Route path="/lenders" component={Lenders} />{" "}
-        <Route path="/insurance" component={HomeInsurance} />{" "}
-        <Route path="/nodoc" component={NoDocument} />{" "}
-        <Route path="/verifyPhone" component={VerifyPhone} />{" "}
-        <Route path="/verifyEmail" component={VerifyMail} />{" "}
-        <Route path="/profile" component={ProfileEdit} />{" "}
-        <Route path="/create_password" component={CreatePassword} />{" "}
-        <Route path="/reset_password" component={ResetPassword} />{" "}
-        <Route path="/check_mail" component={CheckYourMail} />
-        <Route path="/:step/tasks_summary" component={TaskSummary} />{" "}
-        <Route path="/tasks" component={TasksDashboard} />{" "}
-        <Route path="/questions/:step" component={Questionnaire} />{" "}
+        <PrivateRoute path="/insurance" component={HomeInsurance} />
         <Redirect exact from="/" to="/signin" />
         <Route path="*" component={Signin} />
-        {/* Later change the last route to a error page */}{" "}
+        {/* Later change the last route to a error page */}
       </Switch>
     );
   else {
