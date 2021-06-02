@@ -41,6 +41,7 @@ function DocUploadModal({
     isPaused: false,
     uploadTask: null,
   });
+  let [modalClosed, setModalClosed] = useState(false);
 
   let { tid } = useParams(); // Getting the trnsaction id
 
@@ -77,7 +78,8 @@ function DocUploadModal({
     acceptedFiles,
     title,
     step,
-    isPreApprovalDoc
+    isPreApprovalDoc,
+    isPurchaseAgreement
   ) => {
     if (acceptedFiles.length === 1) {
       let fileRef = myStorage.ref().child(`${tid}/documents/${title}`);
@@ -102,6 +104,7 @@ function DocUploadModal({
           isPaused,
           uploadTask,
           isPreApprovalDoc, // Sending the field to check if the Pre-Approval Document is being uploaded
+          isPurchaseAgreement, // Sending the field to check if the Purchase Agreeement is being uploaded
         };
         setUploadTaskStatus(newUploadTaskDetails);
       });
@@ -120,10 +123,14 @@ function DocUploadModal({
     });
   };
 
+  if (visible && modalClosed) setModalClosed(false); // To set the modal Closed property
   return (
     <ReallosModal
       title="Upload Document"
-      dismissCallback={dismissCallback}
+      dismissCallback={() => {
+        dismissCallback();
+        setModalClosed(true);
+      }}
       visible={visible}
       modalWidth={750}
     >
@@ -132,6 +139,7 @@ function DocUploadModal({
           uploadDocumentCallback={uploadDocument}
           dismissCallback={dismissCallback}
           Role={Role}
+          modalClosed={modalClosed}
         />
       ) : (
         <DocUploadStatus

@@ -117,7 +117,8 @@ function DocUploadStatus({
             },
             tid,
             uploadStatus.step,
-            uploadStatus.isPreApprovalDoc
+            uploadStatus.isPreApprovalDoc,
+            uploadStatus.isPurchaseAgreement
           );
         } // isSavingDocument can be used in the future if we want to update the time of last changes made to the file
       }

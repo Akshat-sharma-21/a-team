@@ -46,7 +46,13 @@ export function getAllDocuments(transaction) {
   return Documents;
 }
 
-export function setMetadata(metadata, tid, step, isPreApprovalDoc) {
+export function setMetadata(
+  metadata,
+  tid,
+  step,
+  isPreApprovalDoc,
+  isPurchaseAgreement
+) {
   let saveMetadata = {
     date: new Date(myFirebase.default.firestore.Timestamp.now().toMillis()),
     description: metadata.description ? metadata.description : null,
@@ -216,10 +222,14 @@ export function setMetadata(metadata, tid, step, isPreApprovalDoc) {
 
   if (isPreApprovalDoc.toUpperCase() === "YES") {
     // If the Pre-approval letter is being uploaded then trigger the unlock find-agent action
-    axios.post(
-      `http://localhost:5000/reallos-app-78a3a/us-central1/api/unlock-find-agent`,
-      { tid: tid }
-    );
+    axios.post(`${baseUrl}/unlock-find-agent`, { tid: tid });
+  }
+
+  if (isPurchaseAgreement.toUpperCase() === "YES") {
+    // if the Purchase agreement is being uploaded then trigger various unlock actions
+    axios.post(`${baseUrl}/unlock-escrow-title-and-home-inspection`, {
+      tid: tid,
+    });
   }
 }
 

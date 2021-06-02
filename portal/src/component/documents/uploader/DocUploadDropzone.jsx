@@ -42,18 +42,33 @@ const activeStyle = {
   paddingTop: "25px",
 };
 
-function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
+function DocUploadDropzone({
+  uploadDocumentCallback,
+  dismissCallback,
+  Role,
+  modalClosed,
+}) {
   let { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
       multiple: false,
       accept: [".pdf"],
     });
 
-  let [title, setTitle] = useState(null);
-  let [step, selectStep] = useState(null);
+  let [title, setTitle] = useState("");
+  let [step, selectStep] = useState("");
   let [isPreApprovalDoc, selectPreApprovalDoc] = useState("No");
+  let [isPurchaseAgreement, selectPurchaseAgreement] = useState("No");
   let [nextStep, selectNextStep] = useState(false);
+  let [status, setStatus] = useState(false); // To set the status for rendering the form
 
+  if (modalClosed && !status) {
+    setTitle("");
+    selectStep("");
+    selectPreApprovalDoc("No");
+    selectPurchaseAgreement("No");
+    selectNextStep(false);
+    setStatus(true);
+  }
   const style = useMemo(
     () => ({
       ...rootStyles,
@@ -136,7 +151,8 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
                 acceptedFiles,
                 title,
                 step,
-                isPreApprovalDoc
+                isPreApprovalDoc,
+                isPurchaseAgreement
               )
             }
           >
@@ -173,6 +189,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
                   value={title}
                   onChange={(e) => {
                     setTitle(e.target.value);
+                    setStatus(false);
                   }}
                   style={{ width: 500, marginLeft: 20 }}
                 />
@@ -198,10 +215,14 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
               variant="outlined"
               fullWidth="true"
               value={step}
-              disabled={isPreApprovalDoc.toUpperCase() === "YES"}
+              disabled={
+                isPreApprovalDoc.toUpperCase() === "YES" ||
+                isPurchaseAgreement.toUpperCase() === "YES"
+              }
               style={{ width: 500, marginLeft: 20 }}
               onChange={(e) => {
                 selectStep(e.target.value);
+                setStatus(false);
               }}
             >
               <MenuItem value="PreApproval">Pre-Approval</MenuItem>
@@ -227,6 +248,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
                   onChange={(e) => {
                     selectPreApprovalDoc(e.target.value);
                     selectStep("PreApproval"); // Setting the step to automatically be Pre-Approval
+                    setStatus(false);
                   }}
                 >
                   <FormControlLabel
@@ -271,6 +293,66 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
                 )}
               </>
             )}
+          {Role &&
+            Role.toUpperCase() === "AGENT" && ( // if the user is an Agent
+              <>
+                <Grid item style={{ marginTop: 18, marginLeft: 35 }}>
+                  <Typography className="document-input-helper-text">
+                    Is this the Purchase Agreement?
+                  </Typography>
+                </Grid>
+                <RadioGroup
+                  style={{ marginLeft: 40, marginTop: 10 }}
+                  value={isPurchaseAgreement}
+                  onChange={(e) => {
+                    selectPurchaseAgreement(e.target.value);
+                    selectStep("FindHome"); // Setting the step to automatically be Pre-Approval
+                    setStatus(false);
+                  }}
+                >
+                  <FormControlLabel
+                    control={<Radio style={{ color: "#0432fa" }} />}
+                    label="Yes"
+                    value={"Yes"}
+                  />
+                  <FormControlLabel
+                    value={"No"}
+                    control={<Radio style={{ color: "#0432fa" }} />}
+                    label="No"
+                  />
+                </RadioGroup>
+                {isPurchaseAgreement.toUpperCase() === "YES" ? (
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item style={{ marginLeft: 40, marginTop: 10 }}>
+                      <InfoIcon
+                        className="document-PreApproval-info-icon"
+                        size={20}
+                      />
+                    </Grid>
+                    <Grid item style={{ marginTop: 10 }}>
+                      <Typography className="document-PreApproval-info-text">
+                        This will trigger automated actions for the Buyer
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <Grid container direction="row" spacing={3}>
+                    <Grid item style={{ marginLeft: 40, marginTop: 10 }}>
+                      <InfoIcon
+                        className="document-PreApproval-info-icon"
+                        size={20}
+                      />
+                    </Grid>
+                    <Grid item style={{ marginTop: 10 }}>
+                      <Typography className="document-PreApproval-info-text">
+                        Please Select Yes if uploading the Purchase Agreement
+                        Letter
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                )}
+              </>
+            )}
         </Grid>
         <ModalActionFooter marginTop={28}>
           <ReallosButton
@@ -279,6 +361,7 @@ function DocUploadDropzone({ uploadDocumentCallback, dismissCallback, Role }) {
               setTitle("");
               selectStep("");
               selectPreApprovalDoc("No");
+              selectPurchaseAgreement("No");
             }}
           >
             Cancel
