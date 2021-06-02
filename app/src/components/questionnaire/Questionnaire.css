@@ -5,6 +5,15 @@
   min-height: 100vh;
 }
 
+.questionnaire-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 35vh;
+  min-height: 100vh - 360px;
+}
+
 .questionnaire-back-button {
   position: absolute;
   top: 25px;

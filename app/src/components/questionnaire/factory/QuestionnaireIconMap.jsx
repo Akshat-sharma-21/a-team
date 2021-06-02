@@ -24,12 +24,6 @@ export const IconMap = {
   KeyIcon: <KeyIcon size={iconSize} />,
 };
 
-/**
- * Returns an icon based on `iconName`.
- *
- * @param {string?} iconName
- * @returns {JSX.Element}
- */
 export const getIcon = (iconName) => {
   if (Object.keys(IconMap).includes(iconName)) {
     return IconMap[iconName];

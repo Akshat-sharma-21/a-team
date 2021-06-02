@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import "./Questionnaire.css";
 import { useParams } from "react-router-dom";
 import { fetchQuestions, resetQuestion } from "../../actions/questionActions";
+import { assignAgent } from "../../actions/roadmapActions";
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -17,17 +18,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { fetchQuestions, fetchUser, resetQuestion },
+    { fetchQuestions, fetchUser, resetQuestion, assignAgent },
     dispatch
   );
 };
 
-/**
- * Renders Questionnaire page.
- *
- * @param {object} props
- * @returns {JSX.Element}
- */
 function Questionnaire(props) {
   useEffect(() => {
     if (props.utils.reload === true) {
@@ -57,10 +52,21 @@ function Questionnaire(props) {
     // If the user answers all the questions.
     return (
       <QuestionnaireOutro
-        onSubmit={() => (window.location.href = `/${step}/tasks_summary`)}
+        onSubmit={() => {
+          if (step === "find-agent")
+            // If the questions are of find-agent
+            props.assignAgent(
+              transactionId,
+              props.user.Name,
+              props.user.Email,
+              props.user.Phone
+            );
+          else window.location.href = "/pre-approval/tasks_summary";
+        }}
         onStartOver={() => {
           props.resetQuestion(transactionId, step, -1);
         }}
+        isLoading={loading}
       />
     );
   } else {
