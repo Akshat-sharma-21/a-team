@@ -20,6 +20,6 @@
   ],
   "start_url": "https://reallos-portal.web.app/signin",
   "display": "standalone",
-  "theme_color": "#FFFFFF",
-  "background_color": "#17B1ED"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
