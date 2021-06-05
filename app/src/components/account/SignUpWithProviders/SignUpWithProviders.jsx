@@ -1,8 +1,8 @@
 import React from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { IconButton, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
-import "./SignUpWithProviders.css";
+import "../SignUp/SignUp.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signupWithProvider } from "../../../actions/userActions";

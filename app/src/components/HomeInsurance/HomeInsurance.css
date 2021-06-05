@@ -131,12 +131,10 @@
   .providers-heading {
     font-size: 33px !important;
     font-weight: bold !important;
-    color: var(--color-dark-grey) !important;
     margin-bottom: 25px;
   }
 
   .provider-card-root {
-    position: relative;
     margin-top: 10px;
     border-radius: 10px !important;
     border: 2px solid #dddddd;

@@ -93,69 +93,51 @@
 
 @media screen and (max-height: 750px) {
   .tasks-dashboard-heading {
-    font-family: "Gilroy";
-    font-weight: bold;
     font-size: 33px;
-    color: var(--color-dark-grey);
     margin-top: 15px;
   }
 
   .tasks-dashboard-section-title {
     font-size: 22px;
     margin: 20px 0 8px 0 !important;
-    color: var(--color-dark-grey);
   }
 
   .tasks-dashboard-list {
     margin: 10px 0 10px 0 !important;
-    display: flex;
-    flex-direction: column;
     gap: 18px;
   }
 
   .tasks-dashboard-accordion-date {
     border-radius: 10px;
-    background: #bdbdbd;
-    color: #ffffff;
-    padding: 8px 1px;
     margin-right: 14px;
-    text-align: center;
-    width: 27%;
+    padding: 8px 1px;
     font-size: 13px;
+    width: 27%;
   }
 }
 
 @media screen and (max-height: 700px) {
   .tasks-dashboard-heading {
-    font-family: "Gilroy";
-    font-weight: bold;
     font-size: 30px;
-    color: var(--color-dark-grey);
     margin-top: 10px;
   }
 
   .tasks-dashboard-section-title {
     font-size: 21px;
     margin: 18px 0 0px 0 !important;
-    color: var(--color-dark-grey);
   }
 
   .tasks-dashboard-list-item-subheading {
-    font-family: "Segoe", sans-serif !important;
     font-size: 12px !important;
     font-weight: normal !important;
   }
 
   .tasks-dashboard-list-item-heading {
-    font-family: "Segoe", sans-serif;
-    font-weight: bold;
     font-size: 13px;
   }
 
   .tasks-dashboard-task-list-item-details-desc {
     margin-bottom: 20px !important;
-    font-family: "Segoe", sans-serif !important;
     font-size: 13px !important;
-    font-weight: normal !important;
   }
 }
