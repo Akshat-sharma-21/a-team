@@ -57,6 +57,10 @@
   align-items: center;
 }
 
+.signin-form-kebab-icon {
+  transform: rotate(90deg);
+}
+
 @media screen and (max-height: 740px) {
   .signin-top-subheading {
     font-size: 25px;

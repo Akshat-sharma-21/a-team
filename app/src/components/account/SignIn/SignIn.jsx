@@ -7,8 +7,16 @@ import {
   Divider,
   IconButton,
   withStyles,
+  Snackbar,
 } from "@material-ui/core";
-import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { Alert } from "@material-ui/lab";
+import {
+  ArrowRightIcon,
+  EyeClosedIcon,
+  EyeIcon,
+  ShareIcon,
+  KebabHorizontalIcon,
+} from "@primer/octicons-react";
 import HomeImage from "../../../assets/signin_home.png";
 import GoogleLogo from "../../../assets/google_logo.png";
 import FacebookLogo from "../../../assets/facebook_logo.png";
@@ -47,6 +55,7 @@ class SignIn extends React.Component {
       email: "",
       password: "",
       isPasswordVisible: false,
+      isSnackbarVisible: true,
     };
   }
 
@@ -54,11 +63,75 @@ class SignIn extends React.Component {
     this.props.loginWithProviderHelper();
   }
 
+  showDownloadInfo() {
+    // function to allow user to install the app
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      // if the pwa is already being used
+      return <></>;
+    } else {
+      // if the app is opened in browser
+      if (
+        window.navigator.userAgent.match("iPhone") !== null &&
+        this.props.utils.loading === false
+      ) {
+        return (
+          <Snackbar
+            open={this.state.isSnackbarVisible}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              icon={false}
+              style={{
+                width: "100vw",
+                color: "white",
+                background: "rgba(122,122,122,0.85)",
+                fontSize: 16,
+              }}
+              onClose={() => this.setState({ isSnackbarVisible: false })}
+            >
+              {" "}
+              Click <ShareIcon size={18} /> and{" "}
+              <strong>'Add to Home Screen'</strong> to download the app
+            </Alert>
+          </Snackbar>
+        );
+      } else if (
+        window.navigator.userAgent.match("Android") !== null &&
+        this.props.utils.loading === false
+      ) {
+        return (
+          <Snackbar
+            open={this.state.isSnackbarVisible}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert
+              icon={false}
+              style={{
+                width: "100vw",
+                color: "white",
+                background: "rgba(122,122,122,0.85)",
+                fontSize: 16,
+              }}
+              onClose={() => this.setState({ isSnackbarVisible: false })}
+            >
+              {" "}
+              Click{" "}
+              <KebabHorizontalIcon
+                size={18}
+                className="signin-form-kebab-icon"
+              />{" "}
+              and <strong>'install app'</strong> to download the app
+            </Alert>
+          </Snackbar>
+        );
+      }
+    }
+  }
+
   render() {
     return (
       <Scaffold bgVariant="gradient">
         <h2 className="signin-top-subheading">Let's make</h2>
-
         <div className="signin-top-heading-group">
           <div className="signin-top-heading">
             <h1>Real Estate, Real Easy!</h1>
@@ -67,7 +140,6 @@ class SignIn extends React.Component {
             <img src={HomeImage} alt="" width="100%" height="auto" />
           </div>
         </div>
-
         <div className="signin-form">
           <TextField
             fullWidth
@@ -131,7 +203,6 @@ class SignIn extends React.Component {
             Sign In
           </ReallosButton>
         </div>
-
         <div className="social-signin-group">
           <Fab
             color="primary"
@@ -156,7 +227,6 @@ class SignIn extends React.Component {
             <img src={FacebookLogo} alt="" style={{ borderRadius: "50%" }} />
           </Fab>
         </div>
-
         <Divider
           style={{
             backgroundColor: "#ffffff",
@@ -166,7 +236,6 @@ class SignIn extends React.Component {
             marginRight: "auto",
           }}
         />
-
         <div className="signin-no-account">
           <h3>Don't have an account?</h3>
         </div>
@@ -185,6 +254,7 @@ class SignIn extends React.Component {
             </span>
           </ReallosButton>
         </div>
+        {this.showDownloadInfo()}
       </Scaffold>
     );
   }
