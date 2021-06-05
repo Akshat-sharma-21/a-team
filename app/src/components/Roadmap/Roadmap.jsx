@@ -91,8 +91,8 @@ function Roadmap(props) {
                 </StepLabel>
                 <StepContent className="step-desc">
                   <div className="roadmap-desc">
-                    It helps you find out how much you can afford and is the
-                    first.
+                    Pre-Approval will allow you as the buyer to understand how
+                    much you can afford
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
@@ -120,8 +120,8 @@ function Roadmap(props) {
                 </StepLabel>
                 <StepContent className="step-desc">
                   <div className="roadmap-desc">
-                    An ad group contains one or more ads which target a shared
-                    set of keywords.
+                    Answer a few questions and we can connect you with a local
+                    agent in your desired area
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
@@ -148,8 +148,8 @@ function Roadmap(props) {
                 </StepLabel>
                 <StepContent className="step-desc">
                   <div className="roadmap-desc">
-                    Try out different ad text to see what brings in the most
-                    customers.
+                    Work with your agent to find the best home that fits your
+                    needs and wants
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
@@ -173,7 +173,10 @@ function Roadmap(props) {
                   <div className="roadmap-subheading">Escrow & Title</div>
                 </StepLabel>
                 <StepContent className="step-desc">
-                  <div className="roadmap-desc">Unknown step</div>
+                  <div className="roadmap-desc">
+                    This is where you deposit your earnest money and the title
+                    company will do its title search
+                  </div>
                   <div>
                     <Button className="roadmap-date" disabled>
                       30 Sep 2020
@@ -196,7 +199,10 @@ function Roadmap(props) {
                   <div className="roadmap-subheading">Home Inspection</div>
                 </StepLabel>
                 <StepContent className="step-desc">
-                  <div className="roadmap-desc">Unknown step</div>
+                  <div className="roadmap-desc">
+                    A Reallos Vetted home inspector will be sent out to the home
+                    to do an inspection of the property
+                  </div>
                   <div>
                     <Button className="roadmap-date" disabled>
                       30 Sep 2020
@@ -222,7 +228,10 @@ function Roadmap(props) {
                   <div className="roadmap-subheading">Home Insurance</div>
                 </StepLabel>
                 <StepContent className="step-desc">
-                  <div className="roadmap-desc">Unknown step</div>
+                  <div className="roadmap-desc">
+                    Get home insurance quotes instantly from home insurance
+                    providers across your area
+                  </div>
                   <div>
                     <Button className="roadmap-date" disabled>
                       30 Sep 2020
@@ -248,7 +257,10 @@ function Roadmap(props) {
                   <div className="roadmap-subheading">Closing</div>
                 </StepLabel>
                 <StepContent className="step-desc">
-                  <div className="roadmap-desc">Unknown step</div>
+                  <div className="roadmap-desc">
+                    This is where you sign all your papework and do your final
+                    walkthrough of the home
+                  </div>
                   <div>
                     <Button className="roadmap-date" disabled>
                       30 Sep 2020
@@ -278,6 +290,12 @@ function Roadmap(props) {
                 >
                   <div className="roadmap-subheading">Dream Home</div>
                 </StepLabel>
+                <StepContent className="step-desc">
+                  <div className="roadmap-desc">
+                    Congratulations on your new home! Reallos and everyone
+                    involved wishes you all the very best
+                  </div>
+                </StepContent>
               </Step>
             </Stepper>
           </Grid>

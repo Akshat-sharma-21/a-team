@@ -48,8 +48,6 @@ function Main() {
   let [screen, setScreen] = useState(
     window.innerWidth < 425 && window.innerWidth > 319
   );
-
-  console.log(getAuth());
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);

@@ -8,18 +8,18 @@ export const SET_PROFESSIONAL = "SET_PROFESSIONAL";
 export function setupTasks(tid, step) {
   return (dispatch) => {
     let url = "";
-    if (step === "FindHome") url = "/find-home";
-    else if (step === "EscrowTitle") url = "/escrow-title";
-    else if (step === "HomeInspection") url = "/home-inspection";
-    else if (step === "HomeInsurance") url = "/home-insurance";
-    else if (step === "Closing") url = "/closing";
+    if (step === "FindHome") url = "find-home";
+    else if (step === "EscrowTitle") url = "escrow-title";
+    else if (step === "HomeInspection") url = "home-inspection";
+    else if (step === "HomeInsurance") url = "home-insurance";
+    else if (step === "Closing") url = "closing";
     axios
       .post(`${baseUrl}/${url}`, {
         tid: tid,
       })
       .then((res) => {
         if (res.data.completed === true)
-          window.location.href = "/tasks_summary";
+          window.location.href = `${url}/tasks_summary`;
       })
       .catch((err) => {
         dispatch(setErrors(err));

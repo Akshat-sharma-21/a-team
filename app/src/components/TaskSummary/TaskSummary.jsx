@@ -256,7 +256,7 @@ function TaskSummary(props) {
                       <div className="lender-list-title">External Lender</div>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext2">
+                      <div className="taskSummary-list-subtext2">
                         You have an external Lender helping you with your
                         Process
                       </div>

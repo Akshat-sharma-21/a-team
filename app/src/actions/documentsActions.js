@@ -1,4 +1,5 @@
-import { myFirestore, myStorage, myFirebase } from "../FirebaseConfig";
+import { myFirestore, myStorage, myFirebase, baseUrl } from "../FirebaseConfig";
+import axios from "axios";
 export const SET_ALL_DOCUMENTS = "SET_ALL_DOCUMENTS";
 
 export function setAllDocumentsAction(transaction) {
@@ -38,6 +39,13 @@ export function uploadDocument(file, docData) {
                 let Documents = doc.data().PreApproval.Documents;
                 Documents.forEach((e) => {
                   if (e.id === docData.id) {
+                    if (docData.title === "Pre-Approval Letter") {
+                      // if the pre-approval letter is being uploaded
+                      axios.post(`${baseUrl}/unlock-find-agent`, {
+                        // making a request to unlock the find agent step
+                        tid: docData.tid,
+                      });
+                    }
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;
                     e.date = new Date(
