@@ -123,10 +123,10 @@
   padding-right: 60px;
   align-items: center;
   justify-content: center;
-  background-image: url("../../assets/ProfileImageBg.svg");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  background-image: url("../../assets/ProfileImageBg.svg");
 }
 
 .profile-fab-btn {
@@ -162,10 +162,7 @@
 /*Roadmap section supported for screen sizes less than 750 */
 @media screen and (max-height: 750px) {
   .profile-edit {
-    background-image: url("../../assets/ProfileEditImg.svg");
-    background-position: left;
     background-position-y: -25px;
-    background-repeat: no-repeat;
     background-size: 100vw;
     height: 100vh; /* Setting the height to be 100% */
   }
@@ -176,17 +173,14 @@
   }
 
   .profile-input {
-    color: #999999;
     height: 20px !important;
   }
 
   .profile-label {
-    font-family: "Segoe UI", sans-serif;
     margin-top: 10px;
     margin-left: 5px;
     margin-bottom: 8px;
     font-size: 13px;
-    color: #545252;
   }
 
   .profile-edit-avatar {
@@ -199,50 +193,32 @@
     height: 160px;
     display: flex;
     padding-right: 60px;
-    align-items: center;
-    justify-content: center;
-    background-image: url("../../assets/ProfileImageBg.svg");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 }
 
 /*Roadmap section supported for screen sizes less than 700 */
 @media screen and (max-height: 700px) {
   .roadmap-subheading {
-    text-align: left !important;
-    font-family: "Gilroy" !important;
-    font-weight: bold !important;
     font-size: 19px !important;
-    color: var(--color-dark) !important;
     padding-left: 10px;
   }
   .roadmap-desc {
-    font-family: "Roboto Slab";
     font-size: 14px;
-    color: var(--color-dark) !important;
     margin-left: 15px !important;
     margin-bottom: 13px !important;
     padding-left: 10px;
   }
   .roadmap-date {
-    font-family: "Gilroy" !important;
-    font-weight: bold !important;
     font-size: 13px !important;
     border-radius: 10px !important;
-    color: var(--color-white) !important;
-    background-color: #0000003d !important;
     margin-left: 13px !important;
     margin-right: 13px !important;
     padding: 7px 15px !important;
   }
   .roadmap-next-btn {
-    background-color: #2855ff !important;
     height: 35px !important;
     width: 35px !important;
     border-radius: 100%;
-    color: #ffffff !important;
   }
   .roadmap-avatar {
     height: 70px !important;
@@ -250,18 +226,13 @@
     margin-left: 15px;
   }
   .roadmap-heading {
-    text-align: left !important;
-    font-family: "Gilroy" !important;
-    font-weight: bold !important;
     font-size: 33px !important;
-    color: var(--color-dark-grey) !important;
   }
   .roadmap-fab-btn {
     width: 28px !important;
     height: 28px !important;
     margin-top: -28px !important;
     margin-left: 60px !important;
-    position: absolute !important;
   }
   .roadmap-stepper {
     padding: 3px 0 0px 8px !important;
@@ -274,30 +245,18 @@
 
   .profile-img-div {
     height: 150px;
-    display: flex;
     padding-right: 60px;
-    align-items: center;
-    justify-content: center;
-    background-image: url("../../assets/ProfileImageBg.svg");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 
   .profile-label {
-    font-family: "Segoe UI", sans-serif;
     margin-top: 5px;
     margin-left: 5px;
     margin-bottom: 8px;
     font-size: 12px;
-    color: #545252;
   }
 
   .profile-edit {
-    background-image: url("../../assets/ProfileEditImg.svg");
-    background-position: left;
     background-position-y: -50px;
-    background-repeat: no-repeat;
     background-size: 100vw;
     height: 100vh; /* Setting the height to be 100% */
   }

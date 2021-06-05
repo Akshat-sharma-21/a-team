@@ -11,7 +11,6 @@
   align-items: center;
   justify-content: center;
   color: #ffffff;
-
   background: linear-gradient(
     to right,
     var(--color-gradient-start),
@@ -49,23 +48,6 @@
 
 @media screen and (max-height: 700px) {
   .bottom-nav-root {
-    z-index: 10;
     height: 12vh;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-
-    background: linear-gradient(
-      to right,
-      var(--color-gradient-start),
-      var(--color-gradient-stop)
-    );
   }
 }

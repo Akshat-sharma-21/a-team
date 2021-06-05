@@ -10,8 +10,6 @@
 
 @media screen and (max-height: 700px) {
   .search-bar {
-    background-color: rgba(0, 0, 0, 0.05) !important;
-    border-radius: 8px !important;
     height: 7vh !important;
   }
 }

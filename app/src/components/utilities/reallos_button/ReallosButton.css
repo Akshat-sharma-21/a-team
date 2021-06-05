@@ -143,17 +143,8 @@
 
 @media screen and (max-height: 750px) {
   .reallos-button {
-    font-family: "Gilroy" !important;
-    font-weight: bold;
     font-size: 18px;
-    cursor: pointer;
     border-radius: 8px;
-    text-transform: none !important;
-    letter-spacing: normal !important;
     padding: 12px 10px !important;
-    border: none;
-    outline: none;
-
-    transition: all 150ms ease;
   }
 }

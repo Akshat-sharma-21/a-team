@@ -134,13 +134,10 @@
 @media screen and (max-height: 750px) {
   .lenders-heading {
     font-size: 33px !important;
-    font-weight: bold !important;
-    color: var(--color-dark-grey) !important;
     margin-bottom: 25px;
   }
 
   .lender-card-root {
-    position: relative;
     margin-top: 10px;
     border-radius: 10px !important;
     border: 2px solid #dddddd;
