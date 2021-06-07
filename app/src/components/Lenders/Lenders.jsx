@@ -156,13 +156,15 @@ function Lenders(props) {
           </Grid>
         </Grid>
 
-        <SearchBar
-          filterByFields={["title", "description", "dueDate"]}
-          list={lenderList}
-          onUpdate={(filtered) => {
-            setFilteredList(filtered);
-          }}
-        />
+        {lenderList !== null && (
+          <SearchBar
+            filterByFields={["Company", "FirstName", "LastName"]}
+            list={lenderList}
+            onUpdate={(filtered) => {
+              setFilteredList(filtered);
+            }}
+          />
+        )}
       </div>
 
       <Grid container direction="row" justify="center" alignItems="center">

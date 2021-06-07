@@ -16,6 +16,7 @@ import {
 const mapStateToProps = (state) => ({
   utils: state.utils,
   user: state.user,
+  roadmap: state.roadmap,
 });
 
 const mapActionToProps = (dispatch) => {
@@ -25,7 +26,6 @@ const mapActionToProps = (dispatch) => {
 function HomeInsurance(props) {
   let [providerList, setproviderList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
-
   useEffect(() => {
     if (props.utils.reload) {
       props.fetchUser();
@@ -76,8 +76,6 @@ function HomeInsurance(props) {
       // If there is no providerList
       return (
         <div className="documents-single-view-container">
-          {/* <img src={NoDoc} alt="" /> */}
-
           <h2 className="documents-subheading">
             Find all your insurance providers right here!
           </h2>
@@ -129,13 +127,18 @@ function HomeInsurance(props) {
               providerData={providerData}
               tid={props.user.Transaction}
               selectHomeInsurance={props.selectHomeInsurance}
+              quote={
+                // sending the quote object
+                props.roadmap.Quotes.filter(
+                  (quote) => quote.id === providerData.id
+                )[0]
+              }
             />
           ))}
         </Grid>
       );
     }
   };
-
   return (
     <Scaffold>
       <div className="page-header">
@@ -157,18 +160,15 @@ function HomeInsurance(props) {
           <Grid item xs={12} style={{ textAlign: "left" }}>
             <div className="providers-heading">Home Insurance</div>
           </Grid>
-
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="providers-heading">Home-Insurance</div>
-          </Grid>
-
-          <SearchBar
-            filterByFields={["title", "description", "dueDate"]}
-            list={providerList}
-            onUpdate={(filtered) => {
-              setFilteredList(filtered);
-            }}
-          />
+          {providerList !== null && (
+            <SearchBar
+              filterByFields={["Company", "FirstName", "LastName"]}
+              list={providerList}
+              onUpdate={(filtered) => {
+                setFilteredList(filtered);
+              }}
+            />
+          )}
         </Grid>
       </div>
 

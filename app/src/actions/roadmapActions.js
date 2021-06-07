@@ -83,6 +83,7 @@ export function setTransactionAction(Transaction) {
     Closing: {
       Locked: Transaction.Closing.Locked,
     },
+    Quotes: Transaction.Quotes,
   };
   return {
     type: SET_TRANSACTION,

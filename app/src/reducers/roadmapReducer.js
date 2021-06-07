@@ -9,6 +9,7 @@ const initialState = {
   HomeInsurance: {},
   Closing: {},
   ActiveProfessional: {},
+  Quotes: [],
 };
 
 function roadmapReducer(state = initialState, action) {
