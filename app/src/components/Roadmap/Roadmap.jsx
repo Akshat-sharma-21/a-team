@@ -36,6 +36,54 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchUser, setupTasks }, dispatch);
 };
 
+const displayDate = (date) => {
+  // To display the date in the required format
+  let newDate = new Date(date.seconds * 1000);
+  let month = null;
+  switch (newDate.getMonth()) {
+    case 0:
+      month = "Jan";
+      break;
+    case 1:
+      month = "Feb";
+      break;
+    case 2:
+      month = "March";
+      break;
+    case 3:
+      month = "April";
+      break;
+    case 4:
+      month = "May";
+      break;
+    case 5:
+      month = "June";
+      break;
+    case 6:
+      month = "July";
+      break;
+    case 7:
+      month = "Aug";
+      break;
+    case 8:
+      month = "Sept";
+      break;
+    case 9:
+      month = "Oct";
+      break;
+    case 10:
+      month = "Nov";
+      break;
+    case 11:
+      month = "Dec";
+      break;
+    default:
+      month = "";
+      break;
+  }
+  return `${newDate.getDate()} ${month}`;
+};
+
 function Roadmap(props) {
   const [isModalOpen, toggleModal] = useState(false);
   useEffect(() => {
@@ -64,6 +112,7 @@ function Roadmap(props) {
   }
 
   const PrimaryContent = () => {
+    console.log(props.roadmap);
     if (props.utils.loading === true) {
       return (
         <div className="roadmap-single-view-container">
@@ -96,7 +145,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.PreApproval.Date !== null
+                        ? displayDate(props.roadmap.PreApproval.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -125,7 +176,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.FindAgent.Date !== null
+                        ? displayDate(props.roadmap.FindAgent.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -153,7 +206,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.FindHome.Date !== null
+                        ? displayDate(props.roadmap.FindHome.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -179,7 +234,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.EscrowTitle.Date !== null
+                        ? displayDate(props.roadmap.EscrowTitle.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -205,7 +262,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.HomeInspection.Date !== null
+                        ? displayDate(props.roadmap.HomeInspection.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -234,7 +293,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.HomeInsurance.Date !== null
+                        ? displayDate(props.roadmap.HomeInsurance.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"
@@ -263,7 +324,9 @@ function Roadmap(props) {
                   </div>
                   <div>
                     <Button className="roadmap-date" disabled>
-                      30 Sep 2020
+                      {props.roadmap.Closing.Date !== null
+                        ? displayDate(props.roadmap.Closing.Date) // Displaying the Date
+                        : "???"}
                     </Button>
                     <IconButton
                       className="roadmap-next-btn"

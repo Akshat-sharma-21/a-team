@@ -57,31 +57,38 @@ export function setTransactionAction(Transaction) {
       Locked: Transaction.PreApproval.Locked,
       Asked: Transaction.PreApproval.Asked,
       Questions: Transaction.PreApproval.Questions,
+      Date: Transaction.PreApproval.Date,
     },
     FindAgent: {
       Professional: Transaction.FindAgent.Professional,
       Locked: Transaction.FindAgent.Locked,
       Asked: Transaction.FindAgent.Asked,
       Questions: Transaction.FindAgent.Questions,
+      Date: Transaction.FindAgent.Date,
     },
 
     FindHome: {
       Locked: Transaction.FindHome.Locked,
+      Date: Transaction.FindHome.Date,
     },
     EscrowTitle: {
       Professional: Transaction.EscrowTitle.Professional,
       Locked: Transaction.EscrowTitle.Locked,
+      Date: Transaction.EscrowTitle.Date,
     },
     HomeInspection: {
       Professional: Transaction.HomeInspection.Professional,
       Locked: Transaction.HomeInspection.Locked,
+      Date: Transaction.HomeInspection.Date,
     },
     HomeInsurance: {
       Professional: Transaction.HomeInsurance.Professional,
       Locked: Transaction.HomeInsurance.Locked,
+      Date: Transaction.HomeInsurance.Date,
     },
     Closing: {
       Locked: Transaction.Closing.Locked,
+      Date: Transaction.Closing.Date,
     },
     Quotes: Transaction.Quotes,
   };
