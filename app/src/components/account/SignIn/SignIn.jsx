@@ -29,6 +29,7 @@ import {
   loginWithProviderHelper,
   loginWithFacebook,
 } from "../../../actions/userActions";
+import { validateFormField } from "../../../utils";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -56,11 +57,76 @@ class SignIn extends React.Component {
       password: "",
       isPasswordVisible: false,
       isSnackbarVisible: true,
+      remember: false,
+      showError: false,
+      mailError: true,
+      mailErrorText: "Email cannot be empty",
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.props.loginWithProviderHelper();
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      mailError: validateFormField(event.target.value, event.target.name)
+        .hasError,
+    });
+
+    this.setState({
+      mailErrorText: validateFormField(event.target.value, event.target.name)
+        .errorText,
+    });
+    if (event.target.name === "email") {
+      this.setState({ email: event.target.value });
+    } else if (event.target.name === "password") {
+      this.setState({ password: event.target.value });
+    } else {
+      this.setState({ remember: !this.state.remember });
+    }
+  };
+
+  onSubmit() {
+    if (this.state.mailError) {
+      this.setState({ showError: true });
+    } else {
+      this.props.login({
+        email: this.state.email,
+        password: this.state.password,
+      });
+      setTimeout(() => {
+        if (this.props.utils.errors) {
+          if (this.props.utils.errors.code === "auth/wrong-password") {
+            this.setState({ mailError: "Password is incorrect" });
+            this.setState({ showError: true });
+          }
+
+          if (this.props.utils.errors.code === "auth/invalid-email") {
+            this.setState({ mailError: "Email is invalid" });
+            this.setState({ showError: true });
+          }
+
+          if (this.props.utils.errors.code === "auth/user-not-found") {
+            this.setState({ mailError: "User not found" });
+            this.setState({ showError: true });
+          }
+
+          if (this.props.utils.errors.code === "auth/user-disabled") {
+            this.setState({ mailError: "User is disabled" });
+            this.setState({ showError: true });
+          }
+
+          if (this.props.utils.errors.code === "auth/too-many-requests") {
+            this.setState({ mailError: "Too many requests" });
+            this.setState({ showError: true });
+          }
+        }
+      }, 2000);
+    }
   }
 
   showDownloadInfo() {
@@ -145,25 +211,19 @@ class SignIn extends React.Component {
             fullWidth
             className="signin-input"
             variant="outlined"
+            name="email"
             label="Email"
             type="email"
-            onChange={(event) =>
-              this.setState({
-                email: event.target.value,
-              })
-            }
+            onChange={this.handleChange}
           />
           <TextField
             fullWidth
             className="signin-input"
             variant="outlined"
+            name="password"
             label="Password"
             type={this.state.isPasswordVisible ? "text" : "password"}
-            onChange={(event) =>
-              this.setState({
-                password: event.target.value,
-              })
-            }
+            onChange={this.handleChange}
             InputProps={{
               endAdornment: (
                 <IconButton
@@ -193,12 +253,7 @@ class SignIn extends React.Component {
             fullWidth
             variant="light"
             disabled={this.props.utils.loading}
-            onClick={() =>
-              this.props.login({
-                email: this.state.email,
-                password: this.state.password,
-              })
-            }
+            onClick={this.onSubmit}
           >
             Sign In
           </ReallosButton>
@@ -255,6 +310,20 @@ class SignIn extends React.Component {
           </ReallosButton>
         </div>
         {this.showDownloadInfo()}
+
+        <Snackbar
+          open={this.state.showError}
+          autoHideDuration={6000}
+          onClose={() => this.setState({ showError: false })}
+        >
+          <Alert
+            onClose={() => this.setState({ showError: false })}
+            severity="warning"
+            variant="filled"
+          >
+            {this.state.mailErrorText}
+          </Alert>
+        </Snackbar>
       </Scaffold>
     );
   }

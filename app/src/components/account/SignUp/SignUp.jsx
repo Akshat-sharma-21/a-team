@@ -1,12 +1,14 @@
 import React from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { IconButton, TextField } from "@material-ui/core";
+import { IconButton, TextField, Snackbar } from "@material-ui/core";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import "./SignUp.css";
 import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { Alert } from "@material-ui/lab";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signup } from "../../../actions/userActions";
+import { validateFormField } from "../../../utils";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -27,12 +29,102 @@ class SignUp extends React.Component {
       phone: "",
       password: "",
       confirmPassword: "",
+      showError: false,
+      nameError: true,
+      mailError: true,
+      phoneError: true,
+      passwordError: true,
+      confirmPasswordError: true,
+      nameErrorText: "Name cannot be empty",
+      mailErrorText: "Email cannot be empty",
+      phoneErrorText: "Phone Number cannot be empty",
+      passwordErrorText: "Password cannot be empty",
+      confirmPasswordErrorText: "Passwords did not match",
       inputTextVisibility: {
         createPassword: false,
         confirmPassword: false,
       },
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange = (event) => {
+    switch (event.target.name) {
+      case "name":
+        this.setState({
+          nameError: validateFormField(event.target.value, event.target.name)
+            .hasError,
+        });
+        this.setState({
+          nameErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      case "email":
+        this.setState({
+          mailError: validateFormField(event.target.value, event.target.name)
+            .hasError,
+        });
+        this.setState({
+          mailErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      case "phone":
+        this.setState({
+          phoneError: validateFormField(event.target.value, event.target.name)
+            .hasError,
+        });
+        this.setState({
+          phoneErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      case "password":
+        this.setState({
+          passwordError: validateFormField(
+            event.target.value,
+            event.target.name
+          ).hasError,
+        });
+        this.setState({
+          passwordErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      case "confirmPassword":
+        this.setState({
+          confirmPassword: validateFormField(
+            event.target.value,
+            event.target.name
+          ).hasError,
+        });
+        this.setState({
+          confirmPasswordError: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
 
   renderForm(step) {
     switch (step) {
@@ -44,6 +136,7 @@ class SignUp extends React.Component {
                 value={this.state.name}
                 fullWidth
                 variant="outlined"
+                name="name"
                 label="Name"
                 type="text"
                 onChange={(event) =>
@@ -56,6 +149,7 @@ class SignUp extends React.Component {
                 value={this.state.email}
                 fullWidth
                 variant="outlined"
+                name="email"
                 label="Email"
                 type="email"
                 onChange={(event) =>
@@ -68,6 +162,7 @@ class SignUp extends React.Component {
                 value={this.state.phone}
                 fullWidth
                 variant="outlined"
+                name="phone"
                 label="Phone no."
                 type="tel"
                 onChange={(event) =>
@@ -103,8 +198,8 @@ class SignUp extends React.Component {
               <TextField
                 fullWidth
                 variant="outlined"
-                label="Create password"
                 name="password"
+                label="Create password"
                 value={this.state.password}
                 onChange={(event) =>
                   this.setState({
@@ -128,8 +223,8 @@ class SignUp extends React.Component {
                         this.setState({
                           inputTextVisibility: {
                             ...this.state.inputTextVisibility,
-                            createPassword: !this.state.inputTextVisibility
-                              .createPassword,
+                            createPassword:
+                              !this.state.inputTextVisibility.createPassword,
                           },
                         })
                       }
@@ -146,6 +241,7 @@ class SignUp extends React.Component {
               <TextField
                 fullWidth
                 variant="outlined"
+                name="confirmPassword"
                 label="Confirm password"
                 value={this.state.confirmPassword}
                 onChange={(event) =>
@@ -170,8 +266,8 @@ class SignUp extends React.Component {
                         this.setState({
                           inputTextVisibility: {
                             ...this.state.inputTextVisibility,
-                            confirmPassword: !this.state.inputTextVisibility
-                              .confirmPassword,
+                            confirmPassword:
+                              !this.state.inputTextVisibility.confirmPassword,
                           },
                         })
                       }
@@ -234,6 +330,19 @@ class SignUp extends React.Component {
 
           {this.renderForm(this.state.step)}
         </div>
+        <Snackbar
+          open={this.state.showError}
+          autoHideDuration={6000}
+          onClose={() => this.setState({ showError: false })}
+        >
+          <Alert
+            onClose={() => this.setState({ showError: false })}
+            severity="warning"
+            variant="filled"
+          >
+            {this.state.mailErrorText}
+          </Alert>
+        </Snackbar>
       </Scaffold>
     );
   }
