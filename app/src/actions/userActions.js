@@ -11,6 +11,7 @@ import {
 } from "./roadmapActions";
 import { setAllDocumentsAction } from "./documentsActions";
 import { setAllTasksAction } from "./tasksActions";
+import queryString from "query-string";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -692,6 +693,40 @@ export function updateUser(updatedData) {
         });
     }
   });
+}
+
+export function passwordResetLink(email) {
+  // function to send the password reset link
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    myFirebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        dispatch(setLoadingFalse());
+        window.location.href = "/check-mail";
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function handlePasswordReset(password, url) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    const query = queryString.parse(url); // parsing the url
+    myFirebase
+      .auth()
+      .confirmPasswordReset(query.oobCode, password)
+      .then(() => {
+        dispatch(setLoadingFalse()); // dispatching an action to set loading to false
+        window.location.href = "/signin"; // returning to the signin screen
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
 }
 
 export function setUserAction(payload) {

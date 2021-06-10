@@ -66,9 +66,9 @@ function Main() {
         <Route path="/Signin" component={Signin} />
         <Route path="/verifyEmail" component={VerifyMail} />
         <Route path="/verifyPhone" component={VerifyPhone} />
-        <Route path="/create_password" component={CreatePassword} />
-        <Route path="/reset_password" component={ResetPassword} />
-        <Route path="/check_mail" component={CheckYourMail} />
+        <Route path="/create-password" component={CreatePassword} />
+        <Route path="/reset-password" component={ResetPassword} />
+        <Route path="/check-mail" component={CheckYourMail} />
         <PrivateRoute path="/profile" component={ProfileEdit} />
         <PrivateRoute path="/dashboard" component={Roadmap} />
         <PrivateRoute path="/onboarding" component={Onboarding} />

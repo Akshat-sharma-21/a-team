@@ -8,6 +8,8 @@ import {
   IconButton,
   withStyles,
   Snackbar,
+  Typography,
+  Link,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import {
@@ -247,7 +249,11 @@ class SignIn extends React.Component {
               ),
             }}
           />
-
+        </div>
+        <div className="signin-forgot-password">
+          <Link href="/reset-password">Forgot Password?</Link>
+        </div>
+        <div className="signin-form-group-button">
           <ReallosButton
             primary
             fullWidth
@@ -258,6 +264,7 @@ class SignIn extends React.Component {
             Sign In
           </ReallosButton>
         </div>
+
         <div className="social-signin-group">
           <Fab
             color="primary"

@@ -4,9 +4,25 @@ import { TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import LockIconImg from "../../../assets/LockIconImg.svg";
+import { passwordResetLink } from "../../../actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./SignUp.css";
 
-function CreatePasword() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      passwordResetLink,
+    },
+    dispatch
+  );
+};
+
+function CreatePasword(props) {
   const [email, setEmail] = useState("");
 
   function renderForm() {
@@ -26,7 +42,12 @@ function CreatePasword() {
         </div>
         <div className="reset-password-divider-div"></div>
         <div className="signup-form-action-group">
-          <ReallosButton primary fullWidth>
+          <ReallosButton
+            primary
+            fullWidth
+            onClick={() => props.passwordResetLink(email)}
+            disabled={props.utils.loading}
+          >
             Next
             <span style={{ marginLeft: 10 }}>
               <ArrowRightIcon size={21} />
@@ -69,4 +90,4 @@ function CreatePasword() {
   );
 }
 
-export default CreatePasword;
+export default connect(mapStateToProps, mapActionToProps)(CreatePasword);

@@ -3,9 +3,20 @@ import { Scaffold, ReallosButton } from "../../utilities/core";
 import { TextField } from "@material-ui/core";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import UnlockIconImg from "../../../assets/UnlockIconImg.svg";
+import { handlePasswordReset } from "../../../actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./SignUp.css";
 
-function CreatePasword() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({ handlePasswordReset }, dispatch);
+};
+
+function CreatePasword(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -36,7 +47,14 @@ function CreatePasword() {
         </div>
         <div className="create-password-divider-div"></div>
         <div className="signup-form-action-group">
-          <ReallosButton primary fullWidth>
+          <ReallosButton
+            primary
+            fullWidth
+            disabled={props.utils.loading}
+            onClick={() =>
+              props.handlePasswordReset(password, window.location.href)
+            }
+          >
             Confirm
           </ReallosButton>
         </div>
@@ -76,4 +94,4 @@ function CreatePasword() {
   );
 }
 
-export default CreatePasword;
+export default connect(mapStateToProps, mapActionToProps)(CreatePasword);

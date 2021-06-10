@@ -20,7 +20,12 @@ function CheckYourMail() {
 
       <div className="check-mail-footer">
         Didn't receive the email? Check you spam folder or try another{" "}
-        <span style={{ color: "#2b44ff" }}>Email</span>
+        <span
+          style={{ color: "#2b44ff" }}
+          onClick={() => (window.location.href = "/reset-password")}
+        >
+          Email
+        </span>
       </div>
     </div>
   );
