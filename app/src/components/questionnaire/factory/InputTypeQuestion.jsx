@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Scaffold } from "../../utilities/core";
 import { Grid, IconButton, TextField } from "@material-ui/core";
 import { ArrowLeftIcon, ArrowRightIcon } from "@primer/octicons-react";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 function InputTypeQuestion(props) {
   // function to display input type questions
@@ -36,17 +41,30 @@ function InputTypeQuestion(props) {
 
         <div className="questionnaire-form-group">
           {input.type === "date" ? (
-            <TextField
-              label={input.label}
-              variant="outlined"
-              type="date"
-              fullWidth
-              value={userInputValue}
-              disabled={isLoadingNext}
-              onChange={(event) => {
-                setUserInputValue(event.target.value);
-              }}
-            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                fullWidth
+                disableFuture
+                variant="dialog"
+                format="MM/dd/yyyy"
+                name="date"
+                label="Date of Birth"
+                value={userInputValue === "" ? new Date() : userInputValue}
+                onChange={(event) => {
+                  let dateString = // Formating the string in a particular format
+                    event.toDateString().split(" ")[1] +
+                    " " +
+                    event.toDateString().split(" ")[2] +
+                    " " +
+                    event.toDateString().split(" ")[3] +
+                    " ";
+                  setUserInputValue(dateString);
+                }}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </MuiPickersUtilsProvider>
           ) : (
             <TextField
               label={input.label}
