@@ -37,9 +37,7 @@ function CreatePasword(props) {
     setMailErrorText(
       validateFormField(event.target.value, event.target.name).errorText
     );
-    setEmail({
-      email: event.target.value,
-    });
+    setEmail(event.target.value);
   };
 
   const onSubmit = () => {
