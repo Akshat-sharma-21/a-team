@@ -54,10 +54,9 @@ class SignUp extends React.Component {
     switch (event.target.name) {
       case "name":
         this.setState({
+          name: event.target.value,
           nameError: validateFormField(event.target.value, event.target.name)
             .hasError,
-        });
-        this.setState({
           nameErrorText: validateFormField(
             event.target.value,
             event.target.name
@@ -67,10 +66,9 @@ class SignUp extends React.Component {
 
       case "email":
         this.setState({
+          email: event.target.value,
           mailError: validateFormField(event.target.value, event.target.name)
             .hasError,
-        });
-        this.setState({
           mailErrorText: validateFormField(
             event.target.value,
             event.target.name
@@ -80,10 +78,9 @@ class SignUp extends React.Component {
 
       case "phone":
         this.setState({
+          phone: event.target.value,
           phoneError: validateFormField(event.target.value, event.target.name)
             .hasError,
-        });
-        this.setState({
           phoneErrorText: validateFormField(
             event.target.value,
             event.target.name
@@ -93,12 +90,11 @@ class SignUp extends React.Component {
 
       case "password":
         this.setState({
+          phone: event.target.value,
           passwordError: validateFormField(
             event.target.value,
             event.target.name
           ).hasError,
-        });
-        this.setState({
           passwordErrorText: validateFormField(
             event.target.value,
             event.target.name
@@ -107,17 +103,18 @@ class SignUp extends React.Component {
         break;
 
       case "confirmPassword":
+        if (this.state.password !== this.state.confirmPassword) {
+          this.setState({
+            confirmPasswordError: true,
+            confirmPasswordErrorText: "Password did not match",
+          });
+        } else {
+          this.setState({
+            confirmPasswordError: false,
+          });
+        }
         this.setState({
-          confirmPassword: validateFormField(
-            event.target.value,
-            event.target.name
-          ).hasError,
-        });
-        this.setState({
-          confirmPasswordError: validateFormField(
-            event.target.value,
-            event.target.name
-          ).errorText,
+          confirmPassword: event.target.value,
         });
         break;
 
@@ -126,6 +123,36 @@ class SignUp extends React.Component {
     }
   };
 
+  nextStep() {
+    if (
+      !this.state.nameError &&
+      !this.state.mailError &&
+      !this.state.phoneError
+    ) {
+      this.setState({
+        step: 1,
+      });
+    } else {
+      this.setState({
+        showError: true,
+      });
+    }
+  }
+
+  onSubmit() {
+    if (!this.state.passwordError && !this.state.confirmPasswordError) {
+      this.props.signup({
+        email: this.state.email,
+        name: this.state.name,
+        password: this.state.password,
+        phone: this.state.phone,
+      });
+    } else {
+      this.setState({
+        showError: true,
+      });
+    }
+  }
   renderForm(step) {
     switch (step) {
       case 0:
@@ -163,7 +190,7 @@ class SignUp extends React.Component {
                 fullWidth
                 variant="outlined"
                 name="phone"
-                label="Phone no."
+                label="Phone No."
                 type="tel"
                 onChange={(event) =>
                   this.setState({
@@ -173,15 +200,7 @@ class SignUp extends React.Component {
               />
             </div>
             <div className="signup-form-action-group">
-              <ReallosButton
-                primary
-                fullWidth
-                onClick={() => {
-                  this.setState({
-                    step: 1,
-                  });
-                }}
-              >
+              <ReallosButton primary fullWidth onClick={() => this.nextStep()}>
                 Next
                 <span style={{ marginLeft: 10 }}>
                   <ArrowRightIcon size={21} />
@@ -295,14 +314,7 @@ class SignUp extends React.Component {
               <ReallosButton
                 primary
                 disabled={this.props.utils.loading}
-                onClick={() =>
-                  this.props.signup({
-                    email: this.state.email,
-                    name: this.state.name,
-                    password: this.state.password,
-                    phone: this.state.phone,
-                  })
-                }
+                onClick={() => this.onSubmit()}
               >
                 Create Account
               </ReallosButton>
@@ -340,7 +352,7 @@ class SignUp extends React.Component {
             severity="warning"
             variant="filled"
           >
-            {this.state.mailErrorText}
+            "Fill all the details correctly"
           </Alert>
         </Snackbar>
       </Scaffold>

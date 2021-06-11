@@ -1,13 +1,50 @@
 import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { TextField } from "@material-ui/core";
+import { Snackbar, TextField } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import UnlockIconImg from "../../../assets/UnlockIconImg.svg";
 import "./SignUp.css";
+import { validateFormField } from "../../../utils";
 
 function CreatePasword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(true);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(true);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(
+    "Passowrd cannot be left empty"
+  );
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState("Passowrd did not match");
+  const [showError, setShowError] = useState(false);
+
+  function handleChange(event) {
+    if (event.target.name === "password") {
+      setPasswordError(
+        validateFormField(event.target.value, event.target.name).hasError
+      );
+      setPasswordErrorMessage(
+        validateFormField(event.target.value, event.target.name).errorText
+      );
+      setPassword(event.target.value);
+    }
+
+    if (event.target.name === "confirmPassword") {
+      if (password !== confirmPassword) {
+        setConfirmPasswordError(true);
+        setConfirmPasswordErrorMessage("Password did not match");
+      } else setConfirmPasswordError(false);
+      setConfirmPassword(event.target.value);
+    }
+  }
+
+  function onSubmit() {
+    if (!passwordError && !confirmPasswordError) {
+    } else {
+      setShowError(true);
+    }
+  }
 
   function renderForm() {
     return (
@@ -18,9 +55,10 @@ function CreatePasword() {
             fullWidth
             variant="outlined"
             label="Create Password"
+            name="password"
             type="password"
             onChange={(event) => {
-              setPassword(event.target.value);
+              handleChange(event);
             }}
           />
           <TextField
@@ -28,15 +66,16 @@ function CreatePasword() {
             fullWidth
             variant="outlined"
             label="Confirm Password"
+            name="confirmPassword"
             type="password"
             onChange={(event) => {
-              setConfirmPassword(event.target.value);
+              handleChange(event);
             }}
           />
         </div>
         <div className="create-password-divider-div"></div>
         <div className="signup-form-action-group">
-          <ReallosButton primary fullWidth>
+          <ReallosButton primary fullWidth onClick={onSubmit}>
             Confirm
           </ReallosButton>
         </div>
@@ -72,6 +111,20 @@ function CreatePasword() {
 
         {renderForm()}
       </div>
+
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="warning"
+          variant="filled"
+        >
+          {passwordError ? passwordErrorMessage : confirmPasswordErrorMessage}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }
