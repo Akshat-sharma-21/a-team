@@ -11,6 +11,7 @@ import {
 } from "./roadmapActions";
 import { setAllDocumentsAction } from "./documentsActions";
 import { setAllTasksAction } from "./tasksActions";
+import queryString from "query-string";
 import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
@@ -32,12 +33,17 @@ export function signup(user) {
             FirstTime: true, // This is used to showcase the onboarding screens
             PhotoUrl: null, // This is used to store the photo url
           })
-          .then(() => {
+          .then(async () => {
+            let token = await res.user.getIdToken(); // waiting for the token
             axios
-              .post(`${baseUrl}/create-transaction`, {
-                buyer: user.name,
-                buyerId: res.user.uid,
-              })
+              .post(
+                `${baseUrl}/create-transaction`,
+                {
+                  buyer: user.name,
+                  buyerId: res.user.uid,
+                },
+                { headers: { Authorization: "Bearer " + token } } // sending the bearer token
+              )
               .then(() => {
                 dispatch(setLoadingFalse());
                 localStorage.setItem("Id", res.user.uid);
@@ -70,6 +76,7 @@ export function login(user) {
         return userCredentials.user.getIdToken();
       })
       .then((token) => {
+        localStorage.setItem("Token", token);
         myFirestore
           .collection("Users")
           .doc(localStorage.getItem("Id"))
@@ -80,7 +87,6 @@ export function login(user) {
               doc.data().phoneVerified === true
             ) {
               // If the user has verified both the email and phone
-              localStorage.setItem("Token", token);
               if (doc.data().FirstTime === true) {
                 myFirestore
                   .collection("Users")
@@ -163,6 +169,7 @@ export function loginWithProviderHelper() {
       .then((token) => {
         if (token) {
           // if a token was passed
+          localStorage.setItem("Token", token); // storing the token in local storage
           myFirestore
             .collection("Users")
             .doc(localStorage.getItem("Id"))
@@ -176,7 +183,6 @@ export function loginWithProviderHelper() {
                 // if the basic information about the user exists
                 if (doc.data().phoneVerified === true) {
                   // If the phone is verified
-                  localStorage.setItem("Token", token);
                   if (doc.data().FirstTime === true) {
                     // If the user is logging in for the first time
                     myFirestore
@@ -224,10 +230,14 @@ export function signupWithProvider(user) {
       .then(() => {
         localStorage.setItem("userPhone", user.phone); // Storing user's phone in loclaStorage
         axios
-          .post(`${baseUrl}/create-transaction`, {
-            buyer: user.name,
-            buyerId: localStorage.getItem("Id"),
-          })
+          .post(
+            `${baseUrl}/create-transaction`,
+            {
+              buyer: user.name,
+              buyerId: localStorage.getItem("Id"),
+            },
+            { headers: { Authorization: "Bearer " + localStorage.Token } }
+          )
           .then(() => {
             dispatch(setLoadingFalse());
             window.location.href = "/verifyPhone";
@@ -466,7 +476,11 @@ export function sendEmailOtp() {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
     axios
-      .post(`${baseUrl}/send-email-otp`, { email: localStorage.userEmail })
+      .post(
+        `${baseUrl}/send-email-otp`,
+        { email: localStorage.userEmail },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         localStorage.removeItem("userEmail"); // Removing user's email from the local storage
         localStorage.setItem("emailHash", res.data.hash); // Storing the hash returned from the email
@@ -483,12 +497,16 @@ export function verifyEmail(otp) {
     dispatch(setLoadingTrue());
     otp = otp.replaceAll(",", ""); // Extracting the otp from its string format
     axios
-      .post(`${baseUrl}/verify-email`, {
-        code: otp,
-        hash: localStorage.emailHash,
-        id: localStorage.Id,
-        user: true,
-      })
+      .post(
+        `${baseUrl}/verify-email`,
+        {
+          code: otp,
+          hash: localStorage.emailHash,
+          id: localStorage.Id,
+          user: true,
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.verified === true) {
           localStorage.removeItem("emailHash");
@@ -509,9 +527,13 @@ export function sendPhoneOtp() {
   return (dispatch) => {
     dispatch(setLoadingTrue());
     axios
-      .post(`${baseUrl}/send-text-otp`, {
-        phone: localStorage.userPhone,
-      })
+      .post(
+        `${baseUrl}/send-text-otp`,
+        {
+          phone: localStorage.userPhone,
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         localStorage.removeItem("userPhone");
         localStorage.setItem("phoneHash", res.data.hash);
@@ -528,12 +550,16 @@ export function verifyPhone(otp) {
     dispatch(setLoadingTrue());
     otp = otp.replaceAll(",", "");
     axios
-      .post(`${baseUrl}/verify-phone`, {
-        code: otp,
-        hash: localStorage.phoneHash,
-        id: localStorage.Id,
-        user: true,
-      })
+      .post(
+        `${baseUrl}/verify-phone`,
+        {
+          code: otp,
+          hash: localStorage.phoneHash,
+          id: localStorage.Id,
+          user: true,
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.verified === true) {
           localStorage.removeItem("Id");
@@ -692,6 +718,40 @@ export function updateUser(updatedData) {
         });
     }
   });
+}
+
+export function passwordResetLink(email) {
+  // function to send the password reset link
+  return (dispatch) => {
+    dispatch(setLoadingTrue());
+    myFirebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        dispatch(setLoadingFalse());
+        window.location.href = "/check-mail";
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
+}
+
+export function handlePasswordReset(password, url) {
+  return (dispatch) => {
+    dispatch(setLoadingTrue()); // dispatching an action to set loading to true
+    const query = queryString.parse(url); // parsing the url
+    myFirebase
+      .auth()
+      .confirmPasswordReset(query.oobCode, password)
+      .then(() => {
+        dispatch(setLoadingFalse()); // dispatching an action to set loading to false
+        window.location.href = "/signin"; // returning to the signin screen
+      })
+      .catch((err) => {
+        dispatch(setErrors(err));
+      });
+  };
 }
 
 export function setUserAction(payload) {

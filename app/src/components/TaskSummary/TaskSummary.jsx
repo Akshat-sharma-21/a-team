@@ -222,192 +222,197 @@ function TaskSummary(props) {
     let profession = "";
     let linkToProfession = "";
     // Function to display the Professional
-    if (
-      activeStepName === "Pre-approval" &&
-      getEffectiveAnswer(props.roadmap.PreApproval.Questions[0]) === "YES" // Logic to display External Lender
-    ) {
-      return (
-        <>
-          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-            <div className="taskSummary-subheading">Lender</div>
-          </Grid>
-          <Grid item xs={12} style={{ textAlign: "center" }}>
-            <List className="taskSummary-list">
-              <ListItem className="taskSummary-lender-list">
-                <Grid
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Grid item xs={1} style={{ textAlign: "center" }}>
-                    <Avatar
-                      variant="circle"
-                      style={{
-                        marginBottom: "10px",
-                      }}
-                    >
-                      ?
-                    </Avatar>
-                  </Grid>
-                  <Grid item xs={1}></Grid>
-                  <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="lender-list-title">External Lender</div>
-                    </Grid>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="taskSummary-list-subtext2">
-                        You have an external Lender helping you with your
-                        Process
-                      </div>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={1}></Grid>
-
-                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
-
-                  <Grid item xs={5}></Grid>
-                </Grid>
-              </ListItem>
-            </List>
-          </Grid>
-        </>
-      );
-    }
-    if (activeStep.Professional === null) {
-      // If the professional is not present
-      if (activeStepName === "Pre-approval") {
-        // To select what profession to display
-        profession = "Lender";
-        linkToProfession = "/lenders";
-      } else if (activeStepName === "Home Insurance") {
-        profession = "Insurance Provider";
-        linkToProfession = "/insurance";
-      }
-      return (
-        <>
-          <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
-            <div className="taskSummary-subheading">{profession}</div>
-          </Grid>
-          <Grid item xs={12} style={{ textAlign: "center" }}>
-            <List className="taskSummary-list">
-              <ListItem className="taskSummary-lender-list">
-                <Grid
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Grid item xs={1} style={{ textAlign: "center" }}>
-                    <Avatar
-                      variant="circle"
-                      style={{
-                        backgroundColor: "#2B44FF",
-                        marginBottom: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={1}></Grid>
-                  <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="taskSummary-Profession-list-title">
-                        {profession}
-                      </div>
-                    </Grid>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="taskSummary-list-subtext2">
-                        You haven't yet selected a {profession}. Please select
-                        one to move forward
-                      </div>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={1}></Grid>
-
-                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
-
-                  <Grid item xs={5}></Grid>
-                  <Grid item xs={7}>
-                    <Button
-                      className="taskSummary-Profession-btn"
-                      onClick={() => history.push(linkToProfession)}
-                    >
-                      View all Offers <ChevronRightIcon size={16} />
-                    </Button>
-                  </Grid>
-                </Grid>
-              </ListItem>
-            </List>
-          </Grid>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Grid item xs={12} style={{ textAlign: "center" }}>
-            <List className="taskSummary-list">
-              <ListItem className="taskSummary-lender-list">
-                <Grid
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <Grid item xs={1} style={{ textAlign: "center" }}>
-                    {props.roadmap.ActiveProfessional.PhotoUrl !== null ? (
+    if (step !== "find-home" && step !== "closing") {
+      // Only display the professional if the step is not find-home and closing
+      if (
+        activeStepName === "Pre-approval" &&
+        getEffectiveAnswer(props.roadmap.PreApproval.Questions[0]) === "YES" // Logic to display External Lender
+      ) {
+        return (
+          <>
+            <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+              <div className="taskSummary-subheading">Lender</div>
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: "center" }}>
+              <List className="taskSummary-list">
+                <ListItem className="taskSummary-lender-list">
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs={1} style={{ textAlign: "center" }}>
                       <Avatar
                         variant="circle"
-                        src={props.roadmap.ActiveProfessional.PhotoUrl}
-                      />
-                    ) : (
-                      <Avatar variant="circle">
-                        {props.roadmap.ActiveProfessional.Name.split(
-                          " "
-                        )[0][0] +
-                          props.roadmap.ActiveProfessional.Name.split(
-                            " "
-                          )[1][0]}
+                        style={{
+                          marginBottom: "10px",
+                        }}
+                      >
+                        ?
                       </Avatar>
-                    )}
-                  </Grid>
-                  <Grid item xs={1}></Grid>
-                  <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="lender-list-title">
-                        {props.roadmap.ActiveProfessional.Name}
-                      </div>
                     </Grid>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">
-                        {props.roadmap.ActiveProfessional.Company}
-                      </div>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="lender-list-title">External Lender</div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="taskSummary-list-subtext2">
+                          You have an external Lender helping you with your
+                          Process
+                        </div>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={1}></Grid>
+                    <Grid item xs={1}></Grid>
 
-                  <Grid item xs={12} style={{ height: "20px" }}></Grid>
+                    <Grid item xs={12} style={{ height: "20px" }}></Grid>
 
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs={1}></Grid>
-                  <Grid item xs={9} container>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">
-                        <MailIcon size={16} /> &nbsp;&nbsp;{" "}
-                        {props.roadmap.ActiveProfessional.Email}
-                      </div>
+                    <Grid item xs={5}></Grid>
+                  </Grid>
+                </ListItem>
+              </List>
+            </Grid>
+          </>
+        );
+      }
+      if (activeStep.Professional === null) {
+        // If the professional is not present
+        if (activeStepName === "Pre-approval") {
+          // To select what profession to display
+          profession = "Lender";
+          linkToProfession = "/lenders";
+        } else if (activeStepName === "Home Insurance") {
+          profession = "Insurance Provider";
+          linkToProfession = "/insurance";
+        }
+        return (
+          <>
+            <Grid item xs={12} style={{ textAlign: "left", marginTop: "5px" }}>
+              <div className="taskSummary-subheading">{profession}</div>
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: "center" }}>
+              <List className="taskSummary-list">
+                <ListItem className="taskSummary-lender-list">
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs={1} style={{ textAlign: "center" }}>
+                      <Avatar
+                        variant="circle"
+                        style={{
+                          backgroundColor: "#2B44FF",
+                          marginBottom: "10px",
+                        }}
+                      />
                     </Grid>
-                    <Grid item xs={12} style={{ textAlign: "left" }}>
-                      <div className="doc-list-subtext">
-                        <DeviceMobileIcon size={16} />
-                        &nbsp;&nbsp; {props.roadmap.ActiveProfessional.Phone}
-                      </div>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="taskSummary-Profession-list-title">
+                          {profession}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="taskSummary-list-subtext2">
+                          You haven't yet selected a {profession}. Please select
+                          one to move forward
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+
+                    <Grid item xs={12} style={{ height: "20px" }}></Grid>
+
+                    <Grid item xs={5}></Grid>
+                    <Grid item xs={7}>
+                      <Button
+                        className="taskSummary-Profession-btn"
+                        onClick={() => history.push(linkToProfession)}
+                      >
+                        View all Offers <ChevronRightIcon size={16} />
+                      </Button>
                     </Grid>
                   </Grid>
-                </Grid>
-              </ListItem>
-            </List>
-          </Grid>
-        </>
-      );
+                </ListItem>
+              </List>
+            </Grid>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <Grid item xs={12} style={{ textAlign: "center" }}>
+              <List className="taskSummary-list">
+                <ListItem className="taskSummary-lender-list">
+                  <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Grid item xs={1} style={{ textAlign: "center" }}>
+                      {props.roadmap.ActiveProfessional.PhotoUrl !== null ? (
+                        <Avatar
+                          variant="circle"
+                          src={props.roadmap.ActiveProfessional.PhotoUrl}
+                        />
+                      ) : (
+                        <Avatar variant="circle">
+                          {props.roadmap.ActiveProfessional.Name.split(
+                            " "
+                          )[0][0] +
+                            props.roadmap.ActiveProfessional.Name.split(
+                              " "
+                            )[1][0]}
+                        </Avatar>
+                      )}
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={9} container style={{ paddingLeft: "15px" }}>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="lender-list-title">
+                          {props.roadmap.ActiveProfessional.Name}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-subtext">
+                          {props.roadmap.ActiveProfessional.Company}
+                        </div>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={1}></Grid>
+
+                    <Grid item xs={12} style={{ height: "20px" }}></Grid>
+
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}></Grid>
+                    <Grid item xs={9} container>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-subtext">
+                          <MailIcon size={16} /> &nbsp;&nbsp;{" "}
+                          {props.roadmap.ActiveProfessional.Email}
+                        </div>
+                      </Grid>
+                      <Grid item xs={12} style={{ textAlign: "left" }}>
+                        <div className="doc-list-subtext">
+                          <DeviceMobileIcon size={16} />
+                          &nbsp;&nbsp; {props.roadmap.ActiveProfessional.Phone}
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+              </List>
+            </Grid>
+          </>
+        );
+      }
+    } else {
+      return <></>;
     }
   }
 

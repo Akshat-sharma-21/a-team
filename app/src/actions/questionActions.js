@@ -10,11 +10,15 @@ export function fetchQuestions(tid, step, id, answer) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatch an action to set loading to true
     axios
-      .post(`${baseUrl}/${step}`, {
-        tid: tid,
-        id: id,
-        answer: answer,
-      })
+      .post(
+        `${baseUrl}/${step}`,
+        {
+          tid: tid,
+          id: id,
+          answer: answer,
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.completed === true) {
           // if the questioning have been completed
@@ -42,11 +46,15 @@ export function resetQuestion(tid, step, id) {
       dispatch(clearQuestionsAction());
     } else {
       axios
-        .post(`${baseUrl}/reset-step`, {
-          tid: tid,
-          step: step,
-          id: id,
-        })
+        .post(
+          `${baseUrl}/reset-step`,
+          {
+            tid: tid,
+            step: step,
+            id: id,
+          },
+          { headers: { Authorization: "Bearer " + localStorage.Token } }
+        )
         .then((res) => {
           if (res.data.reset && res.data.reset === true) {
             dispatch(setLoadingFalse());

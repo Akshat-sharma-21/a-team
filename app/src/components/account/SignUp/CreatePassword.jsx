@@ -4,10 +4,21 @@ import { Snackbar, TextField } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import UnlockIconImg from "../../../assets/UnlockIconImg.svg";
+import { handlePasswordReset } from "../../../actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./SignUp.css";
 import { validateFormField } from "../../../utils";
 
-function CreatePasword() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({ handlePasswordReset }, dispatch);
+};
+
+function CreatePasword(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState(true);
@@ -41,6 +52,7 @@ function CreatePasword() {
 
   function onSubmit() {
     if (!passwordError && !confirmPasswordError) {
+      props.handlePasswordReset(password, window.location.href);
     } else {
       setShowError(true);
     }
@@ -75,7 +87,12 @@ function CreatePasword() {
         </div>
         <div className="create-password-divider-div"></div>
         <div className="signup-form-action-group">
-          <ReallosButton primary fullWidth onClick={onSubmit}>
+          <ReallosButton
+            primary
+            disabled={props.utils.loading}
+            fullWidth
+            onClick={onSubmit}
+          >
             Confirm
           </ReallosButton>
         </div>
@@ -129,4 +146,4 @@ function CreatePasword() {
   );
 }
 
-export default CreatePasword;
+export default connect(mapStateToProps, mapActionToProps)(CreatePasword);

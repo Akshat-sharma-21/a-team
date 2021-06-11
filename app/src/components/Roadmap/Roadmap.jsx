@@ -22,7 +22,6 @@ import {
 } from "@primer/octicons-react";
 import ProfileEdit from "./ProfileEdit";
 import { fetchUser } from "../../actions/userActions";
-import { setupTasks } from "../../actions/roadmapActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -33,7 +32,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchUser, setupTasks }, dispatch);
+  return bindActionCreators({ fetchUser }, dispatch);
 };
 
 const displayDate = (date) => {
@@ -216,7 +215,7 @@ function Roadmap(props) {
                       className="roadmap-next-btn"
                       size="small"
                       onClick={() =>
-                        props.setupTasks(props.user.Transaction, "FindHome")
+                        (window.location.href = "find-home/tasks_summary")
                       }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
@@ -244,7 +243,7 @@ function Roadmap(props) {
                       className="roadmap-next-btn"
                       size="small"
                       onClick={() =>
-                        props.setupTasks(props.user.Transaction, "EscrowTitle")
+                        (window.location.href = "escrow-title/tasks_summary")
                       }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
@@ -272,10 +271,7 @@ function Roadmap(props) {
                       className="roadmap-next-btn"
                       size="small"
                       onClick={() =>
-                        props.setupTasks(
-                          props.user.Transaction,
-                          "HomeInspection"
-                        )
+                        (window.location.href = "home-inspection/tasks_summary")
                       }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
@@ -303,10 +299,7 @@ function Roadmap(props) {
                       className="roadmap-next-btn"
                       size="small"
                       onClick={() =>
-                        props.setupTasks(
-                          props.user.Transaction,
-                          "HomeInsurance"
-                        )
+                        (window.location.href = "home-insurance/tasks_summary")
                       }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />
@@ -334,7 +327,7 @@ function Roadmap(props) {
                       className="roadmap-next-btn"
                       size="small"
                       onClick={() =>
-                        props.setupTasks(props.user.Transaction, "Closing")
+                        (window.location.href = "closing/tasks_summary")
                       }
                     >
                       <ArrowRightIcon size={24} style={{ color: "#ffffff" }} />

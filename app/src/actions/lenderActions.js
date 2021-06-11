@@ -90,6 +90,11 @@ export function selectLender(tid, lender, user) {
                             Name: user.Name,
                             Phone: user.Phone,
                           },
+                        },
+                        {
+                          headers: {
+                            Authorization: "Bearer " + localStorage.Token,
+                          },
                         }
                       );
                       axios.post(
@@ -99,6 +104,11 @@ export function selectLender(tid, lender, user) {
                           email: user.Email,
                           phone: user.Phone,
                           lenderName: lender.FirstName + " " + lender.LastName,
+                        },
+                        {
+                          headers: {
+                            Authorization: "Bearer " + localStorage.Token,
+                          },
                         }
                       );
                       dispatch(setLoadingFalse());
@@ -116,6 +126,11 @@ export function selectLender(tid, lender, user) {
                       email: user.Email,
                       phone: user.Phone,
                       lenderName: lender.FirstName + " " + lender.LastName,
+                    },
+                    {
+                      headers: {
+                        Authorization: "Bearer " + localStorage.Token,
+                      },
                     }
                   );
                   dispatch(setLoadingFalse());

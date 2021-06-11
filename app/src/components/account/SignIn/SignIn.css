@@ -31,10 +31,6 @@
   margin-top: 15px !important;
 }
 
-.signin-form > button {
-  margin-top: 25px !important;
-}
-
 .signin-input > div {
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -59,6 +55,16 @@
 
 .signin-form-kebab-icon {
   transform: rotate(90deg);
+}
+
+.signin-forgot-password {
+  font-size: 14px !important;
+  margin-left: 52vw !important;
+  margin-top: 5% !important;
+}
+
+.signin-form-group-button {
+  margin-top: 10px;
 }
 
 @media screen and (max-height: 740px) {

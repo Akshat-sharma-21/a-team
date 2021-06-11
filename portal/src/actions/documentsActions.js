@@ -222,14 +222,23 @@ export function setMetadata(
 
   if (isPreApprovalDoc.toUpperCase() === "YES") {
     // If the Pre-approval letter is being uploaded then trigger the unlock find-agent action
-    axios.post(`${baseUrl}/unlock-find-agent`, { tid: tid });
+    axios.post(
+      `${baseUrl}/unlock-find-agent`,
+      { tid: tid },
+      { headers: { Authorization: "Bearer " + localStorage.Token } }
+    );
   }
 
   if (isPurchaseAgreement.toUpperCase() === "YES") {
     // if the Purchase agreement is being uploaded then trigger various unlock actions
-    axios.post(`${baseUrl}/unlock-escrow-title-and-home-inspection`, {
-      tid: tid,
-    });
+    axios.post(
+      `${baseUrl}/unlock-escrow-title-and-home-inspection`,
+      {
+        tid: tid,
+        token: localStorage.Token, // Sending the bearer token
+      },
+      { headers: { Authorization: "Bearer " + localStorage.Token } }
+    );
   }
 }
 

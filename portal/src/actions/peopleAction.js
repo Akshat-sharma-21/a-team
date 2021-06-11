@@ -6,22 +6,6 @@ export const ADD_PEOPLE = "ADD_PEOPLE";
 export const REMOVE_ALL = "REMOVE_ALL";
 export const SET_PEOPLE_LIST = "SET_PEOPLE_LIST";
 
-const fetchPeopleHelper = (id) => {
-  // function to help fetch people
-  return new Promise((resolve, reject) => {
-    myFirestore
-      .collection("Portal_Users")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        resolve(doc.data());
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
-
 export function fetchPeople(transaction) {
   return async (dispatch) => {
     if (
@@ -88,13 +72,17 @@ export function sendMail(email, from, transaction, emailContent) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post(`${baseUrl}/send-email`, {
-        email: email,
-        from: from,
-        transaction: transaction,
-        subject: emailContent.subject,
-        message: emailContent.message,
-      })
+      .post(
+        `${baseUrl}/send-email`,
+        {
+          email: email,
+          from: from,
+          transaction: transaction,
+          subject: emailContent.subject,
+          message: emailContent.message,
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.sent === true) {
           // if the email has been sent

@@ -31,16 +31,20 @@ export function sendInvitation(email, phone, user) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post(`${baseUrl}/send-invitation`, {
-        email: email,
-        phone: phone,
-        user: {
-          Id: localStorage.getItem("Id"),
-          Role: user.Role,
-          Name: user.FirstName + " " + user.LastName,
+      .post(
+        `${baseUrl}/send-invitation`,
+        {
+          email: email,
+          phone: phone,
+          user: {
+            Id: localStorage.getItem("Id"),
+            Role: user.Role,
+            Name: user.FirstName + " " + user.LastName,
+          },
         },
-      })
-      .then((res) => {
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
+      .then(() => {
         // add a snack alert to notify the user about the status of the invitation
         dispatch(setLoadingFalse());
       })

@@ -6,7 +6,10 @@
     "cancel": "Abbrechen",
     "clear": "Löschen",
     "close": "Schliessen",
+    "undo": "Rückgängig machen",
+    "redo": "Bereit",
     "comment": "Kommentar",
+    "reply": "Antwort",
     "copy": "Kopieren",
     "delete": "Löschen",
     "group": "Gruppe",
@@ -19,15 +22,21 @@
     "fit": "Anpassen",
     "fitToPage": "An Seite anpassen",
     "fitToWidth": "An Breite anpassen",
+    "more": "Mehr",
     "openFile": "Datei öffnen",
+    "pagePrev": "Vorherige Seite",
+    "pageNext": "Nächste Seite",
+    "pageSet": "Seite einstellen",
     "print": "Drucken",
+    "name": "Name",
+    "rename": "Umbenennen",
     "ok": "OK",
-    "reply": "Antwort",
     "rotate": "Drehen",
     "rotateClockwise": "Im Uhrzeigersinn",
     "rotateCounterClockwise": "Gegen den Uhrzeigersinn",
     "save": "Speichern",
-    "create": "Erzeugen",
+    "post": "Post",
+    "create": "Erstellen",
     "showMoreResults": "Mehr Ergebnisse anzeigen",
     "sign": "Unterschrift",
     "style": "Stil",
@@ -35,11 +44,23 @@
     "zoom": "Zoom",
     "zoomIn": "Heranzoomen",
     "zoomOut": "Rauszoomen",
+    "zoomSet": "Stellen Sie den Zoom ein",
+    "zoomControls": "Zoomsteuerung",
     "draw": "Zeichnen",
-    "type": "Art",
+    "type": "Schreiben",
     "upload": "Hochladen",
     "link": "Verknüpfung",
-    "fileAttachmentDownload": "Laden Sie die angehängte Datei herunter"
+    "darkMode": "Dunkler Modus",
+    "lightMode": "Heller Modus",
+    "fileAttachmentDownload": "Laden Sie die angehängte Datei herunter",
+    "prevResult": "Vorheriges Ergebnis",
+    "nextResult": "Nächstes Ergebnis",
+    "prev": "Bisherige",
+    "next": "Nächster",
+    "startFormEditing": "Starten Sie die Formularbearbeitung",
+    "exitFormEditing": "Beenden Sie den Formularbearbeitungsmodus",
+    "exit": "Ausgang",
+    "markAllRead": "markiere alles Gelesene"
   },
   "annotation": {
     "areaMeasurement": "Flächenmessung",
@@ -48,15 +69,13 @@
     "crop": "Seite zuschneiden",
     "caret": "Caret",
     "distanceMeasurement": "Abstandsmessung",
+    "countMeasurement": "Zählmessung",
     "ellipse": "Ellipse",
     "eraser": "Radiergummi",
     "fileattachment": "Dateianhang",
     "freehand": "Freihandzeichnen",
-    "freehand2": "Freihandzeichnen",
     "freetext": "Freitext",
-    "freetext2": "Freitext",
     "highlight": "Hervorheben",
-    "highlight2": "Hervorheben",
     "line": "Linie",
     "perimeterMeasurement": "Umfangsmessung",
     "polygon": "Polygon",
@@ -71,7 +90,10 @@
     "strikeout": "Durchstreichen",
     "underline": "Unterstrichen",
     "custom": "Angepasst",
-    "rubberStamp": "Stempel"
+    "rubberStamp": "Stempel",
+    "note": "Hinweis",
+    "link": "Verknüpfung",
+    "other": "Andere"
   },
   "rubberStamp": {
     "Approved": "Genehmigt",
@@ -99,27 +121,29 @@
     "SBRejected": "Abgelehnt"
   },
   "component": {
-    "freehandToolsButton": "Freihand-Werkzeuge",
     "leftPanel": "Linke Leiste",
+    "toolsHeader": "Werkzeuge",
     "searchOverlay": "Suche",
+    "searchPanel": "Suche",
     "menuOverlay": "Menü",
-    "miscToolsButton": "Verschiedene Werkzeuge",
     "notesPanel": "Annotationen",
     "outlinesPanel": "Gliederung",
     "bookmarksPanel": "Lesezeichen",
     "newBookmark": "Neues Lesezeichen",
     "bookmarkPage": "Seite",
     "layersPanel": "Schichten",
-    "shapeToolsButton": "Formwerkzeuge",
-    "textToolsButton": "Textwerkzeuge",
     "thumbnailsPanel": "Miniaturansicht",
     "toolsButton": "Werkzeuge",
     "redaction": "Schwärzen",
     "viewControlsOverlay": "Anzeigeoptionen",
-    "measurementToolsButton": "Messwerkzeuge",
-    "calibration": "Kalibrierung"
+    "calibration": "Kalibrierung",
+    "zoomOverlay": "Zoom-Overlay",
+    "textPopup": "Text Popup",
+    "createStampButton": "Neuen Stempel erstellen",
+    "filter": "Filter"
   },
   "message": {
+    "toolsOverlayNoPresets": "Keine Voreinstellungen",
     "badDocument": "Fehler beim Laden des Dokuments. Das Dokument ist entweder defekt oder ungültig.",
     "customPrintPlaceholder": "z.B. 3, 4-10",
     "encryptedAttemptsExceeded": "Fehler beim Laden des verschlüsselten Dokuments. Zu viele Versuche.",
@@ -127,8 +151,10 @@
     "enterPassword": "Dieses Dokument ist durch ein Passwort geschützt. Bitte geben Sie ein Passwort ein",
     "incorrectPassword": "Falsches Passwort, verbleibende Versuche: {{ remainingAttempts }}",
     "noAnnotations": "Dieses Dokument hat keine Annotationen.",
+    "noAnnotationsFilter": "Beginnen Sie hier mit der Erstellung von Anmerkungen und Filtern.",
     "noOutlines": "Dieses Dokument enthält keine Gliederung.",
     "noResults": "Keine Ergebnisse gefunden.",
+    "numResultsFound": "gefundene Ergebnisse",
     "notSupported": "Dieser Dateityp ist nicht unterstützt.",
     "passwordRequired": "Passwort erforderlich",
     "preparingToPrint": "Druckvorbereitung...",
@@ -138,18 +164,45 @@
     "printTotalPageCount_plural": "{{count}} Seiten",
     "processing": "Bearbeite...",
     "searching": "Suche...",
-    "searchPlaceholder": "Suche Kommentare...",
+    "searchCommentsPlaceholder": "Kommentare suchen",
+    "searchDocumentPlaceholder": "Dokument dursuchen",
     "signHere": "Hier unterschreiben",
     "insertTextHere": "Hier Text eingeben",
     "imageSignatureAcceptedFileTypes": "Es werden nur {{allowedFileTypes}} akzeptiert",
     "enterMeasurement": "Geben Sie das Maß zwischen den beiden Punkten ein",
-    "linkURLorPage": "Link URL oder eine Seite"
+    "errorEnterMeasurement": "Die eingegebene Nummer ist ungültig. Sie können Werte wie 7,5 oder 7 1/2 eingeben",
+    "linkURLorPage": "Link URL oder eine Seite",
+    "enterReplacementText": "Geben Sie den Text ein, den Sie ersetzen möchten",
+    "sortBy": "Sortiere nach",
+    "emptyCustomStampInput": "Stempeltext darf nicht leer sein",
+    "unpostedComment": "Unposted Kommentar",
+    "untitled": "Ohne Titel"
   },
   "option": {
+    "notesOrder": {
+      "dropdownLabel": "Sortierreihenfolge Liste",
+      "position": "Position",
+      "time": "Zeit",
+      "status": "Status",
+      "author": "Autor",
+      "type": "Art"
+    },
+    "toolbarGroup": {
+      "dropdownLabel": "Symbolleistengruppen",
+      "toolbarGroup-View": "Ansicht",
+      "toolbarGroup-Annotate": "Kommentieren",
+      "toolbarGroup-Shapes": "Formen",
+      "toolbarGroup-Insert": "Einfügen",
+      "toolbarGroup-Measure": "Messen",
+      "toolbarGroup-Edit": "Bearbeiten"
+    },
     "annotationColor": {
       "StrokeColor": "Randfarbe",
       "FillColor": "Füllfarbe",
       "TextColor": "Textfarbe"
+    },
+    "colorPalette": {
+      "colorLabel": "Farbe"
     },
     "displayMode": {
       "layout": "Layout",
@@ -158,30 +211,47 @@
     "documentControls": {
       "placeholder": "Geben Sie die gewünschten Seiten ein, z. B. 2, 5-9"
     },
+    "outlineControls": {
+      "add": "Artikel hinzufügen",
+      "reorder": "Nachbestellen"
+    },
     "layout": {
       "cover": "Deckblatt",
       "double": "Zweiseitig",
       "single": "Einseitig"
     },
     "notesPanel": {
-      "orderPosition": "Position",
-      "orderTime": "Zeit",
       "separator": {
         "today": "Heute",
-        "yesterday": "Gestern"
+        "yesterday": "Gestern",
+        "unknown": "Unbekannt"
+      },
+      "noteContent": {
+        "noName": "(kein Name)",
+        "noDate": "(kein Datum)"
       }
     },
     "pageTransition": {
       "continuous": "Fortlaufend",
-      "default": "Seite für Seite"
+      "default": "Seite für Seite",
+      "reader": "Leser"
     },
     "print": {
       "all": "Alle",
       "current": "Aktuelle Seite",
       "pages": "Seiten",
+      "view": "Momentane Sicht",
+      "pageQuality": "Druckqualität",
+      "qualityNormal": "Normal",
+      "qualityHigh": "Hoch",
       "includeAnnotations": "Fügen Sie Anmerkungen hinzu",
       "includeComments": "Kommentare einfügen",
       "addWatermarkSettings": "Wasserzeicheneinstellungen hinzufügen"
+    },
+    "printInfo": {
+      "author": "Autor",
+      "subject": "Gegenstand",
+      "date": "Datum"
     },
     "redaction": {
       "markForRedaction": "Zum Schwärzen markieren"
@@ -191,6 +261,14 @@
       "wholeWordOnly": "Ganzes Wort",
       "wildcard": "Platzhalter"
     },
+    "toolsOverlay": {
+      "currentStamp": "Aktueller Stempel",
+      "currentSignature": "Aktuelle Unterschrift",
+      "signatureAltText": "Unterschrift"
+    },
+    "stampOverlay": {
+      "addStamp": "Neuen Stempel hinzufügen"
+    },
     "signatureOverlay": {
       "addSignature": "Eine Unterschrift hinzufügen"
     },
@@ -199,6 +277,11 @@
       "dragAndDrop": "Ziehen Sie Ihr Bild per Drag & Drop hierher",
       "or": "Oder",
       "pickImage": "Wählen Sie das Signaturbild"
+    },
+    "filterAnnotModal": {
+      "commentBy": "Kommentar von",
+      "includeReplies": "Antworten einschließen",
+      "types": "Typen"
     },
     "status": {
       "status": "Status"
@@ -210,7 +293,9 @@
       "cancelled": "Abgebrochen",
       "set": "Status setzen:",
       "setBy": "eingestellt von",
-      "none": "Keiner"
+      "none": "Keiner",
+      "marked": "Markiert",
+      "unmarked": "Unmarkiert"
     },
     "measurementOverlay": {
       "scale": "Maßstab",
@@ -221,7 +306,9 @@
       "distanceMeasurement": "Abstandsmessung",
       "perimeterMeasurement": "Umfangsmessung",
       "areaMeasurement": "Flächenmessung",
-      "radius": "Radius"
+      "countMeasurement": "Zählmessung",
+      "radius": "Radius",
+      "count": "Anzahl"
     },
     "measurementOption": {
       "scale": "Maßstab"
@@ -238,7 +325,8 @@
     },
     "shared": {
       "page": "Seite",
-      "precision": "Genauigkeit"
+      "precision": "Genauigkeit",
+      "enableSnapping": "Aktivieren Sie das Einrasten für Messwerkzeuge"
     },
     "watermark": {
       "size": "Größe",
@@ -246,19 +334,35 @@
       "text": "Text",
       "style": "Stil",
       "resetAllSettings": "Alle Einstellungen zurücksetzen",
-      "font": "Schriftart"
+      "font": "Schriftart",
+      "locations": {
+        "center": "Center",
+        "topLeft": "Oben links",
+        "topRight": "Oben rechts",
+        "topCenter": "Oben in der Mitte",
+        "bottomLeft": "Unten links",
+        "bottomRight": "Unten rechts",
+        "bottomCenter": "Unten in der Mitte"
+      }
     },
     "thumbnailPanel": {
       "delete": "Löschen",
       "rotateClockwise": "Im Uhrzeigersinn",
-      "rotateCounterClockwise": "Gegen den Uhrzeigersinn",
-      "extractZeroPageError": "Es wurden keine Seiten zum Extrahieren ausgewählt"
+      "rotateCounterClockwise": "Gegen den Uhrzeigersinn"
     },
     "richText": {
       "bold": "Fett",
       "italic": "Kursiv",
-      "underline": "Unterstreichen",
+      "underline": "Unterstrichen",
       "strikeout": "Durchgestrichen"
+    },
+    "customStampModal": {
+      "stampText": "Stempeltext:",
+      "timestampText": "Zeitstempeltext:",
+      "stampColor": "Stempelfarbe:",
+      "Username": "Nutzername",
+      "Date": "Datum",
+      "Time": "Zeit"
     }
   },
   "warning": {
@@ -270,6 +374,14 @@
     "redaction": {
       "applyTile": "Schwärzung anwenden",
       "applyMessage": "Durch diese Aktion werden alle zur Bearbeitung ausgewählten Elemente dauerhaft entfernt. Es kann nicht rückgängig gemacht werden."
+    },
+    "selectPage": {
+      "selectTitle": "Keine Seiten ausgewählt",
+      "selectMessage": "Bitte wählen Sie Seiten aus und versuchen Sie es erneut."
+    },
+    "colorPicker": {
+      "deleteTitle": "Benutzerdefinierte Farbe löschen",
+      "deleteMessage": "Ausgewählte benutzerdefinierte Farbe löschen? Es wird aus Ihrer Farbpalette entfernt."
     }
   },
   "shortcut": {
@@ -291,6 +403,9 @@
     "signature": "(S)",
     "squiggly": "(G)",
     "stamp": "(I)",
+    "redo": "(Strg-Umschalttaste Z)",
+    "redo_windows": "(Strg Y)",
+    "undo": "(Strg Z)",
     "stickyNote": "(N)",
     "strikeout": "(K)",
     "underline": "(U)",
@@ -299,7 +414,7 @@
     "richText": {
       "bold": "(Strg B)",
       "italic": "(Strg I)",
-      "underline": "(Strg L)",
+      "underline": "(Strg U)",
       "strikeout": "(Strg K)"
     }
   },
@@ -307,7 +422,9 @@
     "pan": "Hand",
     "select": "Auswählen",
     "Marquee": "Auswahl Zoom",
-    "Link": "Link URL oder Seite"
+    "Link": "Link URL oder Seite",
+    "Standard": "Standard",
+    "Custom": "Benutzerdefiniert"
   },
   "link": {
     "url": "URL",
@@ -349,6 +466,109 @@
       "4": "Do.",
       "5": "Fr.",
       "6": "Sa."
+    }
+  },
+  "digitalSignatureModal": {
+    "certification": "Zertifizierung",
+    "Certification": "Zertifizierung",
+    "signature": "Unterschrift",
+    "Signature": "Unterschrift",
+    "valid": "gültig",
+    "invalid": "ungültig",
+    "unknown": "Unbekannt",
+    "title": "{{type}} Eigenschaften",
+    "header": {
+      "documentIntegrity": "Dokumentintegrität",
+      "identitiesTrust": "Identitäten & Vertrauen",
+      "generalErrors": "Allgemeine Fehler",
+      "digestStatus": "Digest-Status"
+    },
+    "documentPermission": {
+      "noChangesAllowed": "Der {{editor}} hat angegeben, dass für dieses Dokument keine Änderungen zulässig sind",
+      "formfillingSigningAllowed": "Der {{editor}} hat angegeben, dass das Ausfüllen und Signieren von Formularen für dieses Dokument zulässig ist. Andere Änderungen sind nicht zulässig.",
+      "annotatingFormfillingSigningAllowed": "Der {{editor}} hat festgelegt, dass das Ausfüllen, Signieren und Kommentieren von Formularen für dieses Dokument zulässig ist. Andere Änderungen sind nicht zulässig.",
+      "unrestricted": "Der {{editor}} hat angegeben, dass für dieses Dokument keine Einschränkungen bestehen."
+    },
+    "digestAlgorithm": {
+      "preamble": "Der Digest-Algorithmus, mit dem die Signatur signiert wurde:",
+      "unknown": "Der Digest-Algorithmus, mit dem die Signatur signiert wurde, ist unbekannt."
+    },
+    "trustVerification": {
+      "none": "Kein detailliertes Ergebnis der Vertrauensüberprüfung verfügbar.",
+      "current": "Vertrauensüberprüfung in Bezug auf die aktuelle Zeit versucht",
+      "signing": "Vertrauensüberprüfung in Bezug auf die Signaturzeit versucht: {{trustVerificationTime}}",
+      "timestamp": "Vertrauensüberprüfung in Bezug auf den sicheren eingebetteten Zeitstempel versucht: {{trustVerificationTime}}"
+    },
+    "signerIdentity": {
+      "preamble": "Die Identität des Unterzeichners ist",
+      "valid": "gültig.",
+      "unknown": "Unbekannt."
+    },
+    "summaryBox": {
+      "summary": "Digital {{type}} ist {{status}}",
+      "signedBy": ", signiert von {{name}}"
+    }
+  },
+  "digitalSignatureVerification": {
+    "certifier": "bestätigen",
+    "certified": "zertifiziert",
+    "Certified": "Zertifiziert",
+    "signer": "Zeichen",
+    "signed": "unterzeichnet",
+    "Signed": "Unterzeichnet",
+    "by": "durch",
+    "on": "auf",
+    "disallowedChange": "Unzulässige Änderung: {{type}}, objnum: {{objnum}}",
+    "trustVerification": {
+      "current": "Die verwendete Überprüfungszeit war die aktuelle Zeit",
+      "signing": "Die Überprüfungszeit beginnt mit der Uhr auf dem Computer des Unterzeichners",
+      "timestamp": "Die Überprüfungszeit ergibt sich aus dem im Dokument eingebetteten sicheren Zeitstempel",
+      "verifiedTrust": "Ergebnis der Vertrauensüberprüfung: Verifiziert",
+      "noTrustVerification": "Kein detailliertes Ergebnis der Vertrauensüberprüfung verfügbar."
+    },
+    "permissionStatus": {
+      "noPermissionsStatus": "Kein Berechtigungsstatus zum Melden.",
+      "permissionsVerificationDisabled": "Die Berechtigungsüberprüfung wurde deaktiviert.",
+      "hasAllowedChanges": "Das Dokument enthält Änderungen, die in den Einstellungen für Signaturberechtigungen zulässig sind.",
+      "invalidatedByDisallowedChanges": "Das Dokument enthält Änderungen, die von den Einstellungen für Signaturberechtigungen nicht zugelassen werden.",
+      "unmodified": "Das Dokument wurde seitdem nicht mehr geändert"
+    },
+    "trustStatus": {
+      "trustVerified": "Vertrauenswürdigkeit in {{verificationType}} erfolgreich hergestellt.",
+      "untrusted": "Vertrauen konnte nicht hergestellt werden.",
+      "trustVerificationDisabled": "Die Vertrauensüberprüfung wurde deaktiviert.",
+      "noTrustStatus": "Kein Vertrauensstatus zu melden."
+    },
+    "digestStatus": {
+      "digestInvalid": "Der Digest ist falsch.",
+      "digestVerified": "Die Verdauung ist korrekt.",
+      "digestVerificationDisabled": "Die Digest-Überprüfung wurde deaktiviert.",
+      "weakDigestAlgorithmButDigestVerifiable": "Der Digest ist korrekt, aber der Digest-Algorithmus ist schwach und nicht sicher.",
+      "noDigestStatus": "Kein Digest-Status zu melden.",
+      "unsupportedEncoding": "Kein installierter SignatureHandler konnte die Codierung der Signatur erkennen"
+    },
+    "documentStatus": {
+      "noError": "Kein allgemeiner Fehler zu melden.",
+      "corruptFile": "SignatureHandler hat eine Dateibeschädigung gemeldet.",
+      "unsigned": "Die Signatur wurde noch nicht kryptografisch signiert.",
+      "badByteRanges": "SignatureHandler meldet Beschädigungen in den ByteRanges in der digitalen Signatur.",
+      "corruptCryptographicContents": "SignatureHandler meldet Beschädigungen im Inhalt der digitalen Signatur."
+    },
+    "signatureDetails": {
+      "signatureDetails": "Unterschriften Details",
+      "contactInformation": "Kontakt Informationen",
+      "location": "Ort",
+      "reason": "Grund",
+      "signingTime": "Unterzeichnungszeit",
+      "noContactInformation": "Keine Kontaktinformationen angegeben",
+      "noLocation": "Kein Ort angegeben",
+      "noReason": "Kein Grund angegeben",
+      "noSigningTime": "Keine Signierzeit gefunden"
+    },
+    "panelMessages": {
+      "noSignatureFields": "Dieses Dokument enthält keine Signaturfelder",
+      "certificateDownloadError": "Beim Versuch, ein vertrauenswürdiges Zertifikat herunterzuladen, ist ein Fehler aufgetreten",
+      "localCertificateError": "Es gibt einige Probleme beim Lesen eines lokalen Zertifikats"
     }
   }
 }

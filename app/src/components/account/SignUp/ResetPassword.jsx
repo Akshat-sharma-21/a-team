@@ -4,11 +4,27 @@ import { Snackbar, TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import LockIconImg from "../../../assets/LockIconImg.svg";
+import { passwordResetLink } from "../../../actions/userActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import "./SignUp.css";
 import { validateFormField } from "../../../utils";
 import { Alert } from "@material-ui/lab";
 
-function CreatePasword() {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+});
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      passwordResetLink,
+    },
+    dispatch
+  );
+};
+
+function CreatePasword(props) {
   const [email, setEmail] = useState("");
   const [showError, setShowError] = useState(false);
   const [mailError, setMailError] = useState(true);
@@ -28,6 +44,7 @@ function CreatePasword() {
 
   const onSubmit = () => {
     if (!mailError) {
+      props.passwordResetLink(email);
     } else setShowError(true);
   };
 
@@ -48,7 +65,12 @@ function CreatePasword() {
         </div>
         <div className="reset-password-divider-div"></div>
         <div className="signup-form-action-group">
-          <ReallosButton primary fullWidth onClick={onSubmit}>
+          <ReallosButton
+            primary
+            disabled={props.utils.loading}
+            fullWidth
+            onClick={onSubmit}
+          >
             Next
             <span style={{ marginLeft: 10 }}>
               <ArrowRightIcon size={21} />
@@ -105,4 +127,4 @@ function CreatePasword() {
   );
 }
 
-export default CreatePasword;
+export default connect(mapStateToProps, mapActionToProps)(CreatePasword);

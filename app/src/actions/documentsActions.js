@@ -41,10 +41,18 @@ export function uploadDocument(file, docData) {
                   if (e.id === docData.id) {
                     if (docData.title === "Pre-Approval Letter") {
                       // if the pre-approval letter is being uploaded
-                      axios.post(`${baseUrl}/unlock-find-agent`, {
-                        // making a request to unlock the find agent step
-                        tid: docData.tid,
-                      });
+                      axios.post(
+                        `${baseUrl}/unlock-find-agent`,
+                        {
+                          // making a request to unlock the find agent step
+                          tid: docData.tid,
+                        },
+                        {
+                          headers: {
+                            Authorization: "Bearer " + localStorage.Token,
+                          },
+                        }
+                      );
                     }
                     e.filled = true;
                     e.location = `${docData.tid}/documents/${docData.title}`;

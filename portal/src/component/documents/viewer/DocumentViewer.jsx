@@ -3,7 +3,8 @@ import { NavLink, useParams } from "react-router-dom";
 import { ReactComponent as StampIcon } from "../../../assets/stamp_icon.svg";
 import DocUploadStatus from "../uploader/DocUploadStatus";
 import { myStorage } from "../../../FirebaseConfig";
-import WebViewer from "@pdftron/webviewer";
+import WebViewer from "@pdftron/pdfjs-express";
+import ExpressUtils from "@pdftron/pdfjs-express-utils";
 
 import {
   ReallosModal,
@@ -20,6 +21,8 @@ import "./DocumentViewer.css";
 
 let viewer = null; // The viewer must not change with every rendering
 let documentLink = null; // The document link that is being displayed
+
+const expressUtils = new ExpressUtils(); // Add the key here
 
 function DocumentViewer(props) {
   let { tid } = useParams();
@@ -55,16 +58,16 @@ function DocumentViewer(props) {
 
   async function saveChangesToCloud(docPath) {
     // To save any changes done to the pdf
-    const doc = viewer.docViewer.getDocument();
     const xfdfString = await viewer.annotManager.exportAnnotations();
-
-    const options = { xfdfString, flatten: false };
-    const data = await doc.getFileData(options);
-    const arr = new Uint8Array(data);
-    const docBlob = new Blob([arr], { type: "application/pdf" });
+    expressUtils.setFile(documentLink); // setting the file link
+    expressUtils.setXFDF(xfdfString); // setting the xfdf string
+    setDocumentChanged(false);
+    const response = await expressUtils.merge(); // merging the annotation in the pdf
+    let mergedBlob = await response.getBlob(); // getting the blob
+    mergedBlob = mergedBlob.slice(0, mergedBlob.size, "application/pdf"); // setting the blob to be of type pdf
 
     let fileRef = myStorage.ref().child(docPath);
-    let uploadTask = fileRef.put(docBlob);
+    let uploadTask = fileRef.put(mergedBlob);
 
     uploadTask.on("state_changed", (snapshot) => {
       let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -79,26 +82,23 @@ function DocumentViewer(props) {
 
       setUploadTaskStatus(newUploadTaskDetails);
       setUploadModalVisible(true);
-      setDocumentChanged(false);
     });
   }
 
   async function showSignaturePanel() {
     // To open the signature panel
-    if (viewerRoot.current.querySelector("iframe").contentDocument) {
-      viewerRoot.current
-        .querySelector("iframe")
-        .contentDocument.querySelector(
-          'div[data-element="signatureToolButton"]'
-        )
-        .firstChild.click();
-    }
+    viewer.openElements(["signatureModal"]);
   }
 
   useEffect(() => {
     if (props.location) {
       // If the location object exists in props
-      WebViewer({ path: "/webviewer/lib", fullAPI: true }, viewerRoot.current)
+      WebViewer(
+        {
+          path: "/webviewer/lib",
+        },
+        viewerRoot.current
+      )
         .then((viewerInstance) => {
           const { docViewer, annotManager, FitMode } = viewerInstance;
           viewer = viewerInstance;
