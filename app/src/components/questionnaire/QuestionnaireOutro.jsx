@@ -24,7 +24,7 @@ function QuestionnaireOutro(props) {
               fontSize: 20,
             }}
           >
-            Selecting an Ideal Agent for you
+            Loading...
           </div>
         </div>
       ) : (
