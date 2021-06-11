@@ -6,6 +6,7 @@ import "../SignUp/SignUp.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signupWithProvider } from "../../../actions/userActions";
+import { validateFormField } from "../../../utils";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -23,11 +24,58 @@ class SignUp extends React.Component {
       name: "",
       email: "",
       phone: "",
+      nameError: true,
+      mailError: true,
+      phoneError: true,
+      nameErrorText: "Name cannot be empty",
+      mailErrorText: "Email cannot be empty",
+      phoneErrorText: "Phone Number cannot be empty",
+      showError: false,
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.setState({ email: localStorage.getItem("Email") }); // setting the state of the email
+  }
+
+  handleChange = (event) => {
+    switch (event.target.name) {
+      case "name":
+        this.setState({
+          name: event.target.value,
+          nameError: validateFormField(event.target.value, event.target.name)
+            .hasError,
+          nameErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      case "phone":
+        this.setState({
+          phone: event.target.value,
+          phoneError: validateFormField(event.target.value, event.target.name)
+            .hasError,
+          phoneErrorText: validateFormField(
+            event.target.value,
+            event.target.name
+          ).errorText,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  onSubmit() {
+    if (!this.state.nameError && !this.state.phoneError) {
+      this.props.signupWithProvider(this.state);
+    }
   }
 
   renderForm() {
@@ -40,11 +88,7 @@ class SignUp extends React.Component {
             variant="outlined"
             label="Name"
             type="text"
-            onChange={(event) =>
-              this.setState({
-                name: event.target.value,
-              })
-            }
+            onChange={(event) => this.handleChange(event)}
           />
           <TextField
             value={this.state.email}
@@ -63,18 +107,14 @@ class SignUp extends React.Component {
             variant="outlined"
             label="Phone no."
             type="tel"
-            onChange={(event) =>
-              this.setState({
-                phone: event.target.value,
-              })
-            }
+            onChange={(event) => this.handleChange(event)}
           />
         </div>
         <div className="signup-form-action-group">
           <ReallosButton
             primary
             fullWidth
-            onClick={() => this.props.signupWithProvider(this.state)}
+            onClick={() => this.onSubmit()}
             disabled={this.props.utils.loading}
           >
             Create Account

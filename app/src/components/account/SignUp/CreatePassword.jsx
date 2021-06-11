@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { TextField } from "@material-ui/core";
+import { Snackbar, TextField } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import UnlockIconImg from "../../../assets/UnlockIconImg.svg";
 import { handlePasswordReset } from "../../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "./SignUp.css";
+import { validateFormField } from "../../../utils";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -19,6 +21,42 @@ const mapActionToProps = (dispatch) => {
 function CreatePasword(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(true);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(true);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(
+    "Passowrd cannot be left empty"
+  );
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState("Passowrd did not match");
+  const [showError, setShowError] = useState(false);
+
+  function handleChange(event) {
+    if (event.target.name === "password") {
+      setPasswordError(
+        validateFormField(event.target.value, event.target.name).hasError
+      );
+      setPasswordErrorMessage(
+        validateFormField(event.target.value, event.target.name).errorText
+      );
+      setPassword(event.target.value);
+    }
+
+    if (event.target.name === "confirmPassword") {
+      if (password !== confirmPassword) {
+        setConfirmPasswordError(true);
+        setConfirmPasswordErrorMessage("Password did not match");
+      } else setConfirmPasswordError(false);
+      setConfirmPassword(event.target.value);
+    }
+  }
+
+  function onSubmit() {
+    if (!passwordError && !confirmPasswordError) {
+      props.handlePasswordReset(password, window.location.href);
+    } else {
+      setShowError(true);
+    }
+  }
 
   function renderForm() {
     return (
@@ -29,9 +67,10 @@ function CreatePasword(props) {
             fullWidth
             variant="outlined"
             label="Create Password"
+            name="password"
             type="password"
             onChange={(event) => {
-              setPassword(event.target.value);
+              handleChange(event);
             }}
           />
           <TextField
@@ -39,9 +78,10 @@ function CreatePasword(props) {
             fullWidth
             variant="outlined"
             label="Confirm Password"
+            name="confirmPassword"
             type="password"
             onChange={(event) => {
-              setConfirmPassword(event.target.value);
+              handleChange(event);
             }}
           />
         </div>
@@ -49,11 +89,9 @@ function CreatePasword(props) {
         <div className="signup-form-action-group">
           <ReallosButton
             primary
-            fullWidth
             disabled={props.utils.loading}
-            onClick={() =>
-              props.handlePasswordReset(password, window.location.href)
-            }
+            fullWidth
+            onClick={onSubmit}
           >
             Confirm
           </ReallosButton>
@@ -90,6 +128,20 @@ function CreatePasword(props) {
 
         {renderForm()}
       </div>
+
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="warning"
+          variant="filled"
+        >
+          {passwordError ? passwordErrorMessage : confirmPasswordErrorMessage}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { TextField } from "@material-ui/core";
+import { Snackbar, TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import LockIconImg from "../../../assets/LockIconImg.svg";
@@ -8,6 +8,8 @@ import { passwordResetLink } from "../../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "./SignUp.css";
+import { validateFormField } from "../../../utils";
+import { Alert } from "@material-ui/lab";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -24,6 +26,27 @@ const mapActionToProps = (dispatch) => {
 
 function CreatePasword(props) {
   const [email, setEmail] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [mailError, setMailError] = useState(true);
+  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
+
+  const handleChange = (event) => {
+    setMailError(
+      validateFormField(event.target.value, event.target.name).hasError
+    );
+    setMailErrorText(
+      validateFormField(event.target.value, event.target.name).errorText
+    );
+    setEmail({
+      email: event.target.value,
+    });
+  };
+
+  const onSubmit = () => {
+    if (!mailError) {
+      props.passwordResetLink(email);
+    } else setShowError(true);
+  };
 
   function renderForm() {
     return (
@@ -36,7 +59,7 @@ function CreatePasword(props) {
             label="Email"
             type="email"
             onChange={(event) => {
-              setEmail(event.target.value);
+              handleChange(event);
             }}
           />
         </div>
@@ -44,9 +67,9 @@ function CreatePasword(props) {
         <div className="signup-form-action-group">
           <ReallosButton
             primary
-            fullWidth
-            onClick={() => props.passwordResetLink(email)}
             disabled={props.utils.loading}
+            fullWidth
+            onClick={onSubmit}
           >
             Next
             <span style={{ marginLeft: 10 }}>
@@ -86,6 +109,20 @@ function CreatePasword(props) {
 
         {renderForm()}
       </div>
+
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => setShowError(false)}
+      >
+        <Alert
+          onClose={() => setShowError(false)}
+          severity="warning"
+          variant="filled"
+        >
+          {mailErrorText}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }
