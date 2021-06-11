@@ -60,7 +60,9 @@ export function setPassword(email, password) {
                       .set({
                         ...Obj,
                       })
-                      .then(() => {
+                      .then(async () => {
+                        let token = await res.user.getIdToken(); // getting the token\
+                        localStorage.setItem("Token", token);
                         localStorage.setItem("Id", res.user.uid); // Setting the Id
                         localStorage.setItem("phone", Obj.Phone); // Setting the phone
                         dispatch(setPasswordAction());
@@ -83,7 +85,11 @@ export function sendEmailOTP(email) {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
 
     axios // Getting the email hash for the next step and sending the verification email
-      .post(`${baseUrl}/send-email-otp`, { email: email })
+      .post(
+        `${baseUrl}/send-email-otp`,
+        { email: email },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         dispatch(setEmailHashAction({ hash: res.data.hash })); // dispatching an action to set the hash
         dispatch(setLoadingFalse());
@@ -99,11 +105,15 @@ export function verifyEmail(emailCode, hash) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     axios
-      .post(`${baseUrl}/verify-email`, {
-        code: emailCode,
-        hash: hash,
-        id: localStorage.getItem("Id"),
-      })
+      .post(
+        `${baseUrl}/verify-email`,
+        {
+          code: emailCode,
+          hash: hash,
+          id: localStorage.getItem("Id"),
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.verified === true) {
           // if the hash matches
@@ -126,9 +136,13 @@ export function sendPhoneOTP() {
   return (dispatch) => {
     dispatch(setLoadingTrue());
     axios
-      .post(`${baseUrl}/send-text-otp`, {
-        phone: localStorage.getItem("phone"),
-      })
+      .post(
+        `${baseUrl}/send-text-otp`,
+        {
+          phone: localStorage.getItem("phone"),
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         dispatch(setPhoneHashAction({ hash: res.data.hash }));
         dispatch(setLoadingFalse());
@@ -145,11 +159,15 @@ export function verifyPhone(phoneCode, hash) {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
 
     axios
-      .post(`${baseUrl}/verify-phone`, {
-        code: phoneCode,
-        hash: hash,
-        id: localStorage.getItem("Id"),
-      })
+      .post(
+        `${baseUrl}/verify-phone`,
+        {
+          code: phoneCode,
+          hash: hash,
+          id: localStorage.getItem("Id"),
+        },
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then((res) => {
         if (res.data.verified === true) {
           // if the hash matches

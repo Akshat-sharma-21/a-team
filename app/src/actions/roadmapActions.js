@@ -5,41 +5,23 @@ import { setErrors, setLoadingTrue, setLoadingFalse } from "./utilsActions";
 export const SET_TRANSACTION = "SET_TRANSACTION";
 export const SET_PROFESSIONAL = "SET_PROFESSIONAL";
 
-export function setupTasks(tid, step) {
-  return (dispatch) => {
-    let url = "";
-    if (step === "FindHome") url = "find-home";
-    else if (step === "EscrowTitle") url = "escrow-title";
-    else if (step === "HomeInspection") url = "home-inspection";
-    else if (step === "HomeInsurance") url = "home-insurance";
-    else if (step === "Closing") url = "closing";
-    axios
-      .post(`${baseUrl}/${url}`, {
-        tid: tid,
-      })
-      .then((res) => {
-        if (res.data.completed === true)
-          window.location.href = `${url}/tasks_summary`;
-      })
-      .catch((err) => {
-        dispatch(setErrors(err));
-      });
-  };
-}
-
 export function assignAgent(tid, name, email, phone) {
   // function to assign the agent
   return (dispatch) => {
     dispatch(setLoadingTrue()); // Dispatching an action to set loading to true
     axios
-      .post(`${baseUrl}/assign-agent`, {
-        tid: tid,
-        user: {
-          name: name,
-          email: email,
-          phone: phone,
+      .post(
+        `${baseUrl}/assign-agent`,
+        {
+          tid: tid,
+          user: {
+            name: name,
+            email: email,
+            phone: phone,
+          },
         },
-      })
+        { headers: { Authorization: "Bearer " + localStorage.Token } }
+      )
       .then(() => {
         dispatch(setLoadingFalse());
         window.location.href = "/find-agent/tasks_summary";
@@ -70,25 +52,30 @@ export function setTransactionAction(Transaction) {
     FindHome: {
       Locked: Transaction.FindHome.Locked,
       Date: Transaction.FindHome.Date,
+      Setup: Transaction.FindHome.Setup,
     },
     EscrowTitle: {
       Professional: Transaction.EscrowTitle.Professional,
       Locked: Transaction.EscrowTitle.Locked,
       Date: Transaction.EscrowTitle.Date,
+      Setup: Transaction.EscrowTitle.Setup,
     },
     HomeInspection: {
       Professional: Transaction.HomeInspection.Professional,
       Locked: Transaction.HomeInspection.Locked,
       Date: Transaction.HomeInspection.Date,
+      Setup: Transaction.HomeInspection.Setup,
     },
     HomeInsurance: {
       Professional: Transaction.HomeInsurance.Professional,
       Locked: Transaction.HomeInsurance.Locked,
       Date: Transaction.HomeInsurance.Date,
+      Setup: Transaction.HomeInsurance.Setup,
     },
     Closing: {
       Locked: Transaction.Closing.Locked,
       Date: Transaction.Closing.Date,
+      Setup: Transaction.Closing.Setup,
     },
     Quotes: Transaction.Quotes,
   };
