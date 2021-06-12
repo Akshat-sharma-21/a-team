@@ -19,7 +19,6 @@ function OptionTypeQuestion(props) {
 
   let ArrowIconSize = 25;
   if (window.innerHeight < 750) ArrowIconSize = 21;
-
   return (
     <Scaffold
       bgVariant={shouldUseGradientBackground ? "gradient" : "plain"}
@@ -33,7 +32,15 @@ function OptionTypeQuestion(props) {
         <div className="questionnaire-header-group">
           <div className="questionnaire-question">{questionTitle}</div>
 
-          <div className="questionnaire-helper-text">{helperText}</div>
+          <div
+            className={
+              shouldUseGradientBackground
+                ? "questionnaire-helper-text-gradient"
+                : "questionnaire-helper-text-plain"
+            }
+          >
+            {helperText}
+          </div>
         </div>
 
         <Grid container spacing={2} className="questionnaire-form-group">
@@ -47,8 +54,7 @@ function OptionTypeQuestion(props) {
                   disabled={isLoadingNext}
                   onClick={() => onSelectOption(option.label)}
                 >
-                  {getIcon(option.icon)}
-                  {option.label}
+                  {getIcon(option.icon)} &nbsp; &nbsp; &nbsp;{option.label}
                 </Button>
               </Grid>
             );
@@ -64,7 +70,14 @@ function OptionTypeQuestion(props) {
           <ArrowLeftIcon size={ArrowIconSize} />
         </IconButton>
 
-        <IconButton disabled className="questionnaire-arrow-button">
+        <IconButton
+          disabled
+          className={
+            shouldUseGradientBackground
+              ? "questionnaire-arrow-button-graident-disabled"
+              : "questionnaire-arrow-button-plain-disabled"
+          }
+        >
           <ArrowRightIcon size={ArrowIconSize} />
         </IconButton>
       </div>

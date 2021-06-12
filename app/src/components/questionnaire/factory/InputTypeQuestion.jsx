@@ -36,7 +36,15 @@ function InputTypeQuestion(props) {
         <div className="questionnaire-header-group">
           <div className="questionnaire-question">{questionTitle}</div>
 
-          <div className="questionnaire-helper-text">{helperText}</div>
+          <div
+            className={
+              shouldUseGradientBackground
+                ? "questionnaire-helper-text-gradient"
+                : "questionnaire-helper-text-plain"
+            }
+          >
+            {helperText}
+          </div>
         </div>
 
         <div className="questionnaire-form-group">

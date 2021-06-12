@@ -7,23 +7,22 @@
 }
 
 .tasks-dashboard-section-title {
-  margin-top: 20px !important;
   font-size: 25px;
-  margin: 20px 0 15px 0 !important;
+  margin: 25px 0 5px 0 !important;
   color: var(--color-dark-grey);
 }
 
 .tasks-dashboard-list {
-  margin: 20px 0 15px 0 !important;
+  margin: 0 0 15px 0 !important;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .tasks-dashboard-list-item {
   padding: 8px 0 !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
-  margin-top: 1px;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .tasks-text {
@@ -99,7 +98,7 @@
 
   .tasks-dashboard-section-title {
     font-size: 22px;
-    margin: 20px 0 8px 0 !important;
+    margin: 20px 0 5px 0 !important;
   }
 
   .tasks-dashboard-list {
@@ -114,6 +113,12 @@
     font-size: 13px;
     width: 27%;
   }
+
+  .tasks-dashboard-list-item {
+    padding: 8px 0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+    margin-top: 1px !important;
+  }
 }
 
 @media screen and (max-height: 700px) {
@@ -124,7 +129,7 @@
 
   .tasks-dashboard-section-title {
     font-size: 21px;
-    margin: 18px 0 0px 0 !important;
+    margin: 18px 0 0 0 !important;
   }
 
   .tasks-dashboard-list-item-subheading {

@@ -50,10 +50,17 @@
   font-size: 35px;
 }
 
-.questionnaire-helper-text {
+.questionnaire-helper-text-plain {
   padding-top: 20px;
   font-family: "Open Sans";
-  opacity: 60%;
+  color: rgba(0, 0, 0, 0.5) !important;
+  font-size: 18px;
+}
+
+.questionnaire-helper-text-gradient {
+  padding-top: 20px;
+  font-family: "Open Sans";
+  color: rgba(255, 255, 255, 0.5) !important;
   font-size: 18px;
 }
 
@@ -74,7 +81,6 @@
 
 .questionnaire-option-item > span:nth-child(1) {
   display: flex;
-  gap: 20px;
 }
 
 .questionnaire-option-item:disabled {
@@ -102,8 +108,16 @@
   color: var(--color-white) !important;
 }
 
-.questionnaire-arrow-button:disabled {
-  opacity: 50%;
+.questionnaire-arrow-button-graident-disabled {
+  background-color: rgb(119, 206, 245, 0.5) !important;
+  padding: 20px !important;
+  color: var(--color-white) !important;
+}
+
+.questionnaire-arrow-button-plain-disabled {
+  background-color: rgba(4, 50, 250, 0.5) !important;
+  padding: 20px !important;
+  color: var(--color-white) !important;
 }
 
 .questionnaire-hero-img {
@@ -153,9 +167,15 @@
     font-size: 32px;
   }
 
-  .questionnaire-helper-text {
+  .questionnaire-helper-text-plain {
     padding-top: 17px;
-    opacity: 60%;
+    color: rgba(0, 0, 0, 0.5) !important;
+    font-size: 16px;
+  }
+
+  .questionnaire-helper-text-gradient {
+    padding-top: 17px;
+    color: rgba(255, 255, 255, 0.5) !important;
     font-size: 16px;
   }
 }
