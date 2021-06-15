@@ -54,6 +54,10 @@ function QuestionRendererFactory(props) {
           questionTitle={question}
           helperText={helper}
           input={input}
+          autoCompleteProps={
+            // if the props for the input type are given
+            props.questionData.props ? props.questionData.props : null
+          }
           shouldUseGradientBackground={bg === 2}
           isLoadingNext={isLoadingNext}
           onNext={(userInputValue) => {

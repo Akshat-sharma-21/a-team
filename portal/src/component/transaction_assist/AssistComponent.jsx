@@ -45,6 +45,11 @@ import DocIcon from "../../assets/doc_icon.png";
 import DocGrayscaleIcon from "../../assets/doc_icon_grayscale.png";
 import AssistAccordion from "./AssistAccordion";
 import randomId from "random-id";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -69,13 +74,13 @@ function AssistComponent(props) {
     thirdAnswer: null,
     fourthAnswer: null,
     fifthAnswer: null,
-    sixthAnswer: null,
+    sixthAnswer: new Date(), // setting a date variable
   });
   let [newTask, setNewTask] = useState({
     // newTask object
     title: "",
     description: "",
-    date: "",
+    date: new Date(), // setting a date variable
     priority: "",
   });
 
@@ -88,10 +93,6 @@ function AssistComponent(props) {
     descriptionError: {
       hasError: true,
       errorText: "Description cannot be empty",
-    },
-    dateError: {
-      hasError: true,
-      errorText: "Date cannot be empty",
     },
     priorityError: {
       hasError: true,
@@ -140,14 +141,6 @@ function AssistComponent(props) {
         });
         break;
 
-      case "date":
-        setNewTask({ ...newTask, date: event.target.value });
-        setErrors({
-          ...errors,
-          dateError: validateFormField(event.target.value, event.target.name),
-        });
-        break;
-
       case "priority":
         setNewTask({ ...newTask, priority: event.target.value });
         setErrors({
@@ -165,7 +158,6 @@ function AssistComponent(props) {
     if (
       !errors.titleError.hasError &&
       !errors.descriptionError.hasError &&
-      !errors.dateError.hasError &&
       !errors.priorityError.hasError
     ) {
       setValidated(true);
@@ -318,22 +310,28 @@ function AssistComponent(props) {
           <div className="assist-question-modal-question">
             What is the closing Date?
           </div>
-          <div className="assist-question-modal-answer">
-            <ClockIcon size={30} />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <TextField
-              fullWidth
-              type="date"
-              value={answer.sixthAnswer}
-              variant="outlined"
-              onChange={(e) => {
-                setAnswer({
-                  ...answer,
-                  sixthAnswer: e.target.value,
-                });
-              }}
-            />
-          </div>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <div className="assist-question-modal-answer">
+              <ClockIcon size={30} />
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <KeyboardDatePicker
+                fullWidth
+                disablePast
+                disableToolbar
+                variant="dialog"
+                format="MM/dd/yyyy"
+                name="date"
+                label="Closing Date"
+                value={answer.sixthAnswer}
+                onChange={(event) => {
+                  setAnswer({ ...answer, sixthAnswer: event });
+                }}
+                KeyboardButtonProps={{
+                  "aria-label": "change date",
+                }}
+              />
+            </div>
+          </MuiPickersUtilsProvider>
         </>
       );
     }
@@ -487,21 +485,29 @@ function AssistComponent(props) {
             </div>
           </FormGroup>
 
-          <FormGroup row className="assist-add-task-drawer-form-field-group">
-            <CalendarIcon size={25} className="tag-icon" />
-            <div>
-              <TextField
-                fullWidth
-                variant="outlined"
-                type="date"
-                name="date"
-                label=""
-                value={newTask.date}
-                onChange={onChangeHandler}
-                error={showErrors && errors.dateError.hasError}
-              />
-            </div>
-          </FormGroup>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <FormGroup row className="assist-add-task-drawer-form-field-group">
+              <CalendarIcon size={25} className="tag-icon" />
+              <div>
+                <KeyboardDatePicker
+                  fullWidth
+                  disablePast
+                  disableToolbar
+                  variant="dialog"
+                  format="MM/dd/yyyy"
+                  name="date"
+                  label="Task Date"
+                  value={newTask.date}
+                  onChange={(event) => {
+                    setNewTask({ ...newTask, date: event });
+                  }}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                />
+              </div>
+            </FormGroup>
+          </MuiPickersUtilsProvider>
 
           <FormGroup row className="assist-add-task-drawer-form-field-group">
             <IssueOpenedIcon size={25} className="tag-icon" />
@@ -546,7 +552,7 @@ function AssistComponent(props) {
                 setShowErrors(true);
                 let newTaskObj = {
                   ...newTask,
-                  date: new Date(newTask.date),
+                  date: newTask.date,
                   to: "user", // Assigning the Task to user
                   id: randomId(LEN), // Assigning the random Id
                 };

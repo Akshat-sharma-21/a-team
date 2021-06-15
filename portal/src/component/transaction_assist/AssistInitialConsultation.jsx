@@ -13,20 +13,12 @@ import {
   MailOutline,
   PhoneOutlined,
   Place,
+  School,
   Pool,
 } from "@material-ui/icons";
 
 function AssistInitialConsultation(props) {
-  let QA = [];
-  props.Questions.forEach((question) => {
-    QA.push(
-      JSON.stringify(question)
-        .split(":")[1]
-        .replace('"', "")
-        .replace('"', "")
-        .replace("}", "")
-    );
-  }); // Parsing the Answers
+  console.log(props.Questions);
   return (
     <>
       <AssistAccordion
@@ -82,7 +74,9 @@ function AssistInitialConsultation(props) {
               <div className="assist-accordion-ques">
                 What is the Square Footage you are interested in?
               </div>
-              <div className="assist-accordion-ans">{QA[1] + " Sqft"}</div>
+              <div className="assist-accordion-ans">
+                {props.Questions[1]["24"] + " Sqft"}
+              </div>
             </div>
 
             <div className="assist-accordion-ques-div">
@@ -92,7 +86,21 @@ function AssistInitialConsultation(props) {
               <div className="assist-accordion-ques">
                 What cities in North Texas are you interested in?
               </div>
-              <div className="assist-accordion-ans">{QA[0]}</div>
+              {props.Questions[0]["23"].map((ans) => {
+                return <div className="assist-accordion-ans">{ans}</div>;
+              })}
+            </div>
+
+            <div className="assist-accordion-ques-div">
+              <div className="assist-accordion-icon-div">
+                <School fontSize="inherit" />
+              </div>
+              <div className="assist-accordion-ques">
+                Which School Districts are you Interested in?
+              </div>
+              {props.Questions[4]["27"].map((ans) => {
+                return <div className="assist-accordion-ans">{ans}</div>;
+              })}
             </div>
 
             <div className="assist-accordion-ques-div">
@@ -102,7 +110,9 @@ function AssistInitialConsultation(props) {
               <div className="assist-accordion-ques">
                 How many bedrooms are you interested in?
               </div>
-              <div className="assist-accordion-ans">{QA[2]}</div>
+              <div className="assist-accordion-ans">
+                {props.Questions[2]["25"]}
+              </div>
             </div>
 
             <div className="assist-accordion-ques-div">
@@ -112,7 +122,9 @@ function AssistInitialConsultation(props) {
               <div className="assist-accordion-ques">
                 What type of home are you looking for?
               </div>
-              <div className="assist-accordion-ans">{QA[5]}</div>
+              <div className="assist-accordion-ans">
+                {props.Questions[5]["28"]}
+              </div>
             </div>
 
             <div className="assist-accordion-ques-div">
@@ -120,7 +132,9 @@ function AssistInitialConsultation(props) {
                 <Pool fontSize="inherit" />
               </div>
               <div className="assist-accordion-ques">Do you want a pool?</div>
-              <div className="assist-accordion-ans">{QA[6]}</div>
+              <div className="assist-accordion-ans">
+                {props.Questions[6]["29"]}
+              </div>
             </div>
 
             <div
@@ -133,7 +147,9 @@ function AssistInitialConsultation(props) {
               <div className="assist-accordion-ques">
                 How many bathrooms are you interested in?
               </div>
-              <div className="assist-accordion-ans">{QA[3]}</div>
+              <div className="assist-accordion-ans">
+                {props.Questions[3]["26"]}
+              </div>
             </div>
           </Grid>
         </Grid>
