@@ -42,7 +42,7 @@ function CreatePasword(props) {
     }
 
     if (event.target.name === "confirmPassword") {
-      if (password !== confirmPassword) {
+      if (password !== event.target.value) {
         setConfirmPasswordError(true);
         setConfirmPasswordErrorMessage("Password did not match");
       } else setConfirmPasswordError(false);
@@ -51,10 +51,11 @@ function CreatePasword(props) {
   }
 
   function onSubmit() {
-    if (!passwordError && !confirmPasswordError) {
-      props.handlePasswordReset(password, window.location.href);
-    } else {
+    console.log(password + "&" + confirmPassword);
+    if (passwordError || confirmPasswordError) {
       setShowError(true);
+    } else {
+      props.handlePasswordReset(password, window.location.href);
     }
   }
 

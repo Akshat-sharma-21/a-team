@@ -103,7 +103,7 @@ class SignUp extends React.Component {
         break;
 
       case "confirmPassword":
-        if (this.state.password !== this.state.confirmPassword) {
+        if (this.state.password !== event.target.value) {
           this.setState({
             confirmPasswordError: true,
             confirmPasswordErrorText: "Password did not match",
@@ -153,6 +153,7 @@ class SignUp extends React.Component {
       });
     }
   }
+
   renderForm(step) {
     switch (step) {
       case 0:
@@ -352,7 +353,31 @@ class SignUp extends React.Component {
             severity="warning"
             variant="filled"
           >
-            "Fill all the details correctly"
+            {this.state.nameError &&
+            this.state.mailError &&
+            this.state.phoneError
+              ? this.state.nameErrorText +
+                " & " +
+                this.state.mailErrorText +
+                " & " +
+                this.state.phoneErrorText
+              : this.state.nameError && this.state.mailError
+              ? this.state.nameErrorText + " & " + this.state.mailErrorText
+              : this.state.mailError && this.state.phoneError
+              ? this.state.mailErrorText + " & " + this.state.phoneErrorText
+              : this.state.nameError && this.state.phoneError
+              ? this.state.nameErrorText + " & " + this.state.phoneErrorText
+              : this.state.nameError
+              ? this.state.nameErrorText
+              : this.state.mailError
+              ? this.state.mailErrorText
+              : this.state.phoneError
+              ? this.state.phoneErrorText
+              : this.state.passwordError
+              ? this.state.passwordErrorText
+              : this.state.confirmPasswordError
+              ? this.state.confirmPasswordErrorText
+              : ""}
           </Alert>
         </Snackbar>
       </Scaffold>

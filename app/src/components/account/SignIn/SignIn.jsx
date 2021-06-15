@@ -8,7 +8,6 @@ import {
   IconButton,
   withStyles,
   Snackbar,
-  Typography,
   Link,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -74,17 +73,14 @@ class SignIn extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({
-      mailError: validateFormField(event.target.value, event.target.name)
-        .hasError,
-    });
-
-    this.setState({
-      mailErrorText: validateFormField(event.target.value, event.target.name)
-        .errorText,
-    });
     if (event.target.name === "email") {
-      this.setState({ email: event.target.value });
+      this.setState({
+        mailError: validateFormField(event.target.value, event.target.name)
+          .hasError,
+        mailErrorText: validateFormField(event.target.value, event.target.name)
+          .errorText,
+        email: event.target.value,
+      });
     } else if (event.target.name === "password") {
       this.setState({ password: event.target.value });
     } else {
@@ -103,27 +99,27 @@ class SignIn extends React.Component {
       setTimeout(() => {
         if (this.props.utils.errors) {
           if (this.props.utils.errors.code === "auth/wrong-password") {
-            this.setState({ mailError: "Password is incorrect" });
+            this.setState({ mailErrorText: "Password is incorrect" });
             this.setState({ showError: true });
           }
 
           if (this.props.utils.errors.code === "auth/invalid-email") {
-            this.setState({ mailError: "Email is invalid" });
+            this.setState({ mailErrorText: "Email is invalid" });
             this.setState({ showError: true });
           }
 
           if (this.props.utils.errors.code === "auth/user-not-found") {
-            this.setState({ mailError: "User not found" });
+            this.setState({ mailErrorText: "User not found" });
             this.setState({ showError: true });
           }
 
           if (this.props.utils.errors.code === "auth/user-disabled") {
-            this.setState({ mailError: "User is disabled" });
+            this.setState({ mailErrorText: "User is disabled" });
             this.setState({ showError: true });
           }
 
           if (this.props.utils.errors.code === "auth/too-many-requests") {
-            this.setState({ mailError: "Too many requests" });
+            this.setState({ mailErrorText: "Too many requests" });
             this.setState({ showError: true });
           }
         }
@@ -222,7 +218,6 @@ class SignIn extends React.Component {
             fullWidth
             className="signin-input"
             variant="outlined"
-            name="password"
             label="Password"
             type={this.state.isPasswordVisible ? "text" : "password"}
             onChange={this.handleChange}
