@@ -7,6 +7,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { Autocomplete } from "@material-ui/lab";
 
 function InputTypeQuestion(props) {
   // function to display input type questions
@@ -19,8 +20,8 @@ function InputTypeQuestion(props) {
     shouldUseGradientBackground = false,
     onNext,
     onPrev,
+    autoCompleteProps,
   } = props;
-
   let ArrowIconSize = 25;
   if (window.innerHeight < 750) ArrowIconSize = 21;
   return (
@@ -59,14 +60,16 @@ function InputTypeQuestion(props) {
                 label="Date of Birth"
                 value={userInputValue === "" ? new Date() : userInputValue}
                 onChange={(event) => {
-                  let dateString = // Formating the string in a particular format
-                    event.toDateString().split(" ")[1] +
-                    " " +
-                    event.toDateString().split(" ")[2] +
-                    " " +
-                    event.toDateString().split(" ")[3] +
-                    " ";
-                  setUserInputValue(dateString);
+                  if (event !== null) {
+                    let dateString = // Formating the string in a particular format
+                      event.toDateString().split(" ")[1] +
+                      " " +
+                      event.toDateString().split(" ")[2] +
+                      " " +
+                      event.toDateString().split(" ")[3] +
+                      " ";
+                    setUserInputValue(dateString);
+                  }
                 }}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
@@ -74,15 +77,19 @@ function InputTypeQuestion(props) {
               />
             </MuiPickersUtilsProvider>
           ) : (
-            <TextField
-              label={input.label}
-              variant="outlined"
-              fullWidth
-              value={userInputValue}
-              disabled={isLoadingNext}
-              onChange={(event) => {
-                setUserInputValue(event.target.value);
+            <Autocomplete
+              freeSolo
+              options={autoCompleteProps}
+              multiple={input.multiple}
+              onChange={(e, value) => {
+                setUserInputValue(value);
               }}
+              getOptionLabel={(options) => options}
+              fullWidth
+              disabled={isLoadingNext}
+              renderInput={(params) => (
+                <TextField {...params} label={input.label} variant="outlined" />
+              )}
             />
           )}
         </div>
