@@ -18,7 +18,6 @@ import {
 } from "@material-ui/icons";
 
 function AssistInitialConsultation(props) {
-  console.log(props.Questions);
   return (
     <>
       <AssistAccordion

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
 import { navigateTo } from "../../../utils.js";
 import {
@@ -8,7 +8,6 @@ import {
   IconButton,
   withStyles,
   Snackbar,
-  Typography,
   Link,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -31,6 +30,7 @@ import {
   loginWithProviderHelper,
   loginWithFacebook,
 } from "../../../actions/userActions";
+import { clearErrors } from "../../../actions/utilsActions";
 import { validateFormField } from "../../../utils";
 
 const mapStateToProps = (state) => ({
@@ -39,99 +39,53 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { login, loginWithGoggle, loginWithProviderHelper, loginWithFacebook },
+    {
+      login,
+      loginWithGoggle,
+      loginWithProviderHelper,
+      loginWithFacebook,
+      clearErrors,
+    },
     dispatch
   );
 };
 
-const styles = (theme) => ({
+const styles = () => ({
   input: {
     backgroundColor: "rgba(255, 255, 255, 0.2)",
   },
 });
 
-class SignIn extends React.Component {
-  constructor() {
-    super();
+function SignIn(props) {
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [passwordVisibile, setPasswordVisible] = useState(false);
+  let [snackBarVisible, setSnackBarVisible] = useState(true);
+  let [showError, setShowError] = useState(false);
+  let [errorText, setErrorText] = useState("");
 
-    this.state = {
-      email: "",
-      password: "",
-      isPasswordVisible: false,
-      isSnackbarVisible: true,
-      remember: false,
-      showError: false,
-      mailError: true,
-      mailErrorText: "Email cannot be empty",
-    };
+  useEffect(() => {
+    props.loginWithProviderHelper(); // To handle login with provider
+  }, []);
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.loginWithProviderHelper();
-  }
-
-  handleChange = (event) => {
-    this.setState({
-      mailError: validateFormField(event.target.value, event.target.name)
-        .hasError,
-    });
-
-    this.setState({
-      mailErrorText: validateFormField(event.target.value, event.target.name)
-        .errorText,
-    });
-    if (event.target.name === "email") {
-      this.setState({ email: event.target.value });
-    } else if (event.target.name === "password") {
-      this.setState({ password: event.target.value });
-    } else {
-      this.setState({ remember: !this.state.remember });
-    }
-  };
-
-  onSubmit() {
-    if (this.state.mailError) {
-      this.setState({ showError: true });
-    } else {
-      this.props.login({
-        email: this.state.email,
-        password: this.state.password,
-      });
-      setTimeout(() => {
-        if (this.props.utils.errors) {
-          if (this.props.utils.errors.code === "auth/wrong-password") {
-            this.setState({ mailError: "Password is incorrect" });
-            this.setState({ showError: true });
-          }
-
-          if (this.props.utils.errors.code === "auth/invalid-email") {
-            this.setState({ mailError: "Email is invalid" });
-            this.setState({ showError: true });
-          }
-
-          if (this.props.utils.errors.code === "auth/user-not-found") {
-            this.setState({ mailError: "User not found" });
-            this.setState({ showError: true });
-          }
-
-          if (this.props.utils.errors.code === "auth/user-disabled") {
-            this.setState({ mailError: "User is disabled" });
-            this.setState({ showError: true });
-          }
-
-          if (this.props.utils.errors.code === "auth/too-many-requests") {
-            this.setState({ mailError: "Too many requests" });
-            this.setState({ showError: true });
-          }
-        }
-      }, 2000);
+  if (props.utils.errors && !showError) {
+    // if there is error and the showError modal is not open
+    if (props.utils.errors.code === "auth/wrong-password") {
+      setSnackBarVisible(false);
+      setShowError(true);
+      setErrorText("Password is Incorrect");
+    } else if (props.utils.errors.code === "auth/user-not-found") {
+      setSnackBarVisible(false);
+      setShowError(true);
+      setErrorText("User doesn't exist");
+    } else if (props.utils.errors.code === "auth/too-many-requests") {
+      setSnackBarVisible(false);
+      setShowError(true);
+      setErrorText("Too many requests! Please wait for a while");
     }
   }
 
-  showDownloadInfo() {
+  const showDownloadInfo = () => {
     // function to allow user to install the app
     if (window.matchMedia("(display-mode: standalone)").matches) {
       // if the pwa is already being used
@@ -140,11 +94,11 @@ class SignIn extends React.Component {
       // if the app is opened in browser
       if (
         window.navigator.userAgent.match("iPhone") !== null &&
-        this.props.utils.loading === false
+        props.utils.loading === false
       ) {
         return (
           <Snackbar
-            open={this.state.isSnackbarVisible}
+            open={snackBarVisible}
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           >
             <Alert
@@ -155,7 +109,7 @@ class SignIn extends React.Component {
                 background: "rgba(122,122,122,0.85)",
                 fontSize: 16,
               }}
-              onClose={() => this.setState({ isSnackbarVisible: false })}
+              onClose={() => setSnackBarVisible(false)}
             >
               {" "}
               Click <ShareIcon size={18} /> and{" "}
@@ -165,11 +119,11 @@ class SignIn extends React.Component {
         );
       } else if (
         window.navigator.userAgent.match("Android") !== null &&
-        this.props.utils.loading === false
+        props.utils.loading === false
       ) {
         return (
           <Snackbar
-            open={this.state.isSnackbarVisible}
+            open={snackBarVisible}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
             <Alert
@@ -180,7 +134,7 @@ class SignIn extends React.Component {
                 background: "rgba(122,122,122,0.85)",
                 fontSize: 16,
               }}
-              onClose={() => this.setState({ isSnackbarVisible: false })}
+              onClose={() => setSnackBarVisible(false)}
             >
               {" "}
               Click{" "}
@@ -194,146 +148,157 @@ class SignIn extends React.Component {
         );
       }
     }
-  }
+  };
 
-  render() {
-    return (
-      <Scaffold bgVariant="gradient">
-        <h2 className="signin-top-subheading">Let's make</h2>
-        <div className="signin-top-heading-group">
-          <div className="signin-top-heading">
-            <h1>Real Estate, Real Easy!</h1>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <img src={HomeImage} alt="" width="100%" height="auto" />
-          </div>
-        </div>
-        <div className="signin-form">
-          <TextField
-            fullWidth
-            className="signin-input"
-            variant="outlined"
-            name="email"
-            label="Email"
-            type="email"
-            onChange={this.handleChange}
-          />
-          <TextField
-            fullWidth
-            className="signin-input"
-            variant="outlined"
-            name="password"
-            label="Password"
-            type={this.state.isPasswordVisible ? "text" : "password"}
-            onChange={this.handleChange}
-            InputProps={{
-              endAdornment: (
-                <IconButton
-                  aria-label={
-                    this.state.isPasswordVisible
-                      ? "Hide Password"
-                      : "Show Password"
-                  }
-                  onClick={() =>
-                    this.setState({
-                      isPasswordVisible: !this.state.isPasswordVisible,
-                    })
-                  }
-                >
-                  {this.state.isPasswordVisible ? (
-                    <EyeClosedIcon />
-                  ) : (
-                    <EyeIcon />
-                  )}
-                </IconButton>
-              ),
-            }}
-          />
-        </div>
-        <div className="signin-forgot-password">
-          <Link href="/reset-password">Forgot Password?</Link>
-        </div>
-        <div className="signin-form-group-button">
-          <ReallosButton
-            primary
-            fullWidth
-            variant="light"
-            disabled={this.props.utils.loading}
-            onClick={this.onSubmit}
-          >
-            Sign In
-          </ReallosButton>
-        </div>
+  const submit = () => {
+    let validEmail = validateFormField(email, "email");
+    if (validEmail.hasError) {
+      setSnackBarVisible(false);
+      setShowError(true);
+      setErrorText(validEmail.errorText);
+    } else if (password === "" || password === null) {
+      setSnackBarVisible(false);
+      setShowError(true);
+      setErrorText("Password cannot be empty");
+    } else {
+      props.login({
+        email: email,
+        password: password,
+      });
+    }
+  };
 
-        <div className="social-signin-group">
-          <Fab
-            color="primary"
-            size="large"
-            className="social-signin"
-            aria-label="Login with Google"
-            onClick={() => {
-              if (!this.props.utils.loading) this.props.loginWithGoggle();
-            }}
-          >
-            <img src={GoogleLogo} alt="" style={{ borderRadius: "50%" }} />
-          </Fab>
-
-          <Fab
-            color="primary"
-            size="large"
-            aria-label="Login with LinkedIn"
-            onClick={() => {
-              if (!this.props.utils.loading) this.props.loginWithFacebook();
-            }}
-          >
-            <img src={FacebookLogo} alt="" style={{ borderRadius: "50%" }} />
-          </Fab>
-        </div>
-        <Divider
-          style={{
-            backgroundColor: "#ffffff",
-            height: 1,
-            width: "60%",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        />
-        <div className="signin-no-account">
-          <h3>Don't have an account?</h3>
+  return (
+    <Scaffold bgVariant="gradient">
+      <h2 className="signin-top-subheading">Let's make</h2>
+      <div className="signin-top-heading-group">
+        <div className="signin-top-heading">
+          <h1>Real Estate, Real Easy!</h1>
         </div>
         <div style={{ textAlign: "center" }}>
-          <ReallosButton
-            primary
-            dense
-            variant="light"
-            innerContentColor="#1dadee"
-            disabled={this.props.utils.loading}
-            onClick={() => navigateTo("/signup", this.props.history)}
-          >
-            Signup
-            <span style={{ marginLeft: 10 }}>
-              <ArrowRightIcon size={20} />
-            </span>
-          </ReallosButton>
+          <img src={HomeImage} alt="" width="100%" height="auto" />
         </div>
-        {this.showDownloadInfo()}
-
-        <Snackbar
-          open={this.state.showError}
-          autoHideDuration={6000}
-          onClose={() => this.setState({ showError: false })}
+      </div>
+      <div className="signin-form">
+        <TextField
+          fullWidth
+          className="signin-input"
+          variant="outlined"
+          value={email}
+          label="Email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          fullWidth
+          className="signin-input"
+          variant="outlined"
+          value={password}
+          label="Password"
+          type={passwordVisibile ? "text" : "password"}
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                aria-label={
+                  passwordVisibile ? "Hide Password" : "Show Password"
+                }
+                onClick={() => setPasswordVisible(!passwordVisibile)}
+              >
+                {passwordVisibile ? <EyeClosedIcon /> : <EyeIcon />}
+              </IconButton>
+            ),
+          }}
+        />
+      </div>
+      <div className="signin-forgot-password">
+        <Link href="/reset-password">Forgot Password?</Link>
+      </div>
+      <div className="signin-form-group-button">
+        <ReallosButton
+          primary
+          fullWidth
+          variant="light"
+          disabled={props.utils.loading}
+          onClick={() => submit()}
         >
-          <Alert
-            onClose={() => this.setState({ showError: false })}
-            severity="warning"
-            variant="filled"
-          >
-            {this.state.mailErrorText}
-          </Alert>
-        </Snackbar>
-      </Scaffold>
-    );
-  }
+          Sign In
+        </ReallosButton>
+      </div>
+
+      <div className="social-signin-group">
+        <Fab
+          color="primary"
+          size="large"
+          className="social-signin"
+          aria-label="Login with Google"
+          onClick={() => {
+            if (!props.utils.loading) props.loginWithGoggle();
+          }}
+        >
+          <img src={GoogleLogo} alt="" style={{ borderRadius: "50%" }} />
+        </Fab>
+
+        <Fab
+          color="primary"
+          size="large"
+          aria-label="Login with LinkedIn"
+          onClick={() => {
+            if (!props.utils.loading) props.loginWithFacebook();
+          }}
+        >
+          <img src={FacebookLogo} alt="" style={{ borderRadius: "50%" }} />
+        </Fab>
+      </div>
+      <Divider
+        style={{
+          backgroundColor: "#ffffff",
+          height: 1,
+          width: "60%",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      />
+      <div className="signin-no-account">
+        <h3>Don't have an account?</h3>
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <ReallosButton
+          primary
+          dense
+          variant="light"
+          innerContentColor="#1dadee"
+          disabled={props.utils.loading}
+          onClick={() => navigateTo("/signup", props.history)}
+        >
+          Signup
+          <span style={{ marginLeft: 10 }}>
+            <ArrowRightIcon size={20} />
+          </span>
+        </ReallosButton>
+      </div>
+      {showDownloadInfo()}
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => {
+          setShowError(false);
+          props.clearErrors();
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setShowError(false);
+            props.clearErrors();
+          }}
+          severity="warning"
+          variant="filled"
+        >
+          {errorText}
+        </Alert>
+      </Snackbar>
+    </Scaffold>
+  );
 }
 
 export default connect(
