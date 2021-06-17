@@ -1,49 +1,42 @@
-import React from 'react';
-import { CardMedia } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { CardMedia } from "@material-ui/core";
 
-class CardThumbnail extends React.Component {
-    constructor(props) {
-        super(props);
+function CardThumbnail(props) {
+  let [thumbnailUrl, setThumbnailUrl] = useState(null);
 
-        this.state = {
-            thumbnailUrl: null
-        }
-    }
+  useEffect(() => {
+    updateThumbnail(props.getThumbnailFunction);
+  }, []);
 
-    componentDidMount() {
-        this.updateThumbnail(this.props.getThumbnailFunction);
-    }
-
-    async updateThumbnail(urlFunction) {
-        let thumbnailUrl = await urlFunction();
-        this.setState({ thumbnailUrl });
-    }
-
-    render() {
-        return (
-            <div
-                style={{
-                    height: 200,
-                    backgroundImage: 'linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef),linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef)',
-                    backgroundSize: '21px 21px',
-                    backgroundRepeat: 'repeat',
-                    backgroundPosition: '0 0, 10px 10px',
-                    backgroundColor: '#ffffff'
-                }}
-            >
-                {this.state.thumbnailUrl
-                    ? <CardMedia
-                        image={this.state.thumbnailUrl}
-                        style={{
-                            height: 200,
-                            backgroundPositionY: 'top'
-                        }}
-                    />
-                    : <></>
-                }
-            </div>
-        );
-    }
+  const updateThumbnail = async (urlFunction) => {
+    let thumbnailUrl = await urlFunction();
+    setThumbnailUrl(thumbnailUrl);
+  };
+  return (
+    <div
+      style={{
+        height: 200,
+        backgroundImage:
+          "linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef),linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef)",
+        backgroundSize: "21px 21px",
+        backgroundRepeat: "repeat",
+        backgroundPosition: "0 0, 10px 10px",
+        backgroundColor: "#ffffff",
+      }}
+    >
+      {thumbnailUrl ? (
+        <CardMedia
+          image={thumbnailUrl}
+          style={{
+            height: 200,
+            backgroundPositionY: "top",
+          }}
+        />
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 }
 
 export default CardThumbnail;
