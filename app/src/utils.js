@@ -71,6 +71,11 @@ export const emailValidationRegex =
 export const phoneNumberValidationRegex = /^[0-9]{10}$/;
 
 /**
+ * Regex to validate name.
+ */
+export const nameValidationRegex = /^[a-zA-Z ]+$/i;
+
+/**
  * Validates a form field value based on the type
  * of field.
  *
@@ -96,6 +101,11 @@ export const validateFormField = (textValue, fieldType) => {
         formFieldError = {
           hasError: true,
           errorText: "Name cannot be empty",
+        };
+      } else if (!textValue.match(nameValidationRegex)) {
+        formFieldError = {
+          hasError: true,
+          errorText: "Name is invalid",
         };
       }
 
