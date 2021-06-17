@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import DeniedLogo from "../../assets/deny.png";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
@@ -54,19 +53,5 @@ function AccessDeny(props) {
     </Scaffold>
   );
 }
-
-AccessDeny.propTypes = {
-  /**
-   * State information for current component.
-   * Should contain `email`
-   */
-  state: PropTypes.object,
-
-  /**
-   * Callback function called when previous screen
-   * is requested.
-   */
-  onPrev: PropTypes.func,
-};
 
 export default AccessDeny;

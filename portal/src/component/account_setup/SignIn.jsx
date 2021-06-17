@@ -5,6 +5,7 @@ import ReallosLogo from "../../assets/reallos_white_logo.png";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from "../../actions/userActions";
+import { clearErrors } from "../../actions/utilActions";
 import { validateFormField } from "../../utils";
 
 import {
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = (dispatch) => {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators({ login, clearErrors }, dispatch);
 };
 
 function SignIn(props) {
@@ -31,59 +32,36 @@ function SignIn(props) {
   let [email, setEmail] = useState(null);
   let [password, setPassword] = useState(null);
   let [remember, setRemeber] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [mailError, setMailError] = useState(true);
-  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
+  let [showError, setShowError] = useState(false);
+  let [errorText, setErrorText] = useState("");
 
-  const handleChange = (event) => {
-    setMailError(
-      validateFormField(event.target.value, event.target.name).hasError
-    );
-    setMailErrorText(
-      validateFormField(event.target.value, event.target.name).errorText
-    );
-    if (event.target.id === "account-sigin-email-textfield") {
-      setEmail(event.target.value);
-    } else if (event.target.id === "account-sigin-password-textfield") {
-      setPassword(event.target.value);
-    } else {
-      setRemeber(!remember);
-    }
-  };
-
-  const onSubmit = () => {
-    if (mailError) {
+  if (props.utils.errors && !showError) {
+    if (props.utils.errors.code === "auth/wrong-password") {
       setShowError(true);
+      setErrorText("Password is Incorrect");
+    } else if (props.utils.errors.code === "auth/user-not-found") {
+      setShowError(true);
+      setErrorText("User doesn't exist");
+    } else if (props.utils.errors.code === "auth/too-many-requests") {
+      setShowError(true);
+      setErrorText("Too many requests! Please wait for a while");
+    }
+  }
+
+  const submit = () => {
+    // function to login the user
+    let validEmail = validateFormField(email, "email");
+    if (validEmail.hasError) {
+      setShowError(true);
+      setErrorText(validEmail.errorText);
+    } else if (password === "" || password === null) {
+      setShowError(true);
+      setErrorText("Password cannot be empty");
     } else {
-      props.login({ email, password });
-      setTimeout(() => {
-        if (props.utils.errors) {
-          if (props.utils.errors.code === "auth/wrong-password") {
-            setMailErrorText("Password is incorrect");
-            setShowError(true);
-          }
-
-          if (props.utils.errors.code === "auth/invalid-email") {
-            setMailErrorText("Email is invalid");
-            setShowError(true);
-          }
-
-          if (props.utils.errors.code === "auth/user-not-found") {
-            setMailErrorText("User not found");
-            setShowError(true);
-          }
-
-          if (props.utils.errors.code === "auth/user-disabled") {
-            setMailErrorText("User is disabled");
-            setShowError(true);
-          }
-
-          if (props.utils.errors.code === "auth/too-many-requests") {
-            setMailErrorText("Too many requests");
-            setShowError(true);
-          }
-        }
-      }, 2000);
+      props.login({
+        email: email,
+        password: password,
+      });
     }
   };
 
@@ -111,7 +89,7 @@ function SignIn(props) {
                 type="email"
                 name="email"
                 value={email}
-                onChange={handleChange}
+                onChange={(e) => setEmail(e.target.value)}
                 style={{ marginTop: 40 }}
                 InputProps={{
                   endAdornment: false && (
@@ -130,7 +108,9 @@ function SignIn(props) {
                 spellCheck={false}
                 type={isPasswordFieldVisible ? "text" : "password"}
                 value={password}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 InputProps={{
                   endAdornment: (
                     <IconButton
@@ -162,7 +142,7 @@ function SignIn(props) {
                     <Checkbox
                       id="account-signin-checkbox"
                       value={remember}
-                      onChange={handleChange}
+                      onChange={() => setRemeber(!remember)}
                       color="primary"
                     />
                   }
@@ -178,7 +158,7 @@ function SignIn(props) {
                 primary
                 fullWidth
                 disabled={props.utils.loading}
-                onClick={onSubmit}
+                onClick={() => submit()}
               >
                 Sign In
               </ReallosButton>
@@ -198,14 +178,20 @@ function SignIn(props) {
       <Snackbar
         open={showError}
         autoHideDuration={6000}
-        onClose={() => setShowError(false)}
+        onClose={() => {
+          setShowError(false);
+          props.clearErrors();
+        }}
       >
         <Alert
-          onClose={() => setShowError(false)}
+          onClose={() => {
+            setShowError(false);
+            props.clearErrors();
+          }}
           severity="warning"
           variant="filled"
         >
-          {mailErrorText}
+          {errorText}
         </Alert>
       </Snackbar>
     </Scaffold>

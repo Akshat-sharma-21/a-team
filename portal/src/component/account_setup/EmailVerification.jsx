@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
@@ -12,25 +11,12 @@ function EmailVerification(props) {
   useEffect(() => {
     sendEmailOTP(state.email);
   }, []);
-  /**
-   * @type [
-   *   string[],
-   *   React.Dispatch<React.SetStateAction<string[]>>
-   * ]
-   */
+
   let [verificationCodeList, setVerificationCodeList] = useState(
     Array(4).fill("")
   );
 
-  /**
-   * Handles input change when anything is typed in the
-   * verification code text box.
-   *
-   * @param {KeyboardEvent} event
-   * @param {number} index
-   */
   const handleInputKeyDown = (event, index) => {
-    /** @type string */
     let key = event.key;
     let isNumeric = !!key.match(/^\d$/);
 
@@ -133,19 +119,5 @@ function EmailVerification(props) {
     </Scaffold>
   );
 }
-
-EmailVerification.propTypes = {
-  /**
-   * Callback function called when next screen
-   * is requested.
-   */
-  onNext: PropTypes.func,
-
-  /**
-   * Callback function called when previous screen
-   * is requested.
-   */
-  onPrev: PropTypes.func,
-};
 
 export default EmailVerification;

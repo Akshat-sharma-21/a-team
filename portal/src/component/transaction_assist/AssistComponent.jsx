@@ -64,7 +64,7 @@ function AssistComponent(props) {
   let [entireTasksListVisible, setEntireTasksListVisible] = useState(false);
   let [sideDrawerVisible, setSideDrawerVisible] = useState(false);
   let [showErrors, setShowErrors] = useState(false);
-  let [validated, setValidated] = useState(false);
+  let [errorText, setErrorText] = useState("");
   let [questionNum, SetQuestionNum] = useState(1);
   let [questionModalVisible, setQuestionModalVisibile] = useState(false);
   let [questionAnswered, setQuestionsAnswered] = useState(false);
@@ -84,21 +84,42 @@ function AssistComponent(props) {
     priority: "",
   });
 
-  let [errors, setErrors] = useState({
-    // Error object
-    titleError: {
-      hasError: true,
-      errorText: "Title cannot be empty",
-    },
-    descriptionError: {
-      hasError: true,
-      errorText: "Description cannot be empty",
-    },
-    priorityError: {
-      hasError: true,
-      errorText: "Priority cannot be empty",
-    },
-  });
+  const submitTask = async () => {
+    // function to submit the task
+    let validTitle = validateFormField(newTask.title, "title");
+    let validDescription = validateFormField(
+      newTask.description,
+      "description"
+    );
+    let validPriority = validateFormField(newTask.priority, "priority");
+
+    if (validTitle.hasError) {
+      setShowErrors(true);
+      setErrorText(validTitle.errorText);
+    } else if (validDescription.hasError) {
+      setShowErrors(true);
+      setErrorText(validDescription.errorText);
+    } else if (validPriority.hasError) {
+      setShowErrors(true);
+      setErrorText(validPriority.errorText);
+    } else {
+      // if there are no errors
+      let newTaskObj = {
+        ...newTask,
+        date: newTask.date,
+        to: "user", // Assigning the Task to user
+        id: randomId(LEN), // Assigning the random Id
+      };
+      await props.addTask(props.tid, newTaskObj, props.title, props.stepObj); // waiting for the task to be stored
+      setNewTask({
+        title: "",
+        description: "",
+        date: new Date(),
+        priority: "",
+      });
+      setSideDrawerVisible(false);
+    }
+  };
 
   function dateToString(date) {
     const months = [
@@ -116,52 +137,6 @@ function AssistComponent(props) {
       "Dec",
     ];
     return date.getDate() + " " + months[date.getMonth()];
-  }
-
-  function onChangeHandler(event) {
-    event.preventDefault();
-
-    switch (event.target.name) {
-      case "title":
-        setNewTask({ ...newTask, title: event.target.value });
-        setErrors({
-          ...errors,
-          titleError: validateFormField(event.target.value, event.target.name),
-        });
-        break;
-
-      case "description":
-        setNewTask({ ...newTask, description: event.target.value });
-        setErrors({
-          ...errors,
-          descriptionError: validateFormField(
-            event.target.value,
-            event.target.name
-          ),
-        });
-        break;
-
-      case "priority":
-        setNewTask({ ...newTask, priority: event.target.value });
-        setErrors({
-          ...errors,
-          priorityError: validateFormField(
-            event.target.value,
-            event.target.name
-          ),
-        });
-        break;
-
-      default:
-        break;
-    }
-    if (
-      !errors.titleError.hasError &&
-      !errors.descriptionError.hasError &&
-      !errors.priorityError.hasError
-    ) {
-      setValidated(true);
-    } else setValidated(false);
   }
 
   function displayQuestionModalHelper() {
@@ -437,7 +412,7 @@ function AssistComponent(props) {
           setSideDrawerVisible(false);
           setNewTask({
             title: "",
-            date: "",
+            date: new Date(),
             priority: "",
             description: "",
           });
@@ -461,8 +436,9 @@ function AssistComponent(props) {
                 type="text"
                 name="title"
                 value={newTask.title}
-                onChange={onChangeHandler}
-                error={showErrors && errors.titleError.hasError}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, title: e.target.value })
+                }
               />
             </div>
           </FormGroup>
@@ -479,8 +455,9 @@ function AssistComponent(props) {
                 type="text"
                 name="description"
                 value={newTask.description}
-                onChange={onChangeHandler}
-                error={showErrors && errors.descriptionError.hasError}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, description: e.target.value })
+                }
               />
             </div>
           </FormGroup>
@@ -519,8 +496,9 @@ function AssistComponent(props) {
                 type="number"
                 name="priority"
                 value={newTask.priority}
-                onChange={onChangeHandler}
-                error={showErrors && errors.priorityError.hasError}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, priority: e.target.value })
+                }
               />
             </div>
           </FormGroup>
@@ -534,7 +512,7 @@ function AssistComponent(props) {
               setSideDrawerVisible(false);
               setNewTask({
                 title: "",
-                date: "",
+                date: new Date(),
                 priority: "",
                 description: "",
               });
@@ -543,39 +521,7 @@ function AssistComponent(props) {
             Back
           </ReallosButton>
 
-          <ReallosButton
-            cta
-            fullWidth
-            primary
-            onClick={async () => {
-              if (validated) {
-                setShowErrors(true);
-                let newTaskObj = {
-                  ...newTask,
-                  date: newTask.date,
-                  to: "user", // Assigning the Task to user
-                  id: randomId(LEN), // Assigning the random Id
-                };
-                await props.addTask(
-                  props.tid,
-                  newTaskObj,
-                  props.title,
-                  props.stepObj
-                ); // waiting for the task to be stored
-                setNewTask({
-                  title: "",
-                  description: "",
-                  date: "",
-                  priority: "",
-                });
-                setValidated(false);
-                setShowErrors(false);
-                setSideDrawerVisible(false);
-              } else {
-                setShowErrors(true);
-              }
-            }}
-          >
+          <ReallosButton cta fullWidth primary onClick={() => submitTask()}>
             Add Task
           </ReallosButton>
         </div>
@@ -771,7 +717,7 @@ function AssistComponent(props) {
           severity="warning"
           variant="filled"
         >
-          Fill all the details correctly
+          {errorText}
         </Alert>
       </Snackbar>
     </>
