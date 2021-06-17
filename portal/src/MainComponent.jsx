@@ -8,6 +8,7 @@ import ProfileSummary from "./component/profile_summary/ProfileSummary";
 import AccountSetup from "./component/account_setup/AccountSetup";
 import Signin from "./component/account_setup/SignIn";
 import DeviceNotSupported from "./component/DeviceNotSupported/DeviceNotSupported";
+import Onboarding from "./component/Onboarding/Onboarding";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { getAuth } from "./Authenticate";
 
@@ -37,6 +38,8 @@ function Main() {
   if (screen) {
     return (
       <Switch>
+        <Route path="/onboarding" component={Onboarding} />
+
         <PrivateRoute exact path="/transactions" component={Dashboard} />
         <PrivateRoute
           path="/transactions/:tid/assist"

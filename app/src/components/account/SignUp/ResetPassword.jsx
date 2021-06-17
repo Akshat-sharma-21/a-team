@@ -5,6 +5,7 @@ import { ArrowRightIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import LockIconImg from "../../../assets/LockIconImg.svg";
 import { passwordResetLink } from "../../../actions/userActions";
+import { clearErrors } from "../../../actions/utilsActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "./SignUp.css";
@@ -19,65 +20,35 @@ const mapActionToProps = (dispatch) => {
   return bindActionCreators(
     {
       passwordResetLink,
+      clearErrors,
     },
     dispatch
   );
 };
 
-function CreatePasword(props) {
-  const [email, setEmail] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [mailError, setMailError] = useState(true);
-  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
+function CreatePassword(props) {
+  let [email, setEmail] = useState("");
+  let [showError, setShowError] = useState(false);
+  let [errorText, setErrorText] = useState("");
 
-  const handleChange = (event) => {
-    setMailError(
-      validateFormField(event.target.value, event.target.name).hasError
-    );
-    setMailErrorText(
-      validateFormField(event.target.value, event.target.name).errorText
-    );
-    setEmail(event.target.value);
-  };
-
-  const onSubmit = () => {
-    if (!mailError) {
-      props.passwordResetLink(email);
-    } else setShowError(true);
-  };
-
-  function renderForm() {
-    return (
-      <div className="signup-form">
-        <div className="signup-form-fields">
-          <TextField
-            value={email}
-            fullWidth
-            variant="outlined"
-            label="Email"
-            type="email"
-            onChange={(event) => {
-              handleChange(event);
-            }}
-          />
-        </div>
-        <div className="reset-password-divider-div"></div>
-        <div className="signup-form-action-group">
-          <ReallosButton
-            primary
-            disabled={props.utils.loading}
-            fullWidth
-            onClick={onSubmit}
-          >
-            Next
-            <span style={{ marginLeft: 10 }}>
-              <ArrowRightIcon size={21} />
-            </span>
-          </ReallosButton>
-        </div>
-      </div>
-    );
+  if (props.utils.errors && !showError) {
+    // if there is error and the showError modal is not open
+    if (props.utils.errors.code === "auth/user-not-found") {
+      setShowError(true);
+      setErrorText("No Account linked to the Email");
+    }
   }
+
+  const submit = () => {
+    let validEmail = validateFormField(email, "email");
+    if (validEmail.hasError) {
+      setShowError(true);
+      setErrorText(validEmail.errorText);
+    } else {
+      // if there are no error
+      props.passwordResetLink(email);
+    }
+  };
 
   return (
     <Scaffold className="signup-page-root">
@@ -105,24 +76,55 @@ function CreatePasword(props) {
           />
         </div>
 
-        {renderForm()}
+        <div className="signup-form">
+          <div className="signup-form-fields">
+            <TextField
+              value={email}
+              fullWidth
+              variant="outlined"
+              label="Email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="reset-password-divider-div"></div>
+          <div className="signup-form-action-group">
+            <ReallosButton
+              primary
+              disabled={props.utils.loading}
+              fullWidth
+              onClick={() => submit()}
+            >
+              Next
+              <span style={{ marginLeft: 10 }}>
+                <ArrowRightIcon size={21} />
+              </span>
+            </ReallosButton>
+          </div>
+        </div>
       </div>
 
       <Snackbar
         open={showError}
         autoHideDuration={6000}
-        onClose={() => setShowError(false)}
+        onClose={() => {
+          setShowError(false);
+          props.clearErrors();
+        }}
       >
         <Alert
-          onClose={() => setShowError(false)}
+          onClose={() => {
+            setShowError(false);
+            props.clearErrors();
+          }}
           severity="warning"
           variant="filled"
         >
-          {mailErrorText}
+          {errorText}
         </Alert>
       </Snackbar>
     </Scaffold>
   );
 }
 
-export default connect(mapStateToProps, mapActionToProps)(CreatePasword);
+export default connect(mapStateToProps, mapActionToProps)(CreatePassword);
