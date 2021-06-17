@@ -45,15 +45,15 @@ export function setPassword(email, password) {
         snapshot.forEach((doc) => {
           if (doc.data().Email === email) {
             Obj = doc.data(); // Storing the data of the object
-            myFirestore
-              .collection("Portal_Users")
-              .doc(doc.id)
-              .delete() // Deleting the user
-              .then(() => {
-                myFirebase
-                  .auth()
-                  .createUserWithEmailAndPassword(email, password)
-                  .then((res) => {
+            myFirebase
+              .auth()
+              .createUserWithEmailAndPassword(email, password)
+              .then((res) => {
+                myFirestore
+                  .collection("Portal_Users")
+                  .doc(doc.id)
+                  .delete()
+                  .then(() => {
                     myFirestore
                       .collection("Portal_Users")
                       .doc(res.user.uid)
@@ -61,7 +61,7 @@ export function setPassword(email, password) {
                         ...Obj,
                       })
                       .then(async () => {
-                        let token = await res.user.getIdToken(); // getting the token\
+                        let token = await res.user.getIdToken(); // getting the token
                         localStorage.setItem("Token", token);
                         localStorage.setItem("Id", res.user.uid); // Setting the Id
                         localStorage.setItem("phone", Obj.Phone); // Setting the phone
@@ -70,9 +70,15 @@ export function setPassword(email, password) {
                         dispatch(incrementStepAction(2)); // Incrementing to the next step
                       })
                       .catch((err) => {
-                        dispatch(setErrors(err));
+                        dispatch(setErrors(err)); // dispatching an action to set the error
                       });
+                  })
+                  .catch((err) => {
+                    dispatch(setErrors(err));
                   });
+              })
+              .catch((err) => {
+                dispatch(setErrors(err)); // dispatching an action to set the error
               });
           }
         });

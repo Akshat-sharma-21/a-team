@@ -44,7 +44,8 @@ export const getRoleLabel = (roleValue) => {
  * Regex to validate email.
  */
 // eslint-disable-next-line
-export const emailValidationRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+export const emailValidationRegex =
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 /**
  * Regex to validate phone number.
@@ -58,7 +59,7 @@ export const phoneNumberValidationRegex = /^[0-9]{10}$/;
  * @param {string} textValue
  * The value to validate.
  *
- * @param {"firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password" | "date" | "priority" } fieldType
+ * @param {"firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password" | "date" | "priority"| "title" | "description"} fieldType
  * Type of form field that needs to be validated.
  *
  * @returns {{hasError: boolean, errorText: string}}

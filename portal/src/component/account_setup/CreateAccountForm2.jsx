@@ -1,51 +1,49 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { TextField, IconButton } from "@material-ui/core";
+import { TextField, IconButton, Snackbar } from "@material-ui/core";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
 import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { Alert } from "@material-ui/lab";
 import ReallosLogo from "../../assets/reallos_white_logo.png";
+import { validateFormField } from "../../utils";
 
 function CreateAccountForm2(props) {
-  let [
-    isCreatePasswordFieldVisible,
-    setCreatePasswordFieldVisibility,
-  ] = useState(false);
-  let [
-    isConfirmPasswordFieldVisible,
-    setConfirmPasswordFieldVisibility,
-  ] = useState(false);
+  let [isCreatePasswordFieldVisible, setCreatePasswordFieldVisibility] =
+    useState(false);
+  let [isConfirmPasswordFieldVisible, setConfirmPasswordFieldVisibility] =
+    useState(false);
   let [confirmPassword, setConfirmPassword] = useState("");
+  let [errorText, setErrorText] = useState("");
+  let [showError, setShowError] = useState(false);
 
   let {
     onStateChange = () => {},
     state = {},
     onNext = () => {},
     onPrev = () => {},
+    clearError = () => {},
   } = props;
 
-  /**
-   * Handles input change. Sets state
-   * and calls `onStateChange`.
-   *
-   * @param {Event} event
-   */
-  const handleChange = (event) => {
-    onStateChange({
-      password: event.target.value,
-    });
+  const nextStep = () => {
+    // function to move to the next step
+    let validPassword = validateFormField(state.password, "password");
+    if (validPassword.hasError) {
+      setShowError(true);
+      setErrorText(validPassword.errorText);
+    } else if (state.password !== confirmPassword) {
+      setShowError(true);
+      setErrorText("Passwords do not match");
+    } else {
+      onNext();
+    }
   };
 
-  /**
-   * Checks if user can proceed to next screen
-   */
-  const canUserProceed = () => {
-    // @TODO: Can use a strict password validation regex
-    return (
-      state.password.trim().length >= 8 &&
-      confirmPassword === state.password &&
-      state.loading === false
-    );
-  };
+  if (state.errors && !showError) {
+    if (state.errors.code === "auth/email-already-in-use") {
+      setShowError(true);
+      setErrorText("Account Already Setup! Please Sign in");
+    }
+  }
+
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal
@@ -70,7 +68,7 @@ function CreateAccountForm2(props) {
                 id="account-setup-create-account-textfield"
                 spellCheck={false}
                 value={state.password}
-                onChange={handleChange}
+                onChange={(e) => onStateChange(e.target.value)}
                 type={isCreatePasswordFieldVisible ? "text" : "password"}
                 InputProps={{
                   endAdornment: (
@@ -141,8 +139,8 @@ function CreateAccountForm2(props) {
                 cta
                 primary
                 fullWidth
-                disabled={!canUserProceed()}
-                onClick={onNext}
+                disabled={state.loading}
+                onClick={() => nextStep()}
               >
                 Next
                 <span style={{ marginLeft: 5 }}>
@@ -153,37 +151,27 @@ function CreateAccountForm2(props) {
           </div>
         </div>
       </ReallosModal>
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={() => {
+          setShowError(false);
+          clearError();
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setShowError(false);
+            clearError();
+          }}
+          severity="warning"
+          variant="filled"
+        >
+          {errorText}
+        </Alert>
+      </Snackbar>
     </Scaffold>
   );
 }
-
-CreateAccountForm2.propTypes = {
-  /**
-   * State information for current component.
-   * Should contain `password`
-   */
-  state: PropTypes.object,
-
-  /**
-   * Callback function called when a state change
-   * occurs in current component.
-   *
-   * Typically the function should accept a `state` prop
-   * which should be propagated to parent component.
-   */
-  onStateChange: PropTypes.func,
-
-  /**
-   * Callback function called when next screen
-   * is requested.
-   */
-  onNext: PropTypes.func,
-
-  /**
-   * Callback function called when previous screen
-   * is requested.
-   */
-  onPrev: PropTypes.func,
-};
 
 export default CreateAccountForm2;

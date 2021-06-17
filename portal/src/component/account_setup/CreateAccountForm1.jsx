@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { CircularProgress, Snackbar, TextField } from "@material-ui/core";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import { ReallosModal, ReallosButton, Scaffold } from "../utilities/core";
@@ -8,34 +7,21 @@ import { validateFormField } from "../../utils";
 import { Alert } from "@material-ui/lab";
 
 function CreateAccountForm1(props) {
-  const [showError, setShowError] = useState(false);
-  const [mailError, setMailError] = useState(true);
-  const [mailErrorText, setMailErrorText] = useState("Email cannot be empty");
+  let [showError, setShowError] = useState(false);
+  let [errorText, setErrorText] = useState("");
   let { onStateChange = () => {}, state = {}, onNext = () => {} } = props;
 
-  /**
-   * Handles input change. Sets state
-   * and calls `onStateChange`.
-   *
-   * @param {Event} event
-   */
-  const handleChange = (event) => {
-    setMailError(
-      validateFormField(event.target.value, event.target.name).hasError
-    );
-    setMailErrorText(
-      validateFormField(event.target.value, event.target.name).errorText
-    );
-    onStateChange({
-      email: event.target.value,
-    });
+  const nextStep = () => {
+    let validEmail = validateFormField(state.email, "email");
+    if (validEmail.hasError) {
+      setShowError(true);
+      setErrorText(validEmail.errorText);
+    } else {
+      // if there are no errors
+      onNext();
+    }
   };
 
-  const nextStep = () => {
-    if (mailError) {
-      setShowError(true);
-    } else onNext();
-  };
   return (
     <Scaffold className="account-setup-root">
       <ReallosModal
@@ -67,7 +53,7 @@ function CreateAccountForm1(props) {
                 name="email"
                 type="email"
                 value={state.email}
-                onChange={handleChange}
+                onChange={(e) => onStateChange(e.target.value)}
                 InputProps={{
                   endAdornment: state.loading && (
                     <div style={{ height: 20 }}>
@@ -79,7 +65,7 @@ function CreateAccountForm1(props) {
             </div>
 
             <div className="account-setup-action-footer-group">
-              <ReallosButton cta primary fullWidth onClick={nextStep}>
+              <ReallosButton cta primary fullWidth onClick={() => nextStep()}>
                 Next
                 <span style={{ marginLeft: 5 }}>
                   <ArrowRightIcon size={18} />
@@ -99,34 +85,10 @@ function CreateAccountForm1(props) {
           severity="warning"
           variant="filled"
         >
-          {mailErrorText}
+          {errorText}
         </Alert>
       </Snackbar>
     </Scaffold>
   );
 }
-
-CreateAccountForm1.propTypes = {
-  /**
-   * State information for current component.
-   * Should contain `email` and `isCheckingUserAccess`.
-   */
-  state: PropTypes.object,
-
-  /**
-   * Callback function called when a state change
-   * occurs in current component.
-   *
-   * Typically the function should accept a `state` prop
-   * which should be propagated to parent component.
-   */
-  onStateChange: PropTypes.func,
-
-  /**
-   * Callback function called when next screen
-   * is requested.
-   */
-  onNext: PropTypes.func,
-};
-
 export default CreateAccountForm1;

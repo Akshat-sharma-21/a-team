@@ -18,7 +18,7 @@ function utilReducer(state = intitialState, action) {
       return {
         ...state,
         loading: false,
-        errors: false,
+        errors: null,
       };
     }
     case actions.SET_ERRORS: {
@@ -32,6 +32,12 @@ function utilReducer(state = intitialState, action) {
       return {
         ...state,
         reload: action.reload === true ? true : false,
+      };
+    }
+    case actions.CLEAR_ERRORS: {
+      return {
+        ...state,
+        errors: null,
       };
     }
     default:

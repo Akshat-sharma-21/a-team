@@ -55,7 +55,7 @@ function Main() {
           component={Documents}
         />
         <PrivateRoute path="/profile" component={ProfileSummary} />
-        <Route path="/account_setup" component={AccountSetup} />
+        <Route path="/account-setup" component={AccountSetup} />
         <Route path="/home" component={Signin} />
         <Redirect exact from="/" to="home" />
         <Route path="*" component={Signin} />
