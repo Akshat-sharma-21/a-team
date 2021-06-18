@@ -53,13 +53,18 @@ export const emailValidationRegex =
 export const phoneNumberValidationRegex = /^[0-9]{10}$/;
 
 /**
+ * Regex to validate nmls
+ */
+export const nmlsNumberValidationRegex = /^[0-9]{7}$/;
+
+/**
  * Validates a form field value based on the type
  * of field.
  *
  * @param {string} textValue
  * The value to validate.
  *
- * @param {"firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password" | "date" | "priority"| "title" | "description"} fieldType
+ * @param {"name" | "firstname" | "lastname" | "email" | "phone" | "role" | "state" | "address" | "password" | "date" | "priority"| "title" | "description" | "nmls"} fieldType
  * Type of form field that needs to be validated.
  *
  * @returns {{hasError: boolean, errorText: string}}
@@ -138,6 +143,21 @@ export const validateFormField = (textValue, fieldType) => {
         formFieldError = {
           hasError: true,
           errorText: "Phone number is invalid",
+        };
+      }
+
+      break;
+
+    case "nmls":
+      if (textValue === "") {
+        formFieldError = {
+          hasError: true,
+          errorText: "nmls number cannot be empty",
+        };
+      } else if (!nmlsNumberValidationRegex.test(textValue)) {
+        formFieldError = {
+          hasError: true,
+          errorText: "nmls number is invalid",
         };
       }
 

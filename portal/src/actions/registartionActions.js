@@ -64,7 +64,20 @@ export function setPassword(email, password) {
                         let token = await res.user.getIdToken(); // getting the token
                         localStorage.setItem("Token", token);
                         localStorage.setItem("Id", res.user.uid); // Setting the Id
-                        localStorage.setItem("phone", Obj.Phone); // Setting the phone
+                        localStorage.setItem("phone", Obj.Phone); // Setting the
+
+                        if (Obj.Role.toLowerCase() === "agent") {
+                          // if the agent is setting up the account
+                          await myFirestore
+                            .collection("Agents")
+                            .add({ id: res.user.uid });
+                        } else if (Obj.Role.toLowerCase() === "lender") {
+                          // if the lender is setting up the account
+                          await myFirestore
+                            .collection("Lenders")
+                            .add({ id: res.user.uid });
+                        }
+
                         dispatch(setPasswordAction());
                         dispatch(setLoadingFalse()); // Dispatching an action to set loading to false
                         dispatch(incrementStepAction(2)); // Incrementing to the next step
@@ -186,6 +199,18 @@ export function verifyPhone(phoneCode, hash) {
         }
       });
   };
+}
+
+export function onboardUser(role, user) {
+  // function to onboard the user
+  axios.post(
+    // making a post request to onboard the user
+    `${baseUrl}/onboard-professional`,
+    {
+      role: role,
+      user: user,
+    }
+  );
 }
 
 export function incrementStepAction(payload) {
