@@ -35,6 +35,7 @@ export function signup(user) {
           })
           .then(async () => {
             let token = await res.user.getIdToken(); // waiting for the token
+            localStorage.setItem("Token", token); // storing the token in the local storage
             axios
               .post(
                 `${baseUrl}/create-transaction`,
