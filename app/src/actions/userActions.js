@@ -563,12 +563,11 @@ export function verifyPhone(otp) {
       )
       .then((res) => {
         if (res.data.verified === true) {
-          localStorage.removeItem("Id");
           localStorage.removeItem("phoneHash");
           dispatch(setLoadingFalse());
-          window.location.href = "/";
+          window.location.href = "/dashboard"; // loggin in the user after phone verificiation
         } else {
-          dispatch(setErrors("invalid phone otp"));
+          dispatch(setErrors("incorrect phone otp"));
         }
       })
       .catch((err) => {

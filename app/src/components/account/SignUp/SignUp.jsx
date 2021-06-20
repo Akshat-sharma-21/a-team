@@ -3,7 +3,12 @@ import { Scaffold, ReallosButton } from "../../utilities/core";
 import { IconButton, TextField, Snackbar } from "@material-ui/core";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import "./SignUp.css";
-import { ArrowRightIcon, EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import {
+  ArrowRightIcon,
+  EyeClosedIcon,
+  EyeIcon,
+  ArrowLeftIcon,
+} from "@primer/octicons-react";
 import { Alert } from "@material-ui/lab";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -115,7 +120,7 @@ function SignUp(props) {
               variant="outlined"
               name="phone"
               label="Phone No."
-              type="tel"
+              type="number"
               value={phone}
               onChange={(e) => {
                 setPhone(e.target.value);
@@ -226,6 +231,16 @@ function SignUp(props) {
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
       </div>
+      {step === 0 && (
+        <div className="signup-back-button">
+          <IconButton
+            disabled={props.utils.loading}
+            onClick={() => (window.location.href = "/signin")}
+          >
+            <ArrowLeftIcon size={30} className="signup-back-button-style" />
+          </IconButton>
+        </div>
+      )}
 
       <div className="signup-body-root">
         <div className="signup-page-title">

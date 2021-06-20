@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { Snackbar, TextField } from "@material-ui/core";
+import { Snackbar, TextField, IconButton } from "@material-ui/core";
+import { ArrowLeftIcon } from "@primer/octicons-react";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import LockIconImg from "../../../assets/LockIconImg.svg";
@@ -54,6 +55,14 @@ function CreatePassword(props) {
     <Scaffold className="signup-page-root">
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
+      </div>
+      <div className="signup-back-button">
+        <IconButton
+          disabled={props.utils.loading}
+          onClick={() => (window.location.href = "/signin")}
+        >
+          <ArrowLeftIcon size={30} className="signup-back-button-style" />
+        </IconButton>
       </div>
 
       <div className="signup-body-root" style={{ padding: "20px 25px" }}>

@@ -6,6 +6,29 @@
   margin-top: 30px;
 }
 
+.tasks-dashboard-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 40px;
+  min-height: calc(100vh - 360px);
+}
+
+.tasks-dashboard-single-view-container > img {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.tasks-dashboard-subheading {
+  text-align: center;
+  font-family: "Gilroy";
+  font-weight: bold;
+  font-size: 28px;
+  color: var(--color-dark);
+}
+
 .tasks-dashboard-section-title {
   font-size: 25px;
   margin: 25px 0 5px 0 !important;
@@ -25,12 +48,12 @@
   margin-bottom: 10px !important;
 }
 
-.tasks-text {
+.tasks-dashboard-text {
   text-align: center;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Open Sans";
   font-size: 18px;
-  color: var(--color-dark-grey);
-  margin-top: 10px;
+  color: var(--color-dark);
+  margin-top: 0;
 }
 
 .tasks-dashboard-list-item-header > .MuiAccordionSummary-content {
@@ -118,6 +141,15 @@
     padding: 8px 0 !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
     margin-top: 1px !important;
+  }
+
+  .tasks-dashboard-single-view-container {
+    margin-top: 40px;
+    min-height: calc(100vh - 360px);
+  }
+  .tasks-dashboard-single-view-container > img {
+    width: 85%;
+    margin-bottom: 10px;
   }
 }
 

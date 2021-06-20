@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { SearchIcon } from "@primer/octicons-react";
+import NoTasks from "../../assets/No-Tasks.png";
 import { ReallosButton, Scaffold, SearchBar } from "../utilities/core";
 import "./TasksDashboard.css";
 
@@ -220,10 +221,13 @@ function TasksDashboard(props) {
     } else if (tasksList.length === 0) {
       // If there are no tasks that are uploaded for the user
       return (
-        <div className="single-view-container">
-          <h2 className="tasks-subheading">Your tasks reside here!</h2>
+        <div className="tasks-dashboard-single-view-container">
+          <img src={NoTasks} alt="" />
+          <h2 className="tasks-dashboard-subheading">
+            Your tasks reside here!
+          </h2>
 
-          <p className="tasks-text">
+          <p className="tasks-dashboard-text">
             View all the tasks related to your transaction all in one place...
           </p>
         </div>
@@ -979,7 +983,7 @@ function TasksDashboard(props) {
       <Grid container direction="column">
         <h1 className="tasks-dashboard-heading">Tasks</h1>
 
-        {tasksList && (
+        {tasksList && tasksList.length !== 0 && (
           <SearchBar
             filterByFields={["title", "description", "dueDate"]}
             list={tasksList}

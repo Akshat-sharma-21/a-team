@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { TextField, Snackbar } from "@material-ui/core";
+import { TextField, Snackbar, IconButton } from "@material-ui/core";
+import { ArrowLeftIcon } from "@primer/octicons-react";
 import { Alert } from "@material-ui/lab";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import "../SignUp/SignUp.css";
@@ -47,6 +48,14 @@ function SignUpWithProviders(props) {
     <Scaffold className="signup-page-root">
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
+      </div>
+      <div className="signup-back-button">
+        <IconButton
+          disabled={props.utils.loading}
+          onClick={() => (window.location.href = "/signin")}
+        >
+          <ArrowLeftIcon size={30} className="signup-back-button-style" />
+        </IconButton>
       </div>
 
       <div className="signup-body-root">

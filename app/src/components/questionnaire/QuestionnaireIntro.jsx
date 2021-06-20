@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { ArrowLeftIcon } from "@primer/octicons-react";
 import { Scaffold, ReallosButton } from "../utilities/core";
 import { IconButton, Typography, CircularProgress } from "@material-ui/core";

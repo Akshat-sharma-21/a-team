@@ -1,29 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Scaffold, ReallosButton } from "../../utilities/core";
-import { TextField, CircularProgress } from "@material-ui/core";
+import {
+  TextField,
+  CircularProgress,
+  IconButton,
+  Snackbar,
+} from "@material-ui/core";
+import { ArrowLeftIcon } from "@primer/octicons-react";
 import ReallosLogo from "../../../assets/reallos_white_logo.png";
 import "./SignUp.css";
 import { Email } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { sendEmailOtp, verifyEmail } from "../../../actions/userActions";
+import { clearErrors } from "../../../actions/utilsActions";
+import { Alert } from "@material-ui/lab";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
 });
 
 const mapActionToProps = (dispatch) => {
-  return bindActionCreators({ sendEmailOtp, verifyEmail }, dispatch);
+  return bindActionCreators(
+    { sendEmailOtp, verifyEmail, clearErrors },
+    dispatch
+  );
 };
 
 function VerifyMail(props) {
   let [verificationCodeList, setVerificationCodeList] = useState(
     Array(4).fill("")
   );
+  let [showError, setShowError] = useState(false);
+  let [errorText, setErrorText] = useState("");
 
   useEffect(() => {
     props.sendEmailOtp();
   }, []);
+
+  if (props.utils.errors && !showError) {
+    // to show incorrect otp error
+    if (props.utils.errors === "incorrect email otp") {
+      setShowError(true);
+      setErrorText("Incorrect OTP");
+      setVerificationCodeList(Array(4).fill(""));
+    }
+  }
 
   const handleInputKeyDown = (event, index) => {
     /** @type string */
@@ -71,7 +93,7 @@ function VerifyMail(props) {
                   maxLength: 1,
                   autocomplete: "new-password",
                 }}
-                type="numeric"
+                type="number"
                 className="verification-code-textfield"
               />
             ))}
@@ -109,6 +131,14 @@ function VerifyMail(props) {
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
       </div>
+      <div className="signup-back-button">
+        <IconButton
+          disabled={props.utils.loading}
+          onClick={() => (window.location.href = "/signin")}
+        >
+          <ArrowLeftIcon size={30} className="signup-back-button-style" />
+        </IconButton>
+      </div>
 
       <div className="signup-body-root">
         <div className="signup-page-title">
@@ -116,6 +146,25 @@ function VerifyMail(props) {
           <h2>Please Verify your email</h2>
         </div>
         {renderForm()}
+        <Snackbar
+          open={showError}
+          autoHideDuration={6000}
+          onClose={() => {
+            setShowError(false);
+            props.clearErrors();
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setShowError(false);
+              props.clearErrors();
+            }}
+            severity="warning"
+            variant="filled"
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
       </div>
     </Scaffold>
   );

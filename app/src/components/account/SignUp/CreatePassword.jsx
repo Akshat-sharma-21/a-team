@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import "./SignUp.css";
 import { validateFormField } from "../../../utils";
-import { EyeClosedIcon, EyeIcon } from "@primer/octicons-react";
+import { EyeClosedIcon, EyeIcon, ArrowLeftIcon } from "@primer/octicons-react";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -47,6 +47,14 @@ function CreatePassword(props) {
     <Scaffold className="signup-page-root">
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
+      </div>
+      <div className="signup-back-button">
+        <IconButton
+          disabled={props.utils.loading}
+          onClick={() => (window.location.href = "/signin")}
+        >
+          <ArrowLeftIcon size={30} className="signup-back-button-style" />
+        </IconButton>
       </div>
 
       <div className="signup-body-root" style={{ padding: "20px 25px" }}>
