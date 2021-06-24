@@ -9,13 +9,22 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import mainReducer from "./reducers";
+// stripe setup
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 const store = createStore(mainReducer, applyMiddleware(thunk)); // The main store where all the data will be managed
+
+const stripePromise = loadStripe(
+  "pk_test_51J4fqnFgbBuqeMyWCpbCYQvYa8vXqGSxY9XEtGMiARgSZH1r0JIRCzH41x6mHpUeKf2HIMdDGGBQudl2pkWlhjJU00xXNP7VhC"
+); // initializing stripe with the public key
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Elements stripe={stripePromise}>
+        <App />
+      </Elements>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

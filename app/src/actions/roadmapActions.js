@@ -32,6 +32,31 @@ export function assignAgent(tid, name, email, phone) {
   };
 }
 
+export function createPaymentIntent(id, transId) {
+  // function to get the payment intent
+  return new Promise((resolve, reject) => {
+    axios
+      .post(
+        "http://localhost:5000/reallos-app-78a3a/us-central1/api/get-payment-key", // change to the baseUrl
+        {
+          // id: id,
+          id: "JIYwrv0gHowa5bZKgZZL",
+          transactionId: transId,
+        },
+        {
+          headers: { Authorization: "Bearer " + localStorage.Token },
+        }
+      )
+      .then((obj) => {
+        resolve(obj.data.clientKey);
+      })
+      .catch((err) => {
+        console.error(err); // logging the error
+        reject(err);
+      });
+  });
+}
+
 export function setTransactionAction(Transaction) {
   let transaction = {
     PreApproval: {
