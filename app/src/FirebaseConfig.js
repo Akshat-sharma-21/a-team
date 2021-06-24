@@ -2,7 +2,7 @@ import firebase from "firebase";
 
 var Config = {
   apiKey: "AIzaSyDDcaZXi4rkb3bL5UV2wD3WLOxZ3kj0awQ",
-  authDomain: "reallos-app-78a3a.firebaseapp.com",
+  authDomain: "app.reallos.com",
   projectId: "reallos-app-78a3a",
   storageBucket: "reallos-app-78a3a.appspot.com",
   messagingSenderId: "495147096103",
