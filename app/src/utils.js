@@ -253,3 +253,14 @@ export const validateFormField = (textValue, fieldType) => {
 
   return formFieldError;
 };
+
+export const steps = {
+  // All the steps enumurated for the roadmap
+  PreApproval: "PreApproval",
+  FindAgent: "FindAgent",
+  FindHome: "FindHome",
+  EscrowTitle: "EscrowTitle",
+  HomeInspection: "HomeInspection",
+  HomeInsurance: "HomeInsurance",
+  Closing: "Closing",
+};

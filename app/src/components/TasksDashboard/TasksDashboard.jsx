@@ -3,8 +3,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { SearchIcon } from "@primer/octicons-react";
 import NoTasks from "../../assets/No-Tasks.png";
 import { ReallosButton, Scaffold, SearchBar } from "../utilities/core";
+import { completeTasks } from "../../actions/tasksActions";
+import { steps } from "../../utils";
 import "./TasksDashboard.css";
-
 import {
   Accordion,
   AccordionSummary,
@@ -15,7 +16,6 @@ import {
   Typography,
   CircularProgress,
 } from "@material-ui/core";
-
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -53,59 +53,98 @@ function TasksDashboard(props) {
     // If the user has not been loaded and the tasklist is not set
     let addArray = [];
 
-    // Filtering and storing all the tasks that are for the user
+    // Filtering and storing all the tasks that are for the user and are not completed
     setPreApprovalTasks(
-      props.tasks.PreApprovalTasks.filter((ele) => ele.to === USER)
+      props.tasks.PreApprovalTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
     setFindAgentTasks(
-      props.tasks.FindAgentTasks.filter((ele) => ele.to === USER)
+      props.tasks.FindAgentTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
     setFindHomeTasks(
-      props.tasks.FindHomeTasks.filter((ele) => ele.to === USER)
+      props.tasks.FindHomeTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
     setHomeInspectionTasks(
-      props.tasks.HomeInspectionTasks.filter((ele) => ele.to === USER)
+      props.tasks.HomeInspectionTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
     setEscrowTitleTasks(
-      props.tasks.EscrowTitleTasks.filter((ele) => ele.to === USER)
+      props.tasks.EscrowTitleTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
     setHomeInsuranceTasks(
-      props.tasks.HomeInsuranceTasks.filter((ele) => ele.to === USER)
+      props.tasks.HomeInsuranceTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
     );
-    setClosingTasks(props.tasks.ClosingTasks.filter((ele) => ele.to === USER));
+    setClosingTasks(
+      props.tasks.ClosingTasks.filter(
+        (ele) => ele.to === USER && !ele.completed
+      )
+    );
 
     props.tasks.PreApprovalTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.FindAgentTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.FindHomeTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.HomeInspectionTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.EscrowTitleTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.HomeInsuranceTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     props.tasks.ClosingTasks.forEach((val) => {
-      if (val.to === USER) addArray.push(val);
+      if (val.to === USER && !val.completed) addArray.push(val);
     });
 
     setTasksList(addArray); // Storing all the tasks in tasksList
     setFilteredList(addArray); // Settting the filteredList with all the tasks
     updateTaskset(true); // updating the state of TaskSet
   }
+
+  const completeTasksFunction = async (task, step) => {
+    // function to complete the tasks and remove it from the array
+    setTasksList(tasksList.filter((e) => e.id !== task.id)); // removing the task from the general list
+    if (step === steps.PreApproval)
+      setPreApprovalTasks(preApprovalTasks.filter((e) => e.id !== task.id));
+    else if (step === steps.FindAgent)
+      setFindAgentTasks(findAgentTasks.filter((e) => e.id !== task.id));
+    else if (step === steps.FindHome)
+      setFindHomeTasks(findHomeTasks.filter((e) => e.id !== task.id));
+    else if (step === steps.EscrowTitle)
+      setEscrowTitleTasks(escrowTitleTasks.filter((e) => e.id !== task.id));
+    else if (step === steps.HomeInspection)
+      setHomeInspectionTasks(
+        homeInspectionTasks.filter((e) => e.id !== task.id)
+      );
+    else if (step === steps.HomeInsurance)
+      setHomeInsuranceTasks(homeInsuranceTasks.filter((e) => e.id !== task.id));
+    else if (step === steps.Closing)
+      setClosingTasks(closingTasks.filter((e) => e.id !== task.id));
+
+    await completeTasks(props.user.Transaction, task, step);
+  };
 
   function displayDate(date) {
     // To display the date in the required format
@@ -155,7 +194,7 @@ function TasksDashboard(props) {
     return `${newDate.getDate()} ${month}`;
   }
 
-  function displayButton(type) {
+  function displayButton(type, task, step) {
     // To display the required buttons
     if (type === "documents") {
       return (
@@ -183,7 +222,9 @@ function TasksDashboard(props) {
             variant="primary"
             className="task-summary-btn"
             primary={true}
-            onClick={() => {}}
+            onClick={() => {
+              completeTasksFunction(task, step);
+            }}
           >
             Mark Completed
           </ReallosButton>
@@ -308,7 +349,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.PreApproval)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -352,7 +393,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.FindAgent)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -396,7 +437,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.FindHome)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -442,7 +483,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.HomeInspection)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -488,7 +529,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.EscrowTitle)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -534,7 +575,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.HomeInsurance)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -578,7 +619,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.Closing)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -695,7 +736,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.PreApproval)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -739,7 +780,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.FindAgent)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -783,7 +824,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.FindHome)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -829,7 +870,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.HomeInspection)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -875,7 +916,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.EscrowTitle)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -921,7 +962,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.HomeInsurance)}
                       </AccordionDetails>
                     </Accordion>
                   ))}
@@ -965,7 +1006,7 @@ function TasksDashboard(props) {
                         <Typography className="tasks-dashboard-task-list-item-details-desc">
                           {task.description}
                         </Typography>
-                        {displayButton(task.type)}
+                        {displayButton(task.type, task, steps.Closing)}
                       </AccordionDetails>
                     </Accordion>
                   ))}

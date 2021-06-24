@@ -108,6 +108,8 @@ function AssistComponent(props) {
         ...newTask,
         date: newTask.date,
         to: "user", // Assigning the Task to user
+        completed: false, // Adding the completed field
+        type: "general", // setting the type of general
         id: randomId(LEN), // Assigning the random Id
       };
       await props.addTask(props.tid, newTaskObj, props.title, props.stepObj); // waiting for the task to be stored
