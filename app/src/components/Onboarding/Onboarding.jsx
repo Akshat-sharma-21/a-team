@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, IconButton } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Grid, IconButton, CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { ArrowRightIcon } from "@primer/octicons-react";
 import RedHeart from "../../assets/Red_heart.png";
@@ -10,14 +10,26 @@ import Logo4 from "../../assets/Onboarding_4.png";
 import "./Onboarding.css";
 import DotStepper from "../utilities/DotStepper/DotStepper";
 import { Scaffold, ReallosButton } from "../utilities/core";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchUser } from "../../actions/userActions";
 
-function Screen1({ page, increment }) {
+const mapStateToProps = (state) => ({
+  utils: state.utils,
+  user: state.user,
+});
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({ fetchUser }, dispatch);
+};
+
+function Screen1({ page, increment, name }) {
   // Code for screen 1
   return (
     <Scaffold bgVariant="gradient">
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={7}>
-          <div className="onboarding-heading">Congrats, {"Akshat"}</div>
+          <div className="onboarding-heading">Congrats, {name}</div>
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={2}>
@@ -181,22 +193,45 @@ function Screen4({ page, history }) {
   );
 }
 
-function Onboarding() {
+function Onboarding(props) {
   const [page, incrementPage] = useState(0);
   const history = useHistory();
-  switch (page) {
-    case 0:
-      return <Screen1 page={page} increment={incrementPage} />;
-    case 1:
-      return <Screen2 page={page} increment={incrementPage} />;
-    case 2:
-      return <Screen3 page={page} increment={incrementPage} />;
-    case 3:
-      return (
-        <Screen4 page={page} increment={incrementPage} history={history} />
-      );
-    default:
+
+  useEffect(() => {
+    if (props.utils.reload) props.fetchUser();
+  }, []);
+
+  if (props.utils.loading) {
+    // If loading is true
+    return (
+      <Scaffold bgVariant="gradient">
+        <div className="onboarding-single-view-container">
+          <CircularProgress />
+        </div>
+      </Scaffold>
+    );
+  } else {
+    switch (page) {
+      case 0:
+        return (
+          <Screen1
+            page={page}
+            increment={incrementPage}
+            name={props.user.Name ? props.user.Name.split(" ")[0] : null} // sending the firstname
+          />
+        );
+      case 1:
+        return <Screen2 page={page} increment={incrementPage} />;
+      case 2:
+        return <Screen3 page={page} increment={incrementPage} />;
+      case 3:
+        return (
+          <Screen4 page={page} increment={incrementPage} history={history} />
+        );
+      default:
+        <></>;
+    }
   }
 }
 
-export default Onboarding;
+export default connect(mapStateToProps, mapActionsToProps)(Onboarding);

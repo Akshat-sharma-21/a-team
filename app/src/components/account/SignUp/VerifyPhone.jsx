@@ -69,7 +69,7 @@ function VerifyPhone(props) {
     }
   };
 
-  function renderForm() {
+  const renderForm = () => {
     if (props.utils.loading === true) {
       return (
         <div className="signup-loading-container">
@@ -118,7 +118,7 @@ function VerifyPhone(props) {
         </div>
       );
     }
-  }
+  };
 
   return (
     <Scaffold className="signup-page-root">
@@ -137,7 +137,7 @@ function VerifyPhone(props) {
       <div className="signup-body-root">
         <div className="signup-page-title">
           <h1>Verify Phone</h1>
-          <h2>Please Verify your phone</h2>
+          <h2>We've sent a code to your Phone</h2>
         </div>
         {renderForm()}
         <Snackbar

@@ -1,3 +1,11 @@
+.onboarding-single-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 95vh;
+}
+
 .onboarding-heading {
   text-align: left !important;
   font-family: "Gilroy Extrabold" !important;

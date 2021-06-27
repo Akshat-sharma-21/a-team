@@ -33,6 +33,7 @@ function VerifyMail(props) {
   );
   let [showError, setShowError] = useState(false);
   let [errorText, setErrorText] = useState("");
+  let [emailInfo, setEmailInfo] = useState(true);
 
   useEffect(() => {
     props.sendEmailOtp();
@@ -69,7 +70,7 @@ function VerifyMail(props) {
     }
   };
 
-  function renderForm() {
+  const renderForm = () => {
     if (props.utils.loading === true) {
       // If the screen is still loading
       return (
@@ -102,7 +103,10 @@ function VerifyMail(props) {
             Didn't get the code?{" "}
             <span
               style={{ color: "#0432FA" }}
-              onClick={() => props.sendEmailOtp()}
+              onClick={() => {
+                props.sendEmailOtp();
+                setEmailInfo(true);
+              }}
             >
               Resend it
             </span>
@@ -124,10 +128,37 @@ function VerifyMail(props) {
         </div>
       );
     }
-  }
+  };
+
+  const displayEmailInformation = () => {
+    // function to display which folders to look at
+    return (
+      <Snackbar
+        autoHideDuration={8000}
+        open={emailInfo}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setEmailInfo(false)}
+      >
+        <Alert
+          icon={false}
+          style={{
+            width: "100vw",
+            color: "white",
+            background: "rgba(122,122,122,0.65)",
+            fontSize: 16,
+          }}
+          onClose={() => setEmailInfo(false)}
+        >
+          {" "}
+          Make sure to check the Spam or the Promotions folder in your email
+        </Alert>
+      </Snackbar>
+    );
+  };
 
   return (
     <Scaffold className="signup-page-root">
+      {displayEmailInformation()}
       <div className="signup-reallos-decoration">
         <img src={ReallosLogo} alt="" />
       </div>
@@ -143,7 +174,7 @@ function VerifyMail(props) {
       <div className="signup-body-root">
         <div className="signup-page-title">
           <h1>Verify Email</h1>
-          <h2>Please Verify your email</h2>
+          <h2>We've sent a code to your Email</h2>
         </div>
         {renderForm()}
         <Snackbar
