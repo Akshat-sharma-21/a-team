@@ -88,24 +88,8 @@ export function login(user) {
               doc.data().phoneVerified === true
             ) {
               // If the user has verified both the email and phone
-              if (doc.data().FirstTime === true) {
-                myFirestore
-                  .collection("Users")
-                  .doc(doc.id)
-                  .update({
-                    FirstTime: false,
-                  })
-                  .then(() => {
-                    dispatch(setLoadingFalse());
-                    window.location.href = "/onboarding"; // moving to the desired location after signin
-                  })
-                  .catch((err) => {
-                    dispatch(setErrors(err));
-                  });
-              } else {
-                dispatch(setLoadingFalse());
-                window.location.href = "/dashboard";
-              }
+              dispatch(setLoadingFalse());
+              window.location.href = "/dashboard";
             } else {
               if (doc.data().emailVerified !== true) {
                 // If the user has not verified the email
@@ -184,25 +168,7 @@ export function loginWithProviderHelper() {
                 // if the basic information about the user exists
                 if (doc.data().phoneVerified === true) {
                   // If the phone is verified
-                  if (doc.data().FirstTime === true) {
-                    // If the user is logging in for the first time
-                    myFirestore
-                      .collection("Users")
-                      .doc(localStorage.Id)
-                      .update({
-                        FirstTime: false,
-                      })
-                      .then(() => {
-                        dispatch(setLoadingFalse());
-                        window.location.href = "/onboarding"; // Sending the user to onboarding
-                      })
-                      .catch((err) => {
-                        dispatch(setErrors(err));
-                      });
-                  } else {
-                    // If the user has already logged in
-                    window.location.href = "/dashboard"; // sending the user to dashboard
-                  }
+                  window.location.href = "/dashboard"; // sending the user to dashboard
                 } else {
                   localStorage.setItem("userPhone", doc.data().Phone);
                   window.location.href = "/verifyPhone";
@@ -263,6 +229,18 @@ export function fetchUser(step) {
       .get()
       .then((doc) => {
         dispatch(setUserAction(doc.data()));
+        if (doc.data().FirstTime) {
+          // if the user is using the app for the first time
+          myFirestore
+            .collection("Users")
+            .doc(Id)
+            .update({
+              FirstName: false, // setting the FirstTime property to false
+            })
+            .catch((err) => {
+              dispatch(setErrors(err));
+            });
+        }
         let transactionId = doc.data().Transaction; // getting the transaction id
         myFirestore
           .collection("Transactions")
@@ -564,8 +542,21 @@ export function verifyPhone(otp) {
       .then((res) => {
         if (res.data.verified === true) {
           localStorage.removeItem("phoneHash");
-          dispatch(setLoadingFalse());
-          window.location.href = "/dashboard"; // loggin in the user after phone verificiation
+          myFirestore
+            .collection("Users")
+            .doc(localStorage.Id)
+            .get() // fetching the user
+            .then((doc) => {
+              dispatch(setLoadingFalse()); // dispatching an action to set loading to false
+              if (doc.data().FirstTime === true) {
+                window.location.href = "/onboarding";
+              } else {
+                window.location.href = "/dashboard"; // signing in the user
+              }
+            })
+            .catch((err) => {
+              dispatch(setErrors(err)); // dispatching an action to set the errors
+            });
         } else {
           dispatch(setErrors("incorrect phone otp"));
         }
