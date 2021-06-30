@@ -146,6 +146,7 @@ function Scanner(props) {
                   // If an error occurs while opening the camera
                   setError(err);
                 }}
+                isImageMirror={false}
                 isDisplayStartCameraError={false}
                 imageType={IMAGE_TYPES.PNG}
               />

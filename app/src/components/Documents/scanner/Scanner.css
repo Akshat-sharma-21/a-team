@@ -36,8 +36,9 @@
 .scanner-image-options-btn {
   position: absolute !important;
   background: #ffffff !important;
-  margin: 1vh 0 0 30vh !important;
   box-shadow: 0 0 2px 0.5px #00000040;
+  transform: translate(250%, 25%) !important;
+  -ms-transform: translate(250%, 25%) !important;
 }
 
 .scanner-img {
