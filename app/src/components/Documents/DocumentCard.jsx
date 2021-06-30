@@ -161,7 +161,7 @@ function DocumentCard(props) {
                           </span>
                         ) : (
                           <span style={{ marginLeft: 10 }}>
-                            Yet to be <strong>Uploaded</strong>
+                            Click to <strong>Upload</strong>
                           </span>
                         )}
                       </div>
@@ -193,7 +193,7 @@ function DocumentCard(props) {
                           </span>
                         ) : (
                           <span style={{ marginLeft: 10 }}>
-                            Yet to be <strong>Uploaded</strong>
+                            Click to <strong>Upload</strong>
                           </span>
                         )}
                       </div>
@@ -232,11 +232,11 @@ function DocumentCard(props) {
               )
             ) : window.innerHeight < 750 ? (
               <span style={{ marginLeft: 10, fontSize: 17 }}>
-                Yet to be <strong>Uploaded</strong>
+                Click to <strong>Upload</strong>
               </span>
             ) : (
               <span style={{ marginLeft: 10 }}>
-                Yet to be <strong>Uploaded</strong>
+                Click to <strong>Upload</strong>
               </span>
             )}
           </div>

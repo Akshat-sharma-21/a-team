@@ -553,3 +553,22 @@ export async function deletePdf(docData, tid, step) {
       });
   });
 }
+
+export function imagesToPdf(documentMetadata, photoArray) {
+  // function to convert images to pdf
+  axios
+    .post(
+      `${baseUrl}/image-to-pdf`,
+      {
+        metadata: documentMetadata,
+        array: photoArray,
+      },
+      { headers: { Authorization: "Bearer " + localStorage.Token } }
+    )
+    .then(() => {
+      window.location.href = "/documents";
+    })
+    .catch((err) => {
+      console.error(err); // logging the error
+    });
+}

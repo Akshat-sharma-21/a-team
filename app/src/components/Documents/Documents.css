@@ -187,6 +187,20 @@
   color: #707070;
 }
 
+.no-doc-scanner-btn {
+  text-transform: none !important;
+  font-size: 18px !important;
+  margin-top: -10px !important;
+  background-color: var(--color-white) !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0px 6px 16px rgba(0, 0, 0, 0.16));
+  border-radius: 15px !important;
+}
+
+.no-doc-scanner-icon {
+  color: var(--color-primary) !important;
+}
+
 /*Document support for components that are less than 750 in height*/
 @media screen and (max-height: 750px) {
   .documents-single-view-container {
