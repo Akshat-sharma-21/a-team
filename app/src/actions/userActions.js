@@ -450,6 +450,27 @@ export function fetchUser(step) {
   };
 }
 
+export function fetchProfessional(id) {
+  return new Promise((resolve, reject) => {
+    myFirestore
+      .collection("Portal_Users")
+      .doc(id)
+      .get()
+      .then((docRef) => {
+        if (docRef.data()) {
+          resolve(docRef.data());
+        } else {
+          console.error("No professional not found");
+          reject();
+        }
+      })
+      .catch((err) => {
+        console.error(err); // logging the error
+        reject();
+      });
+  });
+}
+
 export function sendEmailOtp() {
   // Function to send the email otp
   return (dispatch) => {

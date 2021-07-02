@@ -1,10 +1,5 @@
 import { useReducer, useState } from "react";
-import {
-  IconButton,
-  CircularProgress,
-  Button,
-  Hidden,
-} from "@material-ui/core";
+import { IconButton, CircularProgress } from "@material-ui/core";
 import { ReallosButton, ModalSheet } from "../../utilities/core";
 import {
   DeviceCameraIcon,
@@ -87,7 +82,11 @@ function Scanner(props) {
   if (error) {
     return (
       <>
-        <IconButton className="scanner-back-btn" onClick={returnBack}>
+        <IconButton
+          size="small"
+          className="scanner-back-btn"
+          onClick={returnBack}
+        >
           <ArrowLeftIcon size={32} />
         </IconButton>
         <div className="scanner-root">

@@ -7,7 +7,7 @@ export function getAuth() {
   if (localStorage.Token) {
     // if the token is not null
     const decode = jwtDecode(localStorage.Token);
-    if (decode.exp * 1000 < Date.now()) {
+    if (decode.exp * 1010 < Date.now()) {
       // if the token has expired
       return false;
     } else {

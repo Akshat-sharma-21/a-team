@@ -1,13 +1,12 @@
 import jwtDecode from "jwt-decode";
 import { myFirebase } from "./FirebaseConfig";
-//import { setErrors } from "./actions/utilActions";
 
 export function getAuth() {
   // function to check whether the user has the access to the procted routes
   if (localStorage.Token) {
     // if the token is not null
     const decode = jwtDecode(localStorage.Token);
-    if (decode.exp * 1000 < Date.now()) {
+    if (decode.exp * 1010 < myFirebase.firestore.Timestamp.now().toMillis()) {
       // if the token has expired
       return false;
     } else {
@@ -27,7 +26,7 @@ export function signout() {
       window.location.href = "/"; // redirecting to the signup page
     })
     .catch((err) => {
-      //setErrors(err);
+      console.error(err); // logging the error
     });
   localStorage.clear();
 }

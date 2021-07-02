@@ -59,7 +59,7 @@ function Main() {
         />
         <PrivateRoute path="/profile" component={ProfileSummary} />
         <Route path="/account-setup" component={AccountSetup} />
-        <Route path="/home" component={Signin} />
+        <Route path="/home" component={getAuth() ? Dashboard : Signin} />
         <Redirect exact from="/" to="home" />
         <Route path="*" component={Signin} />
         {/*Later change the last Route to the Error component */}

@@ -7,6 +7,7 @@ import Document from "./components/Documents/Documents";
 import Questionnaire from "./components/questionnaire/Questionnaire";
 import Signin from "./components/account/SignIn/SignIn";
 import Signup from "./components/account/SignUp/SignUp";
+import ConnectionSignup from "./components/account/SignUp/ConnectionSignup";
 import TaskSummary from "./components/TaskSummary/TaskSummary";
 import TasksDashboard from "./components/TasksDashboard/TasksDashboard";
 import Lenders from "./components/Lenders/Lenders";
@@ -62,7 +63,8 @@ function Main() {
       <Switch>
         <Route path="/Signup" component={Signup} />
         <Route path="/SignupWithProvider" component={SignUpWithProvider} />
-        <Route path="/Signin" component={Signin} />
+        <Route path="/connect/:id" component={ConnectionSignup} />
+        <Route path="/Signin" component={getAuth() ? Roadmap : Signin} />
         <Route path="/verifyEmail" component={VerifyMail} />
         <Route path="/verifyPhone" component={VerifyPhone} />
         <Route path="/create-password" component={CreatePassword} />

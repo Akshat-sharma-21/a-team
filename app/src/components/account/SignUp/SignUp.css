@@ -169,6 +169,34 @@
   font-size: 16px;
 }
 
+.connection-signup-loading-div {
+  display: flex;
+  margin-top: 25vh;
+  justify-content: center;
+}
+
+.connection-professional-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6vh;
+  flex-direction: column !important;
+}
+
+.connection-lets-go-btn {
+  width: 80vw !important;
+}
+
+.connection-professional-avatar {
+  height: 21vh !important;
+  width: 21vh !important;
+  border-style: solid;
+  border-color: var(--color-white);
+  border-width: 8px;
+  font-size: 35px !important;
+  font-weight: bold !important;
+}
+
 @media screen and (max-height: 740px) {
   .signup-body-root {
     padding: 20px 20px;
@@ -265,5 +293,13 @@
     padding: 0 10px;
     margin-top: 130px;
     font-size: 15px;
+  }
+
+  .connection-professional-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vh;
+    flex-direction: column !important;
   }
 }
