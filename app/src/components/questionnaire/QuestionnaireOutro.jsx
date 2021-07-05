@@ -50,7 +50,6 @@ function QuestionnaireOutro(props) {
               variant="light"
               onClick={() => onSubmit()}
               disabled={isLoading}
-              className="questionnaire-action"
             >
               Yeah Sure!
             </ReallosButton>
@@ -59,9 +58,11 @@ function QuestionnaireOutro(props) {
               variant="light"
               onClick={() => onStartOver()}
               disabled={isLoading}
-              className="questionnaire-action"
             >
-              <SyncIcon size={18} />
+              <SyncIcon
+                size={18}
+                className="questionnaire-startover-btn-icon"
+              />
               Startover
             </ReallosButton>
           </div>

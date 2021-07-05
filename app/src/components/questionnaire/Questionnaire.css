@@ -140,13 +140,9 @@
   padding-top: 70px;
 }
 
-.questionnaire-action .reallos-button-child-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+.questionnaire-startover-btn-icon {
+  margin-right: 10px !important;
 }
-
 .questionnaire-progress-bar {
   position: fixed !important;
   top: 0;
@@ -177,6 +173,11 @@
     padding-top: 17px;
     color: rgba(255, 255, 255, 0.5) !important;
     font-size: 16px;
+  }
+
+  .questionnaire-hero-img {
+    margin-top: 75px !important;
+    width: 80% !important;
   }
 }
 
