@@ -16,7 +16,7 @@ import axios from "axios";
 
 export const SET_USER = "SET_USER"; // To set the user in the redux store
 
-export function signup(user) {
+export function signup(user, professional) {
   return (dispatch) => {
     dispatch(setLoadingTrue()); // dispatching an action to set loading to true
     myFirebase
@@ -40,8 +40,14 @@ export function signup(user) {
               .post(
                 `${baseUrl}/create-transaction`,
                 {
-                  buyer: user.name,
+                  buyer: {
+                    // sending user data
+                    email: user.email,
+                    name: user.name,
+                    phone: user.phone,
+                  },
                   buyerId: res.user.uid,
+                  professional: professional, // Sending the professional
                 },
                 { headers: { Authorization: "Bearer " + token } } // sending the bearer token
               )

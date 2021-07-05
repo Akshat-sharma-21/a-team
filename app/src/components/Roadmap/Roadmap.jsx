@@ -24,6 +24,7 @@ import ProfileEdit from "./ProfileEdit";
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { signout } from "../../Authenticate";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
@@ -94,6 +95,14 @@ function Roadmap(props) {
 
   function closeModal() {
     toggleModal(false);
+  }
+
+  if (!props.utils.reload) {
+    // if the user has been fetched
+    if (!(props.user.emailVerified && props.user.phoneVerified)) {
+      // if either phone or email is not verified then signout the user
+      signout();
+    }
   }
 
   function stepIcon(props) {

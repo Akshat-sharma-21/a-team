@@ -66,7 +66,6 @@ function SignUp(props) {
       setStep(1);
     }
   };
-
   const submit = () => {
     // function to perform the submit action
     let validPassword = validateFormField(password, "password");
@@ -78,13 +77,32 @@ function SignUp(props) {
       setShowError(true);
       setErrorText("Passwords do not match");
     } else {
-      // if there are no errors in password
-      props.signup({
-        email: email,
-        name: name,
-        password: password,
-        phone: "+1" + phone, // adding the country code
-      });
+      if (
+        props.location &&
+        props.location.state &&
+        props.location.state.professional
+      ) {
+        // if a professional link was used
+        props.signup(
+          {
+            email: email,
+            name: name,
+            password: password,
+            phone: "+1" + phone, // adding the country code
+          },
+          props.location.state.professional
+        );
+      } else {
+        props.signup(
+          {
+            email: email,
+            name: name,
+            password: password,
+            phone: "+1" + phone, // adding the country code
+          },
+          null // sending null for professional if no connection link was used
+        );
+      }
     }
   };
 

@@ -37,7 +37,7 @@ export function createPaymentIntent(id, transId) {
   return new Promise((resolve, reject) => {
     axios
       .post(
-        "http://localhost:5000/reallos-app-78a3a/us-central1/api/get-payment-key", // change to the baseUrl
+        `${baseUrl}/get-payment-key`, // change to the baseUrl
         {
           // id: id,
           id: "JIYwrv0gHowa5bZKgZZL",

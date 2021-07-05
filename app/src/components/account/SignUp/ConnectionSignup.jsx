@@ -71,7 +71,9 @@ function ConnectionSignup() {
               variant="light"
               className="connection-lets-go-btn"
               onClick={() =>
-                history.push("/signup", { professional: professional })
+                history.push("/signup", {
+                  professional: { ...professional, id: id },
+                })
               }
             >
               Let's Go
@@ -97,7 +99,9 @@ function ConnectionSignup() {
               variant="light"
               innerContentColor="#1dadee"
               onClick={() =>
-                history.push("/signin", { professional: professional })
+                history.push("/signin", {
+                  professional: { ...professional, id: id },
+                })
               }
             >
               Signin
