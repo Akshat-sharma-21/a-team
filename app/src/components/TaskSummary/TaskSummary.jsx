@@ -1,6 +1,8 @@
 import { withStyles } from "@material-ui/core/styles";
 import DocLogo from "../../assets/doc_logo.svg";
 import { ModalSheet, Scaffold } from "../utilities/core";
+import WorkDone from "../../assets/Work_done.png";
+import { steps_alt } from "../../utils";
 import "./TaskSummary.css";
 import {
   CheckCircleIcon,
@@ -74,57 +76,56 @@ function TaskSummary(props) {
   let activeStep = {
     Tasks: [],
     Documents: [],
+    Professional: null,
   }; // To store the active step
   let activeStepName = "";
 
-  //TODO: Create a literal for all these steps and store it in the general file
-  if (step === "pre-approval") activeStepName = "Pre-approval"; // Setting the display name for the screen
-  if (step === "find-agent") activeStepName = "Find Agent";
-  if (step === "find-home") activeStepName = "Find Home";
-  if (step === "home-inspection") activeStepName = "Home Inspection";
-  if (step === "escrow-title") activeStepName = "Escrow & Title";
-  if (step === "home-insurance") activeStepName = "Home Insurance";
-  if (step === "closing") activeStepName = "Closing";
+  if (step === steps_alt.PreApproval) activeStepName = "Pre-approval"; // Setting the display name for the screen
+  if (step === steps_alt.FindAgent) activeStepName = "Find Agent";
+  if (step === steps_alt.FindHome) activeStepName = "Find Home";
+  if (step === steps_alt.HomeInspection) activeStepName = "Home Inspection";
+  if (step === steps_alt.EscrowTitle) activeStepName = "Escrow & Title";
+  if (step === steps_alt.HomeInsurance) activeStepName = "Home Insurance";
+  if (step === steps_alt.Closing) activeStepName = "Closing";
 
   if (props.utils.reload === false) {
     // Storing the Appropriate Step
-    if (step === "pre-approval") {
+    if (step === steps_alt.PreApproval) {
       activeStep.Tasks = props.tasks.PreApprovalTasks;
       activeStep.Documents = props.documents.PreApprovalDocuments;
       activeStep.Professional = props.roadmap.PreApproval.Professional;
     }
-    if (step === "find-agent") {
+    if (step === steps_alt.FindAgent) {
       activeStep.Tasks = props.tasks.FindAgentTasks;
       activeStep.Documents = props.documents.FindAgentDocuments;
       activeStep.Professional = props.roadmap.FindAgent.Professional;
     }
-    if (step === "find-home") {
+    if (step === steps_alt.FindHome) {
       activeStep.Tasks = props.tasks.FindHomeTasks;
       activeStep.Documents = props.documents.FindHomeDocuments;
     }
-    if (step === "home-inspection") {
+    if (step === steps_alt.HomeInspection) {
       activeStep.Tasks = props.tasks.HomeInspectionTasks;
       activeStep.Documents = props.documents.HomeInspectionDocuments;
       activeStep.Professional = props.roadmap.HomeInspection.Professional;
     }
-    if (step === "escrow-title") {
+    if (step === steps_alt.EscrowTitle) {
       activeStep.Tasks = props.tasks.EscrowTitleTasks;
       activeStep.Documents = props.documents.EscrowTitleDocuments;
       activeStep.Professional = props.roadmap.EscrowTitle.Professional;
     }
-    if (step === "home-insurance") {
+    if (step === steps_alt.HomeInsurance) {
       activeStep.Tasks = props.tasks.HomeInsuranceTasks;
       activeStep.Documents = props.documents.HomeInsuranceDocuments;
       activeStep.Professional = props.roadmap.HomeInsurance.Professional;
     }
-    if (step === "closing") {
+    if (step === steps_alt.Closing) {
       activeStep.Tasks = props.tasks.ClosingTasks;
       activeStep.Documents = props.documents.ClosingDocuments;
     }
   }
 
   useEffect(() => {
-    //TODO: Make this more efficient by trying to fetch the user at roadmap
     if (props.utils.reload === true) props.fetchUser(step); // re-loading the page everytime it is refreshed
   }, []);
 
@@ -140,12 +141,6 @@ function TaskSummary(props) {
     changeTitle("");
     changeDescription("");
     changeType("");
-  }
-
-  function getEffectiveAnswer(question) {
-    // function to get the effective answer
-    let str = JSON.stringify(question).split(":")[1];
-    return str[1] + str[2] + str[3];
   }
 
   function displayModal() {
@@ -174,7 +169,7 @@ function TaskSummary(props) {
             <Grid item xs={12}>
               <Button
                 className="taskSummary-modal-btn"
-                onClick={() => (window.location.href = "/tasks")}
+                onClick={() => history.push("/tasks")}
               >
                 View in Tasks <ChevronRightIcon size={16} />
               </Button>
@@ -206,7 +201,7 @@ function TaskSummary(props) {
             <Grid item xs={12}>
               <Button
                 className="taskSummary-modal-btn"
-                onClick={() => (window.location.href = "/documents")}
+                onClick={() => history.push("/documents")}
               >
                 View in Documents <ChevronRightIcon size={16} />
               </Button>
@@ -222,11 +217,11 @@ function TaskSummary(props) {
     let profession = "";
     let linkToProfession = "";
     // Function to display the Professional
-    if (step !== "find-home" && step !== "closing") {
+    if (step !== steps_alt.FindHome && step !== steps_alt.Closing) {
       // Only display the professional if the step is not find-home and closing
       if (
         activeStepName === "Pre-approval" &&
-        getEffectiveAnswer(props.roadmap.PreApproval.Questions[0]) === "YES" // Logic to display External Lender
+        props.roadmap.PreApproval.Questions[0]["1"] === "YES" // Logic to display External Lender
       ) {
         return (
           <>
@@ -587,12 +582,12 @@ function TaskSummary(props) {
             <IconButton
               size="small"
               style={{ margin: "20px 0" }}
-              onClick={() => (window.location.href = "/dashboard")}
+              onClick={() => history.push("/dashboard")}
             >
               {window.innerHeight < 750 ? (
-                <ArrowLeftIcon size={29} className="lender-back-icon" />
+                <ArrowLeftIcon size={29} />
               ) : (
-                <ArrowLeftIcon size={32} className="lender-back-icon" />
+                <ArrowLeftIcon size={32} />
               )}
             </IconButton>
           </Grid>
@@ -619,57 +614,104 @@ function TaskSummary(props) {
       </Scaffold>
     );
   } else {
-    return (
-      <Scaffold>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <IconButton
-              size="small"
-              style={{ margin: "20px 0" }}
-              onClick={() => (window.location.href = "/dashboard")}
-            >
-              {window.innerHeight < 750 ? (
-                <ArrowLeftIcon size={29} className="lender-back-icon" />
-              ) : (
-                <ArrowLeftIcon size={32} className="lender-back-icon" />
-              )}
-            </IconButton>
+    if (
+      activeStep.Professional === null &&
+      activeStep.Tasks.length === 0 &&
+      activeStep.Documents.length === 0 // if there is nothing to show in the summary
+    ) {
+      return (
+        <Scaffold>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <IconButton
+                size="small"
+                style={{ margin: "20px 0" }}
+                onClick={() => history.push("/dashboard")}
+              >
+                {window.innerHeight < 750 ? (
+                  <ArrowLeftIcon size={29} className="lender-back-icon" />
+                ) : (
+                  <ArrowLeftIcon size={32} className="lender-back-icon" />
+                )}
+              </IconButton>
+            </Grid>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="taskSummary-heading">{activeStepName}</div>
+            </Grid>
+            <Grid item xs={12}>
+              <img src={WorkDone} className="taskSummary-workdone-img" />
+            </Grid>
+            <Grid item xs={12}>
+              <div className="taskSummary-workdone-heading">All done here!</div>
+            </Grid>
+            <Grid item xs={12}>
+              <div className="taskSummary-workdone-subtext">
+                Your Professionals are hard at work. If there's anything else we
+                will let you know...{" "}
+              </div>
+            </Grid>
           </Grid>
+        </Scaffold>
+      );
+    } else {
+      return (
+        <Scaffold>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <IconButton
+                size="small"
+                style={{ margin: "20px 0" }}
+                onClick={() => history.push("/dashboard")}
+              >
+                {window.innerHeight < 750 ? (
+                  <ArrowLeftIcon size={29} className="lender-back-icon" />
+                ) : (
+                  <ArrowLeftIcon size={32} className="lender-back-icon" />
+                )}
+              </IconButton>
+            </Grid>
 
-          <Grid item xs={12} style={{ textAlign: "left" }}>
-            <div className="taskSummary-heading">{activeStepName}</div>
+            <Grid item xs={12} style={{ textAlign: "left" }}>
+              <div className="taskSummary-heading">{activeStepName}</div>
+            </Grid>
+
+            {activeStep.Tasks.length !== 0 && ( // Only displaying the progress bar and text if there is any task
+              <>
+                <Grid item xs={12} style={{ marginBottom: "15px" }}>
+                  <BorderLinearProgress
+                    variant="determinate"
+                    value={
+                      (activeStep.Tasks.filter((task) => task.completed)
+                        .length /
+                        activeStep.Tasks.length) *
+                      100
+                    } // Calculating the % of completed Tasks
+                  />
+                </Grid>
+
+                <Grid item xs={1}>
+                  <CheckCircleIcon style={{ color: "#707070" }} />
+                </Grid>
+
+                <Grid item xs={11} style={{ textAlign: "left" }}>
+                  <div className="taskSummary-subtext">
+                    {activeStep.Tasks.filter((task) => task.completed).length} /{" "}
+                    {activeStep.Tasks.length} Tasks Completed
+                  </div>
+                </Grid>
+              </>
+            )}
+            {activeStep.Tasks.length !== 0 && (
+              <Grid item xs={12} style={{ height: "35px" }}></Grid>
+            )}
+            {displayProfessional()}
+            {displayDocuments()}
+            {displayTasks()}
           </Grid>
-
-          <Grid item xs={12} style={{ marginBottom: "15px" }}>
-            <BorderLinearProgress
-              variant="determinate"
-              value={
-                (activeStep.Tasks.filter((task) => task.completed).length /
-                  activeStep.Tasks.length) *
-                100
-              } // Calculating the % of completed Tasks
-            />
-          </Grid>
-
-          <Grid item xs={1}>
-            <CheckCircleIcon style={{ color: "#707070" }} />
-          </Grid>
-
-          <Grid item xs={11} style={{ textAlign: "left" }}>
-            <div className="taskSummary-subtext">
-              {activeStep.Tasks.filter((task) => task.completed).length} /{" "}
-              {activeStep.Tasks.length} Tasks Completed
-            </div>
-          </Grid>
-
-          <Grid item xs={12} style={{ height: "35px" }}></Grid>
-          {displayProfessional()}
-          {displayDocuments()}
-          {displayTasks()}
-        </Grid>
-        {displayModal()}
-      </Scaffold>
-    );
+          {displayModal()}
+        </Scaffold>
+      );
+    }
   }
 }
 

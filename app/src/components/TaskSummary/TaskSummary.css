@@ -131,6 +131,33 @@
   color: #2b44ff !important;
 }
 
+.taskSummary-workdone-img {
+  height: 35vh;
+  margin-top: 10vh;
+}
+
+.taskSummary-workdone-heading {
+  text-align: center;
+  color: #707070 !important;
+  font-size: 25px;
+  margin-top: 5vh;
+}
+
+.taskSummary-workdone-subtext {
+  font-family: "Segoe UI" !important;
+  text-align: center;
+  font-size: 19px;
+  margin-top: 2vh;
+}
+
+@media screen and (max-height: 750px) {
+  .taskSummary-workdone-img {
+    height: 35vh;
+    margin-top: 10vh;
+    margin-left: 5vh;
+  }
+}
+
 @media screen and (max-height: 700px) {
   .taskSummary-heading {
     font-size: 30px !important;
@@ -167,5 +194,11 @@
 
   .taskSummary-showMore {
     font-size: 15px !important;
+  }
+
+  .taskSummary-workdone-img {
+    height: 35vh;
+    margin-top: 10vh;
+    margin-left: 5vh;
   }
 }

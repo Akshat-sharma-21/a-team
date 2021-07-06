@@ -4,7 +4,7 @@ import { SearchIcon } from "@primer/octicons-react";
 import NoTasks from "../../assets/No-Tasks.png";
 import { ReallosButton, Scaffold, SearchBar } from "../utilities/core";
 import { completeTasks } from "../../actions/tasksActions";
-import { steps } from "../../utils";
+import { steps, USER } from "../../utils";
 import "./TasksDashboard.css";
 import {
   Accordion,
@@ -19,11 +19,13 @@ import {
 import { fetchUser } from "../../actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   utils: state.utils,
   user: state.user,
   tasks: state.tasks,
+  documents: state.documents, // To support direct opening of Nodoc
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -31,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function TasksDashboard(props) {
-  const USER = "user";
+  let history = useHistory();
   let [tasksList, setTasksList] = useState(null);
   let [filteredList, setFilteredList] = useState(null);
   let [preApprovalTasks, setPreApprovalTasks] = useState(null);
@@ -194,6 +196,52 @@ function TasksDashboard(props) {
     return `${newDate.getDate()} ${month}`;
   }
 
+  const uploadDocument = (task, step) => {
+    // To open the Nodoc screen with appropriate state
+    let documentData = null; // To store the document's metadata
+
+    if (step === steps.PreApproval) {
+      documentData = props.documents.PreApprovalDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.FindAgent) {
+      documentData = props.documents.FindAgentDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.FindHome) {
+      documentData = props.documents.FindHomeDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.EscrowTitle) {
+      documentData = props.documents.EscrowTitleDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.HomeInspection) {
+      documentData = props.documents.HomeInspectionDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.HomeInsurance) {
+      documentData = props.documents.HomeInsuranceDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    } else if (step === steps.Closing) {
+      documentData = props.documents.ClosingDocuments.filter(
+        (doc) => doc.id === task.documentId
+      );
+    }
+
+    if (documentData && documentData.length === 1) {
+      // If the document's metadata was found
+      history.push("/nodoc", {
+        ...documentData[0],
+        step: step,
+        tid: props.user.Transaction,
+      });
+    } else {
+      window.location.href = "/documents";
+    }
+  };
+
   function displayButton(type, task, step) {
     // To display the required buttons
     if (type === "documents") {
@@ -205,9 +253,7 @@ function TasksDashboard(props) {
             fullWidth
             variant="primary"
             primary={true}
-            onClick={() => {
-              window.location.href = "/documents"; // Add the id of the document here too
-            }}
+            onClick={() => uploadDocument(task, step)}
           >
             Upload
           </ReallosButton>

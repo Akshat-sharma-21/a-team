@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Scaffold, ReallosButton } from "../utilities/core";
 import { CircularProgress, IconButton, Button } from "@material-ui/core";
 import { ArrowLeftIcon, DeviceCameraIcon } from "@primer/octicons-react";
+import { useHistory } from "react-router-dom";
 import NoDoc from "../../assets/no-doc-img.svg";
 import Scanner from "./scanner/Scanner";
 import { uploadDocument } from "../../actions/documentsActions";
@@ -10,6 +11,7 @@ import "./Documents.css";
 import { Grid } from "@material-ui/core";
 
 function NoDocuments(props) {
+  let history = useHistory();
   let [uploadingDocument, setUploadingDocument] = useState(false);
   let [scanner, setScanner] = useState(false); // to set the scanner
 
@@ -41,7 +43,7 @@ function NoDocuments(props) {
             <IconButton
               size="small"
               style={{ margin: "20px 0" }}
-              onClick={() => (window.location.href = "/documents")}
+              onClick={() => history.push("/documents")}
             >
               <ArrowLeftIcon size={32} className="no-document-back-icon" />
             </IconButton>

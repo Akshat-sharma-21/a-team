@@ -264,3 +264,16 @@ export const steps = {
   HomeInsurance: "HomeInsurance",
   Closing: "Closing",
 };
+
+export const steps_alt = {
+  // All the steps enumurated for Tasks Summary
+  PreApproval: "pre-approval",
+  FindAgent: "find-agent",
+  FindHome: "find-home",
+  EscrowTitle: "escrow-title",
+  HomeInspection: "home-inspection",
+  HomeInsurance: "home-insurance",
+  Closing: "closing",
+};
+
+export const USER = "user"; // To compare task types
