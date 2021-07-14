@@ -152,13 +152,15 @@
 }
 
 .profile-submit-btn {
-  margin-top: 60px;
+  margin-top: 3vh;
+  margin-bottom: 1.5vh;
 }
 
 .profile-edit-avatar {
   height: 110px !important;
   width: 110px !important;
 }
+
 /*Roadmap section supported for screen sizes less than 750 */
 @media screen and (max-height: 750px) {
   .profile-edit {
@@ -168,8 +170,13 @@
   }
 
   .profile-submit-btn {
-    margin-top: 35px;
+    margin-top: 3vh;
     font-size: 17px;
+  }
+
+  .profile-signout-btn {
+    font-size: 17px;
+    margin-bottom: 1vh;
   }
 
   .profile-input {
@@ -262,7 +269,12 @@
   }
 
   .profile-submit-btn {
-    margin-top: 25px;
+    margin-top: 3vh;
     font-size: 15px;
+  }
+
+  .profile-signout-btn {
+    font-size: 15px;
+    margin-bottom: 1vh;
   }
 }

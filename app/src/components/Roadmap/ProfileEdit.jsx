@@ -16,8 +16,8 @@ import {
 } from "../../actions/userActions";
 import { PencilIcon, XIcon } from "@primer/octicons-react";
 import "./Roadmap.css";
+import { signout } from "../../Authenticate";
 import { Phone, Mail, Person } from "@material-ui/icons";
-
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -113,7 +113,7 @@ function ProfileEdit(props) {
     // To display the function
     return (
       <>
-        <Grid item xs={12} style={{ marginTop: 10 }}>
+        <Grid item xs={12} style={{ marginTop: "1vh" }}>
           <div className="profile-label">First Name</div>
           <TextField
             variant="outlined"
@@ -200,6 +200,7 @@ function ProfileEdit(props) {
         <Grid xs={12}>
           <ReallosButton
             fullWidth
+            dense
             primary
             variant="primary"
             className="profile-submit-btn"
@@ -218,6 +219,17 @@ function ProfileEdit(props) {
             }}
           >
             Save
+          </ReallosButton>
+        </Grid>
+        <Grid xs={12}>
+          <ReallosButton
+            fullWidth
+            variant="primary"
+            dense
+            className="profile-signout-btn"
+            onClick={() => signout()}
+          >
+            Sign out
           </ReallosButton>
         </Grid>
       </>
